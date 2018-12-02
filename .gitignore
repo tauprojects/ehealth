@@ -1,1 +1,4 @@
 server/.idea/*
+/client/XamarinApp/XamarinApp/obj
+/client/XamarinApp/XamarinApp/bin
+/client/XamarinApp/.vs/XamarinApp/v15
