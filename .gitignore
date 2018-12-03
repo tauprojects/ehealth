@@ -1,4 +1,6 @@
 server/.idea/*
+server/.gradle/*
+server/build/*
 /client/XamarinApp/XamarinApp/obj
 /client/XamarinApp/XamarinApp/bin
 /client/XamarinApp/.vs/XamarinApp/v15
