@@ -4,7 +4,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Band.Sensors;
-
+using Microsoft.Band.Notifications;
 
 namespace XamarinApp
 {
@@ -14,33 +14,61 @@ namespace XamarinApp
         SkinTempModel   _skinTempModel;
         SkinResModel    _skinResModel;
         ContactModel    _contactModel;
+        BarometerModel  _barometerModel;
 
         public MainPage()
         {
             this.InitializeComponent();
-            _hearRateModel  = new HeartRateModel();
+
+            _hearRateModel = new HeartRateModel();
             _skinTempModel  = new SkinTempModel();
             _skinResModel   = new SkinResModel();
             _contactModel   = new ContactModel();
+            _barometerModel = new BarometerModel();
         }
 
         private async void InitBandOperations(object sender, RoutedEventArgs e)
         {
-            await BandModel.InitAsync();
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Wait, 1);
+            bandContact.Text = "Connecting to band...";
+            bandContact.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Gray);
 
-            if (BandModel.IsConnected)
+            do
             {
+                await BandModel.InitAsync();
+
+                if (!BandModel.IsConnected)
+                {
+                    AppDebug.line("Band NOT CONNECTED");
+                    bandContact.Text = "Band not found!";
+                    bandContact.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Red);
+                    break;
+                }
+                bandContact.Text = "Initializing HeartRate...";
+
                 AppDebug.line("Band CONNECTED");
-            }
-            else
-            {
-                AppDebug.line("Band NOT CONNECTED");
-            }
 
-            InitBandContact(sender, e);
-            InitHeartRate(sender, e);
-            InitSkinTemp(sender, e);
-            InitSkinResistance(sender, e);
+                InitHeartRate(sender, e);
+
+                bandContact.Text = "Initializing SkinTemp...";
+
+                InitSkinTemp(sender, e);
+                bandContact.Text = "Initializing Gsr...";
+
+                InitSkinResistance(sender, e);
+                bandContact.Text = "Initializing AirTemp...";
+
+                InitBarometer(sender, e);
+
+                //stay at the end for loading to be replaced with band worn /not worn only when everything finished
+                InitBandContact(sender, e);
+
+                // send a vibration request of type alert alarm to the Band
+                await BandModel.BandClient.NotificationManager.VibrateAsync(VibrationType.NotificationAlarm);
+
+            } while (false);
+           
+            Window.Current.CoreWindow.PointerCursor = new Windows.UI.Core.CoreCursor(Windows.UI.Core.CoreCursorType.Arrow, 2);
         }
 
         private async void InitHeartRate(object sender, RoutedEventArgs e)
@@ -106,7 +134,7 @@ namespace XamarinApp
         {
             if (_contactModel.State == BandContactState.Worn)
             {
-                skinRes.Text = "Skin Res:\t" + _skinRes + " KΩ";
+                skinRes.Text = "Gsr :\t" + _skinRes.ToString("0.000") + " μS";
             }
             else
             {
@@ -140,6 +168,20 @@ namespace XamarinApp
             await _contactModel.InitAsync();
             _contactModel.Changed += _contactModel_Changed;
             _contactModel.Start();
+        }
+        
+
+
+        void _barometer_Changed(double temperature, double airPressure)
+        {
+            airTemp.Text = "Air Temp :\t" + temperature.ToString("0.00") + "°C";
+        }
+
+        private async void InitBarometer(object sender, RoutedEventArgs e)
+        {
+            await _barometerModel.InitAsync();
+            _barometerModel.Changed += _barometer_Changed;
+            _barometerModel.Start();
         }
     }
 }

@@ -4,3 +4,7 @@ server/build/*
 /client/XamarinApp/XamarinApp/obj
 /client/XamarinApp/XamarinApp/bin
 /client/XamarinApp/.vs/XamarinApp/v15
+*.class
+/client/XamarinApp/XamarinApp/AppPackages
+/client/XamarinApp/XamarinApp/BundleArtifacts
+/client/XamarinApp/XamarinApp/BundleArtifacts

@@ -13,9 +13,7 @@ namespace Band
     {
         public delegate void ChangedHandler(double SkinRes);
         public event ChangedHandler Changed;
-        public static int peak = 0;
-        public static double sum = 0;
-        public static int count = 0;
+
 
         public async Task InitAsync()
         {
@@ -50,7 +48,7 @@ namespace Band
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                  () =>
                  {
-                     SkinResSensorReading reading = new SkinResSensorReading { SkinRes = e.SensorReading.Resistance };
+                     SkinResSensorReading reading = new SkinResSensorReading { SkinRes = (1000d / ((double)e.SensorReading.Resistance)) };
                      if (Changed != null)
                      {
                          AppDebug.line("SkinRes_ReadingChanged value<" + reading.Value + ">");

@@ -12,14 +12,20 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="95*"/>
-            <RowDefinition Height="33*"/>
+            <RowDefinition Height="218*"/>
+            <RowDefinition Height="885*"/>
+            <RowDefinition Height="177*"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" Text="Band App Tryout" TextWrapping="Wrap" VerticalAlignment="Top" Height="76" Width="325" Style="{StaticResource HeaderTextBlockStyle}"/>
-        <Button Content="Init Band" HorizontalAlignment="Center" Margin="0,97,0,0" VerticalAlignment="Top" Click="InitBandOperations"/>
-        <TextBlock HorizontalAlignment="Center" Text="" x:Name="bandContact" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,156,0,0" Height="63" Width="200" FontSize="25" Foreground="Red" RenderTransformOrigin="0.508,0.724"/>
-        <TextBlock HorizontalAlignment="Left"   Text="" x:Name="heartRate"  TextWrapping="Wrap" VerticalAlignment="Top" Margin="35,239,0,0" Style="{StaticResource SubheaderTextBlockStyle}" Width="290"/>
-        <TextBlock HorizontalAlignment="Left"   Text="" x:Name="skinTemp" TextWrapping="Wrap" VerticalAlignment="Top" Margin="35,320,0,0" Style="{StaticResource SubheaderTextBlockStyle}"/>
-        <TextBlock HorizontalAlignment="Left"   Text="" x:Name="skinRes" TextWrapping="Wrap" VerticalAlignment="Top" Margin="35,400,0,0" Style="{StaticResource SubheaderTextBlockStyle}"/>
+        <TextBlock HorizontalAlignment="Center" Text="Band App Tryout" TextWrapping="Wrap" VerticalAlignment="Center" Height="57" Width="251" Style="{StaticResource HeaderTextBlockStyle}" FontSize="35"/>
+
+        <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Text="XXX" x:Name="airTemp" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,130,0,0" Style="{StaticResource SubheaderTextBlockStyle}"   FontSize="20"    Height="45" Width="Auto" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Center" TextAlignment="Center"  Text="XXX" x:Name="heartRate"  TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,175,0,0" Style="{StaticResource SubheaderTextBlockStyle}"  FontSize="20"  Height="45" Width="Auto" Grid.Row="1" />
+        <TextBlock HorizontalAlignment="Center" TextAlignment="Center"  Text="XXX" x:Name="skinTemp" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,220,0,0" Style="{StaticResource SubheaderTextBlockStyle}"    FontSize="20"  Height="45" Width="Auto" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Center"  TextAlignment="Center" Text="XXX" x:Name="skinRes" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,265,0,0" Style="{StaticResource SubheaderTextBlockStyle}"     FontSize="20"  Height="45" Width="Auto" Grid.Row="1"/>
+        <TextBlock HorizontalAlignment="Center" Text="Band Not Worn" x:Name="bandContact" TextAlignment="Center"  Margin="0,51,0,279" Height="63" Width="250" FontSize="23" Grid.Row="1"/>
+
+        <Button Content="Init Band" HorizontalAlignment="Center" VerticalAlignment="Top" Click="InitBandOperations" Height="46" Width="116" FontSize="20" Grid.Row="1"/>
+
     </Grid>
+
 </Page>

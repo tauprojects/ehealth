@@ -75,7 +75,7 @@ namespace Band
             }
             catch (Exception x)
             {
-                AppDebug.line(x.Message);
+                AppDebug.line("Exception in InitAsync: \n" + x.Message + "\nAt:\n" + x.StackTrace);
             }
         }
     }
