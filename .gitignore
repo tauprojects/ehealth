@@ -8,3 +8,9 @@ server/build/*
 /client/XamarinApp/XamarinApp/AppPackages
 /client/XamarinApp/XamarinApp/BundleArtifacts
 /client/XamarinApp/XamarinApp/BundleArtifacts
+/client/CannaCare/CannaCare/CannaCare.UWP/bin
+/client/CannaCare/CannaCare/CannaCare.UWP/obj
+/client/CannaCare/CannaCare/CannaCare/bin/Release/netstandard2.0
+/client/CannaCare/CannaCare/CannaCare/obj
+/client/CannaCare/.vs/CannaCare/v15
+/client/CannaCare

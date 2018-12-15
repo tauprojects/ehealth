@@ -126,6 +126,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LiveBandExamples.xaml.cs">
+      <DependentUpon>LiveBandExamples.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\AppDebug.cs" />
     <Compile Include="Models\Band.cs" />
     <Compile Include="Models\Sensors\Contact\Contact.cs" />
@@ -148,6 +151,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <EmbeddedResource Include="Fonts\Marijuana.ttf" />
     <None Include="XamarinApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="LiveBandExamples.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

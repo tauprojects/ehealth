@@ -16,16 +16,15 @@
             <RowDefinition Height="885*"/>
             <RowDefinition Height="177*"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" Text="Band App Tryout" TextWrapping="Wrap" VerticalAlignment="Center" Height="57" Width="251" Style="{StaticResource HeaderTextBlockStyle}" FontSize="35"/>
+        <TextBlock HorizontalAlignment="Center" Text="CannaCare" FontFamily="{StaticResource Marijuana}" 
+                   FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" 
+                   Height="57" Width="251" FontSize="35"/>
 
-        <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Text="XXX" x:Name="airTemp" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,130,0,0" Style="{StaticResource SubheaderTextBlockStyle}"   FontSize="20"    Height="45" Width="Auto" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Center" TextAlignment="Center"  Text="XXX" x:Name="heartRate"  TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,175,0,0" Style="{StaticResource SubheaderTextBlockStyle}"  FontSize="20"  Height="45" Width="Auto" Grid.Row="1" />
-        <TextBlock HorizontalAlignment="Center" TextAlignment="Center"  Text="XXX" x:Name="skinTemp" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,220,0,0" Style="{StaticResource SubheaderTextBlockStyle}"    FontSize="20"  Height="45" Width="Auto" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Center"  TextAlignment="Center" Text="XXX" x:Name="skinRes" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,265,0,0" Style="{StaticResource SubheaderTextBlockStyle}"     FontSize="20"  Height="45" Width="Auto" Grid.Row="1"/>
-        <TextBlock HorizontalAlignment="Center" Text="Band Not Worn" x:Name="bandContact" TextAlignment="Center"  Margin="0,51,0,279" Height="63" Width="250" FontSize="23" Grid.Row="1"/>
-
-        <Button Content="Init Band" HorizontalAlignment="Center" VerticalAlignment="Top" Click="InitBandOperations" Height="46" Width="116" FontSize="20" Grid.Row="1"/>
-
+        <!--<Button Content="Init Band" HorizontalAlignment="Center" VerticalAlignment="Top"  Height="46" Width="116" FontSize="20" Grid.Row="1"/>-->
+        <TextBlock Text="Band Examples ≫" Margin="45,51.2,51,303.4" Grid.Row="1" 
+                   FontFamily="Tahoma" FontSize="30" Height="100" HorizontalAlignment="Center" 
+                    Width="Auto"
+                   Tapped="TextBlock_Tapped"/>
     </Grid>
 
 </Page>
