@@ -14,3 +14,9 @@ server/build/*
 /client/CannaCare/CannaCare/CannaCare/obj
 /client/CannaCare/.vs/CannaCare/v15
 /client/CannaCare
+/client/CannaBe/CannaBe/AppPackages
+/client/CannaBe/CannaBe/bin
+/client/CannaBe/CannaBe/BundleArtifacts
+/client/CannaBe/CannaBe/obj
+/client/XamarinApp_old/XamarinApp/AppPackages
+/client/CannaBe/.vs/CannaBe/v15

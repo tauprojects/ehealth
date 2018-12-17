@@ -29,25 +29,13 @@ namespace XamarinApp
         {
             this.InitializeComponent();
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+            PagesUtilities.AddBackButtonHandler();
 
             _hearRateModel = new HeartRateModel();
             _skinTempModel = new SkinTempModel();
             _skinResModel = new SkinResModel();
             _contactModel = new ContactModel();
             _barometerModel = new BarometerModel();
-        }
-
-        private void OnBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            if (rootFrame.CanGoBack)
-            {
-                e.Handled = true;
-
-                rootFrame.GoBack();                    
-            }
         }
 
         public static async Task<bool> GetBluetoothIsSupportedAsync()

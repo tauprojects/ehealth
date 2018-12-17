@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace XamarinApp
+namespace CannaBe
 {
     public sealed partial class MainPage : Page
     {
@@ -12,7 +12,7 @@ namespace XamarinApp
 
         private void GoToLoginPage(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(Login));
+            Frame.Navigate(typeof(LoginPage));
         }
     }
 }

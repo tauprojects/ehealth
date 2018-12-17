@@ -7,10 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    
+    
 
 
     <Grid>
+        <Grid.BorderBrush>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#8fe884" Offset="0"/>
+                <GradientStop Color="#6bba62" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.BorderBrush>
+        <Grid.BorderThickness>
+            <Thickness>10</Thickness>
+        </Grid.BorderThickness>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#8fe884" Offset="1"/>
@@ -23,23 +33,24 @@
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock HorizontalAlignment="Left" Text="CannaBe" FontWeight="ExtraBold"
-                   Foreground="Black" 
-                   FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" 
-                   Height="57" Width="251" FontSize="50" Margin="52,0,0,0"/>
+        <TextBlock HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
+                   Foreground="Black"
+                   FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
+                   Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
 
-        <TextBlock Text="Login" Grid.Row="1" TextAlignment="Center"
+        <Button Content="Login" Grid.Row="1" HorizontalContentAlignment="Center"
                    VerticalAlignment="Top" FontWeight="ExtraBold" Foreground="Yellow"
                    FontFamily="Tahoma" FontSize="30" HorizontalAlignment="Center" 
                     Width="238"
                    Tapped="GoToLoginPage" Height="51" Margin="0,47,0,0"/>
 
-        <TextBlock Text="Register" Grid.Row="1" TextAlignment="Center"
+        <Button Content="Register" Grid.Row="1" HorizontalContentAlignment="Center"
                    VerticalAlignment="Top" FontWeight="ExtraBold" Foreground="Yellow"
                    FontFamily="Tahoma" FontSize="30" HorizontalAlignment="Center" 
                     Width="238"
-                   Tapped="TextBlock_Tapped" Height="51" Margin="0,125,0,0"/>
-        <Image HorizontalAlignment="Center" Height="187" VerticalAlignment="Top" Width="187" Source="Assets/CannabisIconTrans.png" Margin="0,204,0,0" RenderTransformOrigin="0.5,0.485" Grid.Row="1" Grid.RowSpan="2"/>
+                    Height="51" Margin="0,125,0,0"/>
+        <Image HorizontalAlignment="Center" Height="187" VerticalAlignment="Top" Width="187"  Margin="0,204,0,0" RenderTransformOrigin="0.5,0.485" Grid.Row="1" Grid.RowSpan="2"/>
+        <!--Source="Assets/CannabisIconTrans.png"-->
 
         <!--<Button Content="Init Band" HorizontalAlignment="Center" VerticalAlignment="Top"  Height="46" Width="116" FontSize="20" Grid.Row="1"/>-->
         <!--<TextBlock Text="Band Examples ≫" Margin="0,51,0,232" Grid.Row="1" 
