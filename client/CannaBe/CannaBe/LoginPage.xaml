@@ -43,7 +43,7 @@
                  Margin="0,159,0,340" Width="257"
                  x:Name="Username"
                  GotFocus="BoxGotFocus"
-                 LostFocus="BoxLostFocus"/>lkjkl
+                 LostFocus="BoxLostFocus"/>
         
         <Button Content="Login" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000"
