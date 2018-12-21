@@ -14,5 +14,10 @@ namespace CannaBe
         {
             Frame.Navigate(typeof(LoginPage));
         }
+
+        private void GoToRegisterPage(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(RegisterPage));
+        }
     }
 }

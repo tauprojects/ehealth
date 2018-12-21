@@ -48,7 +48,8 @@
                    VerticalAlignment="Top" FontWeight="ExtraBold" Foreground="Yellow"
                    FontFamily="Tahoma" FontSize="30" HorizontalAlignment="Center" 
                     Width="238"
-                    Height="51" Margin="0,125,0,0"/>
+                    Height="51" 
+                    Tapped="GoToRegisterPage" Margin="0,125,0,0"/>
         <Image HorizontalAlignment="Center" Height="187" VerticalAlignment="Top" Width="187"  Margin="0,204,0,0" RenderTransformOrigin="0.5,0.485" Grid.Row="1" Grid.RowSpan="2"/>
         <!--Source="Assets/CannabisIconTrans.png"-->
 
