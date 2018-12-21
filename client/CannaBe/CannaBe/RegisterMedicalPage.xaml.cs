@@ -20,9 +20,9 @@ namespace CannaBe
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class RegisterPage : Page
+    public sealed partial class RegisterMedicalPage : Page
     {
-        public RegisterPage()
+        public RegisterMedicalPage()
         {
             this.InitializeComponent();
             PagesUtilities.AddBackButtonHandler();
@@ -53,20 +53,20 @@ namespace CannaBe
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
 
-        private void ContinueMedicalRegister(object sender, TappedRoutedEventArgs e)
+        private void BackToRegister(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RegisterMedicalPage));
+            Frame.Navigate(typeof(RegisterPage));
         }
 
-        private void BackToHome(object sender, TappedRoutedEventArgs e)
+        private void ContinuePositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(RegisterPositiveEffectsPage));
         }
+
     }
 }
