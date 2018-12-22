@@ -1,5 +1,6 @@
 package ehealth.client;
 
+import ehealth.client.data_objects.Effect;
 import ehealth.client.data_objects.Strain;
 import ehealth.client.data_objects.StrainEffects;
 
@@ -40,7 +41,7 @@ public interface StrainServicesInterface {
     @GET
     @Path(ALL_EFECTS_URI)
     @Produces({MediaType.APPLICATION_JSON})
-    List<Strain> getAllEffects();
+    List<Effect> getAllEffects();
 
     @GET
     @Path(ALL_STRAINS_URI)

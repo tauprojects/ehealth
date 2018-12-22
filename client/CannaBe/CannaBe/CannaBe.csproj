@@ -126,6 +126,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataObjects\LoginRequest.cs" />
     <Compile Include="AppPages\InformationPages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
@@ -155,6 +156,8 @@
     <Compile Include="AppPages\RegisterPages\RegisterPositiveEffectsPage.xaml.cs">
       <DependentUpon>RegisterPositiveEffectsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\AppDebug.cs" />
+    <Compile Include="Utils\HttpManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

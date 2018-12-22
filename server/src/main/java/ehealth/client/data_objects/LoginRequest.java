@@ -10,13 +10,9 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Strain {
-    @JsonProperty("id")
-    Integer id;
-    @JsonProperty("name")
-    String name;
-    @JsonProperty("race")
-    String race;
-    @JsonProperty("desc")
-    String desc;
+public class LoginRequest {
+    @JsonProperty("username")
+    String username;
+    @JsonProperty("password")
+    String password;
 }
