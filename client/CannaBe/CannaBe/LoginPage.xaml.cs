@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -41,11 +44,30 @@ namespace CannaBe
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
 
-        private void PostLogin(object sender, RoutedEventArgs e)
+        private async void PostLogin(object sender, RoutedEventArgs e)
         {
             var req = new LoginRequest(Username.Text, Password.Text);
 
-            HttpManager.Manager.Post("http://ehealth.westeurope.cloudapp.azure.com:8080/login", req);
+
+            HttpResponseMessage res = null;
+            try
+            {
+                res = await HttpManager.Manager.Post("http://ehealth.westeurope.cloudapp.azure.com:8080/login", req);
+
+                if (res.StatusCode == HttpStatusCode.OK)
+                {
+                    Status.Text = "Login success!";
+                }
+                else
+                {
+                    Status.Text = "Login failed! Status = " + res.StatusCode;
+                }
+            }
+            catch(Exception exc)
+            {
+                Status.Text = "Exception during login:\n" + exc.Message;
+            }
+
         }
     }
 }
