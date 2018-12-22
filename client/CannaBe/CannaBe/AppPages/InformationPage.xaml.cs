@@ -1,14 +1,30 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
-namespace CannaBe
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace CannaBe.AppPages
 {
-    public sealed partial class LoginPage : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class InformationPage : Page
     {
-        public LoginPage()
+        public InformationPage()
         {
             this.InitializeComponent();
-
             PagesUtilities.AddBackButtonHandler();
         }
 
@@ -16,7 +32,7 @@ namespace CannaBe
         {
             TextBox textBoxSender = sender as TextBox;
 
-            if(textBoxSender.Text == ("Enter " + textBoxSender.Name))
+            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
             {
                 textBoxSender.Text = "";
                 textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
@@ -40,9 +56,14 @@ namespace CannaBe
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
 
-        private void GoToDashboard(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void GoToDashboard(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(DashboardPage));
+        }
+
+        private void GoToStrainInformation(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(StrainInformationPage));
         }
     }
 }

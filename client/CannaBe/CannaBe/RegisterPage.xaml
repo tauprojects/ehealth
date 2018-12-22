@@ -49,7 +49,7 @@
         <TextBlock Text="Enter Username:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
         <TextBox HorizontalAlignment="Stretch"  Margin="0,105,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" />
         <TextBlock HorizontalAlignment="Left" Margin="0,140,0,0" Text="Enter Password:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Stretch" Margin="0,165,0,0" Text="" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Stretch" Margin="0,165,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,200,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <DatePicker HorizontalAlignment="Stretch" Margin="0,225,0,0" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,260,0,0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -58,9 +58,9 @@
                   <x:String>Female</x:String>
         </ComboBox>
         <TextBlock HorizontalAlignment="Left" Margin="0,320,0,0" Text="Country:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Stretch" Margin="0,345,0,0" Text="" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Stretch" Margin="0,345,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
         <TextBlock HorizontalAlignment="Left" Margin="0,380,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Stretch" Margin="0,405,0,0" Text="" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Stretch" Margin="0,405,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
 
 
 
