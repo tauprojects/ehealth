@@ -1,6 +1,4 @@
-﻿using CannaBe.AppPages;
-using CannaBe.AppPages.PostTreatmentPages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,18 +15,19 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace CannaBe
+namespace CannaBe.AppPages.PostTreatmentPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class DashboardPage : Page
+    public sealed partial class PostTreatment : Page
     {
-        public DashboardPage()
+        public PostTreatment()
         {
             this.InitializeComponent();
             PagesUtilities.AddBackButtonHandler();
         }
+
         private void BoxGotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBoxSender = sender as TextBox;
@@ -57,19 +56,14 @@ namespace CannaBe
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
 
-        private void GoToInformationPage(object sender, TappedRoutedEventArgs e)
+        private void GoToDashboard(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(InformationPage));
+            Frame.Navigate(typeof(DashboardPage));
         }
 
-        private void GoToPostTreatment(object sender, TappedRoutedEventArgs e)
+        private void SubmitFeedback(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PostTreatment));
-        }
-   
-        private void LogoutHandler(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MainPage));
+
         }
     }
 }

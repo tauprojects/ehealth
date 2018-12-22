@@ -42,8 +42,9 @@
                 Foreground="White" Background="#40000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,198,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Post Treatment Analysis" BorderBrush="Black" FontSize="20" FontWeight="bold"
+        <Button Content="Post Treatment Feedback" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000"
+                Tapped="GoToPostTreatment"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="bold"
@@ -61,6 +62,7 @@
         </Button>
         <Button Content="Logout" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000"
+                Tapped="LogoutHandler"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
     </Grid>

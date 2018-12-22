@@ -19,5 +19,10 @@ namespace CannaBe
         {
             Frame.Navigate(typeof(RegisterPage));
         }
+
+        private void GoToDashboardPage(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DashboardPage));
+        }
     }
 }
