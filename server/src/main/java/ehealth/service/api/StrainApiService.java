@@ -1,7 +1,8 @@
 package ehealth.service.api;
 
-import ehealth.client.data_objects.LoginRequest;
+import ehealth.data_objects.LoginRequest;
 import ehealth.data_objects.BaseResponse;
+import ehealth.data_objects.RegisterRequest;
 
 
 public interface StrainApiService {
@@ -17,4 +18,6 @@ public interface StrainApiService {
     String getAllStrains(String strainName);
 
     BaseResponse authenticate(LoginRequest loginRequest);
+
+    BaseResponse register(RegisterRequest registerRequest);
 }
