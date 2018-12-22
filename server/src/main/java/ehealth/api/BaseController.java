@@ -1,12 +1,12 @@
 package ehealth.api;
 
+import ehealth.client.data_objects.LoginRequest;
 import ehealth.data_objects.BaseResponse;
+import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ehealth.service.StrainApiServiceImpl;
 
 @Controller
@@ -36,21 +36,19 @@ public class BaseController {
      * @return String
      */
     @RequestMapping(value = "/ehealth/effects/{strain-name}", method = RequestMethod.GET)
-    public BaseResponse getStrainEffects(@PathVariable("strain-name") String strainName) {
-        return mainServiceImpl.getStrainByName(strainName);
+    public String getStrainEffects(@PathVariable("strain-name") String strainName) {
+        return "echo server:" + strainName;
     }
 
     /**
-     * Basic API
+     * Login API
      *
      * @return String
      */
-    @RequestMapping(value = "/ehealth/strain/{strain-name}", method = RequestMethod.POST)
-    public BaseResponse storeUser(@PathVariable("user") String strainName) {
-        return mainServiceImpl.getStrainByName(strainName);
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public BaseResponse login(@RequestBody LoginRequest loginRequest) {
+        return mainServiceImpl.authenticate(loginRequest);
     }
-
-
 
 }
 

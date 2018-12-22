@@ -22,3 +22,7 @@ server/build/*
 /client/CannaBe/.vs/CannaBe/v15
 /client/XamarinApp_old/.vs
 /client/XamarinApp_old/XamarinApp/BundleArtifacts
+server/out/*
+.idea/*
+server/gradle/wrapper/gradle-wrapper.properties
+
