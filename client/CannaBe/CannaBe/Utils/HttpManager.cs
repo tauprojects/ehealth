@@ -24,7 +24,10 @@ namespace CannaBe
                 if (instance == null)
                 {
                     instance = new HttpManager();
-                    client = new HttpClient();
+                    client = new HttpClient
+                    {
+                        Timeout = new TimeSpan(0, 0, 10) //10 seconds
+                    };
                 }
 
                 return instance;
@@ -42,6 +45,29 @@ namespace CannaBe
             var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
 
             return httpContent;
+        }
+
+
+        public async Task<HttpResponseMessage> Get(string URL)
+        {
+            AppDebug.Line("In Get");
+
+            try
+            {
+                var response =  await client.GetAsync(URL).ConfigureAwait(false);
+                AppDebug.Line("finished get");
+
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                AppDebug.Line("response from post: [" + responseString + "]");
+                return response;
+            }
+            catch (Exception e)
+            {
+                AppDebug.Exception(e, "Get");
+                return null;
+            }
+
         }
 
         public async Task<HttpResponseMessage> Post(string URL, HttpContent content)

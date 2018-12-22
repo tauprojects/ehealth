@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+using System;
 
 namespace CannaBe.AppPages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class StrainInformationPage : Page
     {
+        private readonly static string STRAIN_EXAMPLE = "e.g. 'Alaska'";
+
         public StrainInformationPage()
         {
             this.InitializeComponent();
+
             PagesUtilities.AddBackButtonHandler();
         }
 
@@ -32,7 +21,7 @@ namespace CannaBe.AppPages
         {
             TextBox textBoxSender = sender as TextBox;
 
-            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
+            if (textBoxSender.Text == STRAIN_EXAMPLE)
             {
                 textBoxSender.Text = "";
                 textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
@@ -46,7 +35,7 @@ namespace CannaBe.AppPages
             if (textBoxSender.Text.Length == 0)
             {
                 textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
+                textBoxSender.Text = STRAIN_EXAMPLE;
 
             }
         }
@@ -65,8 +54,15 @@ namespace CannaBe.AppPages
             Frame.Navigate(typeof(InformationPage));
         }
 
-        private void SearchStrain(object sender, TappedRoutedEventArgs e)
+        private async void SearchStrain(object sender, TappedRoutedEventArgs e)
         {
+            var res = HttpManager.Manager.Get
+                ("http://ehealth.westeurope.cloudapp.azure.com:8080/ehealth/strain/" + StrainName.Text);
+
+            var str = await res.Result.Content.ReadAsStringAsync();
+
+            AppDebug.Line(str);
+            await new MessageDialog(str, "Search Strain").ShowAsync();
 
         }
     }
