@@ -18,7 +18,8 @@ namespace CannaBe
         {
             var dict = new Dictionary<string, string>
             {
-                { req.Username, req.Password }
+                { "username", req.Username },
+                { "password",  req.Password }
             };
 
             return new FormUrlEncodedContent(dict);
