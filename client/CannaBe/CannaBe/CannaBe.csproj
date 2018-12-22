@@ -47,7 +47,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -127,10 +127,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\LoginRequest.cs" />
-    <Compile Include="AppPages\InformationPage.xaml.cs">
+    <Compile Include="AppPages\InformationPages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppPages\StrainInformationPage.xaml.cs">
+    <Compile Include="AppPages\InformationPages\StrainInformationPage.xaml.cs">
       <DependentUpon>StrainInformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DashboardPage.xaml.cs">
@@ -144,16 +144,16 @@
     </Compile>
     <Compile Include="Pages\PagesUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegisterMedicalPage.xaml.cs">
+    <Compile Include="AppPages\RegisterPages\RegisterMedicalPage.xaml.cs">
       <DependentUpon>RegisterMedicalPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegisterNegativeEffectsPage.xaml.cs">
+    <Compile Include="AppPages\RegisterPages\RegisterNegativeEffectsPage.xaml.cs">
       <DependentUpon>RegisterNegativeEffectsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegisterPage.xaml.cs">
+    <Compile Include="AppPages\RegisterPages\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegisterPositiveEffectsPage.xaml.cs">
+    <Compile Include="AppPages\RegisterPages\RegisterPositiveEffectsPage.xaml.cs">
       <DependentUpon>RegisterPositiveEffectsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\AppDebug.cs" />
@@ -180,11 +180,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AppPages\InformationPage.xaml">
+    <Page Include="AppPages\InformationPages\InformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AppPages\StrainInformationPage.xaml">
+    <Page Include="AppPages\InformationPages\StrainInformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,19 +200,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RegisterMedicalPage.xaml">
+    <Page Include="AppPages\RegisterPages\RegisterMedicalPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RegisterNegativeEffectsPage.xaml">
+    <Page Include="AppPages\RegisterPages\RegisterNegativeEffectsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RegisterPage.xaml">
+    <Page Include="AppPages\RegisterPages\RegisterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RegisterPositiveEffectsPage.xaml">
+    <Page Include="AppPages\RegisterPages\RegisterPositiveEffectsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
