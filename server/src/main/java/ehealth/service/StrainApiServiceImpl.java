@@ -1,13 +1,14 @@
 package ehealth.service;
 
 import ehealth.client.StrainServicesInterface;
-import ehealth.client.data_objects.Effect;
-import ehealth.client.data_objects.LoginRequest;
+import ehealth.data_objects.LoginRequest;
 import ehealth.client.data_objects.Strain;
 import ehealth.data_objects.BaseResponse;
+import ehealth.data_objects.RegisterRequest;
 import ehealth.exceptions.BadRequestException;
 import ehealth.identity.Identity;
 import ehealth.service.api.StrainApiService;
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -27,6 +28,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     protected ResteasyClient client;
     protected ResteasyWebTarget target;
     protected StrainServicesInterface restClient;
+    Logger logger = Logger.getLogger(StrainApiServiceImpl.class);
 
     @Autowired
     protected Identity identity;
@@ -41,9 +43,11 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public BaseResponse getStrainByName(String strainName) {
         List<Strain> strainResponse = restClient.strainByName(strainName);
-        List<Effect> effects = restClient.getAllEffects();
         System.out.println("HTTP code: " + strainResponse.get(0).toString());
-        BaseResponse resp = new BaseResponse(UUID.randomUUID(), "Exist", strainResponse.get(0).toString());
+        BaseResponse resp = new BaseResponse(
+                UUID.randomUUID(),
+                "Exist",
+                strainResponse.get(0).getDesc());
         return resp;
     }
 
@@ -74,12 +78,18 @@ public class StrainApiServiceImpl implements StrainApiService {
         String password = loginRequest.getPassword();
         if (identity.users.get(user) == null) {
             throw new BadRequestException();
-//            return new BaseResponse(null, "BAD_REQUEST", "Username " + loginRequest.getUsername() + " not exist");
         }
         if (!identity.users.get(user).equals(password)) {
             throw new BadRequestException();
-//            return new BaseResponse(null, "BAD_REQUEST", "wrong password");
         }
         return new BaseResponse(null, "OK", "User: " + user +" Authenticated successfully");
+    }
+
+    @Override
+    public BaseResponse register(RegisterRequest registerRequest) {
+        if (registerRequest != null){
+            logger.info(registerRequest.toString());
+        }
+        return new BaseResponse(null,"CREATED","User created");
     }
 }

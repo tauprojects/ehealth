@@ -1,8 +1,8 @@
 package ehealth.api;
 
-import ehealth.client.data_objects.LoginRequest;
+import ehealth.data_objects.LoginRequest;
 import ehealth.data_objects.BaseResponse;
-import org.apache.http.entity.ContentType;
+import ehealth.data_objects.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -50,5 +50,15 @@ public class BaseController {
         return mainServiceImpl.authenticate(loginRequest);
     }
 
+
+        /**
+     * Register API
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public BaseResponse register(@RequestBody RegisterRequest registerRequest) {
+        return mainServiceImpl.register(registerRequest);
+    }
 }
 

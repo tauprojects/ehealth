@@ -1,4 +1,4 @@
-package ehealth.client.data_objects;
+package ehealth.data_objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
