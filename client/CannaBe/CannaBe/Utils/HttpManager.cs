@@ -30,7 +30,7 @@ namespace CannaBe
             }
         }
 
-        public async void Post(string URL, FormUrlEncodedContent content)
+        public async void Post(string URL, HttpContent content)
         {
             AppDebug.Line("In Post");
 

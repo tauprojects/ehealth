@@ -45,7 +45,7 @@ namespace CannaBe
         {
             var req = new LoginRequest(Username.Text, Password.Text);
 
-            HttpManager.Manager.Post("", req);
+            HttpManager.Manager.Post("http://ehealth.westeurope.cloudapp.azure.com:8080/login", req);
         }
     }
 }
