@@ -134,6 +134,18 @@
     </Compile>
     <Compile Include="Pages\PagesUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisterMedicalPage.xaml.cs">
+      <DependentUpon>RegisterMedicalPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterNegativeEffectsPage.xaml.cs">
+      <DependentUpon>RegisterNegativeEffectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterPositiveEffectsPage.xaml.cs">
+      <DependentUpon>RegisterPositiveEffectsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -163,6 +175,22 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RegisterMedicalPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegisterNegativeEffectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegisterPositiveEffectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
