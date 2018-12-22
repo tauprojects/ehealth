@@ -126,6 +126,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
+      <DependentUpon>PostTreatment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataObjects\LoginRequest.cs" />
     <Compile Include="AppPages\InformationPages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
@@ -185,6 +188,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppPages\InformationPages\StrainInformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\PostTreatmentPages\PostTreatment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
