@@ -62,6 +62,7 @@
         </Button>
         <Button Content="Logout" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000"
+                Tapped="LogoutHandler"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
     </Grid>

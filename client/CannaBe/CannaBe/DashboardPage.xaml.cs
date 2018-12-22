@@ -66,5 +66,10 @@ namespace CannaBe
         {
             Frame.Navigate(typeof(PostTreatment));
         }
+   
+        private void LogoutHandler(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
+        }
     }
 }
