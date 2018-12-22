@@ -54,13 +54,12 @@
         <CheckBox Content="Eye Pressure" Margin="20,205,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Headaches" Margin="20,230,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Fatigue" Margin="20,255,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Headache" Margin="20,280,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Nausea" Margin="20,305,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Lack of Appetite" Margin="20,330,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Cramps" Margin="20,355,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Stress" Margin="20,380,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Pain" Margin="20,405,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Depression" Margin="20,430,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Nausea" Margin="20,280,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Lack of Appetite" Margin="20,305,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Cramps" Margin="20,330,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Stress" Margin="20,355,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Pain" Margin="20,380,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Depression" Margin="20,405,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
