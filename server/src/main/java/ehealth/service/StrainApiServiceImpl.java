@@ -41,9 +41,11 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public BaseResponse getStrainByName(String strainName) {
         List<Strain> strainResponse = restClient.strainByName(strainName);
-        List<Effect> effects = restClient.getAllEffects();
         System.out.println("HTTP code: " + strainResponse.get(0).toString());
-        BaseResponse resp = new BaseResponse(UUID.randomUUID(), "Exist", strainResponse.get(0).toString());
+        BaseResponse resp = new BaseResponse(
+                UUID.randomUUID(),
+                "Exist",
+                strainResponse.get(0).getDesc());
         return resp;
     }
 
