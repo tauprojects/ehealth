@@ -5,6 +5,7 @@ import ehealth.client.data_objects.Effect;
 import ehealth.client.data_objects.LoginRequest;
 import ehealth.client.data_objects.Strain;
 import ehealth.data_objects.BaseResponse;
+import ehealth.exceptions.BadRequestException;
 import ehealth.identity.Identity;
 import ehealth.service.api.StrainApiService;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -72,10 +73,12 @@ public class StrainApiServiceImpl implements StrainApiService {
         String user = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         if (identity.users.get(user) == null) {
-            return new BaseResponse(null, "BAD_REQUEST", "Username " + loginRequest.getUsername() + " not exist");
+            throw new BadRequestException();
+//            return new BaseResponse(null, "BAD_REQUEST", "Username " + loginRequest.getUsername() + " not exist");
         }
         if (!identity.users.get(user).equals(password)) {
-            return new BaseResponse(null, "BAD_REQUEST", "wrong password");
+            throw new BadRequestException();
+//            return new BaseResponse(null, "BAD_REQUEST", "wrong password");
         }
         return new BaseResponse(null, "OK", "User: " + user +" Authenticated successfully");
     }
