@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace CannaBe
@@ -38,6 +39,13 @@ namespace CannaBe
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
+        }
+
+        private void PostLogin(object sender, RoutedEventArgs e)
+        {
+            var req = new LoginRequest(Username.Text, Password.Text);
+
+            HttpManager.Manager.Post("", req);
         }
     }
 }

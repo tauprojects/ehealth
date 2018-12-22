@@ -46,7 +46,7 @@
                  LostFocus="BoxLostFocus"/>
         
         <Button Content="Login" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+                Foreground="White" Background="#40000000" Click="PostLogin"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,369,0,0" RenderTransformOrigin="0.575,1.474">
         </Button>
 
