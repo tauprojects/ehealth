@@ -60,7 +60,8 @@ namespace CannaBe
                 }
                 else
                 {
-                    Status.Text = "Login failed! Status = " + res.StatusCode;
+                    Status.Text = "Login failed! Status: " + res.StatusCode + 
+                        "\nMessage: " + await res.Content.ReadAsStringAsync();
                 }
             }
             catch(Exception exc)
@@ -68,6 +69,11 @@ namespace CannaBe
                 Status.Text = "Exception during login:\n" + exc.Message;
             }
 
+        }
+
+        private void BackToMain(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }
