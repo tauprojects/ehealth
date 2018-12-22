@@ -57,6 +57,26 @@
                     <x:String>10</x:String>
                 </ComboBox>
 
+                <TextBlock Text="Question 3:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,150,0,0"/>
+                <ComboBox x:Name="Q3" HorizontalAlignment="Left" Margin="20,175,0,0" VerticalAlignment="Top">
+                    <x:String>Yes</x:String>
+                    <x:String>No</x:String>
+                </ComboBox>
+
+                <TextBlock Text="Question 4:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,220,0,0"/>
+                <ComboBox x:Name="Q4" HorizontalAlignment="Left" Margin="20,245,0,0" VerticalAlignment="Top">
+                    <x:String>1</x:String>
+                    <x:String>2</x:String>
+                    <x:String>3</x:String>
+                    <x:String>4</x:String>
+                    <x:String>5</x:String>
+                    <x:String>6</x:String>
+                    <x:String>7</x:String>
+                    <x:String>8</x:String>
+                    <x:String>9</x:String>
+                    <x:String>10</x:String>
+                </ComboBox>
+
             </Grid>
         </ScrollViewer>
 
