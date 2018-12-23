@@ -55,13 +55,20 @@ namespace CannaBe
             {
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);
 
-                if (res.StatusCode == HttpStatusCode.OK)
+                if (res != null)
                 {
-                    Status.Text = "Login success!";
+                    if (res.StatusCode == HttpStatusCode.OK)
+                    {
+                        Status.Text = "Login success!";
+                    }
+                    else
+                    {
+                        Status.Text = "Login failed! Status: " + res.StatusCode;
+                    }
                 }
                 else
                 {
-                    Status.Text = "Login failed! Status: " + res.StatusCode;
+                    Status.Text = "Login failed!\nPost operation failed";
                 }
             }
             catch(Exception exc)
