@@ -56,14 +56,21 @@ namespace CannaBe.AppPages
 
         private async void SearchStrain(object sender, TappedRoutedEventArgs e)
         {
-            var res = HttpManager.Manager.Get
-                ("http://ehealth.westeurope.cloudapp.azure.com:8080/ehealth/strain/" + StrainName.Text);
+            var url = Constants.MakeUrl("ehealth/strain/" + StrainName.Text);
+            try
+            {
+                var res = HttpManager.Manager.Get(url);
 
-            var str = await res.Result.Content.ReadAsStringAsync();
+                var str = await res.Result.Content.ReadAsStringAsync();
 
-            AppDebug.Line(str);
-            await new MessageDialog(str, "Search Strain").ShowAsync();
-
+                AppDebug.Line(str);
+                await new MessageDialog(str, "Search Strain").ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                AppDebug.Exception(ex, "SearchStrain");
+                await new MessageDialog("Failed get: \n"+ url, "Exception in Search Strain").ShowAsync();
+            }
         }
     }
 }

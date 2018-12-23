@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    Loaded="OnPageLoaded">
+    Loaded="OnPageLoaded"
+    KeyDown="Page_KeyDown">
 
     <Grid>
         <Grid.BorderBrush>
@@ -31,12 +32,7 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="342" FontSize="50" Margin="0,10,0,0"/>
 
-        <TextBox HorizontalAlignment="Center" Text="Enter Password" BorderBrush="Black"
-                 FontSize="23" TextAlignment="Left" Foreground="White"
-                 Margin="0,255,0,245" Width="257"
-                 x:Name="Password"
-                 GotFocus="BoxGotFocus"
-                 LostFocus="BoxLostFocus" RenderTransformOrigin="0.49,1.453" VerticalAlignment="Stretch"/>
+
 
         <TextBox HorizontalAlignment="Center" Text="Enter Username" BorderBrush="Black"
                  FontSize="23" TextAlignment="Left" Foreground="White" 
@@ -45,15 +41,21 @@
                  GotFocus="BoxGotFocus"
                  LostFocus="BoxLostFocus"/>
 
-        
+        <TextBox HorizontalAlignment="Center" Text="Enter Password" BorderBrush="Black"
+                 FontSize="23" TextAlignment="Left" Foreground="White"
+                 Margin="0,255,0,245" Width="257"
+                 x:Name="Password"
+                 GotFocus="BoxGotFocus"
+                 LostFocus="BoxLostFocus" RenderTransformOrigin="0.49,1.453" VerticalAlignment="Stretch"/>
+
         <Button Content="Login" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000" Click="PostLogin"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="178,371,0,0" RenderTransformOrigin="0.575,1.474">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,344,0,0" RenderTransformOrigin="0.575,1.474">
         </Button>
-        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="bold"
+        <Button Content="Back to Home" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000"
                 Click="BackToMain"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="86,369,0,0" RenderTransformOrigin="0.575,1.474" Width="77">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,0,0" Width="Auto">
         </Button>
         <TextBlock FontSize="20" x:Name="Status"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>

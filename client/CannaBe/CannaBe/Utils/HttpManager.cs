@@ -65,23 +65,19 @@ namespace CannaBe
             catch (Exception e)
             {
                 AppDebug.Exception(e, "Get");
-                return null;
+                throw new Exception("Get method failed: \n" + URL);
             }
 
         }
 
         public async Task<HttpResponseMessage> Post(string URL, HttpContent content)
         {
-            AppDebug.Line("In Post");
-
             try
             {
                 var response = await client.PostAsync(URL, content);
-                
                 var responseString = await response.Content.ReadAsStringAsync();
 
                 AppDebug.Line("response from post: [" + responseString + "]");
-
                 return response;
             }
             catch (Exception e)

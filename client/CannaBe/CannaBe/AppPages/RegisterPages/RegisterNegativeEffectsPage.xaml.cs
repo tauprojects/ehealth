@@ -83,20 +83,27 @@ namespace CannaBe
             HttpResponseMessage res = null;
             try
             {
-                res = await HttpManager.Manager.Post("http://ehealth.westeurope.cloudapp.azure.com:8080/register", req);
+                res = await HttpManager.Manager.Post(Constants.MakeUrl("register"), req);
 
-                if (res.StatusCode == HttpStatusCode.OK)
+                if(res != null)
                 {
-                    Frame.Navigate(typeof(DashboardPage), registerRequest);
+                    if (res.StatusCode == HttpStatusCode.OK)
+                    {
+                        Frame.Navigate(typeof(DashboardPage), registerRequest);
+                    }
+                    else
+                    {
+                        Status.Text = "Register failed! Status = " + res.StatusCode;
+                    }
                 }
                 else
                 {
-                    Status.Text = "Register failed! Status = " + res.StatusCode;
+                    Status.Text = "Register failed!\nPost operation failed";
                 }
             }
             catch (Exception exc)
             {
-                Status.Text = "Exception during login:\n" + exc.Message;
+                Status.Text = "Exception during regsiter:\n" + exc.Message;
             }
 
         }

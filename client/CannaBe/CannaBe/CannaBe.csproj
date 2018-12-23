@@ -21,7 +21,7 @@
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
-    <AppxBundlePlatforms>arm</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxBundle>Auto</AppxBundle>
@@ -162,6 +162,7 @@
       <DependentUpon>RegisterPositiveEffectsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\AppDebug.cs" />
+    <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\HttpManager.cs" />
   </ItemGroup>
   <ItemGroup>
