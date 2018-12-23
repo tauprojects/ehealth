@@ -1,7 +1,10 @@
-﻿using System;
+﻿using CannaBe.DataObjects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -22,6 +25,7 @@ namespace CannaBe
     /// </summary>
     public sealed partial class RegisterNegativeEffectsPage : Page
     {
+        RegisterRequest registerRequest;
         public RegisterNegativeEffectsPage()
         {
             this.InitializeComponent();
@@ -49,6 +53,14 @@ namespace CannaBe
 
             }
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            registerRequest = (RegisterRequest)e.Parameter;
+
+        }
+
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
@@ -63,8 +75,29 @@ namespace CannaBe
             Frame.Navigate(typeof(RegisterPositiveEffectsPage));
         }
 
-        private void Register(object sender, TappedRoutedEventArgs e)
+        private async void Register(object sender, RoutedEventArgs e)
         {
+            var req = registerRequest;
+
+
+            HttpResponseMessage res = null;
+            try
+            {
+                res = await HttpManager.Manager.Post("http://ehealth.westeurope.cloudapp.azure.com:8080/register", req);
+
+                if (res.StatusCode == HttpStatusCode.OK)
+                {
+                    Frame.Navigate(typeof(DashboardPage), registerRequest);
+                }
+                else
+                {
+                    Status.Text = "Register failed! Status = " + res.StatusCode;
+                }
+            }
+            catch (Exception exc)
+            {
+                Status.Text = "Exception during login:\n" + exc.Message;
+            }
 
         }
     }
