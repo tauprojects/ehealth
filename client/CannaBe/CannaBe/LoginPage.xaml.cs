@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -52,7 +53,7 @@ namespace CannaBe
             HttpResponseMessage res = null;
             try
             {
-                res = await HttpManager.Manager.Post("http://ehealth.westeurope.cloudapp.azure.com:8080/login", req);
+                res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);
 
                 if (res.StatusCode == HttpStatusCode.OK)
                 {
@@ -60,8 +61,7 @@ namespace CannaBe
                 }
                 else
                 {
-                    Status.Text = "Login failed! Status: " + res.StatusCode + 
-                        "\nMessage: " + await res.Content.ReadAsStringAsync();
+                    Status.Text = "Login failed! Status: " + res.StatusCode;
                 }
             }
             catch(Exception exc)
@@ -74,6 +74,17 @@ namespace CannaBe
         private void BackToMain(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                if(Username.Text.Length > 0 && Password.Text.Length > 0)
+                {
+                    PostLogin(sender, e);
+                }
+            }
         }
     }
 }

@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    GotFocus="Page_GotFocus"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
     
@@ -33,6 +34,8 @@
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
 
+        <CheckBox Content="Debug with localhost" x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
+                  HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="1" VerticalAlignment="Top" />
         <TextBlock HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
                    Foreground="Black"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 

@@ -10,6 +10,8 @@ namespace CannaBe
             this.InitializeComponent();
         }
 
+
+
         private void GoToLoginPage(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(LoginPage));
@@ -23,6 +25,19 @@ namespace CannaBe
         private void GoToDashboardPage(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(DashboardPage));
+        }
+
+        private void LocalHostDebugChanged(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (LocalHostDebug.IsChecked == true)
+                Constants.IsLocalHost = true;
+            else
+                Constants.IsLocalHost = false;
+        }
+
+        private void Page_GotFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            LocalHostDebug.IsChecked = Constants.IsLocalHost;
         }
     }
 }

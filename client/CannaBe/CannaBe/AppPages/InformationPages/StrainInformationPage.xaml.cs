@@ -56,7 +56,7 @@ namespace CannaBe.AppPages
 
         private async void SearchStrain(object sender, TappedRoutedEventArgs e)
         {
-            var url = Constants.MakeUrl("/ehealth/strain/" + StrainName.Text);
+            var url = Constants.MakeUrl("ehealth/strain/" + StrainName.Text);
             try
             {
                 var res = HttpManager.Manager.Get(url);
