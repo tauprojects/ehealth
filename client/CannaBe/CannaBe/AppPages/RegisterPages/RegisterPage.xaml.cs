@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CannaBe.DataObjects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -61,7 +62,8 @@ namespace CannaBe
 
         private void ContinueMedicalRegister(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RegisterMedicalPage));
+            RegisterRequest registerRequest = new RegisterRequest(Username.Text, Password.Text, DOB.Date.Day + "/" + DOB.Date.Month + "/" + DOB.Date.Year, Gender.SelectedValue.ToString(), Country.Text, City.Text);
+            Frame.Navigate(typeof(RegisterMedicalPage), registerRequest);
         }
 
         private void BackToHome(object sender, TappedRoutedEventArgs e)

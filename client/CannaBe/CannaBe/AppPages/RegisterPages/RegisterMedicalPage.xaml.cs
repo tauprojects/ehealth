@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CannaBe.DataObjects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace CannaBe
     /// </summary>
     public sealed partial class RegisterMedicalPage : Page
     {
+        RegisterRequest registerRequest;
         public RegisterMedicalPage()
         {
             this.InitializeComponent();
@@ -51,8 +53,16 @@ namespace CannaBe
         }
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
+            //PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            registerRequest = (RegisterRequest)e.Parameter;
+            AppDebug.Line(registerRequest.Username);
+
+        }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -65,7 +75,7 @@ namespace CannaBe
 
         private void ContinuePositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RegisterPositiveEffectsPage));
+            Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
         }
 
     }

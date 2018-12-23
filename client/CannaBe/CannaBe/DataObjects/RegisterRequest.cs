@@ -11,22 +11,22 @@ namespace CannaBe.DataObjects
     class RegisterRequest
     {
         [JsonProperty("username")]
-        string Username { get; set; }
+        public string Username { get; set; }
 
         [JsonProperty("password")]
-        string Password { get; set; }
+        public string Password { get; set; }
 
         [JsonProperty("age")]
-        string DOB { get; set; }
+        public string DOB { get; set; }
 
         [JsonProperty("gender")]
-        string Gender { get; set; }
+        public string Gender { get; set; }
 
         [JsonProperty("country")]
-        string Country { get; set; }
+        public string Country { get; set; }
 
         [JsonProperty("city")]
-        string City { get; set; }
+        public string City { get; set; }
 
         public RegisterRequest(string username, string password, string dob, string gender, string country, string city)
         {
