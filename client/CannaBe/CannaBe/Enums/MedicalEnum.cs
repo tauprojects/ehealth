@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CannaBe.Enums
 {
@@ -21,5 +18,41 @@ namespace CannaBe.Enums
         STRESS = 11,
         PAIN = 12,
         DEPRESSION = 13        
+    }
+
+    static class MedicalEnumMethods
+    {
+        public static List<MedicalEnum> FromIntList(List<int> intList)
+        {
+            List<MedicalEnum> enumList = new List<MedicalEnum>(intList.Count);
+
+            foreach(int i in intList)
+            {
+                enumList.Add((MedicalEnum)i);
+            }
+
+            return enumList;
+        }
+
+        public static List<MedicalEnum> FromStringList(List<string> strList)
+        {
+            List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);
+
+            foreach (string s in strList)
+            {
+                try
+                {
+                    Enum.TryParse(s, out MedicalEnum val);
+                    enumList.Add(val);
+                }
+                catch
+                {
+                    AppDebug.Line($"Failed FromStringList:\nValue '{s}' unknown");
+                }
+
+            }
+
+            return enumList;
+        }
     }
 }

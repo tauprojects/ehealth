@@ -76,18 +76,13 @@ namespace CannaBe
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
-                        //Frame.Navigate(typeof(DashboardPage), registerRequest);
-                        //foreach (int x in registerRequest.PositivePreferences)
-                        //{
-                        //    AppDebug.Line(x);
-                        //}
-                        //AppDebug.Line("After Positive Effects");
-                        //foreach (int x in registerRequest.NegativePreferences)
-                        //{
-                        //    AppDebug.Line(x);
-                        //}
-                        //AppDebug.Line("After Negative Effects");
                         Status.Text = "Register Successful!";
+
+                        GlobalContext.User = new UserData("1234", //tryout
+                                                            26, 
+                                                            req.MedicalNeeds, 
+                                                            req.PositivePreferences, 
+                                                            req.NegativePreferences);
                         //Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
                     }
                     else
