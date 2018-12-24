@@ -11,7 +11,7 @@ namespace CannaBe
         [JsonProperty("password")]
         public string Password { get; set; }
 
-        [JsonProperty("age")]
+        [JsonProperty("dob")]
         public string DOB { get; set; }
 
         [JsonProperty("gender")]
