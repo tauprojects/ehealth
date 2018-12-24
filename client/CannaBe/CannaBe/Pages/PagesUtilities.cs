@@ -5,10 +5,8 @@ using Windows.UI.Xaml.Media;
 
 namespace CannaBe
 {
-    class PagesUtilities
+    static class PagesUtilities
     {
-        private PagesUtilities() { }
-
         public static void AddBackButtonHandler()
         {
             SystemNavigationManager.GetForCurrentView().BackRequested +=
@@ -28,7 +26,7 @@ namespace CannaBe
         // Source:
         // https://stackoverflow.com/questions/41182664/how-to-not-focus-element-on-application-startup
         ////////////
-        private static ScrollViewer getRootScrollViewer(object sender)
+        private static ScrollViewer GetRootScrollViewer(object sender)
         {
             DependencyObject el = sender as DependencyObject;
             while (el != null && !(el is ScrollViewer))
@@ -41,7 +39,7 @@ namespace CannaBe
 
         public static void DontFocusOnAnythingOnLoaded(object sender, RoutedEventArgs e)
         {
-            getRootScrollViewer(sender).Focus(FocusState.Programmatic);
+            GetRootScrollViewer(sender).Focus(FocusState.Programmatic);
         }
     }
 
