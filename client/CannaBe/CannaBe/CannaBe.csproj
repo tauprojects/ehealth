@@ -139,12 +139,12 @@
     <Compile Include="AppPages\InformationPages\StrainInformationPage.xaml.cs">
       <DependentUpon>StrainInformationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DashboardPage.xaml.cs">
+    <Compile Include="AppPages\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\RegisterRequest.cs" />
     <Compile Include="Enums\MedicalEnum.cs" />
-    <Compile Include="LoginPage.xaml.cs">
+    <Compile Include="AppPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
@@ -202,11 +202,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DashboardPage.xaml">
+    <Page Include="AppPages\DashboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LoginPage.xaml">
+    <Page Include="AppPages\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
