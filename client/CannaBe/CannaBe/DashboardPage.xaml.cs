@@ -48,10 +48,6 @@ namespace CannaBe
             {
                 Status.Text = "From login";
             }
-            else
-            {
-                Status.Text = "Not working";
-            }
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)

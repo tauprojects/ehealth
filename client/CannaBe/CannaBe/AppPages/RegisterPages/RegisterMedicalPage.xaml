@@ -47,19 +47,19 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
         <TextBlock Text="Medical Needs:" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
-        <CheckBox Content="Seizures" Margin="20,105,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Muscle Spasms" Margin="20,130,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Spasticity" Margin="20,155,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Inflammation" Margin="20,180,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Eye Pressure" Margin="20,205,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Headaches" Margin="20,230,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Fatigue" Margin="20,255,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Nausea" Margin="20,280,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Lack of Appetite" Margin="20,305,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Cramps" Margin="20,330,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Stress" Margin="20,355,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Pain" Margin="20,380,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Depression" Margin="20,405,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Seizures" x:Name="SeizuresCheckbox" Tag="1" Click="MedicalNeedsClickHandler" Margin="20,105,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Muscle Spasms" x:Name="MuscleSpasmsCheckbox" Tag="2" Click="MedicalNeedsClickHandler" Margin="20,130,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Spasticity" x:Name="SpasticityCheckbox" Tag="3" Click="MedicalNeedsClickHandler" Margin="20,155,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Inflammation" x:Name="InflammationCheckbox" Tag="4" Click="MedicalNeedsClickHandler" Margin="20,180,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Eye Pressure" x:Name="EyePressureCheckbox" Tag="5" Click="MedicalNeedsClickHandler" Margin="20,205,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Headaches" x:Name="HeadachesCheckbox" Tag="6" Click="MedicalNeedsClickHandler" Margin="20,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Fatigue" x:Name="FatigueCheckbox" Tag="7" Click="MedicalNeedsClickHandler" Margin="20,255,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Nausea" x:Name="NauseaCheckbox" Tag="8" Click="MedicalNeedsClickHandler" Margin="20,280,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Lack of Appetite" x:Name="LackofAppetiteCheckbox" Tag="9" Click="MedicalNeedsClickHandler" Margin="20,305,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Cramps" x:Name="CrampsCheckbox" Tag="10" Click="MedicalNeedsClickHandler" Margin="20,330,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Stress" x:Name="StressCheckbox" Tag="11" Click="MedicalNeedsClickHandler" Margin="20,355,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Pain" x:Name="PainCheckbox" Tag="12" Click="MedicalNeedsClickHandler" Margin="20,380,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Depression" x:Name="DepressionCheckbox" Tag="13" Click="MedicalNeedsClickHandler" Margin="20,405,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
