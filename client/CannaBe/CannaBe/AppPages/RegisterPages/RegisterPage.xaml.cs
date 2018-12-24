@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -45,8 +46,45 @@ namespace CannaBe
 
         private void ContinueMedicalRegister(object sender, TappedRoutedEventArgs e)
         {
-            RegisterRequest registerRequest = new RegisterRequest(Username.Text, Password.Text, DOB.Date.Day + "/" + DOB.Date.Month + "/" + DOB.Date.Year, Gender.SelectedValue.ToString(), Country.Text, City.Text);
-            Frame.Navigate(typeof(RegisterMedicalPage), registerRequest);
+            int flag = 0;
+            try
+            {
+                if (!Gender.SelectedValue.ToString().Equals(null))
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                flag = 1;
+
+            }
+
+            if (Username.Text == "")
+            {
+                Status.Text = "Please enter a valid username";
+            }
+            else if (Password.Text == "")
+            {
+                Status.Text = "Please enter a valid password";
+            }
+            else if (flag == 1)
+            {
+                Status.Text = "Please enter a valid gender";
+            }
+            else if (Country.Text == "")
+            {
+                Status.Text = "Please enter a valid country";
+            }
+            else if (City.Text == "")
+            {
+                Status.Text = "Please enter a valid city";
+            }
+            else
+            {
+                RegisterRequest registerRequest = new RegisterRequest(Username.Text, Password.Text, DOB.Date.Day + "/" + DOB.Date.Month + "/" + DOB.Date.Year, Gender.SelectedValue.ToString(), Country.Text, City.Text);
+                Frame.Navigate(typeof(RegisterMedicalPage), registerRequest);
+            }
         }
 
         private void BackToHome(object sender, TappedRoutedEventArgs e)

@@ -99,6 +99,7 @@ namespace CannaBe
                         //}
                         //AppDebug.Line("After Negative Effects");
                         Status.Text = "Register Successful!";
+                        Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
                     }
                     else
                     {

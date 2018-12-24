@@ -62,6 +62,9 @@
         <TextBlock HorizontalAlignment="Left" Margin="0,380,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Stretch" x:Name="City" Margin="0,405,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
 
+        <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
+            HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,444,0,0"/>
+
 
 
     </Grid>

@@ -40,6 +40,7 @@ namespace CannaBe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            Request req = (Request) e.Parameter;
             if (e.GetType() == typeof(RegisterRequest))
             {
                 Status.Text = "From Register";

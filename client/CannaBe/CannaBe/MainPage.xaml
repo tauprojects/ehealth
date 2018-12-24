@@ -28,38 +28,31 @@
                 <GradientStop Color="#6bba62" Offset="0"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="141*"/>
-            <RowDefinition Height="349*"/>
-            <RowDefinition Height="79*"/>
-        </Grid.RowDefinitions>
+        
 
         <CheckBox Content="Debug with localhost" x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
-                  HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="1" VerticalAlignment="Top" />
+                  HorizontalAlignment="Left" Margin="50,160,0,0" Grid.Row="1" VerticalAlignment="Top" />
+        
         <TextBlock HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
                    Foreground="Black"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
 
-        <Button Content="Login" Grid.Row="1" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Top" FontWeight="ExtraBold" Foreground="Yellow"
-                   FontFamily="Tahoma" FontSize="30" HorizontalAlignment="Center" 
-                    Width="238"
-                   Tapped="GoToLoginPage" Height="51" Margin="0,47,0,0"/>
-
-        <Button Content="Register" Grid.Row="1" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Top" FontWeight="ExtraBold" Foreground="Yellow"
-                   FontFamily="Tahoma" FontSize="30" HorizontalAlignment="Center" 
-                    Width="238"
-                    Height="51" 
-                    Tapped="GoToRegisterPage" Margin="0,125,0,0"/>
-        
-        <Button Content="Dashboard" Grid.Row="1" HorizontalContentAlignment="Center"
-                   VerticalAlignment="Top" FontWeight="ExtraBold" Foreground="Yellow"
-                   FontFamily="Tahoma" FontSize="30" HorizontalAlignment="Center" 
-                    Width="238"
-                    Height="51" 
-                    Tapped="GoToDashboardPage" Margin="0,200,0,0"/>
+        <Button Content="Login" BorderBrush="Black" FontSize="20" FontWeight="bold"
+                Foreground="White" Background="#40000000" 
+                Tapped="GoToLoginPage"
+                HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,200,0,0" RenderTransformOrigin="0.575,1.474">
+        </Button>
+        <Button Content="Register" BorderBrush="Black" FontSize="20" FontWeight="bold"
+                Foreground="White" Background="#40000000"
+                Tapped="GoToRegisterPage"
+                HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,240,0,0" Width="Auto">
+        </Button>
+        <Button Content="Dashboard" BorderBrush="Black" FontSize="20" FontWeight="bold"
+                Foreground="White" Background="#40000000"
+                Tapped="GoToDashboardPage"
+                HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,280,0,0" Width="Auto">
+        </Button>
         <Image HorizontalAlignment="Center" Height="187" VerticalAlignment="Top" Width="187"  Margin="0,204,0,0" RenderTransformOrigin="0.5,0.485" Grid.Row="1" Grid.RowSpan="2"/>
         <!--Source="Assets/CannabisIconTrans.png"-->
 
