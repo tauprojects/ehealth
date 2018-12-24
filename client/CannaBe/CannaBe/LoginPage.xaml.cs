@@ -60,6 +60,7 @@ namespace CannaBe
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
                         Status.Text = "Login success!";
+                        Frame.Navigate(typeof(DashboardPage), res);
                     }
                     else
                     {

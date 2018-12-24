@@ -1,5 +1,6 @@
 ﻿using CannaBe.AppPages;
 using CannaBe.AppPages.PostTreatmentPages;
+using CannaBe.DataObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,23 @@ namespace CannaBe
                 textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
                 textBoxSender.Text = "Enter " + textBoxSender.Name;
 
+            }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.GetType() == typeof(RegisterRequest))
+            {
+                Status.Text = "From Register";
+            }
+            else if (e.GetType() == typeof(LoginRequest))
+            {
+                Status.Text = "From login";
+            }
+            else
+            {
+                Status.Text = "Not working";
             }
         }
 
