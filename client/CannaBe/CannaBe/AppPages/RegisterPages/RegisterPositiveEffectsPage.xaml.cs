@@ -40,6 +40,10 @@ namespace CannaBe
         {
             base.OnNavigatedTo(e);
             registerRequest = (RegisterRequest)e.Parameter;
+            foreach (int i in registerRequest.MedicalNeeds)
+            {
+                AppDebug.Line(i);
+            }
 
         }
 

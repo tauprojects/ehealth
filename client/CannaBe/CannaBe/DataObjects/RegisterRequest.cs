@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace CannaBe
@@ -23,6 +24,9 @@ namespace CannaBe
         [JsonProperty("city")]
         public string City { get; set; }
 
+        [JsonProperty("medicalneeds")]
+        public List<int> MedicalNeeds { get; set; }
+
         public RegisterRequest(string username, string password, string dob, string gender, string country, string city) 
             : base(username, password)
         {
@@ -32,7 +36,9 @@ namespace CannaBe
             Gender = gender;
             Country = country;
             City = city;
+            MedicalNeeds = new List<int>();
         }
+        
 
         public static implicit operator HttpContent(RegisterRequest req)
         {

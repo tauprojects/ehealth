@@ -141,6 +141,7 @@
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\RegisterRequest.cs" />
+    <Compile Include="Enums\MedicalEnum.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -164,6 +165,7 @@
     <Compile Include="Utils\AppDebug.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\HttpManager.cs" />
+    <Compile Include="Utils\StrainToInt.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -235,6 +237,7 @@
       <Version>12.0.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

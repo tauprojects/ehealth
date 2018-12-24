@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using CannaBe.Enums;
+using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -57,8 +59,27 @@ namespace CannaBe
 
         private void ContinuePositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
+            int res;
+            string selectedMedicalNeeds = string.Empty;
+            CheckBox[] checkboxes = new CheckBox[] { DepressionCheckbox, PainCheckbox, StressCheckbox, CrampsCheckbox,
+                                            LackofAppetiteCheckbox, NauseaCheckbox, FatigueCheckbox, HeadachesCheckbox,
+                                            EyePressureCheckbox, InflammationCheckbox, SpasticityCheckbox,
+                                            MuscleSpasmsCheckbox, SeizuresCheckbox };
+            foreach (CheckBox c in checkboxes)
+            {
+                if (c.IsChecked == true)
+                {
+                    System.Int32.TryParse(c.Tag.ToString(), out res);
+                    registerRequest.MedicalNeeds.Add(res);
+
+                }
+            }
             Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
         }
 
+        private void MedicalNeedsClickHandler(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
