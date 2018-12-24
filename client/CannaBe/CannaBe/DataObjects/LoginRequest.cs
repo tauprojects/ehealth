@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace CannaBe
 {
-    class LoginRequest
+    class LoginRequest : Request
     {
         [JsonProperty("username")]
         string Username { get; set; }
@@ -13,13 +12,8 @@ namespace CannaBe
 
         public LoginRequest(string username, string password)
         {
-            this.Username = username;
-            this.Password = password;
-        }
-
-        public static implicit operator HttpContent(LoginRequest req)
-        {
-            return HttpManager.CreateJson(req);
+            Username = username;
+            Password = password;
         }
     }
 }

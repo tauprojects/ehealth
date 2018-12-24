@@ -6,14 +6,15 @@ namespace CannaBe
     class BaseResponse
     {
         [JsonProperty("request_id")]
-        string RequestId { get; set; }
+        public string RequestId { get; set; }
 
         [JsonProperty("status")]
-        string Status { get; set; }
+        public string Status { get; set; }
 
         [JsonProperty("body")]
-        string Body { get; set; }
+        public string Body { get; set; }
 
+        [JsonConstructor]
         public BaseResponse(string requestId, string status, string body)
         {
             RequestId = requestId;
@@ -23,8 +24,7 @@ namespace CannaBe
 
         public BaseResponse(HttpResponseMessage msg)
         {
-            var str = msg.Content.ReadAsStringAsync().Result;
-            var response = JsonConvert.DeserializeObject<BaseResponse>(str);
+            var response = HttpManager.ParseJson<BaseResponse>(msg);
 
             RequestId = response.RequestId;
             Status = response.Status;

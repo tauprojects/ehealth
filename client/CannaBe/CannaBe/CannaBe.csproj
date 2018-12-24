@@ -131,6 +131,7 @@
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\BaseResponse.cs" />
+    <Compile Include="DataObjects\Request.cs" />
     <Compile Include="DataObjects\LoginRequest.cs" />
     <Compile Include="AppPages\InformationPages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
