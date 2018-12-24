@@ -62,21 +62,10 @@ namespace CannaBe
 
         private async void Register(object sender, RoutedEventArgs e)
         {
-            int rescheck;
-            string selectedNegativeEffects = string.Empty;
-            CheckBox[] checkboxes = new CheckBox[] { AnxiousCheckbox, DryEyesCheckbox , ParanoidCheckbox , DryMouthCheckbox , DizzyCheckbox };
-            foreach (CheckBox c in checkboxes)
-            {
-                if (c.IsChecked == true)
-                {
-                    System.Int32.TryParse(c.Tag.ToString(), out rescheck);
-                    registerRequest.NegativePreferences.Add(rescheck);
-
-                }
-            }
-
+            PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid, 
+                                                registerRequest.NegativePreferences);
+           
             var req = registerRequest;
-
 
             HttpResponseMessage res = null;
             try
@@ -99,7 +88,7 @@ namespace CannaBe
                         //}
                         //AppDebug.Line("After Negative Effects");
                         Status.Text = "Register Successful!";
-                        Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
+                        //Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
                     }
                     else
                     {

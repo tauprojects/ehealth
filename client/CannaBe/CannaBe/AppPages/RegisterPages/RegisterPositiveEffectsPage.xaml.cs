@@ -40,10 +40,10 @@ namespace CannaBe
         {
             base.OnNavigatedTo(e);
             registerRequest = (RegisterRequest)e.Parameter;
-            foreach (int i in registerRequest.MedicalNeeds)
-            {
-                AppDebug.Line(i);
-            }
+            //foreach (int i in registerRequest.MedicalNeeds)
+            //{
+            //    AppDebug.Line(i);
+            //}
 
         }
 
@@ -63,21 +63,9 @@ namespace CannaBe
 
         private void ContinueNegativeEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
-            int res;
-            string selectedPositiveEffects = string.Empty;
-            CheckBox[] checkboxes = new CheckBox[] { RelaxedCheckbox , HungryCheckbox , EuphoricCheckbox , HappyCheckbox ,
-                                                     CreativeCheckbox , EnergeticCheckbox , TalkativeCheckbox ,
-                                                     UpliftedCheckbox , TinglyCheckbox , SleepyCheckbox , FocusedCheckbox ,
-                                                     GigglyCheckbox , ArousedCheckbox};
-            foreach (CheckBox c in checkboxes)
-            {
-                if (c.IsChecked == true)
-                {
-                    System.Int32.TryParse(c.Tag.ToString(), out res);
-                    registerRequest.PositivePreferences.Add(res);
-
-                }
-            }
+            PagesUtilities.GetAllCheckBoxesTags(RegisterPositiveEffectsGrid, 
+                                                registerRequest.PositivePreferences);
+           
             Frame.Navigate(typeof(RegisterNegativeEffectsPage), registerRequest);
         }
     }
