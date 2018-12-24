@@ -62,6 +62,19 @@ namespace CannaBe
 
         private async void Register(object sender, RoutedEventArgs e)
         {
+            int rescheck;
+            string selectedNegativeEffects = string.Empty;
+            CheckBox[] checkboxes = new CheckBox[] { AnxiousCheckbox, DryEyesCheckbox , ParanoidCheckbox , DryMouthCheckbox , DizzyCheckbox };
+            foreach (CheckBox c in checkboxes)
+            {
+                if (c.IsChecked == true)
+                {
+                    System.Int32.TryParse(c.Tag.ToString(), out rescheck);
+                    registerRequest.NegativePreferences.Add(rescheck);
+
+                }
+            }
+
             var req = registerRequest;
 
 
@@ -74,7 +87,18 @@ namespace CannaBe
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
-                        Frame.Navigate(typeof(DashboardPage), registerRequest);
+                        //Frame.Navigate(typeof(DashboardPage), registerRequest);
+                        //foreach (int x in registerRequest.PositivePreferences)
+                        //{
+                        //    AppDebug.Line(x);
+                        //}
+                        //AppDebug.Line("After Positive Effects");
+                        //foreach (int x in registerRequest.NegativePreferences)
+                        //{
+                        //    AppDebug.Line(x);
+                        //}
+                        //AppDebug.Line("After Negative Effects");
+                        Status.Text = "Register Successful!";
                     }
                     else
                     {

@@ -47,19 +47,19 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
         <TextBlock Text="Positive Effect Preferences:" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
-        <CheckBox Content="Aroused" Margin="20,105,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Giggly" Margin="20,130,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Focused" Margin="20,155,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Sleepy" Margin="20,180,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Tingly" Margin="20,205,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Uplifted" Margin="20,230,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Talkative" Margin="20,255,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Energetic" Margin="20,280,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Creative" Margin="20,305,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Happy" Margin="20,330,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Euphoric" Margin="20,355,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Hungry" Margin="20,380,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Relaxed" Margin="20,405,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Aroused" x:Name="ArousedCheckbox" Tag="1" Margin="20,105,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Giggly" x:Name="GigglyCheckbox" Tag="2" Margin="20,130,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Focused" x:Name="FocusedCheckbox" Tag="3" Margin="20,155,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Sleepy" x:Name="SleepyCheckbox" Tag="4" Margin="20,180,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Tingly" x:Name="TinglyCheckbox" Tag="5" Margin="20,205,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Uplifted" x:Name="UpliftedCheckbox" Tag="6" Margin="20,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Talkative" x:Name="TalkativeCheckbox" Tag="7" Margin="20,255,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Energetic" x:Name="EnergeticCheckbox" Tag="8" Margin="20,280,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Creative" x:Name="CreativeCheckbox" Tag="9" Margin="20,305,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Happy" x:Name="HappyCheckbox" Tag="10" Margin="20,330,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Euphoric" x:Name="EuphoricCheckbox" Tag="11" Margin="20,355,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Hungry" x:Name="HungryCheckbox" Tag="12" Margin="20,380,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Relaxed" x:Name="RelaxedCheckbox" Tag="13" Margin="20,405,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
