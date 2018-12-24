@@ -47,6 +47,10 @@ namespace CannaBe
             return httpContent;
         }
 
+        public static T ParseJson<T>(HttpResponseMessage res)
+        {
+            return JsonConvert.DeserializeObject<T>(res.Content.ReadAsStringAsync().Result);
+        }
 
         public async Task<HttpResponseMessage> Get(string URL)
         {
