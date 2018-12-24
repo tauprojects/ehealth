@@ -59,8 +59,6 @@ namespace CannaBe
         {
             base.OnNavigatedTo(e);
             registerRequest = (RegisterRequest)e.Parameter;
-            AppDebug.Line(registerRequest.Username);
-
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

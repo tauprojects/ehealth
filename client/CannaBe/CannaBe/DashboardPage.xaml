@@ -65,6 +65,8 @@
                 Tapped="LogoutHandler"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
+        <TextBlock FontSize="20" x:Name="Status"
+            HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>
     </Grid>
 
 </Page>
