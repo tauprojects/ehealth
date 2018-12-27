@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -52,7 +53,8 @@ namespace CannaBe
 
         private void BackToRegister(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RegisterPage));
+            registerRequest.MedicalNeeds = new List<int>();
+            Frame.Navigate(typeof(RegisterPage), registerRequest);
         }
 
         private void ContinuePositiveEffectsRegister(object sender, TappedRoutedEventArgs e)

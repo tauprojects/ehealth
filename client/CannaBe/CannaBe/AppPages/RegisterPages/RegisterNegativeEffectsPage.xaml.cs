@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Windows.UI.Xaml;
@@ -57,7 +58,8 @@ namespace CannaBe
 
         private void BackToPositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(RegisterPositiveEffectsPage));
+            registerRequest.NegativePreferences = new List<int>();
+            Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
         }
 
         private async void Register(object sender, RoutedEventArgs e)
@@ -83,7 +85,7 @@ namespace CannaBe
                                                             req.MedicalNeeds, 
                                                             req.PositivePreferences, 
                                                             req.NegativePreferences);
-                        //Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
+                        Frame.Navigate(typeof(DashboardPage), registerRequest);
                     }
                     else
                     {

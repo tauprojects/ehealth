@@ -149,6 +149,8 @@
     <Compile Include="AppPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums\NegativePreferencesEnum.cs" />
+    <Compile Include="Enums\PositivePreferencesEnum.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

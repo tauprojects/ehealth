@@ -56,11 +56,11 @@ namespace CannaBe
                     if (chk.IsChecked == true)
                     {
                         System.Int32.TryParse(chk.Tag.ToString(), out int tag);
-                        if (!listToAddTo.Contains(tag))
-                        {
+                        //if (!listToAddTo.Contains(tag))
+                        //{
                             listToAddTo.Add(tag);
                             AppDebug.Line(pageName + "." + tag);
-                        }
+                        //}
                     }
                 }
             }
