@@ -1,4 +1,5 @@
-﻿using Windows.UI.Core;
+﻿using System.Collections.Generic;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -40,6 +41,29 @@ namespace CannaBe
         public static void DontFocusOnAnythingOnLoaded(object sender, RoutedEventArgs e)
         {
             GetRootScrollViewer(sender).Focus(FocusState.Programmatic);
+        }
+
+        public static void GetAllCheckBoxesTags(Grid gridWithCheckBoxes, List<int> listToAddTo)
+        {
+            var pageName = gridWithCheckBoxes.Parent.GetType().Name;
+
+            foreach (var ctrl in gridWithCheckBoxes.Children)
+            {
+                if (ctrl is CheckBox)
+                {
+                    var chk = ctrl as CheckBox;
+
+                    if (chk.IsChecked == true)
+                    {
+                        System.Int32.TryParse(chk.Tag.ToString(), out int tag);
+                        if (!listToAddTo.Contains(tag))
+                        {
+                            listToAddTo.Add(tag);
+                            AppDebug.Line(pageName + "." + tag);
+                        }
+                    }
+                }
+            }
         }
     }
 

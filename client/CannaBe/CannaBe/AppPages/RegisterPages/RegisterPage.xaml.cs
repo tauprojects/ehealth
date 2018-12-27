@@ -54,10 +54,9 @@ namespace CannaBe
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 flag = 1;
-
             }
 
             if (Username.Text == "")
