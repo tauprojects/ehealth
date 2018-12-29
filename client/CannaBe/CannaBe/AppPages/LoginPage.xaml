@@ -73,7 +73,6 @@
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>
 
-        <Rectangle x:Name="OpacityFill" Width="341" Height="569" Fill="White" Opacity="100" Visibility="Collapsed"/>
         <ProgressRing x:Name="LoadingIndicator" Width="50" Height="50"/>
 
     </Grid>

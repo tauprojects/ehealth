@@ -68,7 +68,7 @@ namespace CannaBe
         {
             PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid, 
                                                 out List<int> intList);
-           
+            LoadingIndicator.IsActive = true;
             var req = registerRequest;
 
             req.NegativePreferences = NegativePreferencesEnumMethods.FromIntToStringList(intList);
@@ -77,8 +77,9 @@ namespace CannaBe
             try
             {
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("register"), req);
+                LoadingIndicator.IsActive = false;
 
-                if(res != null)
+                if (res != null)
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
