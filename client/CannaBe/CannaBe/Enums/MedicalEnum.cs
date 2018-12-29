@@ -48,7 +48,7 @@ namespace CannaBe.Enums
 
         public static List<MedicalEnum> FromStringList(List<string> strList)
         {
-            AppDebug.Line("MedicalEnum");
+            AppDebug.Line("MedicalEnum isStrNull = "+ (strList == null).ToString());
 
             List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);
             AppDebug.Line("Created List<MedicalEnum>");

@@ -28,12 +28,12 @@ namespace CannaBe
         public string City { get; set; }
 
         [JsonProperty("medical")]
-        private List<string> StringMedicalNeeds { get; set; }
+        public List<string> StringMedicalNeeds { get; set; }
 
         public List<MedicalEnum> MedicalNeeds { get; set; }
 
         [JsonProperty("positive")]
-        private List<string> StringPositivePreferences { get; set; }
+        public List<string> StringPositivePreferences { get; set; }
 
         public List<PositivePreferencesEnum> PositivePreferences { get; set; }
 
@@ -58,8 +58,12 @@ namespace CannaBe
             City = city;
 
             StringMedicalNeeds = medicalNeeds;
+            //MedicalNeeds = MedicalEnumMethods.FromStringList(StringMedicalNeeds);
             StringPositivePreferences = positivePreferences;
+            //PositivePreferences = PositivePreferencesEnumMethods.FromStringList(StringPositivePreferences);
             StringNegativePreferences = negativePreferences;
+            //NegativePreferences = NegativePreferencesEnumMethods.FromStringList(StringNegativePreferences);
+
         }
 
         public static LoginResponse CreateFromHttpResponse(HttpResponseMessage msg)
