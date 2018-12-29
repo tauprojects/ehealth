@@ -31,7 +31,7 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="46" Margin="0,10,0,0"/>
 
-        <TextBlock Margin="0,120,0,0" FontSize="18" >
+        <TextBlock Margin="0,120,0,0" FontSize="18">
             <Hyperlink NavigateUri="https://www.tikun-olam.co.il/">
                         Tikun Olam - תיקון עולם
             </Hyperlink>
@@ -79,13 +79,13 @@
             </Hyperlink>
         </TextBlock>
 
-        <Button Content="Back To Information Page" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000" Margin="0,0,0,37"
+        <Button Content="Back To Information Page" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000" Margin="0,0,0,37"
                 Tapped="BackToInformationPage" VerticalAlignment="Bottom"
                 HorizontalAlignment="Center" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Home" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000" VerticalAlignment="Bottom"
+        <Button Content="Home" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000" VerticalAlignment="Bottom"
                 Tapped="GoToDashboard"
                 HorizontalAlignment="Center" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>

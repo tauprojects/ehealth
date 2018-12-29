@@ -35,34 +35,34 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
         
-        <Button Content="My Profile" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="My Profile" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Start Band Session" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Start Band Session" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,198,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Post Treatment Feedback" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Post Treatment Feedback" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 Tapped="GoToPostTreatment"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,274,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Information" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Information" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 Tapped="GoToInformationPage"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,312,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="My Reccomendations" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="My Reccomendations" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Logout" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Logout" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 Tapped="LogoutHandler"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
