@@ -53,7 +53,10 @@ Loaded="OnPageLoaded">
         <CheckBox Content="Paranoid"    Tag="3" Margin="20,155,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Dry Eyes"    Tag="4" Margin="20,180,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Anxious"     Tag="5" Margin="20,205,0,0" VerticalAlignment="Top"/>
-
+        
+        
+        <ProgressRing x:Name="LoadingIndicator" Width="50" Height="50"/>
+        
         <TextBlock FontSize="20" x:Name="Status"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,400,0,0"/>
 
