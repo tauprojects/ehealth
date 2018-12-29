@@ -56,5 +56,10 @@ namespace CannaBe.AppPages
         {
             Frame.Navigate(typeof(OrganizationInformationPage));
         }
+
+        private void GoToMedicalInformation(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MedicalInformationPage));
+        }
     }
 }

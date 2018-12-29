@@ -65,7 +65,7 @@
                 Foreground="Black" Background="#10000000" Click="PostLogin"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,340,0,0" RenderTransformOrigin="0.575,1.474">
         </Button>
-        <Button Content="Back to Home" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+        <Button Content="Home" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Click="BackToMain"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,376,0,0" Width="Auto">
@@ -73,7 +73,6 @@
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>
 
-        <Rectangle x:Name="OpacityFill" Width="341" Height="569" Fill="White" Opacity="100" Visibility="Collapsed"/>
         <ProgressRing x:Name="LoadingIndicator" Width="50" Height="50"/>
 
     </Grid>
