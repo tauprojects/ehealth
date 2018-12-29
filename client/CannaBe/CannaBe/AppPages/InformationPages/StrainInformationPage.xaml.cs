@@ -13,7 +13,7 @@ namespace CannaBe.AppPages
         public StrainInformationPage()
         {
             this.InitializeComponent();
-
+            this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
 

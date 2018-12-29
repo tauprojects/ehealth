@@ -25,6 +25,7 @@ namespace CannaBe.AppPages.InformationPages
         public OrganizationInformationPage()
         {
             this.InitializeComponent();
+            this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
         public void OnPageLoaded(object sender, RoutedEventArgs e)

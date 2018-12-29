@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.Foundation;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace CannaBe
@@ -8,6 +10,7 @@ namespace CannaBe
         public MainPage()
         {
             this.InitializeComponent();
+            this.FixPageSize();
         }
 
 

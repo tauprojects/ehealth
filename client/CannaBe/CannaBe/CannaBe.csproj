@@ -134,7 +134,8 @@
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
     <Compile Include="Context\GlobalContext.cs" />
-    <Compile Include="Context\UserData.cs" />
+    <Compile Include="DataObjects\Usage.cs" />
+    <Compile Include="DataObjects\UserData.cs" />
     <Compile Include="DataObjects\Http\Response\BaseResponse.cs" />
     <Compile Include="DataObjects\Http\Response\IJsonResponse.cs" />
     <Compile Include="DataObjects\Http\Response\LoginResponse.cs" />
