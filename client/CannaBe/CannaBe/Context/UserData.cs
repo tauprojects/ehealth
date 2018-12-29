@@ -16,10 +16,10 @@ namespace CannaBe
         public List<MedicalEnum> MedicalNeeds { get; }
 
         [JsonProperty("positive_effects")]
-        public List<MedicalEnum> ChosenPositiveEffects { get; }
+        public List<PositivePreferencesEnum> ChosenPositiveEffects { get; }
 
         [JsonProperty("negative_effects")]
-        public List<MedicalEnum> ChosenNegativeEffects { get; }
+        public List<NegativePreferencesEnum> ChosenNegativeEffects { get; }
 
         [JsonConstructor]
         public UserData(string uID, int age, List<int> medicalNeeds, List<int> chosenPositiveEffects, List<int> chosenNegativeEffects)
@@ -28,8 +28,8 @@ namespace CannaBe
             Age = age;
 
             MedicalNeeds = MedicalEnumMethods.FromIntList(medicalNeeds);
-            ChosenPositiveEffects = MedicalEnumMethods.FromIntList(chosenPositiveEffects);
-            ChosenNegativeEffects = MedicalEnumMethods.FromIntList(chosenNegativeEffects);
+            ChosenPositiveEffects =PositivePreferencesEnumMethods.FromIntList(chosenPositiveEffects);
+            ChosenNegativeEffects = NegativePreferencesEnumMethods.FromIntList(chosenNegativeEffects);
         }
     }
 }
