@@ -40,15 +40,23 @@ namespace CannaBe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            Request req = (Request) e.Parameter;
-            if (e.GetType() == typeof(RegisterRequest))
+
+            if (e.Parameter == null)
+                return;
+
+            var req = e.Parameter;
+
+            if (req is RegisterRequest)
             {
                 Status.Text = "From Register";
+                AppDebug.Line("From Register");
             }
-            else if (e.GetType() == typeof(LoginRequest))
+            else if (req is LoginRequest)
             {
                 Status.Text = "From login";
+                AppDebug.Line("From login");
             }
+            AppDebug.Line("Dashboard: from " + req.GetType().Name);
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)

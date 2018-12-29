@@ -59,11 +59,11 @@ namespace CannaBe
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
-                        BaseResponse response = new BaseResponse(res);
-                        Status.Text = $"Login success!"
-                            + "\nID: " + response.RequestId
-                            + "\nStatus: " + response.Status
-                            + "\nBody: " + response.Body;
+                        //BaseResponse response = BaseResponse.CreateFromHttpResponse(res);
+                        //Status.Text = $"Login success!"
+                        //    + "\nID: " + response.RequestId
+                        //    + "\nStatus: " + response.Status
+                        //    + "\nBody: " + response.Body;
 
                         //Frame.Navigate(typeof(DashboardPage), res);
                     }

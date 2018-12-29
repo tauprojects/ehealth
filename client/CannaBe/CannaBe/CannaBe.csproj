@@ -136,6 +136,8 @@
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="Context\UserData.cs" />
     <Compile Include="DataObjects\BaseResponse.cs" />
+    <Compile Include="DataObjects\IJsonResponse.cs" />
+    <Compile Include="DataObjects\LoginResponse.cs" />
     <Compile Include="DataObjects\Request.cs" />
     <Compile Include="DataObjects\LoginRequest.cs" />
     <Compile Include="AppPages\InformationPages\InformationPage.xaml.cs">

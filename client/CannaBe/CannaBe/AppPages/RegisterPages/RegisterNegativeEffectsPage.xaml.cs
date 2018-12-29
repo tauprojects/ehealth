@@ -80,11 +80,11 @@ namespace CannaBe
                     {
                         Status.Text = "Register Successful!";
 
-                        GlobalContext.User = new UserData("1234", //tryout
-                                                            26, 
-                                                            req.MedicalNeeds, 
-                                                            req.PositivePreferences, 
-                                                            req.NegativePreferences);
+                        //GlobalContext.User = new UserData("1234", //tryout
+                        //                                    26, 
+                        //                                    req.MedicalNeeds, 
+                        //                                    req.PositivePreferences, 
+                        //                                    req.NegativePreferences);
                         Frame.Navigate(typeof(DashboardPage), registerRequest);
                     }
                     else
