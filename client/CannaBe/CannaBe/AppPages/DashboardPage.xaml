@@ -15,8 +15,8 @@
     <Grid>
         <Grid.BorderBrush>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#8fe884" Offset="0"/>
-                <GradientStop Color="#6bba62" Offset="1"/>
+                <!--<GradientStop Color="#8fe884" Offset="0"/>
+                <GradientStop Color="#6bba62" Offset="1"/>-->
             </LinearGradientBrush>
         </Grid.BorderBrush>
         <Grid.BorderThickness>
@@ -24,10 +24,11 @@
         </Grid.BorderThickness>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#8fe884" Offset="1"/>
-                <GradientStop Color="#6bba62" Offset="0"/>
+                <!--<GradientStop Color="#8fe884" Offset="1"/>
+                <GradientStop Color="#6bba62" Offset="0"/>-->
             </LinearGradientBrush>
         </Grid.Background>
+        <Image Source="../../Assets/purplebackground.jpg" Stretch="Fill"/>
 
         <TextBlock HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
                    Foreground="Black"
