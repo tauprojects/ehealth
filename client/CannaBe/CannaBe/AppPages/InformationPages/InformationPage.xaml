@@ -15,8 +15,8 @@
     <Grid>
         <Grid.BorderBrush>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#8fe884" Offset="0"/>
-                <GradientStop Color="#6bba62" Offset="1"/>
+                <!--<GradientStop Color="#8fe884" Offset="0"/>
+                <GradientStop Color="#6bba62" Offset="1"/>-->
             </LinearGradientBrush>
         </Grid.BorderBrush>
         <Grid.BorderThickness>
@@ -24,10 +24,11 @@
         </Grid.BorderThickness>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#8fe884" Offset="1"/>
-                <GradientStop Color="#6bba62" Offset="0"/>
+                <!--<GradientStop Color="#8fe884" Offset="1"/>
+                <GradientStop Color="#6bba62" Offset="0"/>-->
             </LinearGradientBrush>
         </Grid.Background>
+        <Image Source="../../Assets/purplebackground.jpg" Stretch="Fill"/>
 
         <TextBlock HorizontalAlignment="Center" Text="Information" FontWeight="ExtraBold"
                    Foreground="Black"
@@ -45,6 +46,7 @@
         </Button>
         <Button Content="Organization" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000"
+                Tapped="GoToOrganizationInformation"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="bold"
