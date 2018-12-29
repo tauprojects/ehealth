@@ -3,6 +3,7 @@ package ehealth.api;
 import ehealth.data_objects.LoginRequest;
 import ehealth.data_objects.BaseResponse;
 import ehealth.data_objects.RegisterRequest;
+import ehealth.data_objects.RegisteredUserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -46,10 +47,9 @@ public class BaseController {
      * @return String
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public BaseResponse login(@RequestBody LoginRequest loginRequest) {
+    public RegisteredUserData login(@RequestBody LoginRequest loginRequest) {
         return mainServiceImpl.authenticate(loginRequest);
     }
-
 
         /**
      * Register API
@@ -57,7 +57,7 @@ public class BaseController {
      * @return String
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public BaseResponse register(@RequestBody RegisterRequest registerRequest) {
+    public RegisteredUserData register(@RequestBody RegisterRequest registerRequest) {
         return mainServiceImpl.register(registerRequest);
     }
 }
