@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using CannaBe.AppPages.InformationPages;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -48,6 +49,11 @@ namespace CannaBe.AppPages
         private void GoToStrainInformation(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(StrainInformationPage));
+        }
+
+        private void GoToOrganizationInformation(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(OrganizationInformationPage));
         }
     }
 }

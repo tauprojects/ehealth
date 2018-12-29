@@ -45,6 +45,7 @@
         </Button>
         <Button Content="Organization" BorderBrush="Black" FontSize="20" FontWeight="bold"
                 Foreground="White" Background="#40000000"
+                Tapped="GoToOrganizationInformation"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="bold"

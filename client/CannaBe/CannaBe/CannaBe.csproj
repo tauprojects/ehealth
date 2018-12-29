@@ -127,6 +127,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\InformationPages\OrganizationInformationPage.xaml.cs">
+      <DependentUpon>OrganizationInformationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
@@ -195,6 +198,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="AppPages\InformationPages\InformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\InformationPages\OrganizationInformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
