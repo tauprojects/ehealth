@@ -39,6 +39,7 @@
         </Button>
         <Button Content="Medical" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
+                Tapped="GoToMedicalInformation"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,198,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Organization" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
@@ -46,7 +47,7 @@
                 Tapped="GoToOrganizationInformation"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+        <Button Content="Home" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToDashboard"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" RenderTransformOrigin="0.575,1.474" Width="300">
