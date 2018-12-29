@@ -8,5 +8,10 @@ namespace CannaBe
         {
             return HttpManager.ParseJson<IJsonResponse>(msg);
         }
+
+        public static IJsonResponse CreateFromHttpResponse(object msg)
+        {
+            return HttpManager.ParseJson<IJsonResponse>(msg as HttpResponseMessage);
+        }
     }
 }

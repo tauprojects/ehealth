@@ -45,19 +45,10 @@ namespace CannaBe
             if (e.Parameter == null)
                 return;
 
-            var req = e.Parameter;
-
-            if (req is RegisterRequest)
-            {
-                Status.Text = "From Register";
-                AppDebug.Line("From Register");
-            }
-            else if (req is LoginRequest)
-            {
-                Status.Text = "From login";
-                AppDebug.Line("From login");
-            }
-            AppDebug.Line("Dashboard: from " + req.GetType().Name);
+            LoginResponse response = (LoginResponse)LoginResponse.CreateFromHttpResponse(e.Parameter);
+            UserData user = new UserData(response);
+            
+            //AppDebug.Line("Dashboard: from " + req.GetType().Name);
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
