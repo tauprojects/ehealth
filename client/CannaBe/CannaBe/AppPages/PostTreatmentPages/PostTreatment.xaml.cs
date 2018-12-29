@@ -9,6 +9,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
         public PostTreatment()
         {
             this.InitializeComponent();
+            this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
 

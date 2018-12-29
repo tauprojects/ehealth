@@ -10,6 +10,7 @@ namespace CannaBe.AppPages
         public InformationPage()
         {
             this.InitializeComponent();
+            this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
 

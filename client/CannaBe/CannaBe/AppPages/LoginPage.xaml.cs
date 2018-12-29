@@ -13,7 +13,7 @@ namespace CannaBe
         public LoginPage()
         {
             this.InitializeComponent();
-
+            this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
 

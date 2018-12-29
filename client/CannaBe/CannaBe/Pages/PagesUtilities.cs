@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Windows.Foundation;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -8,6 +11,17 @@ namespace CannaBe
 {
     static class PagesUtilities
     {
+
+        public static void FixPageSize(this Page p)
+        {
+            p.Height = 569;
+            p.Width = 341;
+            Size s = new Size(341, 569);
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(s);
+            ApplicationView.GetForCurrentView().TryResizeView(s);
+
+        }
+
         public static void AddBackButtonHandler()
         {
             SystemNavigationManager.GetForCurrentView().BackRequested +=

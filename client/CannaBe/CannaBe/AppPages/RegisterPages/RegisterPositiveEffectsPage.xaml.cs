@@ -12,6 +12,7 @@ namespace CannaBe
         public RegisterPositiveEffectsPage()
         {
             this.InitializeComponent();
+            this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
         private void BoxGotFocus(object sender, RoutedEventArgs e)
