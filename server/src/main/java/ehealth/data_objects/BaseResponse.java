@@ -15,8 +15,10 @@ import java.util.UUID;
 public class BaseResponse {
     @JsonProperty("request_id")
     UUID requestId;
+
     @JsonProperty("status")
     String status;
+
     @JsonProperty("body")
     String body;
 }

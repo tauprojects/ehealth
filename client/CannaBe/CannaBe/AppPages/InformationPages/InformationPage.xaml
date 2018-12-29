@@ -9,9 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="OnPageLoaded">
 
-
-
-
     <Grid>
         <Grid.BorderBrush>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -28,29 +25,29 @@
                 <GradientStop Color="#6bba62" Offset="0"/>-->
             </LinearGradientBrush>
         </Grid.Background>
-        <Image Source="../../Assets/purplebackground.jpg" Stretch="Fill"/>
+        <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
         <TextBlock HorizontalAlignment="Center" Text="Information" FontWeight="ExtraBold"
                    Foreground="Black"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,10,0,0"/>
 
-        <Button Content="Strain" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Strain" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="DodgerBlue" Background="#10000000"
                 Tapped="GoToStrainInformation"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Medical" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,198,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+        <Button Content="Medical" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="DodgerBlue" Background="#10000000"
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,188,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Organization" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Organization" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="DodgerBlue" Background="#10000000"       
                 Tapped="GoToOrganizationInformation"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,226,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="DodgerBlue"  Background="#10000000"
                 Tapped="GoToDashboard"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>

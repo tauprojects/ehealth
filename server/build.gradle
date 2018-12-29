@@ -15,7 +15,7 @@ apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'test-server-ehealth'
-    version =  '0.1.0'
+    version = '0.1.0'
 }
 
 repositories {
@@ -28,7 +28,10 @@ targetCompatibility = 1.8
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
-    //compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.flywaydb:flyway-core"
+    compile "org.apache.httpcomponents:httpclient"
+
 
     // https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-client
     compile "org.jboss.resteasy:resteasy-jaxrs:3.5.1.Final"
@@ -37,6 +40,17 @@ dependencies {
     compile "org.jboss.resteasy:resteasy-jackson-provider:3.5.1.Final"
     compile "org.projectlombok:lombok:1.16.20"
     compile group: 'org.eclipse', name: 'yasson', version: '1.0'
+    runtime "org.postgresql:postgresql"
+    compile group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '1.0.0'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }
+
+
+//    compile group: 'com.google.guava', name: 'guava', version: '25.1-jre'
+//    compile "org.projectlombok:lombok:${lombokVersion}"
+//    compile "com.querydsl:querydsl-core:${querydslVersion}"
+//    compile "com.querydsl:querydsl-jpa:${querydslVersion}"
+//    querydslapt "com.querydsl:querydsl-apt:${querydslVersion}"
+//    compile "io.prometheus:simpleclient_pushgateway:${pushGatewayClientVersion}"
+//    compile "com.fasterxml.jackson.dataformat:jackson-dataformat-cbor"

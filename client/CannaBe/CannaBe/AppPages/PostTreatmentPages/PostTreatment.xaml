@@ -25,7 +25,7 @@
                 <GradientStop Color="#6bba62" Offset="0"/>-->
             </LinearGradientBrush>
         </Grid.Background>
-        <Image Source="../../Assets/purplebackground.jpg" Stretch="Fill"/>
+        <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
         <TextBlock HorizontalAlignment="Center" Text="Post Treatment Feedback" FontWeight="ExtraBold"
                    Foreground="Black"
@@ -82,13 +82,13 @@
         </ScrollViewer>
 
 
-        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 Tapped="GoToDashboard"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36.5,480,0,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
-        <Button Content="Submit" BorderBrush="Black" FontSize="20" FontWeight="bold"
-                Foreground="White" Background="#40000000"
+        <Button Content="Submit" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
                 Tapped="SubmitFeedback"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
