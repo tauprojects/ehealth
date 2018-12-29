@@ -127,6 +127,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\InformationPages\MedicalInformationPage.xaml.cs">
+      <DependentUpon>MedicalInformationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPages\InformationPages\OrganizationInformationPage.xaml.cs">
       <DependentUpon>OrganizationInformationPage.xaml</DependentUpon>
     </Compile>
@@ -203,6 +206,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="AppPages\InformationPages\InformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\InformationPages\MedicalInformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
