@@ -8,10 +8,8 @@ import ehealth.data_objects.RegisterRequest;
 import ehealth.data_objects.RegisteredUserData;
 import ehealth.db.model.RegisteredUsersEntity;
 import ehealth.db.repository.RegisterUsersRepository;
-import ehealth.enums.BaseEnumEffect;
 import ehealth.exceptions.BadRegisterRequestException;
 import ehealth.exceptions.BadRequestException;
-import ehealth.identity.Identity;
 import ehealth.service.api.StrainApiService;
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
@@ -35,9 +33,6 @@ public class StrainApiServiceImpl implements StrainApiService {
     protected ResteasyWebTarget target;
     protected StrainServicesInterface restClient;
     Logger logger = Logger.getLogger(StrainApiServiceImpl.class);
-
-    @Autowired
-    protected Identity identity;
 
     @Autowired
     protected RegisterUsersRepository registerUsersRepository;
