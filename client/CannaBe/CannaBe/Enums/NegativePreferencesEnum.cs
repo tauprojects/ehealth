@@ -17,6 +17,18 @@ namespace CannaBe.Enums
 
     static class NegativePreferencesEnumMethods
     {
+        public static List<string> FromIntToStringList(List<int> intList)
+        {
+            List<string> strList = new List<string>(intList.Count);
+
+            foreach (int i in intList)
+            {
+                strList.Add(((NegativePreferencesEnum)i).ToString());
+            }
+
+            return strList;
+        }
+
         public static List<NegativePreferencesEnum> FromIntList(List<int> intList)
         {
             List<NegativePreferencesEnum> enumList = new List<NegativePreferencesEnum>(intList.Count);

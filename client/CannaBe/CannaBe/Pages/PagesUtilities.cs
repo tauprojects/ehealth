@@ -57,9 +57,10 @@ namespace CannaBe
             GetRootScrollViewer(sender).Focus(FocusState.Programmatic);
         }
 
-        public static void GetAllCheckBoxesTags(Grid gridWithCheckBoxes, List<int> listToAddTo)
+        public static void GetAllCheckBoxesTags(Grid gridWithCheckBoxes, out List<int> listToAddTo)
         {
             var pageName = gridWithCheckBoxes.Parent.GetType().Name;
+            listToAddTo = new List<int>();
 
             foreach (var ctrl in gridWithCheckBoxes.Children)
             {

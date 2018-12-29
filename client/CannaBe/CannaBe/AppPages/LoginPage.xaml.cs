@@ -47,6 +47,7 @@ namespace CannaBe
 
         private async void PostLogin(object sender, RoutedEventArgs e)
         {
+            LoadingIndicator.IsActive = true;
             var req = new LoginRequest(Username.Text, Password.Text);
 
 
@@ -55,12 +56,14 @@ namespace CannaBe
             {
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);
 
+                LoadingIndicator.IsActive = false;
+
                 if (res != null)
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
-                        //BaseResponse response = BaseResponse.CreateFromHttpResponse(res);
-                        //Status.Text = $"Login success!"
+                        //LoginResponse response = LoginResponse.CreateFromHttpResponse(res);
+                        Status.Text = "Login success!";
                         //    + "\nID: " + response.RequestId
                         //    + "\nStatus: " + response.Status
                         //    + "\nBody: " + response.Body;

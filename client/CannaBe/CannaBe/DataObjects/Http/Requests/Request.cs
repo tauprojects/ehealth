@@ -6,7 +6,19 @@ namespace CannaBe
     {
         public static implicit operator HttpContent(Request req)
         {
-            return HttpManager.CreateJson(req);
+            var json = HttpManager.CreateJson(req);
+            try
+            {
+                AppDebug.Line("Created JSON:");
+                AppDebug.Line(json.ReadAsStringAsync().Result);
+            }
+            catch
+            {
+                AppDebug.Line("Exception while printing json");
+            }
+
+
+            return json;
         }
     }
 }

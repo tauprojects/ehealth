@@ -25,6 +25,18 @@ namespace CannaBe.Enums
 
     static class PositivePreferencesEnumMethods
     {
+        public static List<string> FromIntToStringList(List<int> intList)
+        {
+            List<string> strList = new List<string>(intList.Count);
+
+            foreach (int i in intList)
+            {
+                strList.Add(((PositivePreferencesEnum)i).ToString());
+            }
+
+            return strList;
+        }
+
         public static List<PositivePreferencesEnum> FromIntList(List<int> intList)
         {
             List<PositivePreferencesEnum> enumList = new List<PositivePreferencesEnum>(intList.Count);

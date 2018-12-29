@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CannaBe.Enums;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -54,15 +55,17 @@ namespace CannaBe
 
         private void BackToRegister(object sender, TappedRoutedEventArgs e)
         {
-            registerRequest.MedicalNeeds = new List<int>();
+            registerRequest.MedicalNeeds = new List<string>();
             Frame.Navigate(typeof(RegisterPage), registerRequest);
         }
 
         private void ContinuePositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
             PagesUtilities.GetAllCheckBoxesTags(RegisterMedicalGrid,
-                                                registerRequest.MedicalNeeds);
-           
+                                                 out List<int> intList);
+
+            registerRequest.MedicalNeeds = MedicalEnumMethods.FromIntToStringList(intList);
+
             Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
         }
     }
