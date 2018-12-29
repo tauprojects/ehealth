@@ -1,10 +1,11 @@
 ﻿using CannaBe.Enums;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace CannaBe
 {
-    class LoginResponse : IJsonResponse
+    class LoginResponse
     {
         [JsonProperty("user_id")]
         public string UserID { get; set; }
@@ -54,6 +55,16 @@ namespace CannaBe
             MedicalNeeds = MedicalEnumMethods.FromStringList(medicalNeeds);
             PositivePreferences = PositivePreferencesEnumMethods.FromStringList(positivePreferences);
             NegativePreferences = NegativePreferencesEnumMethods.FromStringList(negativePreferences);
+        }
+
+        public static LoginResponse CreateFromHttpResponse(HttpResponseMessage msg)
+        {
+            return HttpManager.ParseJson<LoginResponse>(msg);
+        }
+
+        public static LoginResponse CreateFromHttpResponse(object msg)
+        {
+            return HttpManager.ParseJson<LoginResponse>(msg as HttpResponseMessage);
         }
     }
 }

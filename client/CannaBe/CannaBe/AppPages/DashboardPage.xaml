@@ -30,11 +30,15 @@
         </Grid.Background>
         <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
+        <TextBlock FontSize="25" x:Name="Welcome" Width="Auto"
+            HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,112,0,0"/>
+
+
         <TextBlock HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
                    Foreground="Black"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
-        
+
         <Button Content="My Profile" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" RenderTransformOrigin="0.575,1.474" Width="300">

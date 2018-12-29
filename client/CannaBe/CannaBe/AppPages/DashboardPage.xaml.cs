@@ -45,9 +45,12 @@ namespace CannaBe
             if (e.Parameter == null)
                 return;
 
-            LoginResponse response = (LoginResponse)LoginResponse.CreateFromHttpResponse(e.Parameter);
-            UserData user = new UserData(response);
-            
+            //GlobalContext.AddUserToContext(e);
+
+            //Welcome.Text = $"Welcome, {GlobalContext.User.Data.Username}!";
+
+            Welcome.Text = "Welcome, User!";
+
             //AppDebug.Line("Dashboard: from " + req.GetType().Name);
         }
 
