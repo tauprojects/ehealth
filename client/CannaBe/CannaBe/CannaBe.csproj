@@ -135,11 +135,11 @@
     </Compile>
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="Context\UserData.cs" />
-    <Compile Include="DataObjects\BaseResponse.cs" />
-    <Compile Include="DataObjects\IJsonResponse.cs" />
-    <Compile Include="DataObjects\LoginResponse.cs" />
-    <Compile Include="DataObjects\Request.cs" />
-    <Compile Include="DataObjects\LoginRequest.cs" />
+    <Compile Include="DataObjects\Http\Response\BaseResponse.cs" />
+    <Compile Include="DataObjects\Http\Response\IJsonResponse.cs" />
+    <Compile Include="DataObjects\Http\Response\LoginResponse.cs" />
+    <Compile Include="DataObjects\Http\Requests\Request.cs" />
+    <Compile Include="DataObjects\Http\Requests\LoginRequest.cs" />
     <Compile Include="AppPages\InformationPages\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
@@ -149,7 +149,7 @@
     <Compile Include="AppPages\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataObjects\RegisterRequest.cs" />
+    <Compile Include="DataObjects\Http\Requests\RegisterRequest.cs" />
     <Compile Include="Enums\MedicalEnum.cs" />
     <Compile Include="AppPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
