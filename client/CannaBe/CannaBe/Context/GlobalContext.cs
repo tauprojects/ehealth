@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Windows.UI.Xaml.Navigation;
 
 namespace CannaBe
 {
@@ -10,5 +6,17 @@ namespace CannaBe
     {
         public static UserData User { get; set; } = null;
 
+        public static void AddUserToContext(NavigationEventArgs e)
+        {
+            try
+            {
+                User = new UserData(LoginResponse.CreateFromHttpResponse(e.Parameter));
+            }
+            catch (System.Exception exc)
+            {
+                AppDebug.Exception(exc, "AddUserToContext");
+                User = null;
+            }
+        }
     }
 }
