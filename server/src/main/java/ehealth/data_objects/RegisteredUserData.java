@@ -6,7 +6,9 @@ import ehealth.enums.NegativeEffects;
 import ehealth.enums.PositiveEffects;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 
 @EqualsAndHashCode
@@ -15,13 +17,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
-public class RegisterRequest {
+public class RegisteredUserData {
+    @JsonProperty("user_id")
+    UUID userId;
 
     @JsonProperty("username")
     String username;
-
-    @JsonProperty("password")
-    String password;
 
     @JsonProperty("dob")
     String DOB;
@@ -36,12 +37,15 @@ public class RegisterRequest {
     String city;
 
     @JsonProperty("medical")
-    List<MedicalEffects> medical;
+    List<String> medical;
 
     @JsonProperty("positive")
-    List<PositiveEffects> positive;
+    List<String> positive;
 
     @JsonProperty("negative")
-    List<NegativeEffects> negative;
+    List<String> negative;
+
+    @JsonProperty("created_at")
+    Long createdAt;
 
 }
