@@ -3,7 +3,7 @@ using System.Net.Http;
 
 namespace CannaBe
 {
-    class LoginResponse : IJsonResponse
+    class BaseResponse : IJsonResponse
     {
         [JsonProperty("request_id")]
         public string RequestId { get; set; }
@@ -15,7 +15,7 @@ namespace CannaBe
         public string Body { get; set; }
 
         [JsonConstructor]
-        public LoginResponse(string requestId, string status, string body)
+        public BaseResponse(string requestId, string status, string body)
         {
             RequestId = requestId;
             Status = status;
