@@ -28,6 +28,7 @@
         </Grid.Background>
         <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
+
         <TextBlock HorizontalAlignment="Center" Text="User Login" FontWeight="Bold"
                    Foreground="Black"  FontFamily="Intel Clear"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
@@ -72,6 +73,8 @@
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>
 
+        <Rectangle x:Name="OpacityFill" Width="341" Height="569" Fill="White" Opacity="100" Visibility="Collapsed"/>
+        <ProgressRing x:Name="LoadingIndicator" Width="50" Height="50"/>
 
     </Grid>
 </Page>

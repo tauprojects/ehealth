@@ -20,7 +20,6 @@ import ehealth.db.converters.ListToJsonStringConverter;
 import ehealth.enums.MedicalEffects;
 import ehealth.enums.NegativeEffects;
 import ehealth.enums.PositiveEffects;
-import javafx.geometry.Pos;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;

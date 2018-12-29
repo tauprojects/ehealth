@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CannaBe.Enums;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -59,16 +60,18 @@ namespace CannaBe
 
         private void BackToPositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
-            registerRequest.NegativePreferences = new List<int>();
+            registerRequest.NegativePreferences = new List<string>();
             Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
         }
 
         private async void Register(object sender, RoutedEventArgs e)
         {
             PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid, 
-                                                registerRequest.NegativePreferences);
+                                                out List<int> intList);
            
             var req = registerRequest;
+
+            req.NegativePreferences = NegativePreferencesEnumMethods.FromIntToStringList(intList);
 
             HttpResponseMessage res = null;
             try

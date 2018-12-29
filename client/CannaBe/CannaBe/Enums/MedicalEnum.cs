@@ -22,6 +22,18 @@ namespace CannaBe.Enums
 
     static class MedicalEnumMethods
     {
+        public static List<string> FromIntToStringList(List<int> intList)
+        {
+            List<string> strList = new List<string>(intList.Count);
+
+            foreach (int i in intList)
+            {
+                strList.Add(((MedicalEnum)i).ToString());
+            }
+
+            return strList;
+        }
+
         public static List<MedicalEnum> FromIntList(List<int> intList)
         {
             List<MedicalEnum> enumList = new List<MedicalEnum>(intList.Count);

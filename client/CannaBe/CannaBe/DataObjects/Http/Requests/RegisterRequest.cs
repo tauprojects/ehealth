@@ -17,14 +17,14 @@ namespace CannaBe
         [JsonProperty("city")]
         public string City { get; set; }
 
-        [JsonProperty("medicalneeds")]
-        public List<int> MedicalNeeds { get; set; }
+        [JsonProperty("medical")]
+        public List<string> MedicalNeeds { get; set; }
 
-        [JsonProperty("positivepreferences")]
-        public List<int> PositivePreferences{ get; set; }
+        [JsonProperty("positive")]
+        public List<string> PositivePreferences{ get; set; }
 
-        [JsonProperty("negativepreferences")]
-        public List<int> NegativePreferences { get; set; }
+        [JsonProperty("negative")]
+        public List<string> NegativePreferences { get; set; }
 
         public RegisterRequest(string username, string password, string dob, string gender, string country, string city) 
             : base(username, password)
@@ -33,9 +33,9 @@ namespace CannaBe
             Gender = gender;
             Country = country;
             City = city;
-            MedicalNeeds = new List<int>();
-            PositivePreferences = new List<int>();
-            NegativePreferences = new List<int>();
+            MedicalNeeds = new List<string>();
+            PositivePreferences = new List<string>();
+            NegativePreferences = new List<string>();
         }
     }
 }
