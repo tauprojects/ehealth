@@ -48,12 +48,16 @@ namespace CannaBe.Enums
 
         public static List<MedicalEnum> FromStringList(List<string> strList)
         {
+            AppDebug.Line("MedicalEnum");
+
             List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);
+            AppDebug.Line("Created List<MedicalEnum>");
 
             foreach (string s in strList)
             {
                 try
                 {
+                    AppDebug.Line($"Trying to parse '{s}'");
                     Enum.TryParse(s, out MedicalEnum val);
                     enumList.Add(val);
                 }

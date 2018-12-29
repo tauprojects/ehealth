@@ -45,11 +45,11 @@ namespace CannaBe
             if (e.Parameter == null)
                 return;
 
-            //GlobalContext.AddUserToContext(e);
+            GlobalContext.AddUserToContext(e);
 
-            //Welcome.Text = $"Welcome, {GlobalContext.User.Data.Username}!";
+            Welcome.Text = $"Welcome, {GlobalContext.User.Data.Username}!";
 
-            Welcome.Text = "Welcome, User!";
+            //Welcome.Text = "Welcome, User!";
 
             //AppDebug.Line("Dashboard: from " + req.GetType().Name);
         }
