@@ -25,7 +25,7 @@
                 <GradientStop Color="#6bba62" Offset="0"/>-->
             </LinearGradientBrush>
         </Grid.Background>
-        <Image Source="../../Assets/purplebackground.jpg" Stretch="Fill"/>
+        <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
         <TextBlock HorizontalAlignment="Center" Text="Post Treatment Feedback" FontWeight="ExtraBold"
                    Foreground="Black"

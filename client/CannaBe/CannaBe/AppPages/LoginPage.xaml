@@ -26,7 +26,7 @@
                 <GradientStop Color="#6bba62" Offset="0"/>-->
             </LinearGradientBrush>
         </Grid.Background>
-        <Image Source="../../Assets/purplebackground.jpg" Stretch="Fill"/>
+        <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
         <TextBlock HorizontalAlignment="Center" Text="User Login" FontWeight="Bold"
                    Foreground="Black"  FontFamily="Intel Clear"

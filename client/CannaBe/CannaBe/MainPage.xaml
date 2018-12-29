@@ -28,7 +28,7 @@
                 <GradientStop Color="#6bba62" Offset="0"/>-->
             </LinearGradientBrush>
         </Grid.Background>
-        <Image Source="Assets/purplebackground.jpg" Stretch="Fill"/>
+        <Image Source="Assets/bluewhitebackground.jpg" Stretch="Fill"/>
         <CheckBox Content="Debug with localhost" x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
                   HorizontalAlignment="Left" Margin="50,160,0,0" Grid.Row="1" VerticalAlignment="Top" />
         
