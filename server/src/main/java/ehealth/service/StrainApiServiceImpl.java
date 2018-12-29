@@ -11,10 +11,11 @@ import ehealth.db.repository.RegisterUsersRepository;
 import ehealth.exceptions.BadRegisterRequestException;
 import ehealth.exceptions.BadRequestException;
 import ehealth.service.api.StrainApiService;
-import org.jboss.logging.Logger;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     protected ResteasyClient client;
     protected ResteasyWebTarget target;
     protected StrainServicesInterface restClient;
-    Logger logger = Logger.getLogger(StrainApiServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(StrainApiServiceImpl.class);
 
     @Autowired
     protected RegisterUsersRepository registerUsersRepository;
@@ -82,11 +83,14 @@ public class StrainApiServiceImpl implements StrainApiService {
         String password = loginRequest.getPassword();
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findByUsername(loginRequest.getUsername());
         if (registeredUsersEntity == null) {
+            logger.error("Username: " + user + " does not exist in DB");
             throw new BadRequestException();
         }
         if (!registeredUsersEntity.getPassword().equals(password)) {
+            logger.error("Bad password for user: " + user);
             throw new BadRequestException();
         }
+        logger.info("User: " + user + " Authenticated successfully");
         // return registered user data
         return createUserDataResponseFromEntity(registeredUsersEntity);
     }
@@ -133,7 +137,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         );
     }
 
-    private List<String> getEffectsAsString(List<?> effectsList){
+    private List<String> getEffectsAsString(List<?> effectsList) {
         List<String> effectStringList = new ArrayList<>();
         for (Object effect : effectsList) {
             effectStringList.add(effect.toString());
