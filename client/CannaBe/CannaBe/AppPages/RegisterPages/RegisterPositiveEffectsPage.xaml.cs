@@ -1,4 +1,5 @@
 ﻿using CannaBe.Enums;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,13 +10,13 @@ namespace CannaBe
 {
     public sealed partial class RegisterPositiveEffectsPage : Page
     {
-        RegisterRequest registerRequest;
         public RegisterPositiveEffectsPage()
         {
             this.InitializeComponent();
             this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
+
         private void BoxGotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBoxSender = sender as TextBox;
@@ -42,18 +43,28 @@ namespace CannaBe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            registerRequest = (RegisterRequest)e.Parameter;
-            //foreach (int i in registerRequest.MedicalNeeds)
-            //{
-            //    AppDebug.Line(i);
-            //}
+            var req = GlobalContext.RegisterContext;
 
+            if (req != null)
+            {
+                try
+                {
+                    PagesUtilities.SetAllCheckBoxesTags(RegisterPositiveEffectsGrid,
+                                     req.IntPositivePreferences);
+                }
+                catch (Exception exc)
+                {
+                    AppDebug.Exception(exc, "RegisterPositiveEffectsPage.OnNavigatedTo");
+
+                }
+            }
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -61,8 +72,12 @@ namespace CannaBe
 
         private void BackToMedicalRegister(object sender, TappedRoutedEventArgs e)
         {
-            registerRequest.PositivePreferences = new List<string>();
-            Frame.Navigate(typeof(RegisterMedicalPage), registerRequest);
+            PagesUtilities.GetAllCheckBoxesTags(RegisterPositiveEffectsGrid,
+                                       out List<int> intList);
+
+            GlobalContext.RegisterContext.IntPositivePreferences = intList;
+
+            Frame.Navigate(typeof(RegisterMedicalPage));
         }
 
         private void ContinueNegativeEffectsRegister(object sender, TappedRoutedEventArgs e)
@@ -70,9 +85,10 @@ namespace CannaBe
             PagesUtilities.GetAllCheckBoxesTags(RegisterPositiveEffectsGrid,
                                                  out List<int> intList);
 
-            registerRequest.PositivePreferences = PositivePreferencesEnumMethods.FromIntToStringList(intList);
+            GlobalContext.RegisterContext.IntPositivePreferences = intList;
+            GlobalContext.RegisterContext.PositivePreferences = PositivePreferencesEnumMethods.FromIntToStringList(intList);
 
-            Frame.Navigate(typeof(RegisterNegativeEffectsPage), registerRequest);
+            Frame.Navigate(typeof(RegisterNegativeEffectsPage));
         }
     }
 }

@@ -12,7 +12,6 @@ namespace CannaBe
 {
     public sealed partial class RegisterNegativeEffectsPage : Page
     {
-        RegisterRequest registerRequest;
         public RegisterNegativeEffectsPage()
         {
             this.InitializeComponent();
@@ -45,52 +44,60 @@ namespace CannaBe
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            registerRequest = (RegisterRequest)e.Parameter;
+            var req = GlobalContext.RegisterContext;
 
+            if (req != null)
+            {
+                try
+                {
+                    PagesUtilities.SetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
+                                     req.IntNegativePreferences);
+                }
+                catch (Exception exc)
+                {
+                    AppDebug.Exception(exc, "RegisterNegativeEffectsPage.OnNavigatedTo");
+
+                }
+            }
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
         private void BackToPositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
         {
-            registerRequest.NegativePreferences = new List<string>();
-            Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
+            PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
+                    out List<int> intList);
+            GlobalContext.RegisterContext.IntNegativePreferences = intList;
+
+            Frame.Navigate(typeof(RegisterPositiveEffectsPage));
         }
 
         private async void Register(object sender, RoutedEventArgs e)
         {
-            PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid, 
-                                                out List<int> intList);
-            LoadingIndicator.IsActive = true;
-            var req = registerRequest;
-
-            req.NegativePreferences = NegativePreferencesEnumMethods.FromIntToStringList(intList);
-
             HttpResponseMessage res = null;
+
             try
             {
-                res = await HttpManager.Manager.Post(Constants.MakeUrl("register"), req);
-                LoadingIndicator.IsActive = false;
+                PagesUtilities.StartProgressRing(sender);
+
+                PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
+                                    out List<int> intList);
+                
+                GlobalContext.RegisterContext.IntNegativePreferences = intList;
+                GlobalContext.RegisterContext.NegativePreferences = NegativePreferencesEnumMethods.FromIntToStringList(intList);
+
+                res = await HttpManager.Manager.Post(Constants.MakeUrl("register"), GlobalContext.RegisterContext);
 
                 if (res != null)
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
                         Status.Text = "Register Successful!";
-
-                        //GlobalContext.User = new UserData("1234", //tryout
-                        //                                    26, 
-                        //                                    req.MedicalNeeds, 
-                        //                                    req.PositivePreferences, 
-                        //                                    req.NegativePreferences);
-                        Frame.Navigate(typeof(DashboardPage), registerRequest);
+                        PagesUtilities.SleepSeconds(1);
+                        Frame.Navigate(typeof(DashboardPage), res);
                     }
                     else
                     {
@@ -106,7 +113,10 @@ namespace CannaBe
             {
                 Status.Text = "Exception during regsiter:\n" + exc.Message;
             }
-
+            finally
+            {
+                PagesUtilities.StopProgressRing();
+            }
         }
     }
 }

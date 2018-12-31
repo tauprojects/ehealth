@@ -5,6 +5,7 @@ namespace CannaBe
     static class GlobalContext
     {
         public static UserData User { get; set; } = null;
+        public static RegisterRequest RegisterContext { get; set; } = null;
 
         public static void AddUserToContext(NavigationEventArgs e)
         {
@@ -18,5 +19,7 @@ namespace CannaBe
                 User = null;
             }
         }
+
+
     }
 }

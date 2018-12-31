@@ -16,10 +16,11 @@ namespace CannaBe
         public static void Line(object msg) { Line(msg, false); }
 
         public static void Exception(Exception e, string caller)
-        { 
-            AppDebug.Line("Exception caught in " + caller + ":");
-            AppDebug.Line(e.Message);
-            AppDebug.Line(e.StackTrace);
+        {
+            Line("Exception caught in " + caller + ":");
+            Line(e);
+            Line("Type:\t" + e.Message);
+            Line(e.StackTrace);
         }
     }
 }
