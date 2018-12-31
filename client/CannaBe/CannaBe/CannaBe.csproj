@@ -136,7 +136,11 @@
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\Usage\StartUsage.xaml.cs">
+      <DependentUpon>StartUsage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Context\GlobalContext.cs" />
+    <Compile Include="DataObjects\Strain.cs" />
     <Compile Include="DataObjects\Usage.cs" />
     <Compile Include="DataObjects\UserData.cs" />
     <Compile Include="DataObjects\Http\Response\BaseResponse.cs" />
@@ -230,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppPages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\Usage\StartUsage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
