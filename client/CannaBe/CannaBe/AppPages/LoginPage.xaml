@@ -44,14 +44,13 @@
                  LostFocus="BoxLostFocus"/>-->
         
         <TextBox x:Name ="Username" HorizontalAlignment="Stretch"  
-                 Margin="0,170,0,0" 
-                 FontSize="22" Foreground="Black"
-                 Text="Enter Username" VerticalAlignment="Top" 
+                 Margin="0,170,0,0"  PlaceholderText="Enter Username"
+                 FontSize="22" Foreground="Black" VerticalAlignment="Top" 
                  GotFocus="BoxGotFocus" LostFocus="BoxLostFocus"/>
         <TextBox x:Name ="Password" HorizontalAlignment="Stretch"  
                  Margin="0,210,0,0"
                  FontSize="22" Foreground="Black"
-                 Text="Enter Password" VerticalAlignment="Top" 
+                 PlaceholderText="Enter Password" VerticalAlignment="Top" 
                  GotFocus="BoxGotFocus" LostFocus="BoxLostFocus"/>
 
         <!--<TextBox HorizontalAlignment="Center" Text="Enter Password" BorderBrush="Black"

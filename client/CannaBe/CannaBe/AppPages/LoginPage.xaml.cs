@@ -19,25 +19,25 @@ namespace CannaBe
 
         private void BoxGotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBoxSender = sender as TextBox;
+            //TextBox textBoxSender = sender as TextBox;
 
-            if(textBoxSender.Text == ("Enter " + textBoxSender.Name))
-            {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            }
+            //if(textBoxSender.Text == ("Enter " + textBoxSender.Name))
+            //{
+            //    textBoxSender.Text = "";
+            //    textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
+            //}
         }
 
         private void BoxLostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBoxSender = sender as TextBox;
+            //TextBox textBoxSender = sender as TextBox;
 
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
+            //if (textBoxSender.Text.Length == 0)
+            //{
+            //    textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
+            //    textBoxSender.Text = "Enter " + textBoxSender.Name;
 
-            }
+            //}
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)

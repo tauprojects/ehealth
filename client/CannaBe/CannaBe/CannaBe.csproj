@@ -195,6 +195,7 @@
   <ItemGroup>
     <Content Include="Assets\bluewhitebackground.jpg" />
     <Content Include="Assets\purplebackground.jpg" />
+    <Content Include="Assets\strains.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

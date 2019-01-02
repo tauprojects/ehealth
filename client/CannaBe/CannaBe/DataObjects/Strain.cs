@@ -29,5 +29,11 @@ namespace CannaBe
             PositivePreferences = positivePreferences;
             NegativePreferences = negativePreferences;
         }
+
+        public Strain(string name, int iD)
+        {
+            Name = name;
+            ID = iD;
+        }
     }
 }
