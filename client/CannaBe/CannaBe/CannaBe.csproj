@@ -136,8 +136,8 @@
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppPages\Usage\StartUsage.xaml.cs">
-      <DependentUpon>StartUsage.xaml</DependentUpon>
+    <Compile Include="AppPages\Usage\StartUsage1.xaml.cs">
+      <DependentUpon>StartUsage1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="DataObjects\Strain.cs" />
@@ -238,7 +238,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AppPages\Usage\StartUsage.xaml">
+    <Page Include="AppPages\Usage\StartUsage1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,27 +29,32 @@ namespace CannaBe.AppPages.Usage
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
 
-        private void LoadStrainList(object sender, object e)
+        private async void LoadStrainList(object sender, object e)
         {
             if(strainNames == null)
             {
-                AppDebug.Line("Loading strain list..");
-                try
+                progressRing.IsActive = true;
+                await Task.Run(() =>
                 {
-                    strains = File.ReadAllLines("Assets/strains.txt")
-                                            .Select(a => a.Split('='))
-                                            .ToDictionary(  x => x[0].Replace('_', ' '),
-                                                            x => x[1]);
+                    AppDebug.Line("Loading strain list..");
+                    try
+                    {
+                        strains = File.ReadAllLines("Assets/strains.txt")
+                                                .Select(a => a.Split('='))
+                                                .ToDictionary(x => x[0].Replace('_', ' '),
+                                                                x => x[1]);
 
-                    strainNames = strains.Keys.ToList();
+                        strainNames = strains.Keys.ToList();
 
-                    AppDebug.Line($"loaded {strainNames.Count} strains");
+                        AppDebug.Line($"loaded {strainNames.Count} strains");
 
-                }
-                catch (Exception exc)
-                {
-                    AppDebug.Exception(exc, "LoadStrainList");
-                }
+                    }
+                    catch (Exception exc)
+                    {
+                        AppDebug.Exception(exc, "LoadStrainList");
+                    }
+                });
+                progressRing.IsActive = false;
             }
         }
 
@@ -169,7 +174,6 @@ namespace CannaBe.AppPages.Usage
         {
             if(StrainChosen != null)
             {
-                progressRing.Visibility = Visibility.Visible;
                 progressRing.IsActive = true;
                 StrainList.IsEnabled = false;
                 SubmitButton.IsEnabled = false;
@@ -177,9 +181,9 @@ namespace CannaBe.AppPages.Usage
                 await SubmitStringTask();
 
                 StrainProperties.Text = GetPropertiesString();
-                Title.Visibility = Visibility.Visible;
+                Title.Opacity = 1;
+                Scroller.ChangeView(null, 0, null); //scroll to top
                 Scroller.Visibility = Visibility.Visible;
-                EnterStoryboard.Begin();
                 StrainProperties.Visibility = Visibility.Visible;
                 StrainList.IsEnabled = true;
                 SubmitButton.IsEnabled = true;
