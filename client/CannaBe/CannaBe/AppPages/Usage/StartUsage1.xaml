@@ -34,7 +34,7 @@
                   SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
 
 
-        <Button x:Name="SubmitButton" Content="Submit" BorderBrush="Black" FontSize="15" FontWeight="SemiBold"
+        <Button x:Name="SubmitButton" Content="Select" BorderBrush="Black" FontSize="15" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000" Click="SubmitString"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="206,119,0,0" RenderTransformOrigin="0.575,1.474" Width="89" />
 
@@ -51,6 +51,21 @@
                        IsTextSelectionEnabled="True"
                        x:Name="StrainProperties" FontSize="17" Height="auto" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch" Width="212"/>
         </ScrollViewer>
+
+        <Grid  x:Name="ErrorNoStrainChosen" Visibility="Collapsed">
+        <Rectangle Fill="White" Opacity="0.7" 
+                   Margin="20,355,20,0" 
+                   Height="36"
+                   HorizontalAlignment="Stretch" 
+                   VerticalAlignment="Stretch"/>
+        <TextBlock
+                   Text="Please choose a strain!" FontSize="26" 
+                   HorizontalAlignment="Center"
+                   Foreground="black"
+                   
+                   FontWeight="Bold"
+                   TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,435,20,0"/>
+        </Grid>
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToDashboard"
@@ -58,6 +73,7 @@
         </Button>
         <Button Content="Continue" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
+                Click="ContinueHandler"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
         <ProgressRing Width="50" Height="50" x:Name="progressRing"/>

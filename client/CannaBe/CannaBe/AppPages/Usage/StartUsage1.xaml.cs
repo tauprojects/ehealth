@@ -17,7 +17,6 @@ namespace CannaBe.AppPages.Usage
         List<string> strainNames = null;
         private static readonly string NoResult = "No Result";
         string StrainChosen = null;
-        Strain ActualStrain = null;
 
         public StartUsage()
         {
@@ -27,6 +26,11 @@ namespace CannaBe.AppPages.Usage
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
+
+            if(UsageContext.ChosenStrain != null) //went back to this page
+            {
+                StrainList.Text = UsageContext.ChosenStrain.Name;
+            }
         }
 
         private async void LoadStrainList(object sender, object e)
@@ -109,6 +113,8 @@ namespace CannaBe.AppPages.Usage
 
                 if (itemString != NoResult)
                 {
+                    ErrorNoStrainChosen.Visibility = Visibility.Collapsed;
+
                     AppDebug.Line($"AutoSuggestBox_QuerySubmitted [{item}]");
 
                     sender.Text = itemString;
@@ -126,10 +132,10 @@ namespace CannaBe.AppPages.Usage
             StringBuilder b = new StringBuilder();
             int i = 1;
 
-            if (ActualStrain.PositivePreferences.Count > 0)
+            if (UsageContext.ChosenStrain?.PositivePreferences.Count > 0)
             {
                 b.AppendLine("- Medical Needs:");
-                foreach (string mn in ActualStrain.MedicalNeeds)
+                foreach (string mn in UsageContext.ChosenStrain.MedicalNeeds)
                 {
                     b.AppendLine($"\t{i++}. {mn}");
                 }
@@ -139,11 +145,11 @@ namespace CannaBe.AppPages.Usage
                 b.AppendLine("- No medical needs listed.");
             }
 
-            if (ActualStrain.PositivePreferences.Count > 0)
+            if (UsageContext.ChosenStrain?.PositivePreferences.Count > 0)
             {
                 b.AppendLine("- Positive Effects:");
                 i = 1;
-                foreach (string mn in ActualStrain.PositivePreferences)
+                foreach (string mn in UsageContext.ChosenStrain.PositivePreferences)
                 {
                     b.AppendLine($"\t{i++}. {mn}");
                 }
@@ -153,11 +159,11 @@ namespace CannaBe.AppPages.Usage
                 b.AppendLine("- No positive effects listed.");
             }
 
-            if (ActualStrain.NegativePreferences.Count > 0)
+            if (UsageContext.ChosenStrain?.NegativePreferences.Count > 0)
             {
                 b.AppendLine("- Negative Effects:");
                 i = 1;
-                foreach (string mn in ActualStrain.NegativePreferences)
+                foreach (string mn in UsageContext.ChosenStrain.NegativePreferences)
                 {
                     b.AppendLine($"\t{i++}. {mn}");
                 }
@@ -212,7 +218,7 @@ namespace CannaBe.AppPages.Usage
                         var str = await res.Result.Content.ReadAsStringAsync();
                         var values = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(str);
 
-                        ActualStrain = new Strain(StrainChosen, int.Parse(strainId))
+                        UsageContext.ChosenStrain = new Strain(StrainChosen, int.Parse(strainId))
                         {
                             MedicalNeeds = values["medical"].ToList(),
                             PositivePreferences = values["positive"].ToList(),
@@ -232,5 +238,16 @@ namespace CannaBe.AppPages.Usage
             });
         }
 
+        private void ContinueHandler(object sender, RoutedEventArgs e)
+        {
+            if(UsageContext.ChosenStrain != null)
+            {
+                Frame.Navigate(typeof(StartUsage2));
+            }
+            else
+            {
+                ErrorNoStrainChosen.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CannaBe
 {
-    class Usage
+    class UsageData
     {
-        private Strain UsageStrain;
+        //private Strain UsageStrain;
 
     }
 }
