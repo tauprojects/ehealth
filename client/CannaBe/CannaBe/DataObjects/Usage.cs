@@ -8,6 +8,7 @@ namespace CannaBe
 {
     class Usage
     {
+        private Strain UsageStrain;
 
     }
 }

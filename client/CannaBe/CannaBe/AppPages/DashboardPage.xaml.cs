@@ -43,12 +43,16 @@ namespace CannaBe
         {
             base.OnNavigatedTo(e);
 
+            AppDebug.Line("In Dashboard page");
+
             if (e.Parameter == null)
                 return;
 
             GlobalContext.AddUserToContext(e);
 
             Welcome.Text = $"Welcome, {GlobalContext.User.Data.Username}!";
+
+            AppDebug.Line($"Wrote welocme text: [{Welcome.Text}]");
 
             //Welcome.Text = "Welcome, User!";
 
