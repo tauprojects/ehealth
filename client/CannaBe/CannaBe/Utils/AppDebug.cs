@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace CannaBe
 {
-    class AppDebug
+    static class AppDebug
     {
         private static StorageFile LogFile = null;
 
@@ -52,10 +50,10 @@ namespace CannaBe
 
         public static void Exception(Exception e, string caller)
         {
-            Line("Exception caught in " + caller + ":");
+            Line($"!!! *** Exception caught in [{caller}] *** !!!");
             Line(e);
-            Line("Type:\t" + e.Message);
-            Line(e.StackTrace);
         }
+
+        
     }
 }

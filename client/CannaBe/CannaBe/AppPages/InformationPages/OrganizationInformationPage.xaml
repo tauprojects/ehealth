@@ -26,54 +26,53 @@
         </Grid.Background>
         <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
-        <TextBlock HorizontalAlignment="Center" Text="Organization" FontWeight="ExtraBold"
-                   Foreground="Black"
+        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="Organization" FontWeight="ExtraBold"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="46" Margin="0,10,0,0"/>
 
-        <TextBlock Margin="0,120,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,120,0,0" FontSize="18">
             <Hyperlink NavigateUri="https://www.tikun-olam.co.il/">
                         Tikun Olam - תיקון עולם
             </Hyperlink>
         </TextBlock>
         
-        <TextBlock Margin="0,150,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,150,0,0" FontSize="18">
             <Hyperlink NavigateUri="http://www.seach.co.il/">
                         Seach - שיח
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Margin="0,180,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,180,0,0" FontSize="18">
             <Hyperlink NavigateUri="https://www.canndoc.co.il/">
                         Canndoc - קנדוק
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Margin="0,210,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,210,0,0" FontSize="18">
             <Hyperlink NavigateUri="http://www.tevadir.co.il/">
                         Teva Adir - טבע אדיר
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Margin="0,240,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,240,0,0" FontSize="18">
             <Hyperlink NavigateUri="http://www.better-global.com/">
                         Better - בטר
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Margin="0,270,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,270,0,0" FontSize="18">
             <Hyperlink NavigateUri="https://pharmocann.co.il/">
                         PharmoCann - פארמוקן
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Margin="0,300,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,300,0,0" FontSize="18">
             <Hyperlink NavigateUri="https://www.bolisrael.com/">
                         Sheifa Lahayim - שאיפה לחיים
             </Hyperlink>
         </TextBlock>
 
-        <TextBlock Margin="0,330,0,0" FontSize="18">
+        <TextBlock Foreground="Black" Margin="0,330,0,0" FontSize="18">
             <Hyperlink NavigateUri="http://www.imcagro.co.il/">
                         IMC - איי.אמ.סי
             </Hyperlink>

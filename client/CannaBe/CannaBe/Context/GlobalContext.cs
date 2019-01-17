@@ -6,6 +6,7 @@ namespace CannaBe
     {
         public static UserData User { get; set; } = null;
         public static RegisterRequest RegisterContext { get; set; } = null;
+        public static BandContext Band { get; set; } = null;
 
         public static void AddUserToContext(NavigationEventArgs e)
         {

@@ -29,11 +29,12 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Image Source="Assets/bluewhitebackground.jpg" Stretch="Fill"/>
-        <CheckBox Content="Debug with localhost" x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
+        <CheckBox Content="Debug with localhost" 
+                  Foreground="Black"
+                  x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
                   HorizontalAlignment="Left" Margin="50,160,0,0" Grid.Row="1" VerticalAlignment="Top" />
         
-        <TextBlock HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
-                   Foreground="Black"
+        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
 

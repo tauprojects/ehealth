@@ -29,8 +29,8 @@
         <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
 
-        <TextBlock HorizontalAlignment="Center" Text="User Login" FontWeight="Bold"
-                   Foreground="Black"  FontFamily="Intel Clear"
+        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="User Login" FontWeight="Bold"
+                   FontFamily="Intel Clear"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="342" FontSize="50" Margin="0,10,0,0"/>
 

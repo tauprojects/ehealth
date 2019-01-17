@@ -47,7 +47,7 @@ Loaded="OnPageLoaded">
                 Click="Register"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
-        <TextBlock Text="Unwanted Negative Effects:" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
+        <TextBlock Foreground="Black" Text="Unwanted Negative Effects:" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
         <CheckBox Content="Dizzy"       Tag="1" Margin="20,105,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Dry Mouth"   Tag="2" Margin="20,130,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Paranoid"    Tag="3" Margin="20,155,0,0" VerticalAlignment="Top"/>
@@ -55,7 +55,7 @@ Loaded="OnPageLoaded">
         <CheckBox Content="Anxious"     Tag="5" Margin="20,205,0,0" VerticalAlignment="Top"/>
         
         
-        <TextBlock FontSize="20" x:Name="Status"
+        <TextBlock Foreground="Black" FontSize="20" x:Name="Status"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,400,0,0"/>
 
     </Grid>
