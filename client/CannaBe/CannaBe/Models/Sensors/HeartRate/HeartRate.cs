@@ -16,7 +16,7 @@ namespace CannaBe
         public static double sum = 0;
         public static int count = 0;
 
-        public void InitAsync()
+        public async Task InitAsync()
         {
             AppDebug.Line("HeartRateModel Starting...");
 
@@ -24,14 +24,42 @@ namespace CannaBe
             {
                 AppDebug.Line("HeartRateModel Is connected...");
 
+                var consent = UserConsent.Declined;
+                try
+                {
+                    consent = BandModel.BandClient.SensorManager.HeartRate.GetCurrentUserConsent();
+                }
+                catch (Exception x)
+                {
+                    AppDebug.Exception(x, "InitAsync");
+                }
 
-                if (BandModel.BandClient.SensorManager.HeartRate.GetCurrentUserConsent() != UserConsent.Granted)
+                if (consent != UserConsent.Granted)
                 {
                     AppDebug.Line("HeartRateModel requesting user access");
-                    CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                    {
-                        BandModel.BandClient.SensorManager.HeartRate.RequestUserConsentAsync().GetAwaiter().GetResult();
-                    }).AsTask().GetAwaiter().GetResult();
+                //    try
+                  //  {
+                       // await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                        // {
+                            try
+                            {
+                                 AppDebug.Line("HeartRateModel inside CoreDispatcher");
+
+                                 var r = await BandModel.BandClient.SensorManager.HeartRate.RequestUserConsentAsync();
+
+                                 AppDebug.Line($"HeartRateModel RequestUserConsentAsync returned {r}");
+
+                             }
+                             catch (Exception x)
+                             {
+                                 AppDebug.Exception(x, "HeartRate.RequestUserConsentAsync");
+                             }
+                      //   });
+              //      }
+               //     catch (Exception x2)
+                //    {
+                //        AppDebug.Exception(x2, "InitAsync");
+                //    }
                     AppDebug.Line("HeartRateModel user access success");
                 }
 

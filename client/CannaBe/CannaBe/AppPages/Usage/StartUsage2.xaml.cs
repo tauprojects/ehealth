@@ -142,7 +142,17 @@ namespace CannaBe.AppPages.Usage
             if(useBand)
             {
                 Acquiring.Visibility = Visibility.Visible;
-                var res = await Task.Run(() => GlobalContext.Band.StartHeartRate(UsageContext.Usage.HeartRateChangedAsync));
+                bool res = false;
+                try
+                {
+                    res = await Task.Run(() => 
+                    GlobalContext.Band.StartHeartRate(UsageContext.Usage.HeartRateChangedAsync));
+                }
+                catch(Exception x)
+                {
+                    AppDebug.Exception(x, "StartSession => StartHeartRate");
+                }
+
                 Acquiring.Visibility = Visibility.Collapsed;
 
                 EndAction();

@@ -48,7 +48,14 @@ namespace CannaBe
                     {
                         CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
-                            Handler?.Invoke(HeartRateAverage, HeartRateMin, HeartRateMax);
+                            try
+                            {
+                                Handler?.Invoke(HeartRateAverage, HeartRateMin, HeartRateMax);
+                            }
+                            catch (Exception x)
+                            {
+                                AppDebug.Exception(x, "HeartRateChangedAsync => Handler?.Invoke");
+                            }
                         }).AsTask().GetAwaiter().GetResult();
 
                     }

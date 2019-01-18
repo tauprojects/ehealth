@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -48,9 +50,11 @@ namespace CannaBe
 
         public static void Line(object msg) { Line(msg, false); }
 
-        public static void Exception(Exception e, string caller)
+        public static void Exception(Exception e, string caller, 
+            [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filename = "")
         {
             Line($"!!! *** Exception caught in [{caller}] *** !!!");
+            try { Line($"File: [{Path.GetFileName(filename)}:{lineNumber}]"); } catch { }
             Line(e);
         }
 

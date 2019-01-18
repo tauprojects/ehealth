@@ -67,7 +67,7 @@ namespace CannaBe
                 AppDebug.Line("Initializing HeartRate...");
 
                 // Heart Rate
-                _hearRateModel.InitAsync();
+                await _hearRateModel.InitAsync();
                 if(handler != null)
                 {
                     _hearRateModel.Changed += handler;
