@@ -27,6 +27,12 @@ namespace CannaBe
             return bluetoothRadio != null && bluetoothRadio.State == RadioState.On;
         }
 
+
+        public bool IsConnected()
+        {
+            return BandModel.IsConnected;
+        }
+
         public async Task<bool> PairBand()
         {
             bool ret = false;
@@ -53,16 +59,37 @@ namespace CannaBe
             return ret;
         }
 
-        public async void StartHeartRate(HeartRateModel.ChangedHandler handler)
+        public async Task<bool> StartHeartRate(HeartRateModel.ChangedHandler handler)
         {
+            bool ret = false;
             try
             {
                 AppDebug.Line("Initializing HeartRate...");
 
                 // Heart Rate
-                await _hearRateModel.InitAsync();
-                _hearRateModel.Changed += handler;
-                _hearRateModel.Start();
+                _hearRateModel.InitAsync();
+                if(handler != null)
+                {
+                    _hearRateModel.Changed += handler;
+                }
+                ret = await _hearRateModel.Start();
+            }
+            catch (Exception x)
+            {
+                AppDebug.Exception(x, "InitHeartRate");
+            }
+
+            return ret;
+        }
+
+        public void StopHeartRate()
+        {
+            try
+            {
+                AppDebug.Line("Finalizing HeartRate...");
+
+                // Heart Rate
+                _hearRateModel.Stop();
             }
             catch (Exception x)
             {

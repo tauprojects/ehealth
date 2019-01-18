@@ -5,12 +5,16 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using CannaBe;
 using System.Threading.Tasks;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
+using System.Diagnostics;
 
 namespace CannaBe.AppPages.Usage
 {
     public sealed partial class StartUsage2 : Page
     {
         DispatcherTimer Timer = new DispatcherTimer();
+        bool isPaired = false;
 
         public StartUsage2()
         {
@@ -50,10 +54,19 @@ namespace CannaBe.AppPages.Usage
             if(b.IsChecked.Value)
             {
                 PairBandButton.IsEnabled = true;
+                if(isPaired && GlobalContext.Band.IsConnected())
+                {
+                    ContinueButton.IsEnabled = true;
+                }
+                else
+                {
+                    ContinueButton.IsEnabled = false;
+                }
             }
             else
             {
                 PairBandButton.IsEnabled = false;
+                ContinueButton.IsEnabled = true;
             }
         }
 
@@ -63,6 +76,8 @@ namespace CannaBe.AppPages.Usage
             StartAction();
             do
             {
+                ContinueButton.IsEnabled = false;
+
                 var isSupported = await BandContext.GetBluetoothIsEnabledAsync();
 
                 if(!isSupported)
@@ -76,13 +91,14 @@ namespace CannaBe.AppPages.Usage
                 GlobalContext.Band = new BandContext();
                 try
                 {
-                    var isPaired = await GlobalContext.Band.PairBand().TimeoutAfter(new TimeSpan(0, 0, 15));
+                    isPaired = await GlobalContext.Band.PairBand().TimeoutAfter(new TimeSpan(0, 0, 15));
                     EndAction();
 
                     if (isPaired)
                     {
                         PairBandButton.Content = "Paired Successfully!";
                         PairBandButton.Width = double.NaN;
+                        PairBandButton.Foreground = new SolidColorBrush(Colors.Black);
                         PairBandButton.IsEnabled = false;
                     }
                     else
@@ -112,15 +128,37 @@ namespace CannaBe.AppPages.Usage
             ContinueButton.IsEnabled = true;
         }
 
-        private void StartSession(object sender, RoutedEventArgs e)
+        private async void StartSession(object sender, RoutedEventArgs e)
         {
-            /*
             StartAction();
-            UsageContext.Usage = new UsageData(GlobalContext.User, UsageContext.ChosenStrain, DateTime.Now);
 
-            await Task.Run(() => GlobalContext.Band.StartHeartRate(UsageContext.Usage.HeartRateChanged));
-            EndAction();
-            */
+            bool useBand = UseBand.IsChecked.Value && isPaired && GlobalContext.Band.IsConnected();
+
+            UsageContext.Usage = new UsageData(GlobalContext.User, UsageContext.ChosenStrain, DateTime.Now)
+            {
+                UseBandData = useBand
+            };
+
+            if(useBand)
+            {
+                Acquiring.Visibility = Visibility.Visible;
+                var res = await Task.Run(() => GlobalContext.Band.StartHeartRate(UsageContext.Usage.HeartRateChangedAsync));
+                Acquiring.Visibility = Visibility.Collapsed;
+
+                EndAction();
+                if (res)
+                {
+                    ContinueButton.Content = "Success!";
+                    PagesUtilities.SleepSeconds(1);
+                    Frame.Navigate(typeof(ActiveSession));
+                }
+                else
+                {
+                    await new MessageDialog("Try reconnecting the band, re-pairing and wear the band", "Failed!").ShowAsync();
+                    return;
+                }
+
+            }
         }
     }
 }

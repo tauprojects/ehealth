@@ -40,7 +40,7 @@
         <CheckBox x:Name="UseBand" 
                   Checked="UseBandChanged"
                   Unchecked="UseBandChanged"
-
+                  BorderBrush="Black"
                   VerticalContentAlignment="Center" 
                   FontSize="22" HorizontalAlignment="Left" Margin="20,214,0,0" VerticalAlignment="Top" Width="AUTO">
             <TextBlock Foreground="Black" Text="Use Band during usage" FontSize="22" TextWrapping="Wrap" 
@@ -55,6 +55,12 @@
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,261,0,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
 
+        <Border x:Name="Acquiring"  Background="#70ffffff" Visibility="Collapsed">
+            <TextBlock Foreground="Black" 
+                   Text="Acquiring heartrate... &#x0a;Please keep band worn" 
+                    HorizontalAlignment="Center"
+                   FontSize="30" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,383,0,0"/>
+        </Border>
         <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
 
     </Grid>

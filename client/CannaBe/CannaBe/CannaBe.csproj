@@ -136,6 +136,9 @@
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\Usage\ActiveSession.xaml.cs">
+      <DependentUpon>ActiveSession.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPages\Usage\UsageContext.cs" />
     <Compile Include="AppPages\Usage\StartUsage1.xaml.cs">
       <DependentUpon>StartUsage1.xaml</DependentUpon>
@@ -247,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppPages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\Usage\ActiveSession.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

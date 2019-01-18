@@ -16,7 +16,7 @@ namespace CannaBe
         public static double sum = 0;
         public static int count = 0;
 
-        public async Task InitAsync()
+        public void InitAsync()
         {
             AppDebug.Line("HeartRateModel Starting...");
 
@@ -24,14 +24,15 @@ namespace CannaBe
             {
                 AppDebug.Line("HeartRateModel Is connected...");
 
+
                 if (BandModel.BandClient.SensorManager.HeartRate.GetCurrentUserConsent() != UserConsent.Granted)
                 {
                     AppDebug.Line("HeartRateModel requesting user access");
-
-                    await BandModel.BandClient.SensorManager.HeartRate.RequestUserConsentAsync();
-
+                    CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        BandModel.BandClient.SensorManager.HeartRate.RequestUserConsentAsync().GetAwaiter().GetResult();
+                    }).AsTask().GetAwaiter().GetResult();
                     AppDebug.Line("HeartRateModel user access success");
-
                 }
 
                 BandModel.BandClient.SensorManager.HeartRate.ReadingChanged += HeartRate_ReadingChanged;
@@ -39,8 +40,9 @@ namespace CannaBe
             }
         }
 
-        public void Start()
+        public async Task<bool> Start()
         {
+            bool ret = false;
             try
             {
                 AppDebug.Line("HeartRateModel Start");
@@ -49,33 +51,39 @@ namespace CannaBe
                 {
                     AppDebug.Line("HeartRateModel reading..");
 
-                    BandModel.BandClient.SensorManager.HeartRate.StartReadingsAsync();
+                    ret = await BandModel.BandClient.SensorManager.HeartRate.StartReadingsAsync();
 
                     AppDebug.Line("HeartRateModel read..");
-
                 }
-
             }
             catch (Exception x)
             {
-                AppDebug.Line("Exception caught in Start");
-                AppDebug.Line(x.Message);
-                AppDebug.Line(x.StackTrace);
+                AppDebug.Exception(x, "HeartRateModel.Start");
             }
+
+            return ret;
         }
 
         public void Stop()
         {
-            if (BandModel.IsConnected)
+            try
             {
-                BandModel.BandClient.SensorManager.HeartRate.StopReadingsAsync();
+                if (BandModel.IsConnected)
+                {
+                    BandModel.BandClient.SensorManager.HeartRate.StopReadingsAsync().GetAwaiter().GetResult();
+                }
+            }
+            catch (Exception x)
+            {
+                AppDebug.Exception(x, "HeartRateModel.Stop");
             }
         }
 
         private void HeartRate_ReadingChanged(object sender, BandSensorReadingEventArgs<IBandHeartRateReading> e)
         {
             HeartRateSensorReading reading = new HeartRateSensorReading
-            { HeartRate = e.SensorReading.HeartRate,
+            {
+                HeartRate = e.SensorReading.HeartRate,
                 Quality = e.SensorReading.Quality
             };
             Changed?.Invoke(reading.Value, reading.Accuracy);

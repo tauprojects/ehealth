@@ -114,7 +114,7 @@ namespace CannaBe
 
         public static void SleepSeconds(double seconds)
         {
-            System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(seconds));
+            System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(seconds)).GetAwaiter().GetResult();
         }
 
         private static ProgressRing ring = null;
