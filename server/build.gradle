@@ -41,6 +41,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.16.20"
     compile group: 'org.eclipse', name: 'yasson', version: '1.0'
     runtime "org.postgresql:postgresql"
-
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.3.1'
+    compile group: 'com.google.guava', name: 'guava', version: '27.0.1-jre'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }

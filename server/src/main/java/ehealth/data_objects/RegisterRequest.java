@@ -6,6 +6,7 @@ import ehealth.enums.NegativeEffects;
 import ehealth.enums.PositiveEffects;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,12 +37,12 @@ public class RegisterRequest {
     String city;
 
     @JsonProperty("medical")
-    List<MedicalEffects> medical;
+    List<MedicalEffects> medical = new ArrayList<>();
 
     @JsonProperty("positive")
-    List<PositiveEffects> positive;
+    List<PositiveEffects> positive = new ArrayList<>();
 
     @JsonProperty("negative")
-    List<NegativeEffects> negative;
+    List<NegativeEffects> negative = new ArrayList<>();
 
 }

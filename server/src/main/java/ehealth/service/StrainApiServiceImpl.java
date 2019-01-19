@@ -17,6 +17,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
@@ -49,11 +50,11 @@ public class StrainApiServiceImpl implements StrainApiService {
     public BaseResponse getStrainByName(String strainName) {
         List<Strain> strainResponse = restClient.strainByName(strainName);
         System.out.println("HTTP code: " + strainResponse.get(0).toString());
-//        BaseResponse resp = new BaseResponse(
-//                UUID.randomUUID(),
-//                "Exist",
-//                strainResponse.get(0).getDesc());
-        return null;
+        BaseResponse resp = new BaseResponse(
+                UUID.randomUUID(),
+                "Exist",
+                strainResponse.get(0).getDesc());
+        return resp;
     }
 
     @Override

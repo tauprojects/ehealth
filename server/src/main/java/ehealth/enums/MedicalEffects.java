@@ -6,46 +6,47 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum MedicalEffects implements BaseEnumEffect {
-    SEIZURES(1),
-    MUSCLE_SPASMS(2),
-    SPASTICITY(3),
-    INFLAMMATION(4),
-    EYE_PRESSURE(5),
-    HEADACHES(6),
-    FATIGUE(7),
-    NAUSEA(8),
-    LACK_OF_APPETITE(9),
-    CRAMPS(10),
-    STRESS(11),
-    PAIN(12),
-    DEPRESSION(13);
+    SEIZURES(0),
+    MUSCLE_SPASMS(1),
+    SPASTICITY(2),
+    INFLAMMATION(3),
+    EYE_PRESSURE(4),
+    HEADACHES(5),
+    FATIGUE(6),
+    NAUSEA(7),
+    LACK_OF_APPETITE(8),
+    CRAMPS(9),
+    STRESS(10),
+    PAIN(11),
+    DEPRESSION(12),
+    INSOMNIA(13),
+    HEADACHE(14);
 
-    private static Map<Integer, MedicalEffects> intStatusToValue = new HashMap<>();
-    private final int value;
+    private static Map<String, MedicalEffects> stringToValue = new HashMap<>();
+    public final int value;
 
     MedicalEffects(int value) {
+
         this.value = value;
+    }
+    public int getValue(){
+        return this.getValue();
     }
 
     static {
         for (MedicalEffects effectType : MedicalEffects.values()) {
-            intStatusToValue.put(effectType.value, effectType);
+            stringToValue.put(effectType.toString(), effectType);
         }
     }
 
     public static MedicalEffects valueOf(int effectValue) {
-        return intStatusToValue.get(effectValue);
+        return stringToValue.get(effectValue);
 
     }
-
     @JsonValue
     @Override
     public String getEffect() {
-        return valueOf(this.value).name();
+        return valueOf(this.toString()).name();
     }
 
-    @Override
-    public String toString() {
-        return valueOf(this.value).name();
-    }
 }

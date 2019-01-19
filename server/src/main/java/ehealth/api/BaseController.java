@@ -31,6 +31,7 @@ public class BaseController {
      */
     @RequestMapping(value = "/ehealth/strain/{strain-name}", method = RequestMethod.GET)
     public BaseResponse getStrainInfo(@PathVariable("strain-name") String strainName) {
+        logger.info("GET strain information: " + strainName);
         return mainServiceImpl.getStrainByName(strainName);
     }
 
@@ -64,6 +65,18 @@ public class BaseController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public RegisteredUserData register(@RequestBody RegisterRequest registerRequest) {
+        logger.info("POST register request: " + registerRequest.toString());
+        return mainServiceImpl.register(registerRequest);
+    }
+
+
+    /**
+     * Register API
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/strains/recommended", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RegisteredUserData getRecommendedStrains(@RequestParam RegisterRequest registerRequest) {
         logger.info("POST register request: " + registerRequest.toString());
         return mainServiceImpl.register(registerRequest);
     }

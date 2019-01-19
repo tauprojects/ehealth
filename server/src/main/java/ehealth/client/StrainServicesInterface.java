@@ -3,6 +3,7 @@ package ehealth.client;
 import ehealth.client.data_objects.Effect;
 import ehealth.client.data_objects.Strain;
 import ehealth.client.data_objects.StrainEffects;
+import org.codehaus.jackson.map.util.JSONPObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -46,5 +47,5 @@ public interface StrainServicesInterface {
     @GET
     @Path(ALL_STRAINS_URI)
     @Produces({MediaType.APPLICATION_JSON})
-    List<Strain> getAllStrains();
+    String getAllStrains();
 }

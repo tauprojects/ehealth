@@ -3,42 +3,40 @@ package ehealth.enums;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public enum NegativeEffects implements BaseEnumEffect {
-    DIZZY(1),
-    DRY_MOUTH(2),
-    PARANOID(3),
-    DRY_EYES(4),
-    ANXIOUS(5);
+    DIZZY(0),
+    DRY_MOUTH(1),
+    PARANOID(2),
+    DRY_EYES(3),
+    ANXIOUS(4);
 
-    private static Map<Integer, NegativeEffects> intStatusToValue = new HashMap<>();
-    private final int value;
+
+    private static Map<String, NegativeEffects> stringToValue = new HashMap<>();
+    public final int value;
 
     NegativeEffects(int value) {
+
         this.value = value;
+    }
+    public int getValue(){
+        return this.getValue();
     }
 
     static {
         for (NegativeEffects effectType : NegativeEffects.values()) {
-            intStatusToValue.put(effectType.value, effectType);
+            stringToValue.put(effectType.toString(), effectType);
         }
     }
 
     public static NegativeEffects valueOf(int effectValue) {
-        return intStatusToValue.get(effectValue);
+        return stringToValue.get(effectValue);
 
     }
-
     @JsonValue
     @Override
     public String getEffect() {
-        return valueOf(this.value).name();
-    }
-
-    @Override
-    public String toString() {
-        return valueOf(this.value).name();
+        return valueOf(this.toString()).name();
     }
 }
