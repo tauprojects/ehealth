@@ -1,12 +1,26 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace CannaBe
 {
-    class Strain
+    class Strain : ViewModel
     {
+        private string name;
+
         [JsonProperty("name")]
-        public string Name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
+        }
 
         [JsonProperty("id")]
         public int ID;

@@ -1,15 +1,77 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Text;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
 namespace CannaBe
 {
-    class UsageData
+    class UsageData : ViewModel
     {
         public delegate void HeartRateUpdateHandler(double avg, int min, int max);
         public Strain UsageStrain { get; private set; }
-        public DateTime StartTime { get; private set; }
-        public DateTime EndTime { get; set; }
+        private DateTime startTime;
+        public DateTime StartTime
+        {
+            get
+            {
+                return startTime;
+            }
+            private set
+            {
+                startTime = value;
+                OnPropertyChanged("StartTime");
+            }
+        }
+        public string StartTimeString
+        {
+            get
+            {
+                return StartTime.ToString("MMMM dd, yyyy HH:mm:ss");
+            }
+        }
+
+        public DateTime EndTime { get; private set; }
+
+        private TimeSpan duration;
+        public TimeSpan Duration
+        {
+            get
+            {
+                return duration;
+            }
+            private set
+            {
+                duration = value;
+                OnPropertyChanged("Duration");
+            }
+        }
+        public string DurationString {
+            get
+            {
+                StringBuilder str = new StringBuilder("");
+                if(Duration.Hours > 0)
+                {
+                    str.Append($"{Duration.Hours} hours, ");
+                }
+                if(Duration.Minutes > 0)
+                {
+                    str.Append($"{Duration.Minutes} mins, ");
+                }
+                if(Duration.TotalSeconds >= 1)
+                {
+                    str.Append($"{Duration.Seconds} secs");
+                }
+                else
+                {
+                    str.Append($"{Duration.TotalMilliseconds} ms");
+                }
+
+                return str.ToString();
+            }
+        }
+
+        //DispatcherTimer Timer = new DispatcherTimer();
 
         public HeartRateUpdateHandler Handler = null;
 
@@ -39,6 +101,7 @@ namespace CannaBe
         public void EndUsage()
         {
             EndTime = DateTime.Now;
+            Duration = EndTime.Subtract(StartTime);
             GlobalContext.CurrentUser.UsageSessions.Add(this);
         }
 
