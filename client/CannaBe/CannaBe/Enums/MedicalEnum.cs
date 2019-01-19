@@ -7,7 +7,7 @@ namespace CannaBe.Enums
 {
     enum MedicalEnum
     {
-        [EnumDescriptions("Are your seizures less frequent?","0")]
+        [EnumDescriptions("Are your seizures less frequent?", "0")]
         SEIZURES = 1,
         [EnumDescriptions("Do your muscles fell less stiff?", "0")]
         MUSCLE_SPASMS = 2,

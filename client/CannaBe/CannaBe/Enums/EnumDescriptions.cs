@@ -21,6 +21,7 @@ namespace CannaBe.Enums
         public string q1 { get; set; }
         public string q2 { get; set; }
     }
+
     public static class Extensions
     {
         public static TAttribute GetAttribute<TAttribute>(this Enum enumValue)

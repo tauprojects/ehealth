@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using Windows.ApplicationModel.Core;
@@ -11,6 +12,7 @@ namespace CannaBe
         public delegate void HeartRateUpdateHandler(double avg, int min, int max);
         public Strain UsageStrain { get; private set; }
         private DateTime startTime;
+        public Dictionary<string,string> usageFeedback;
         public DateTime StartTime
         {
             get

@@ -87,6 +87,22 @@ namespace CannaBe
             }
         }
 
+        public static void GetAllComboBoxesTags(Grid gridWithComboBoxes, out List<string> listToAddTo)
+        {
+            var pageName = gridWithComboBoxes.Parent.GetType().Name;
+            listToAddTo = new List<string>();
+
+            foreach (var ctrl in gridWithComboBoxes.Children)
+            {
+                if (ctrl is ComboBox)
+                {
+                    var chk = ctrl as ComboBox;
+                    listToAddTo.Add(chk.SelectedValue.ToString());
+                    AppDebug.Line(chk.Name.ToString());
+                }
+            }
+        }
+
         public static void SetAllCheckBoxesTags(Grid gridWithCheckBoxes, List<int> listOfTags)
         {
             if (listOfTags == null)

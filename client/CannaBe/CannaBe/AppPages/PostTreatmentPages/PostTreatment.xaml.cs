@@ -9,6 +9,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
 {
     public sealed partial class PostTreatment : Page
     {
+        Dictionary<string, string> dict = new Dictionary<string, string>();
         public PostTreatment()
         {
             this.InitializeComponent();
@@ -43,22 +44,13 @@ namespace CannaBe.AppPages.PostTreatmentPages
         {
 
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
-            foreach (var medicalNeed in GlobalContext.CurrentUser.Data.MedicalNeeds)
-            {
-                var info = medicalNeed.GetAttribute<EnumDescriptions>();
-                PostQuestions.Items.Add(info);
-            }
-
             try
             {
-                //List<string> medicalList = new List<string>();
-                //foreach (MedicalEnum m in GlobalContext.CurrentUser.Data.MedicalNeeds)
-                //{
-                //    var info = m.GetAttribute<EnumDescriptions>();
-                //    medicalList.Add(info.q1);
-                //}
-                //question1.Text = medicalList[0];
-                //question2.Text = medicalList[1];
+                foreach (var medicalNeed in GlobalContext.CurrentUser.Data.MedicalNeeds)
+                {
+                    var info = medicalNeed.GetAttribute<EnumDescriptions>();
+                    PostQuestions.Items.Add(info);
+                }
             }
 
             catch (Exception x)
@@ -75,7 +67,14 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
         private void SubmitFeedback(object sender, TappedRoutedEventArgs e)
         {
+            GlobalContext.CurrentUser.UsageSessions[GlobalContext.CurrentUser.UsageSessions.Count-1].usageFeedback = dict;
+        }
 
+        private void Answers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var check = sender as ComboBox;
+            dict.Add(check.Tag.ToString(), check.SelectedValue.ToString());
+            //AppDebug.Line("Question: " + check.Tag.ToString() + " Answer: " + check.SelectedValue.ToString());
         }
     }
 }
