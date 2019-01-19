@@ -38,8 +38,7 @@
             <ListView.Resources>
                 <MenuFlyout x:Name="UsageMenu">
                     <MenuFlyout.Items>
-                        <MenuFlyoutItem x:Name="Edit"  Text="Edit" />
-                        <MenuFlyoutItem x:Name="Remove" Text="Remove"    Click="Remove_Click" />
+                        <MenuFlyoutItem x:Name="Remove" Text="Remove" Click="Remove_Click" />
                     </MenuFlyout.Items>
                 </MenuFlyout>
             </ListView.Resources>
@@ -49,7 +48,8 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
-                        <Border Background ="#900d3c87" Height="auto" VerticalAlignment="Top" Width="300">
+                        <Border Background ="#900d3c87" 
+                                Height="auto" VerticalAlignment="Top" Width="300">
                             <StackPanel Margin="3,0,0,0">
                                 <TextBlock Foreground="White" FontSize="18" Grid.Column="1" >
                                     <Run x:Name="StrainNameTitle" Text="Strain: " FontWeight="Bold"/>
@@ -63,12 +63,21 @@
                                     <Run x:Name="UsageDurationTitle" Text="Duration:" FontWeight="Bold"/>
                                     <Run x:Name="UsageDuration" Text="{Binding Path=DurationString}"/>
                                 </TextBlock>
+                                <TextBlock Foreground="White" FontSize="18" Grid.Column="1">
+                                    <Run x:Name="UsedBandTitle" Text="Was Band Used:" FontWeight="Bold"/>
+                                    <Run x:Name="UsedBand" Text="{Binding Path=UsedBandString}"/>
+                                </TextBlock>
                             </StackPanel>
                         </Border>
-                        <Rectangle Height="10" Margin="0,70,0,0" VerticalAlignment="Top"/>
+                        <Rectangle Height="10" Margin="0,95,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            
+            <!--<x:String>a</x:String>
+            <x:String>a</x:String>--> 
+            
+
         </ListView>
 
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"

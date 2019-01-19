@@ -71,6 +71,7 @@
         </Button>
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>
+        <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
 
     </Grid>
 </Page>

@@ -39,14 +39,18 @@ namespace CannaBe.AppPages.Usage
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            var yesCommand = new UICommand("Yes", cmd => { });
-            var noCommand = new UICommand("No", cmd => { });
-            var cancelCommand = new UICommand("Cancel", cmd => { });
-            var dialog = new MessageDialog(content, title);
-            dialog.Options = MessageDialogOptions.None;
-            dialog.Commands.Add(yesCommand);
-            */
+            
+            //var yesCommand = new UICommand("Yes", cmd => { });
+            //var noCommand = new UICommand("No", cmd => { });
+            //var cancelCommand = new UICommand("Cancel", cmd => { });
+            //var dialog = new MessageDialog("Are you sure you want to remove the usage from the history?", "Remove Usage")
+            //{
+            //    Options = MessageDialogOptions.None
+            //};
+            //dialog.Commands.Add(yesCommand);
+            //dialog.Commands.Add(noCommand);
+            //dialog.
+
             AppDebug.Line($"Remove usage on [{selectedUsage.StartTimeString}]");
         }
 

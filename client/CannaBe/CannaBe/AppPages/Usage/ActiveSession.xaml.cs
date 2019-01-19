@@ -37,7 +37,7 @@ namespace CannaBe.AppPages.Usage
             progressRing.IsActive = false;
             Acquiring.Visibility = Visibility.Collapsed;
             Min.Text = min.ToString();
-            Avg.Text = System.Convert.ToInt32(avg).ToString();
+            Avg.Text = Convert.ToInt32(avg).ToString();
             Max.Text = max.ToString();
         }
 
@@ -49,9 +49,9 @@ namespace CannaBe.AppPages.Usage
                 if(UsageContext.Usage.UseBandData)
                 {
                     GlobalContext.Band.StopHeartRate();
+                    PagesUtilities.SleepSeconds(0.5);
                 }
                 UsageContext.Usage.EndUsage();
-                PagesUtilities.SleepSeconds(0.5);
             }
             catch (Exception x)
             {

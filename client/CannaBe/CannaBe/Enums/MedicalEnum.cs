@@ -32,7 +32,11 @@ namespace CannaBe.Enums
         [EnumDescriptions("Is your pain improving?", "Rate your pain:")]
         PAIN = 12,
         [EnumDescriptions("Do you feel less depressed?", "0")]
-        DEPRESSION = 13        
+        DEPRESSION = 13,
+        [EnumDescriptions("", "0")]
+        INSOMNIA = 14,
+        [EnumDescriptions("", "0")]
+        HEADACHE = 15
     }
 
     static class MedicalEnumMethods

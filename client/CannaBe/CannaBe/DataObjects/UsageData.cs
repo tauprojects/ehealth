@@ -46,19 +46,20 @@ namespace CannaBe
                 OnPropertyChanged("Duration");
             }
         }
-        public string DurationString {
+        public string DurationString
+        {
             get
             {
                 StringBuilder str = new StringBuilder("");
-                if(Duration.Hours > 0)
+                if (Duration.Hours > 0)
                 {
                     str.Append($"{Duration.Hours} hours, ");
                 }
-                if(Duration.Minutes > 0)
+                if (Duration.Minutes > 0)
                 {
                     str.Append($"{Duration.Minutes} mins, ");
                 }
-                if(Duration.TotalSeconds >= 1)
+                if (Duration.TotalSeconds >= 1)
                 {
                     str.Append($"{Duration.Seconds} secs");
                 }
@@ -75,12 +76,33 @@ namespace CannaBe
 
         public HeartRateUpdateHandler Handler = null;
 
-        public bool UseBandData { get; set; } = false;
+        private bool usedBandData = false;
+        public bool UseBandData
+        {
+            get
+            {
+                return usedBandData;
+            }
+            set
+            {
+                usedBandData = value;
+                OnPropertyChanged("UseBandData");
+            }
+        }
+        
+        public string UsedBandString
+        {
+            get
+            {
+                return UseBandData ? "Yes" : "No";
+            }
+        }
 
-        public UsageData(Strain usageStrain, DateTime startTime)
+        public UsageData(Strain usageStrain, DateTime startTime, bool _useBandData)
         {
             UsageStrain = usageStrain;
             StartTime = startTime;
+            UseBandData = _useBandData;
         }
 
         public override bool Equals(object obj)
