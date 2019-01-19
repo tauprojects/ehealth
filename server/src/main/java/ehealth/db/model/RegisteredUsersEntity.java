@@ -61,19 +61,14 @@ public class RegisteredUsersEntity {
     @Column(name = "created_at", updatable = false)
     private Long createdAt;
 
+    @Column(name = "medical")
+    private int medical;
 
-    @Convert(converter = ListToJsonStringConverter.class)
-    @Column(name = "medical",columnDefinition = "json")
-    private List<MedicalEffects> medical;
+    @Column(name = "positive")
+    private int positive;
 
-
-    @Convert(converter = ListToJsonStringConverter.class)
-    @Column(name = "positive",columnDefinition = "json")
-    private List<PositiveEffects> positive;
-
-    @Convert(converter = ListToJsonStringConverter.class)
-    @Column(name = "negative",columnDefinition = "json")
-    private List<NegativeEffects> negative;
+    @Column(name = "negative")
+    private int negative;
 }
 
 

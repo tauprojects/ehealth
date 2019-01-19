@@ -36,12 +36,12 @@ public class RegisterRequest {
     String city;
 
     @JsonProperty("medical")
-    List<MedicalEffects> medical;
+    int medical;
 
     @JsonProperty("positive")
-    List<PositiveEffects> positive;
+    int positive;
 
     @JsonProperty("negative")
-    List<NegativeEffects> negative;
+    int negative;
 
 }
