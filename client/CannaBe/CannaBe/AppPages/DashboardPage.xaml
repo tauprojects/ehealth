@@ -42,16 +42,13 @@
                 Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Start Band Session" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,198,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
-        </Button>
         <Button Content="Post Treatment Feedback" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToPostTreatment"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Click="GoToUsageHistory"
                 Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,274,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
@@ -64,9 +61,9 @@
                 Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Start Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+        <Button Content="Start New Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000" Click="GoToStartUsage"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,388,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,198,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Logout" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"

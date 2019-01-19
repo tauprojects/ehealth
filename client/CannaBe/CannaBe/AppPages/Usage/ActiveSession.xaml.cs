@@ -1,4 +1,6 @@
-﻿using Windows.UI.Xaml;
+﻿using CannaBe.AppPages.PostTreatmentPages;
+using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace CannaBe.AppPages.Usage
@@ -29,7 +31,19 @@ namespace CannaBe.AppPages.Usage
 
         private void EndSession(object sender, RoutedEventArgs e)
         {
-            GlobalContext.Band.StopHeartRate();
+            progressRing.IsActive = true;
+            try
+            {
+                GlobalContext.Band.StopHeartRate();
+                UsageContext.Usage.EndUsage();
+                PagesUtilities.SleepSeconds(0.5);
+            }
+            catch (Exception x)
+            {
+                AppDebug.Exception(x, "EndSession");
+            }
+            progressRing.IsActive = false;
+            Frame.Navigate(typeof(PostTreatment));
         }
     }
 }

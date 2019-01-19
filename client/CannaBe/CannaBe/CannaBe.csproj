@@ -146,6 +146,9 @@
     <Compile Include="AppPages\Usage\StartUsage2.xaml.cs">
       <DependentUpon>StartUsage2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\Usage\UsageHistory.xaml.cs">
+      <DependentUpon>UsageHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Context\BandContext.cs" />
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="DataObjects\Strain.cs" />
@@ -262,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppPages\Usage\StartUsage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\Usage\UsageHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
