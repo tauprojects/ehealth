@@ -169,6 +169,7 @@
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\Http\Requests\RegisterRequest.cs" />
+    <Compile Include="Enums\EnumDescriptions.cs" />
     <Compile Include="Enums\MedicalEnum.cs" />
     <Compile Include="AppPages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
