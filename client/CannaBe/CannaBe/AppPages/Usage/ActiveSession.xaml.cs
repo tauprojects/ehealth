@@ -5,8 +5,10 @@ using Windows.UI.Xaml.Controls;
 
 namespace CannaBe.AppPages.Usage
 {
+
     public sealed partial class ActiveSession : Page
     {
+
         public ActiveSession()
         {
             InitializeComponent();
@@ -15,9 +17,19 @@ namespace CannaBe.AppPages.Usage
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             progressRing.IsActive = true;
-            UsageContext.Usage.Handler += HeartRateUpdateScreen;
             StrainChosenText.Text = UsageContext.Usage.UsageStrain.Name;
             StartTime.Text = "Start Time: " + UsageContext.Usage.StartTime.ToString("dd.MM.yy HH:mm");
+
+            if (UsageContext.Usage.UseBandData)
+            {
+                UsageContext.Usage.Handler += HeartRateUpdateScreen;
+            }
+            else
+            {
+                Acquiring.Opacity = 0.85;
+                BandIsNA.Visibility = Visibility.Visible;
+                progressRing.IsActive = false;
+            }
         }
 
         private void HeartRateUpdateScreen(double avg, int min, int max)
@@ -34,7 +46,10 @@ namespace CannaBe.AppPages.Usage
             progressRing.IsActive = true;
             try
             {
-                GlobalContext.Band.StopHeartRate();
+                if(UsageContext.Usage.UseBandData)
+                {
+                    GlobalContext.Band.StopHeartRate();
+                }
                 UsageContext.Usage.EndUsage();
                 PagesUtilities.SleepSeconds(0.5);
             }

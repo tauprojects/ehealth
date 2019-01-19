@@ -30,7 +30,7 @@ namespace CannaBe.AppPages.Usage
 
         private void OnPageLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            if(UsageContext.ChosenStrain != null)
+            if (UsageContext.ChosenStrain != null)
             {
                 StrainChosenText.Text = UsageContext.ChosenStrain.Name;
                 Timer.Start();
@@ -51,10 +51,10 @@ namespace CannaBe.AppPages.Usage
         {
             var b = sender as CheckBox;
 
-            if(b.IsChecked.Value)
+            if (b.IsChecked.Value)
             {
                 PairBandButton.IsEnabled = true;
-                if(isPaired && GlobalContext.Band.IsConnected())
+                if (isPaired && GlobalContext.Band.IsConnected())
                 {
                     ContinueButton.IsEnabled = true;
                 }
@@ -80,7 +80,7 @@ namespace CannaBe.AppPages.Usage
 
                 var isSupported = await BandContext.GetBluetoothIsEnabledAsync();
 
-                if(!isSupported)
+                if (!isSupported)
                 {
                     EndAction();
 
@@ -106,7 +106,7 @@ namespace CannaBe.AppPages.Usage
                         await new MessageDialog("Did not find band\nPlease try again", "Pairing Failed!").ShowAsync();
                     }
                 }
-                catch(TimeoutException)
+                catch (TimeoutException)
                 {
                     EndAction();
                     await new MessageDialog("Pairing timed out after 15 seconds", "Pairing Failed!").ShowAsync();
@@ -139,16 +139,22 @@ namespace CannaBe.AppPages.Usage
                 UseBandData = useBand
             };
 
-            if(useBand)
+            if (!useBand)
+            {
+                ContinueButton.Content = "Success!";
+                PagesUtilities.SleepSeconds(1);
+                Frame.Navigate(typeof(ActiveSession));
+            }
+            else //USE BAND! start acquiring heart rate
             {
                 Acquiring.Visibility = Visibility.Visible;
                 bool res = false;
                 try
                 {
-                    res = await Task.Run(() => 
+                    res = await Task.Run(() =>
                     GlobalContext.Band.StartHeartRate(UsageContext.Usage.HeartRateChangedAsync));
                 }
-                catch(Exception x)
+                catch (Exception x)
                 {
                     AppDebug.Exception(x, "StartSession => StartHeartRate");
                 }

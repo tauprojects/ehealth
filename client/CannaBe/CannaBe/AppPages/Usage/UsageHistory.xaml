@@ -32,9 +32,19 @@
                    Height="auto" Width="321" FontSize="40" Margin="0,10,0,0"/>
 
         <ListView x:Name="UsageListGui" Background="#90ffffff"
-                  Margin="0,100,0,60" BorderBrush="Black" BorderThickness="0">
+                  Margin="0,100,0,60" BorderBrush="Black" BorderThickness="0"
+                  IsItemClickEnabled="True" ItemClick="UsageSelected"
+                  RightTapped="ListView_RightTapped">
+            <ListView.Resources>
+                <MenuFlyout x:Name="UsageMenu">
+                    <MenuFlyout.Items>
+                        <MenuFlyoutItem x:Name="Edit"  Text="Edit" />
+                        <MenuFlyoutItem x:Name="Remove" Text="Remove"    Click="Remove_Click" />
+                    </MenuFlyout.Items>
+                </MenuFlyout>
+            </ListView.Resources>
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="x:String" x:Name="UsageEntry">
+                <DataTemplate x:DataType="x:Bind" x:Name="UsageEntry">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="300"/>
@@ -43,15 +53,15 @@
                             <StackPanel Margin="3,0,0,0">
                                 <TextBlock Foreground="White" FontSize="18" Grid.Column="1" >
                                     <Run x:Name="StrainNameTitle" Text="Strain: " FontWeight="Bold"/>
-                                    <Run x:Name="StrainName" Text="Template"/>
+                                    <Run x:Name="StrainName" Text="{Binding Path=UsageStrain.Name}"/>
                                 </TextBlock>
                                 <TextBlock Foreground="White" FontSize="18" Grid.Column="1" >
                                     <Run x:Name="UsageStartTimeTitle" Text="Started on" FontWeight="Bold"/>
-                                    <Run x:Name="UsageStartTime" Text="January 1, 2015"/>
+                                    <Run x:Name="UsageStartTime" FontSize ="17" Text="{Binding Path=StartTimeString}"/>
                                 </TextBlock>
                                 <TextBlock Foreground="White" FontSize="18" Grid.Column="1">
                                     <Run x:Name="UsageDurationTitle" Text="Duration:" FontWeight="Bold"/>
-                                    <Run x:Name="UsageDuration" Text="3 hours and 21 minutes"/>
+                                    <Run x:Name="UsageDuration" Text="{Binding Path=DurationString}"/>
                                 </TextBlock>
                             </StackPanel>
                         </Border>
@@ -59,12 +69,6 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            <x:String>Item 1</x:String>
-            <x:String>Item 2</x:String>
-            <x:String>Item 3</x:String>
-            <x:String>Item 4</x:String>
-            <x:String>Item 5</x:String>
-            <x:String>Item 6</x:String>
         </ListView>
 
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"

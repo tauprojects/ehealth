@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using Windows.System;
@@ -52,7 +51,7 @@ namespace CannaBe
             try
             {
                 PagesUtilities.StartProgressRing(sender);
-                var req = new LoginRequest(Username.Text, Password.Text);
+                var req = new LoginRequest(Username.Text, Password.Password);
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);                
 
@@ -97,7 +96,7 @@ namespace CannaBe
         {
             if (e.Key == VirtualKey.Enter)
             {
-                if(Username.Text.Length > 0 && Password.Text.Length > 0)
+                if(Username.Text.Length > 0 && Password.Password.Length > 0)
                 {
                     PostLogin(sender, e);
                 }
