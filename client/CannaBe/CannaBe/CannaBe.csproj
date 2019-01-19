@@ -136,8 +136,20 @@
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\Usage\ActiveSession.xaml.cs">
+      <DependentUpon>ActiveSession.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPages\Usage\UsageContext.cs" />
+    <Compile Include="AppPages\Usage\StartUsage1.xaml.cs">
+      <DependentUpon>StartUsage1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPages\Usage\StartUsage2.xaml.cs">
+      <DependentUpon>StartUsage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Context\BandContext.cs" />
     <Compile Include="Context\GlobalContext.cs" />
-    <Compile Include="DataObjects\Usage.cs" />
+    <Compile Include="DataObjects\Strain.cs" />
+    <Compile Include="DataObjects\UsageData.cs" />
     <Compile Include="DataObjects\UserData.cs" />
     <Compile Include="DataObjects\Http\Response\BaseResponse.cs" />
     <Compile Include="DataObjects\Http\Response\IJsonResponse.cs" />
@@ -163,6 +175,12 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Band.cs" />
+    <Compile Include="Models\Sensors\Contact\Contact.cs" />
+    <Compile Include="Models\Sensors\Contact\ContactSensor.cs" />
+    <Compile Include="Models\Sensors\HeartRate\HeartRate.cs" />
+    <Compile Include="Models\Sensors\HeartRate\HeartRateSensor.cs" />
+    <Compile Include="Models\ViewModel.cs" />
     <Compile Include="Pages\PagesUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AppPages\RegisterPages\RegisterMedicalPage.xaml.cs">
@@ -179,6 +197,7 @@
     </Compile>
     <Compile Include="Utils\AppDebug.cs" />
     <Compile Include="Utils\Constants.cs" />
+    <Compile Include="Utils\GeneralUtils.cs" />
     <Compile Include="Utils\HttpManager.cs" />
     <Compile Include="Utils\StrainToInt.cs" />
   </ItemGroup>
@@ -191,6 +210,7 @@
   <ItemGroup>
     <Content Include="Assets\bluewhitebackground.jpg" />
     <Content Include="Assets\purplebackground.jpg" />
+    <Content Include="Assets\strains.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -233,6 +253,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AppPages\Usage\ActiveSession.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\Usage\StartUsage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\Usage\StartUsage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -255,6 +287,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Band">
+      <Version>1.3.20628</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.2</Version>
     </PackageReference>

@@ -1,6 +1,4 @@
-﻿using Windows.Foundation;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace CannaBe
@@ -12,8 +10,6 @@ namespace CannaBe
             this.InitializeComponent();
             this.FixPageSize();
         }
-
-
 
         private void GoToLoginPage(object sender, TappedRoutedEventArgs e)
         {

@@ -29,8 +29,8 @@
         <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
 
-        <TextBlock HorizontalAlignment="Center" Text="User Login" FontWeight="Bold"
-                   Foreground="Black"  FontFamily="Intel Clear"
+        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="User Login" FontWeight="Bold"
+                   FontFamily="Intel Clear"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="342" FontSize="50" Margin="0,10,0,0"/>
 
@@ -44,14 +44,13 @@
                  LostFocus="BoxLostFocus"/>-->
         
         <TextBox x:Name ="Username" HorizontalAlignment="Stretch"  
-                 Margin="0,170,0,0" 
-                 FontSize="22" Foreground="Black"
-                 Text="Enter Username" VerticalAlignment="Top" 
+                 Margin="0,170,0,0"  PlaceholderText="Enter Username"
+                 FontSize="22" Foreground="Black" VerticalAlignment="Top" 
                  GotFocus="BoxGotFocus" LostFocus="BoxLostFocus"/>
         <TextBox x:Name ="Password" HorizontalAlignment="Stretch"  
                  Margin="0,210,0,0"
                  FontSize="22" Foreground="Black"
-                 Text="Enter Password" VerticalAlignment="Top" 
+                 PlaceholderText="Enter Password" VerticalAlignment="Top" 
                  GotFocus="BoxGotFocus" LostFocus="BoxLostFocus"/>
 
         <!--<TextBox HorizontalAlignment="Center" Text="Enter Password" BorderBrush="Black"
@@ -72,8 +71,6 @@
         </Button>
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>
-
-        <ProgressRing x:Name="LoadingIndicator" Width="50" Height="50"/>
 
     </Grid>
 </Page>

@@ -54,7 +54,7 @@ namespace CannaBe
 
         public async Task<HttpResponseMessage> Get(string URL)
         {
-            AppDebug.Line("In Get");
+            AppDebug.Line("In Get: " + URL);
 
             try
             {

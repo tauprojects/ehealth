@@ -26,6 +26,12 @@ namespace CannaBe
         [JsonProperty("negative")]
         public List<string> NegativePreferences { get; set; }
 
+        public List<int> IntMedicalNeeds  { get; set; }
+        public List<int> IntPositivePreferences  { get; set; }
+        public List<int> IntNegativePreferences  { get; set; }
+
+        public RegisterRequest() { }
+
         public RegisterRequest(string username, string password, string dob, string gender, string country, string city) 
             : base(username, password)
         {

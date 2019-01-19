@@ -1,4 +1,5 @@
 ﻿using CannaBe.Enums;
+using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,7 +10,6 @@ namespace CannaBe
 {
     public sealed partial class RegisterMedicalPage : Page
     {
-        RegisterRequest registerRequest;
         public RegisterMedicalPage()
         {
             this.InitializeComponent();
@@ -38,25 +38,34 @@ namespace CannaBe
 
             }
         }
-        public void OnPageLoaded(object sender, RoutedEventArgs e)
-        {
-            //PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
-        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            registerRequest = (RegisterRequest)e.Parameter;
-        }
+            var req = GlobalContext.RegisterContext;
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            if (req != null)
+            {
+                try
+                {
+                    PagesUtilities.SetAllCheckBoxesTags(RegisterMedicalGrid,
+                                     req.IntMedicalNeeds);
+                }
+                catch(Exception exc)
+                {
+                    AppDebug.Exception(exc, "RegisterMedicalPage.OnNavigatedTo");
+                }
+            }
         }
 
         private void BackToRegister(object sender, TappedRoutedEventArgs e)
         {
-            registerRequest.MedicalNeeds = new List<string>();
-            Frame.Navigate(typeof(RegisterPage), registerRequest);
+            PagesUtilities.GetAllCheckBoxesTags(RegisterMedicalGrid,
+                                     out List<int> intList);
+
+            GlobalContext.RegisterContext.IntMedicalNeeds = intList;
+
+            Frame.Navigate(typeof(RegisterPage));
         }
 
         private void ContinuePositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
@@ -64,9 +73,10 @@ namespace CannaBe
             PagesUtilities.GetAllCheckBoxesTags(RegisterMedicalGrid,
                                                  out List<int> intList);
 
-            registerRequest.MedicalNeeds = MedicalEnumMethods.FromIntToStringList(intList);
+            GlobalContext.RegisterContext.IntMedicalNeeds = intList;
+            GlobalContext.RegisterContext.MedicalNeeds = MedicalEnumMethods.FromIntToStringList(intList);
 
-            Frame.Navigate(typeof(RegisterPositiveEffectsPage), registerRequest);
+            Frame.Navigate(typeof(RegisterPositiveEffectsPage), GlobalContext.RegisterContext);
         }
     }
 }

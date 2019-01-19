@@ -1,5 +1,6 @@
 ﻿using CannaBe.AppPages;
 using CannaBe.AppPages.PostTreatmentPages;
+using CannaBe.AppPages.Usage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -42,14 +43,18 @@ namespace CannaBe
         {
             base.OnNavigatedTo(e);
 
+            AppDebug.Line("In Dashboard page");
+
             if (e.Parameter == null)
                 return;
 
-            //GlobalContext.AddUserToContext(e);
+            GlobalContext.AddUserToContext(e);
 
-            //Welcome.Text = $"Welcome, {GlobalContext.User.Data.Username}!";
+            Welcome.Text = $"Welcome, {GlobalContext.User.Data.Username}!";
 
-            Welcome.Text = "Welcome, User!";
+            AppDebug.Line($"Wrote welocme text: [{Welcome.Text}]");
+
+            //Welcome.Text = "Welcome, User!";
 
             //AppDebug.Line("Dashboard: from " + req.GetType().Name);
         }
@@ -72,6 +77,11 @@ namespace CannaBe
         private void LogoutHandler(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private void GoToStartUsage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(StartUsage));
         }
     }
 }

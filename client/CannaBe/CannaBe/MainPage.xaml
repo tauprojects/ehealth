@@ -29,11 +29,12 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Image Source="Assets/bluewhitebackground.jpg" Stretch="Fill"/>
-        <CheckBox Content="Debug with localhost" x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
+        <CheckBox Content="Debug with localhost" 
+                  Foreground="Black" BorderBrush="Black"
+                  x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
                   HorizontalAlignment="Left" Margin="50,160,0,0" Grid.Row="1" VerticalAlignment="Top" />
         
-        <TextBlock HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
-                   Foreground="Black"
+        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
 
@@ -53,14 +54,6 @@
                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,280,0,0" Width="Auto">
         </Button>
 
-        <!--<Image HorizontalAlignment="Center" Height="187" VerticalAlignment="Top" Width="187"  Margin="0,204,0,0" RenderTransformOrigin="0.5,0.485" Grid.Row="1" Grid.RowSpan="2"/>-->
-        <!--Source="Assets/CannabisIconTrans.png"-->
-
-        <!--<Button Content="Init Band" HorizontalAlignment="Center" VerticalAlignment="Top"  Height="46" Width="116" FontSize="20" Grid.Row="1"/>-->
-        <!--<TextBlock Text="Band Examples ≫" Margin="0,51,0,232" Grid.Row="1" 
-                   FontFamily="Tahoma" FontSize="30" HorizontalAlignment="Center" 
-                    Width="238"
-                   Tapped="TextBlock_Tapped"/>-->
     </Grid>
 
 </Page>

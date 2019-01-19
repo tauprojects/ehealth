@@ -27,8 +27,7 @@
         </Grid.Background>
         <Image Source="../../Assets/bluewhitebackground.jpg" Stretch="Fill"/>
 
-        <TextBlock HorizontalAlignment="Center" Text="Post Treatment Feedback" FontWeight="ExtraBold"
-                   Foreground="Black"
+        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="Post Treatment Feedback" FontWeight="ExtraBold"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="120" Width="321" FontSize="40" Margin="0,10,0,0"/>
 
@@ -38,13 +37,13 @@
               Height="380" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,120,0,0">
             <Grid>
 
-                <TextBlock Text="Question 1:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                <TextBlock Foreground="Black" Text="Question 1:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,10,0,0"/>
                 <ComboBox x:Name="Q1" HorizontalAlignment="Left" Margin="20,35,0,0" VerticalAlignment="Top">
                     <x:String>Yes</x:String>
                     <x:String>No</x:String>
                 </ComboBox>
                 
-                <TextBlock Text="Question 2:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
+                <TextBlock Foreground="Black" Text="Question 2:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
                 <ComboBox x:Name="Q2" HorizontalAlignment="Left" Margin="20,105,0,0" VerticalAlignment="Top">
                     <x:String>1</x:String>
                     <x:String>2</x:String>
@@ -58,13 +57,13 @@
                     <x:String>10</x:String>
                 </ComboBox>
 
-                <TextBlock Text="Question 3:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,150,0,0"/>
+                <TextBlock Foreground="Black" Text="Question 3:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,150,0,0"/>
                 <ComboBox x:Name="Q3" HorizontalAlignment="Left" Margin="20,175,0,0" VerticalAlignment="Top">
                     <x:String>Yes</x:String>
                     <x:String>No</x:String>
                 </ComboBox>
 
-                <TextBlock Text="Question 4:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,220,0,0"/>
+                <TextBlock Foreground="Black" Text="Question 4:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,220,0,0"/>
                 <ComboBox x:Name="Q4" HorizontalAlignment="Left" Margin="20,245,0,0" VerticalAlignment="Top">
                     <x:String>1</x:String>
                     <x:String>2</x:String>

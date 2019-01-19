@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Windows.Foundation;
 using Windows.UI.Core;
@@ -78,6 +79,79 @@ namespace CannaBe
                         //}
                     }
                 }
+            }
+        }
+
+        public static void SetAllCheckBoxesTags(Grid gridWithCheckBoxes, List<int> listOfTags)
+        {
+            if (listOfTags == null)
+                return;
+
+            if (listOfTags.Count == 0)
+                return;
+
+            try
+            {
+                foreach (var ctrl in gridWithCheckBoxes.Children)
+                {
+                    if (ctrl is CheckBox)
+                    {
+                        var chk = ctrl as CheckBox;
+
+                        if (listOfTags.Contains(System.Int32.Parse(chk.Tag as string)))
+                        {
+                            chk.IsChecked = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                AppDebug.Exception(e, "SetAllCheckBoxesTags");
+            }
+        }
+
+
+        public static void SleepSeconds(double seconds)
+        {
+            System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(seconds)).GetAwaiter().GetResult();
+        }
+
+        private static ProgressRing ring = null;
+
+        public static void StartProgressRing(object sender)
+        {
+            try
+            {
+                ring = new ProgressRing
+                {
+                    IsActive = true,
+                    Width = 50,
+                    Height = 50
+                };
+
+                ((sender as Control).Parent as Grid).Children.Add(ring);
+            }
+            catch(Exception e)
+            {
+                AppDebug.Exception(e, "StartProgressRing");
+            }
+        }
+
+        public static void StopProgressRing()
+        {
+            try
+            {
+                if (ring != null)
+                {
+                    ring.IsActive = false;
+                    (ring.Parent as Grid).Children.Remove(ring);
+                    ring = null;
+                }
+            }
+            catch (Exception e)
+            {
+                AppDebug.Exception(e, "StopProgressRing");
             }
         }
     }

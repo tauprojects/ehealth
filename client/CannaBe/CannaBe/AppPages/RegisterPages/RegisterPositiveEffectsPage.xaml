@@ -47,7 +47,7 @@
                 Tapped="ContinueNegativeEffectsRegister"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
-        <TextBlock Text="Positive Effect Preferences:" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
+        <TextBlock Foreground="Black" Text="Positive Effect Preferences:" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
         <CheckBox Content="Aroused"     Tag="1" Margin="20,105,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Giggly"      Tag="2" Margin="20,130,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Focused"     Tag="3" Margin="20,155,0,0" VerticalAlignment="Top"/>

@@ -19,25 +19,25 @@ namespace CannaBe
 
         private void BoxGotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBoxSender = sender as TextBox;
+            //TextBox textBoxSender = sender as TextBox;
 
-            if(textBoxSender.Text == ("Enter " + textBoxSender.Name))
-            {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            }
+            //if(textBoxSender.Text == ("Enter " + textBoxSender.Name))
+            //{
+            //    textBoxSender.Text = "";
+            //    textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
+            //}
         }
 
         private void BoxLostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBoxSender = sender as TextBox;
+            //TextBox textBoxSender = sender as TextBox;
 
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
+            //if (textBoxSender.Text.Length == 0)
+            //{
+            //    textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
+            //    textBoxSender.Text = "Enter " + textBoxSender.Name;
 
-            }
+            //}
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -47,26 +47,22 @@ namespace CannaBe
 
         private async void PostLogin(object sender, RoutedEventArgs e)
         {
-            LoadingIndicator.IsActive = true;
-            var req = new LoginRequest(Username.Text, Password.Text);
-
-
             HttpResponseMessage res = null;
+
             try
             {
-                res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);
+                PagesUtilities.StartProgressRing(sender);
+                var req = new LoginRequest(Username.Text, Password.Text);
 
-                LoadingIndicator.IsActive = false;
+                res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);                
 
                 if (res != null)
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
                         Status.Text = "Login success!";
-                        //    + "\nID: " + response.RequestId
-                        //    + "\nStatus: " + response.Status
-                        //    + "\nBody: " + response.Body;
 
+                        PagesUtilities.SleepSeconds(1);
                         Frame.Navigate(typeof(DashboardPage), res);
                     }
                     else
@@ -78,10 +74,16 @@ namespace CannaBe
                 {
                     Status.Text = "Login failed!\nPost operation failed";
                 }
+
+
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Status.Text = "Exception during login:\n" + exc.Message;
+            }
+            finally
+            {
+                PagesUtilities.StopProgressRing();
             }
 
         }
