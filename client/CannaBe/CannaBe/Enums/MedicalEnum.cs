@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace CannaBe.Enums
 {
     enum MedicalEnum
     {
-        [EnumDescriptions("Do you feel a medical improvement?","0")]
+        [EnumDescriptions("Are your seizures less frequent?","0")]
         SEIZURES = 1,
         [EnumDescriptions("Do your muscles fell less stiff?", "0")]
         MUSCLE_SPASMS = 2,

@@ -1,6 +1,8 @@
-﻿using CannaBe.Enums;
+﻿using CannaBe.AppPages.Usage;
+using CannaBe.Enums;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 
 namespace CannaBe
@@ -43,7 +45,7 @@ namespace CannaBe
 
         [JsonConstructor]
         public LoginResponse(string userID, string username, string dOB, 
-            string gender, string country, string city, 
+            string gender, string country, string city,
             List<string> medicalNeeds, 
             List<string> positivePreferences,
             List<string> negativePreferences,
@@ -57,8 +59,8 @@ namespace CannaBe
             Country = country;
             City = city;
 
-            StringMedicalNeeds = medicalNeeds;
-            //MedicalNeeds = MedicalEnumMethods.FromStringList(StringMedicalNeeds);
+            StringMedicalNeeds = new List<string> {"SEIZURES"};
+            MedicalNeeds = MedicalEnumMethods.FromStringList(StringMedicalNeeds);
             StringPositivePreferences = positivePreferences;
             //PositivePreferences = PositivePreferencesEnumMethods.FromStringList(StringPositivePreferences);
             StringNegativePreferences = negativePreferences;
@@ -73,7 +75,16 @@ namespace CannaBe
 
         public static LoginResponse CreateFromHttpResponse(object msg)
         {
-            return HttpManager.ParseJson<LoginResponse>(msg as HttpResponseMessage);
+            var httpMsg = msg as HttpResponseMessage;
+            var res = HttpManager.ParseJson<LoginResponse>(httpMsg);
+
+            //var values = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(httpMsg.Content.ReadAsStringAsync().Result);
+
+            //res.StringMedicalNeeds = values["medical"].ToList();
+            //res.StringPositivePreferences = values["positive"].ToList();
+            //res.StringNegativePreferences = values["negative"].ToList();
+
+            return res;
         }
     }
 }
