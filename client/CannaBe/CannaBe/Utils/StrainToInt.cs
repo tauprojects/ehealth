@@ -11,7 +11,7 @@ namespace CannaBe
 
             foreach (int i in intList)
             {
-                bitmap |= i << (i - 1);
+                bitmap |= 1 << (i - 1);
             }
 
             return bitmap;

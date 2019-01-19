@@ -146,6 +146,9 @@
     <Compile Include="AppPages\Usage\StartUsage2.xaml.cs">
       <DependentUpon>StartUsage2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\Usage\UsageDisplay.xaml.cs">
+      <DependentUpon>UsageDisplay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPages\Usage\UsageHistory.xaml.cs">
       <DependentUpon>UsageHistory.xaml</DependentUpon>
     </Compile>
@@ -266,6 +269,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppPages\Usage\StartUsage2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\Usage\UsageDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
