@@ -81,8 +81,7 @@ namespace CannaBe
 
             try
             {
-                PagesUtilities.StartProgressRing(sender);
-
+                progressRing.IsActive = true;
                 PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
                                     out List<int> intList);
                 
@@ -115,7 +114,7 @@ namespace CannaBe
             }
             finally
             {
-                PagesUtilities.StopProgressRing();
+                progressRing.IsActive = false;
             }
         }
     }

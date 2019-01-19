@@ -62,6 +62,12 @@ namespace CannaBe
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
+            if(GlobalContext.CurrentUser == null)
+            {
+                UsageHistoryButton.IsEnabled = false;
+                PostTreatmantFeedbackButton.IsEnabled = false;
+                Welcome.Text = "Debug Session, no user";
+            }
         }
 
         private void GoToInformationPage(object sender, TappedRoutedEventArgs e)

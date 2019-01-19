@@ -134,15 +134,10 @@ namespace CannaBe.AppPages.Usage
 
             bool useBand = UseBand.IsChecked.Value && isPaired && GlobalContext.Band.IsConnected();
 
-            UsageContext.Usage = new UsageData(UsageContext.ChosenStrain, DateTime.Now)
-            {
-                UseBandData = useBand
-            };
+            UsageContext.Usage = new UsageData(UsageContext.ChosenStrain, DateTime.Now, useBand);
 
             if (!useBand)
             {
-                ContinueButton.Content = "Success!";
-                PagesUtilities.SleepSeconds(1);
                 Frame.Navigate(typeof(ActiveSession));
             }
             else //USE BAND! start acquiring heart rate

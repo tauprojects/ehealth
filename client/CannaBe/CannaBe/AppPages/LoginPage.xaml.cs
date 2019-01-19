@@ -50,7 +50,7 @@ namespace CannaBe
 
             try
             {
-                PagesUtilities.StartProgressRing(sender);
+                progressRing.IsActive = true;
                 var req = new LoginRequest(Username.Text, Password.Password);
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);                
@@ -82,7 +82,7 @@ namespace CannaBe
             }
             finally
             {
-                PagesUtilities.StopProgressRing();
+                progressRing.IsActive = false;
             }
 
         }

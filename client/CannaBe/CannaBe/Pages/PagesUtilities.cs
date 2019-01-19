@@ -117,43 +117,7 @@ namespace CannaBe
             System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(seconds)).GetAwaiter().GetResult();
         }
 
-        private static ProgressRing ring = null;
 
-        public static void StartProgressRing(object sender)
-        {
-            try
-            {
-                ring = new ProgressRing
-                {
-                    IsActive = true,
-                    Width = 50,
-                    Height = 50
-                };
-
-                ((sender as Control).Parent as Grid).Children.Add(ring);
-            }
-            catch(Exception e)
-            {
-                AppDebug.Exception(e, "StartProgressRing");
-            }
-        }
-
-        public static void StopProgressRing()
-        {
-            try
-            {
-                if (ring != null)
-                {
-                    ring.IsActive = false;
-                    (ring.Parent as Grid).Children.Remove(ring);
-                    ring = null;
-                }
-            }
-            catch (Exception e)
-            {
-                AppDebug.Exception(e, "StopProgressRing");
-            }
-        }
     }
 
    

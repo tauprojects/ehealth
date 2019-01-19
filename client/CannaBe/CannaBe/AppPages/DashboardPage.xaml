@@ -44,11 +44,11 @@
         </Button>
         <Button Content="Post Treatment Feedback" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
-                Tapped="GoToPostTreatment"
+                Tapped="GoToPostTreatment" x:Name="PostTreatmantFeedbackButton"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Click="GoToUsageHistory"
+                Click="GoToUsageHistory" x:Name="UsageHistoryButton"
                 Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,274,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>

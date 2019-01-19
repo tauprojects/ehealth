@@ -17,7 +17,9 @@ namespace CannaBe.Enums
         CRAMPS = 10,
         STRESS = 11,
         PAIN = 12,
-        DEPRESSION = 13        
+        DEPRESSION = 13,
+        INSOMNIA = 14,
+        HEADACHE = 15
     }
 
     static class MedicalEnumMethods
