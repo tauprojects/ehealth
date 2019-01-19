@@ -130,9 +130,9 @@ public class StrainApiServiceImpl implements StrainApiService {
                 registeredUsersEntity.getGender(),
                 registeredUsersEntity.getCountry(),
                 registeredUsersEntity.getCity(),
-                getEffectsAsString(registeredUsersEntity.getMedical()),
-                getEffectsAsString(registeredUsersEntity.getPositive()),
-                getEffectsAsString(registeredUsersEntity.getNegative()),
+                registeredUsersEntity.getMedical(),
+                registeredUsersEntity.getPositive(),
+                registeredUsersEntity.getNegative(),
                 registeredUsersEntity.getCreatedAt()
         );
     }

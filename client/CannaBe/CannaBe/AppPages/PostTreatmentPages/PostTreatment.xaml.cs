@@ -41,20 +41,26 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
+
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
-            AppDebug.Line(GlobalContext.CurrentUser.Data.MedicalNeeds.ToString());
+            foreach (var medicalNeed in GlobalContext.CurrentUser.Data.MedicalNeeds)
+            {
+                var info = medicalNeed.GetAttribute<EnumDescriptions>();
+                PostQuestions.Items.Add(info);
+            }
+
             try
             {
-                MedicalEnum m = GlobalContext.CurrentUser.Data.MedicalNeeds[0];
-                var info = m.GetAttribute<EnumDescriptions>();
-                question1.Text = info.q1;
-
+                //List<string> medicalList = new List<string>();
                 //foreach (MedicalEnum m in GlobalContext.CurrentUser.Data.MedicalNeeds)
                 //{
                 //    var info = m.GetAttribute<EnumDescriptions>();
-                //    question1.Text = info.q1;
+                //    medicalList.Add(info.q1);
                 //}
+                //question1.Text = medicalList[0];
+                //question2.Text = medicalList[1];
             }
+
             catch (Exception x)
             {
                 AppDebug.Exception(x, "Failed receiving medical needs");
