@@ -117,14 +117,12 @@ namespace CannaBe.AppPages.Usage
         private void StartAction()
         {
             progressRing.IsActive = true;
-            BackButton.IsEnabled = false;
             ContinueButton.IsEnabled = false;
         }
 
         private void EndAction()
         {
             progressRing.IsActive = false;
-            BackButton.IsEnabled = true;
             ContinueButton.IsEnabled = true;
         }
 

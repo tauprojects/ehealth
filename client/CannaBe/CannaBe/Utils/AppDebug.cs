@@ -4,6 +4,8 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 namespace CannaBe
 {
@@ -27,7 +29,7 @@ namespace CannaBe
 
                 FileIO.AppendTextAsync(LogFile, msg.ToString() + Environment.NewLine).GetAwaiter().GetResult();
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Debug.WriteLine(exc);
             }
@@ -35,7 +37,9 @@ namespace CannaBe
 
         public static void Init()
         {
-            if(LogFile == null)
+            Application.Current.UnhandledException += UnhandledExceptionEventHandler;
+
+            if (LogFile == null)
             {
                 Task.Run(() =>
                 {
@@ -50,7 +54,7 @@ namespace CannaBe
 
         public static void Line(object msg) { Line(msg, false); }
 
-        public static void Exception(Exception e, string caller, 
+        public static void Exception(Exception e, string caller,
             [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filename = "")
         {
             Line($"!!! *** Exception caught in [{caller}] *** !!!");
@@ -58,6 +62,15 @@ namespace CannaBe
             Line(e);
         }
 
-        
+        private static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            Line($"!!! *** UNHANDLED Exception *** !!!");
+            Line(e);
+
+            try { new MessageDialog(e.Exception.Message, "Unhandled Exception!").ShowAsync().GetAwaiter().GetResult(); } catch { }
+        }
+
+
+
     }
 }

@@ -18,17 +18,63 @@ namespace CannaBe
         public string City { get; set; }
 
         [JsonProperty("medical")]
-        public List<string> MedicalNeeds { get; set; }
+        public int BitmapMedicalNeeds { get; set; }
+        //public List<string> MedicalNeeds { get; set; }
 
         [JsonProperty("positive")]
-        public List<string> PositivePreferences{ get; set; }
+        public int BitmapPositivePreferences { get; set; }
+        //public List<string> PositivePreferences{ get; set; }
 
         [JsonProperty("negative")]
-        public List<string> NegativePreferences { get; set; }
+        public int BitmapNegativePreferences { get; set; }
+        //public List<string> NegativePreferences { get; set; }
 
-        public List<int> IntMedicalNeeds  { get; set; }
-        public List<int> IntPositivePreferences  { get; set; }
-        public List<int> IntNegativePreferences  { get; set; }
+        private List<int> intListMedicalNeeds;
+        [JsonIgnore]
+        public List<int> IntListMedicalNeeds
+        {
+            get
+            {
+                return intListMedicalNeeds;
+            }
+            set
+            {
+                intListMedicalNeeds = value;
+                BitmapMedicalNeeds = value.FromIntListToBitmap();
+            }
+        }
+
+        private List<int> intPositivePreferences;
+
+        [JsonIgnore]
+        public List<int> IntPositivePreferences
+        {
+            get
+            {
+                return intPositivePreferences;
+            }
+            set
+            {
+                intPositivePreferences = value;
+                BitmapPositivePreferences = value.FromIntListToBitmap();
+            }
+        }
+
+        private List<int> intNegativePreferences;
+
+        [JsonIgnore]
+        public List<int> IntNegativePreferences
+        {
+            get
+            {
+                return intNegativePreferences;
+            }
+            set
+            {
+                intNegativePreferences = value;
+                BitmapNegativePreferences = value.FromIntListToBitmap();
+            }
+        }
 
         public RegisterRequest() { }
 
@@ -39,9 +85,9 @@ namespace CannaBe
             Gender = gender;
             Country = country;
             City = city;
-            MedicalNeeds = new List<string>();
-            PositivePreferences = new List<string>();
-            NegativePreferences = new List<string>();
+            //MedicalNeeds = new List<string>();
+            //PositivePreferences = new List<string>();
+            //NegativePreferences = new List<string>();
         }
     }
 }

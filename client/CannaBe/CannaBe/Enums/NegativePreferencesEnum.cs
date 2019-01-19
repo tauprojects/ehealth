@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace CannaBe.Enums
 
             return strList;
         }
+
 
         public static List<NegativePreferencesEnum> FromIntList(List<int> intList)
         {

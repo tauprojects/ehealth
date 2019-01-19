@@ -86,7 +86,6 @@ namespace CannaBe
                                     out List<int> intList);
                 
                 GlobalContext.RegisterContext.IntNegativePreferences = intList;
-                GlobalContext.RegisterContext.NegativePreferences = NegativePreferencesEnumMethods.FromIntToStringList(intList);
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("register"), GlobalContext.RegisterContext);
 

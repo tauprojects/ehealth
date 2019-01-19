@@ -86,7 +86,6 @@ namespace CannaBe
                                                  out List<int> intList);
 
             GlobalContext.RegisterContext.IntPositivePreferences = intList;
-            GlobalContext.RegisterContext.PositivePreferences = PositivePreferencesEnumMethods.FromIntToStringList(intList);
 
             Frame.Navigate(typeof(RegisterNegativeEffectsPage));
         }
