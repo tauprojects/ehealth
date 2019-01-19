@@ -22,6 +22,10 @@ namespace CannaBe.AppPages.Usage
             foreach(var usage in GlobalContext.CurrentUser.UsageSessions)
             {
                 UsageListGui.Items.Add(usage);
+                foreach(var dic in usage.usageFeedback)
+                {
+                    AppDebug.Line("Question: " + dic.Key + " Answer: " + dic.Value);
+                }
             }
         }
 
