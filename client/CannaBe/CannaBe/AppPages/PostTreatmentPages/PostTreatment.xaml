@@ -37,8 +37,8 @@
               Height="380" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,120,0,0">
             <Grid>
 
-                <TextBlock Foreground="Black" Text="Question 1:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,10,0,0"/>
-                <ComboBox x:Name="Q1" HorizontalAlignment="Left" Margin="20,35,0,0" VerticalAlignment="Top">
+                <TextBlock x:Name="question1" Foreground="Black" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                <ComboBox x:Name="answer1" HorizontalAlignment="Left" Margin="20,35,0,0" VerticalAlignment="Top">
                     <x:String>Yes</x:String>
                     <x:String>No</x:String>
                 </ComboBox>

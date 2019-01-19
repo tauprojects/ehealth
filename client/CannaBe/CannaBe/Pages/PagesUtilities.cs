@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CannaBe.Enums;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using Windows.Foundation;
 using Windows.UI.Core;
@@ -75,6 +77,9 @@ namespace CannaBe
                         //if (!listToAddTo.Contains(tag))
                         //{
                             listToAddTo.Add(tag);
+                            //MedicalEnum m = (MedicalEnum)tag;
+                            //var info = MedicalEnum.SEIZURES.GetAttribute<EnumDescriptions>();
+                            //AppDebug.Line(pageName + "." + info.q1);
                             AppDebug.Line(pageName + "." + tag);
                         //}
                     }

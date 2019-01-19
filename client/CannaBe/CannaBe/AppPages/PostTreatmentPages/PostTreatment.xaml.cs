@@ -1,4 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using CannaBe.Enums;
+using System;
+using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
@@ -39,6 +42,24 @@ namespace CannaBe.AppPages.PostTreatmentPages
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
+            AppDebug.Line(GlobalContext.CurrentUser.Data.MedicalNeeds.ToString());
+            try
+            {
+                MedicalEnum m = GlobalContext.CurrentUser.Data.MedicalNeeds[0];
+                var info = m.GetAttribute<EnumDescriptions>();
+                question1.Text = info.q1;
+
+                //foreach (MedicalEnum m in GlobalContext.CurrentUser.Data.MedicalNeeds)
+                //{
+                //    var info = m.GetAttribute<EnumDescriptions>();
+                //    question1.Text = info.q1;
+                //}
+            }
+            catch (Exception x)
+            {
+                AppDebug.Exception(x, "Failed receiving medical needs");
+            }
+
         }
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
