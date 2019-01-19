@@ -134,7 +134,7 @@ namespace CannaBe.AppPages.Usage
 
             bool useBand = UseBand.IsChecked.Value && isPaired && GlobalContext.Band.IsConnected();
 
-            UsageContext.Usage = new UsageData(GlobalContext.User, UsageContext.ChosenStrain, DateTime.Now)
+            UsageContext.Usage = new UsageData(UsageContext.ChosenStrain, DateTime.Now)
             {
                 UseBandData = useBand
             };

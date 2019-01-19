@@ -4,7 +4,7 @@ namespace CannaBe
 {
     static class GlobalContext
     {
-        public static UserData User { get; set; } = null;
+        public static UserData CurrentUser { get; set; } = null;
         public static RegisterRequest RegisterContext { get; set; } = null;
         public static BandContext Band { get; set; } = null;
 
@@ -12,12 +12,12 @@ namespace CannaBe
         {
             try
             {
-                User = new UserData(LoginResponse.CreateFromHttpResponse(e.Parameter));
+                CurrentUser = new UserData(LoginResponse.CreateFromHttpResponse(e.Parameter));
             }
             catch (System.Exception exc)
             {
                 AppDebug.Exception(exc, "AddUserToContext");
-                User = null;
+                CurrentUser = null;
             }
         }
 

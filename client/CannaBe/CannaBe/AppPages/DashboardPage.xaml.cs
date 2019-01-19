@@ -50,7 +50,7 @@ namespace CannaBe
 
             GlobalContext.AddUserToContext(e);
 
-            Welcome.Text = $"Welcome, {GlobalContext.User.Data.Username}!";
+            Welcome.Text = $"Welcome, {GlobalContext.CurrentUser.Data.Username}!";
 
             AppDebug.Line($"Wrote welocme text: [{Welcome.Text}]");
 
@@ -82,6 +82,11 @@ namespace CannaBe
         private void GoToStartUsage(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(StartUsage));
+        }
+
+        private void GoToUsageHistory(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(UsageHistory));
         }
     }
 }

@@ -6,25 +6,43 @@ namespace CannaBe
 {
     class UsageData
     {
-        public delegate void ChangeHandler(double avg, int min, int max);
-        private readonly UserData User;
-        public readonly Strain UsageStrain;
-        public readonly DateTime StartTime;
-        // private readonly DateTime EndTime;
+        public delegate void HeartRateUpdateHandler(double avg, int min, int max);
+        public Strain UsageStrain { get; private set; }
+        public DateTime StartTime { get; private set; }
+        public DateTime EndTime { get; set; }
 
-        public ChangeHandler Handler = null;
+        public HeartRateUpdateHandler Handler = null;
 
         public bool UseBandData { get; set; } = false;
 
-        public UsageData(UserData user, Strain usageStrain, DateTime startTime)
+        public UsageData(Strain usageStrain, DateTime startTime)
         {
-            User = user;
             UsageStrain = usageStrain;
             StartTime = startTime;
         }
 
-        private long HeartRateReadings { get; set; } = 0;
+        public override bool Equals(object obj)
+        {
+            if (!(obj is UsageData other))
+            {
+                return false;
+            }
 
+            return StartTime.Equals(other.StartTime) && EndTime.Equals(other.EndTime);
+        }
+
+        public override int GetHashCode()
+        {
+            return StartTime.GetHashCode();
+        }
+
+        public void EndUsage()
+        {
+            EndTime = DateTime.Now;
+            GlobalContext.CurrentUser.UsageSessions.Add(this);
+        }
+
+        private long HeartRateReadings { get; set; } = 0;
         public double HeartRateAverage { get; private set; } = 0;
         public int HeartRateMin { get; private set; } = int.MaxValue;
         public int HeartRateMax { get; private set; } = 0;
@@ -46,6 +64,7 @@ namespace CannaBe
                     AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
                     try
                     {
+                        //Run code on main thread for UI change, preventing exception
                         CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                         {
                             try
@@ -57,7 +76,6 @@ namespace CannaBe
                                 AppDebug.Exception(x, "HeartRateChangedAsync => Handler?.Invoke");
                             }
                         }).AsTask().GetAwaiter().GetResult();
-
                     }
                     catch (Exception e)
                     {
