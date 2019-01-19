@@ -37,13 +37,13 @@ public class RegisteredUserData {
     String city;
 
     @JsonProperty("medical")
-    List<String> medical;
+    int medical;
 
     @JsonProperty("positive")
-    List<String> positive;
+    int positive;
 
     @JsonProperty("negative")
-    List<String> negative;
+    int negative;
 
     @JsonProperty("created_at")
     Long createdAt;
