@@ -39,19 +39,21 @@ namespace CannaBe.AppPages.Usage
 
         private void Remove_Click(object sender, RoutedEventArgs e)
         {
-            
-            //var yesCommand = new UICommand("Yes", cmd => { });
-            //var noCommand = new UICommand("No", cmd => { });
-            //var cancelCommand = new UICommand("Cancel", cmd => { });
-            //var dialog = new MessageDialog("Are you sure you want to remove the usage from the history?", "Remove Usage")
-            //{
-            //    Options = MessageDialogOptions.None
-            //};
-            //dialog.Commands.Add(yesCommand);
-            //dialog.Commands.Add(noCommand);
-            //dialog.
-
             AppDebug.Line($"Remove usage on [{selectedUsage.StartTimeString}]");
+            var yesCommand = new UICommand("Remove", cmd => 
+            {
+                AppDebug.Line("removing...");
+                GlobalContext.CurrentUser.UsageSessions.Remove(selectedUsage);
+            });
+            var noCommand = new UICommand("Cancel", cmd => { AppDebug.Line("Cancel remove"); });
+            var dialog = new MessageDialog("Are you sure you want to remove the usage from the history?", "Remove Usage")
+            {
+                Options = MessageDialogOptions.None
+            };
+            dialog.Commands.Add(yesCommand);
+            dialog.Commands.Add(noCommand);
+
+            dialog.ShowAsync().GetAwaiter().GetResult();
         }
 
         private void ListView_RightTapped(object sender, RightTappedRoutedEventArgs e)

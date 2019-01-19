@@ -29,26 +29,79 @@ namespace CannaBe
         [JsonProperty("city")]
         public string City { get; set; }
 
-        [JsonProperty("medical")]
-        public List<string> StringMedicalNeeds { get; set; }
+        private int bitmapMedicalNeeds;
 
+        [JsonProperty("medical")]
+        public int BitmapMedicalNeeds
+        {
+            get
+            {
+                return bitmapMedicalNeeds;
+            }
+            set
+            {
+                AppDebug.Line($"Setting BitmapMedicalNeeds {bitmapMedicalNeeds}");
+                bitmapMedicalNeeds = value;
+                MedicalNeeds = value.FromBitmapToEnumList<MedicalEnum>();
+                foreach(var i in MedicalNeeds)
+                {
+                    AppDebug.Line($"\tGot {i.ToString()}");
+                }
+            }
+        }
         public List<MedicalEnum> MedicalNeeds { get; set; }
 
-        [JsonProperty("positive")]
-        public List<string> StringPositivePreferences { get; set; }
+        private int bitmapPositivePreferences;
 
+        [JsonProperty("positive")]
+        public int BitmapPositivePreferences
+        {
+            get
+            {
+                return bitmapPositivePreferences;
+            }
+            set
+            {
+                AppDebug.Line($"Setting BitmapPositivePreferences {bitmapPositivePreferences}");
+                bitmapPositivePreferences = value;
+                PositivePreferences = value.FromBitmapToEnumList<PositivePreferencesEnum>();
+                foreach (var i in PositivePreferences)
+                {
+                    AppDebug.Line($"\tGot {i.ToString()}");
+                }
+            }
+        }
         public List<PositivePreferencesEnum> PositivePreferences { get; set; }
 
+        private int bitmapNegativePreferences;
+
         [JsonProperty("negative")]
-        private List<string> StringNegativePreferences { get; set; }
+        public int BitmapNegativePreferences
+        {
+            get
+            {
+                return bitmapNegativePreferences;
+            }
+            set
+            {
+                AppDebug.Line($"Setting BitmapNegativePreferences {bitmapNegativePreferences}");
+                bitmapNegativePreferences = value;
+                NegativePreferences = value.FromBitmapToEnumList<NegativePreferencesEnum>();
+                foreach (var i in NegativePreferences)
+                {
+                    AppDebug.Line($"\tGot {i.ToString()}");
+                }
+            }
+        }
+
         public List<NegativePreferencesEnum> NegativePreferences { get; set; }
 
         [JsonConstructor]
-        public LoginResponse(string userID, string username, string dOB, 
+        public LoginResponse(string userID, string username, string dOB,
             string gender, string country, string city,
-            List<string> medicalNeeds, 
-            List<string> positivePreferences,
-            List<string> negativePreferences,
+            int medicalNeeds,
+            int positivePreferences,
+            int negativePreferences,
             long createdAt)
         {
             UserID = userID;
@@ -59,12 +112,9 @@ namespace CannaBe
             Country = country;
             City = city;
 
-            StringMedicalNeeds = new List<string> {"SEIZURES"};
-            MedicalNeeds = MedicalEnumMethods.FromStringList(StringMedicalNeeds);
-            StringPositivePreferences = positivePreferences;
-            //PositivePreferences = PositivePreferencesEnumMethods.FromStringList(StringPositivePreferences);
-            StringNegativePreferences = negativePreferences;
-            //NegativePreferences = NegativePreferencesEnumMethods.FromStringList(StringNegativePreferences);
+            BitmapMedicalNeeds = medicalNeeds;
+            BitmapPositivePreferences = positivePreferences;
+            BitmapNegativePreferences = negativePreferences;
 
         }
 
