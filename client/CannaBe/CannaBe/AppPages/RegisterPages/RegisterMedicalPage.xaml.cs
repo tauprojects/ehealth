@@ -16,28 +16,6 @@ namespace CannaBe
             this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
-        private void BoxGotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
-            {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            }
-        }
-
-        private void BoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
-
-            }
-        }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -49,7 +27,7 @@ namespace CannaBe
                 try
                 {
                     PagesUtilities.SetAllCheckBoxesTags(RegisterMedicalGrid,
-                                     req.IntMedicalNeeds);
+                                     req.IntListMedicalNeeds);
                 }
                 catch(Exception exc)
                 {
@@ -63,7 +41,7 @@ namespace CannaBe
             PagesUtilities.GetAllCheckBoxesTags(RegisterMedicalGrid,
                                      out List<int> intList);
 
-            GlobalContext.RegisterContext.IntMedicalNeeds = intList;
+            GlobalContext.RegisterContext.IntListMedicalNeeds = intList;
 
             Frame.Navigate(typeof(RegisterPage));
         }
@@ -73,8 +51,7 @@ namespace CannaBe
             PagesUtilities.GetAllCheckBoxesTags(RegisterMedicalGrid,
                                                  out List<int> intList);
 
-            GlobalContext.RegisterContext.IntMedicalNeeds = intList;
-            GlobalContext.RegisterContext.MedicalNeeds = MedicalEnumMethods.FromIntToStringList(intList);
+            GlobalContext.RegisterContext.IntListMedicalNeeds = intList;
 
             Frame.Navigate(typeof(RegisterPositiveEffectsPage), GlobalContext.RegisterContext);
         }
