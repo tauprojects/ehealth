@@ -59,7 +59,7 @@ namespace CannaBe
             Country = country;
             City = city;
 
-            StringMedicalNeeds = new List<string> {"SEIZURES", "FATIGUE"};
+            StringMedicalNeeds = new List<string> {"SEIZURES", "FATIGUE", "DEPRESSION", "STRESS" };
             MedicalNeeds = MedicalEnumMethods.FromStringList(StringMedicalNeeds);
             StringPositivePreferences = positivePreferences;
             //PositivePreferences = PositivePreferencesEnumMethods.FromStringList(StringPositivePreferences);
