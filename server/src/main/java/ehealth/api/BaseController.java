@@ -74,12 +74,12 @@ public class BaseController {
     }
 
     /**
-     * Register API
+     * Get recommended API
      *
-     * @return String
+     * @return List<Strain>
      */
-    @RequestMapping(value = "/strains/recommended/{user-id}/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Strain> getRecommended(@PathVariable String userId) {
+    @RequestMapping(value = "/strains/recommended/{user-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Strain> getRecommended(@PathVariable("user-id") String userId) {
         logger.info("GET recommended strains for userId: " + userId);
         // get User Info by ID from database
         Strain exampleA = new Strain();
