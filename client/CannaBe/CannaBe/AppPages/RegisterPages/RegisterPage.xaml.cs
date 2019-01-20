@@ -13,28 +13,7 @@ namespace CannaBe
             this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
-        private void BoxGotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
-            {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            }
-        }
-
-        private void BoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
-
-            }
-        }
+       
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
@@ -46,7 +25,7 @@ namespace CannaBe
                 try
                 {
                     Username.Text = req.Username ?? "";
-                    Password.Text = "";
+                    Password.Password = "";
                     Country.Text = req.Country ?? "";
                     City.Text = req.City ?? "";
 
@@ -91,7 +70,7 @@ namespace CannaBe
             {
                 Status.Text = "Please enter a valid username";
             }
-            else if (Password.Text == "")
+            else if (Password.Password == "")
             {
                 Status.Text = "Please enter a valid password";
             }
@@ -115,7 +94,7 @@ namespace CannaBe
                 }
 
                 GlobalContext.RegisterContext.Username  = Username.Text;
-                GlobalContext.RegisterContext.Password  = Password.Text;
+                GlobalContext.RegisterContext.Password  = Password.Password;
                 GlobalContext.RegisterContext.DOB       = DOB.Date.Day + "/" + DOB.Date.Month + "/" + DOB.Date.Year;
                 GlobalContext.RegisterContext.Gender    = Gender.SelectedValue.ToString();
                 GlobalContext.RegisterContext.Country   = Country.Text;

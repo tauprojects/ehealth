@@ -1,5 +1,6 @@
 package ehealth.api;
 
+import ehealth.client.data_objects.Strain;
 import ehealth.data_objects.LoginRequest;
 import ehealth.data_objects.BaseResponse;
 import ehealth.data_objects.RegisterRequest;
@@ -11,6 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ehealth.service.StrainApiServiceImpl;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RestController
@@ -66,6 +71,22 @@ public class BaseController {
     public RegisteredUserData register(@RequestBody RegisterRequest registerRequest) {
         logger.info("POST register request: " + registerRequest.toString());
         return mainServiceImpl.register(registerRequest);
+    }
+
+    /**
+     * Get recommended API
+     *
+     * @return List<Strain>
+     */
+    @RequestMapping(value = "/strains/recommended/{user-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Strain> getRecommended(@PathVariable("user-id") String userId) {
+        logger.info("GET recommended strains for userId: " + userId);
+        // get User Info by ID from database
+        Strain exampleA = new Strain();
+        exampleA.setName("strain-A");
+        Strain exampleB = new Strain();
+        exampleB.setName("strain-B");
+        return Arrays.asList(exampleA,exampleB);
     }
 }
 

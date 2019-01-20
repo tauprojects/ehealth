@@ -57,7 +57,7 @@ namespace CannaBe.Enums
         {
             List<MedicalEnum> enumList = new List<MedicalEnum>(intList.Count);
 
-            foreach(int i in intList)
+            foreach (int i in intList)
             {
                 MedicalEnum m = ((MedicalEnum)i);
                 enumList.Add(m);
@@ -69,7 +69,7 @@ namespace CannaBe.Enums
 
         public static List<MedicalEnum> FromStringList(List<string> strList)
         {
-            AppDebug.Line("MedicalEnum isStrNull = "+ (strList == null).ToString());
+            AppDebug.Line("MedicalEnum isStrNull = " + (strList == null).ToString());
 
             List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);
             AppDebug.Line("Created List<MedicalEnum>");

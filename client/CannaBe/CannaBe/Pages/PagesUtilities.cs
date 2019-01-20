@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -138,7 +139,23 @@ namespace CannaBe
             System.Threading.Tasks.Task.Delay(TimeSpan.FromSeconds(seconds)).GetAwaiter().GetResult();
         }
 
-
+        public static SolidColorBrush GetColor(this string hex)
+        {
+            try
+            {
+                hex = hex.Replace("#", string.Empty);
+                byte a = (byte)(Convert.ToUInt32(hex.Substring(0, 2), 16));
+                byte r = (byte)(Convert.ToUInt32(hex.Substring(2, 2), 16));
+                byte g = (byte)(Convert.ToUInt32(hex.Substring(4, 2), 16));
+                byte b = (byte)(Convert.ToUInt32(hex.Substring(6, 2), 16));
+                return new SolidColorBrush(Color.FromArgb(a, r, g, b)); ;
+            }
+            catch(Exception x)
+            {
+                AppDebug.Exception(x, "GetColor");
+                return new SolidColorBrush(Colors.Transparent);
+            }
+        }
     }
 
    

@@ -19,7 +19,17 @@ namespace CannaBe.AppPages.Usage
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             AppDebug.Line("In UsageHistory page");
-            foreach(var usage in GlobalContext.CurrentUser.UsageSessions)
+
+            ref var sessions = ref GlobalContext.CurrentUser.UsageSessions;
+
+            if(sessions.Count == 0)
+            {
+                UsageListGui.Visibility = Visibility.Collapsed;
+                NoUsageButton.Visibility = Visibility.Visible;
+                return;
+            }
+
+            foreach (var usage in sessions)
             {
                 UsageListGui.Items.Add(usage);
                 foreach(var dic in usage.usageFeedback)
@@ -86,6 +96,11 @@ namespace CannaBe.AppPages.Usage
             {
                 AppDebug.Exception(x, "ListView_RightTapped");
             }
+        }
+
+        private void AddNewUsage(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(StartUsage));
         }
     }
 }

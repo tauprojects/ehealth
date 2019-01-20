@@ -73,12 +73,28 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
+
             <!--<x:String>a</x:String>
-            <x:String>a</x:String>--> 
-            
+            <x:String>a</x:String>-->
+
 
         </ListView>
+
+        <Grid Visibility="Collapsed"
+            x:Name="NoUsageButton" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Background ="#900d3c87" Height="70"
+                                VerticalAlignment="Top" Width="300"
+                    Click="AddNewUsage">
+                    <TextBlock Foreground="White"  TextAlignment="Center"
+                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Run Text=" Still no usages!" FontSize="23" FontWeight="Bold"/>
+                        <LineBreak/>
+                        <Run x:Name="StrainNameTitle" Text="Click to add a new usage" FontWeight="Bold"/>
+
+                    </TextBlock>
+
+            </Button>
+        </Grid>
 
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
