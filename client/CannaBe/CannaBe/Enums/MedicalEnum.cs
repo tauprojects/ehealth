@@ -7,35 +7,35 @@ namespace CannaBe.Enums
 {
     enum MedicalEnum
     {
-        [EnumDescriptions("Are your seizures less frequent?", "0")]
+        [EnumDescriptions("Are your seizures less frequent?", "Rate the intensity of your seizures:")]
         SEIZURES = 1,
-        [EnumDescriptions("Do your muscles fell less stiff?", "0")]
+        [EnumDescriptions("Do your muscles fell less stiff?", "Rate your muscle pain:")]
         MUSCLE_SPASMS = 2,
-        [EnumDescriptions("Do your muscles fell less stiff?", "0")]
+        [EnumDescriptions("Do your muscles fell less stiff?", "Rate your muscle stiffnes:")]
         SPASTICITY = 3,
-        [EnumDescriptions("Is there a relief in you inflammation effect?", "0")]
+        [EnumDescriptions("Is there a relief in you inflammation effect?", "Rate the intensity of your inflammation:")]
         INFLAMMATION = 4,
-        [EnumDescriptions("Is there an improvement in your eye pressure?", "0")]
+        [EnumDescriptions("Is there an improvement in your eye pressure?", "Rate the intensity of your eye pressure:")]
         EYE_PRESSURE = 5,
-        [EnumDescriptions("Do you have fewer headaches?", "Are your headaches calmer?")]
+        [EnumDescriptions("Do you have fewer headaches?", "Rate how strong your headaches are:")]
         HEADACHES = 6,
-        [EnumDescriptions("Do you feel more energetic?", "0")]
+        [EnumDescriptions("Do you feel more energetic?", "Rate how tired you regularly feel:")]
         FATIGUE = 7,
-        [EnumDescriptions("Are you feeling less nauseous?", "0")]
+        [EnumDescriptions("Are you feeling less nauseous?", "Rate the intensity of your nausea:")]
         NAUSEA = 8,
-        [EnumDescriptions("Is your appetite larger?", "0")]
+        [EnumDescriptions("Is your appetite larger?", "Rate how bad is your appetite:")]
         LACK_OF_APPETITE = 9,
-        [EnumDescriptions("Do you have less cramps?", "0")]
+        [EnumDescriptions("Do you have less cramps?", "Rate the intensity of your cramps:")]
         CRAMPS = 10,
-        [EnumDescriptions("Do you feel more relaxed?", "0")]
+        [EnumDescriptions("Do you feel more relaxed?", "Rate how stressful you regularly feel:")]
         STRESS = 11,
         [EnumDescriptions("Is your pain improving?", "Rate your pain:")]
         PAIN = 12,
-        [EnumDescriptions("Do you feel less depressed?", "0")]
+        [EnumDescriptions("Do you feel less depressed?", "Rate how intense is your depression regularly:")]
         DEPRESSION = 13,
-        [EnumDescriptions("", "0")]
+        [EnumDescriptions("Do you feel improvement in your sleep quality?", "Rate your sleep quality:")]
         INSOMNIA = 14,
-        [EnumDescriptions("", "0")]
+        [EnumDescriptions("Do you have fewer headaches?", "Rate the frequency of your headaches:")]
         HEADACHE = 15
     }
 
