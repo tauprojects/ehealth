@@ -1,7 +1,9 @@
 ﻿using CannaBe.AppPages.Usage;
 using CannaBe.Enums;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 
@@ -17,8 +19,30 @@ namespace CannaBe
         [JsonProperty("username")]
         public string Username { get; set; }
 
+        private string dOB;
+
         [JsonProperty("dob")]
-        public string DOB { get; set; }
+        public string DOB {
+            get
+            {
+                return dOB;
+            }
+            set
+            {
+                dOB = value;
+                try
+                {
+                    DobDate = DateTime.ParseExact(dOB, "dd/M/yyyy", CultureInfo.InvariantCulture);
+                    AppDebug.Line($"Parsed [{DobDate.ToString("dd/MM/yyyy")}]");
+                }
+                catch (Exception x)
+                {
+                    AppDebug.Exception(x, "DobDate.set");
+                }
+            }
+        }
+
+        public DateTime DobDate { get; private set; }
 
         [JsonProperty("gender")]
         public string Gender { get; set; }
@@ -40,13 +64,13 @@ namespace CannaBe
             }
             set
             {
-                AppDebug.Line($"Setting BitmapMedicalNeeds {bitmapMedicalNeeds}");
+                //AppDebug.Line($"Setting BitmapMedicalNeeds {value}");
                 bitmapMedicalNeeds = value;
                 MedicalNeeds = value.FromBitmapToEnumList<MedicalEnum>();
-                foreach(var i in MedicalNeeds)
-                {
-                    AppDebug.Line($"\tGot {i.ToString()}");
-                }
+                //foreach(var i in MedicalNeeds)
+                //{
+                //    AppDebug.Line($"\tGot {i.ToString()}");
+                //}
             }
         }
         public List<MedicalEnum> MedicalNeeds { get; set; }
@@ -62,13 +86,13 @@ namespace CannaBe
             }
             set
             {
-                AppDebug.Line($"Setting BitmapPositivePreferences {bitmapPositivePreferences}");
+                //AppDebug.Line($"Setting BitmapPositivePreferences {value}");
                 bitmapPositivePreferences = value;
                 PositivePreferences = value.FromBitmapToEnumList<PositivePreferencesEnum>();
-                foreach (var i in PositivePreferences)
-                {
-                    AppDebug.Line($"\tGot {i.ToString()}");
-                }
+                //foreach (var i in PositivePreferences)
+                //{
+                //    AppDebug.Line($"\tGot {i.ToString()}");
+                //}
             }
         }
         public List<PositivePreferencesEnum> PositivePreferences { get; set; }
@@ -84,13 +108,13 @@ namespace CannaBe
             }
             set
             {
-                AppDebug.Line($"Setting BitmapNegativePreferences {bitmapNegativePreferences}");
+                //AppDebug.Line($"Setting BitmapNegativePreferences {value}");
                 bitmapNegativePreferences = value;
                 NegativePreferences = value.FromBitmapToEnumList<NegativePreferencesEnum>();
-                foreach (var i in NegativePreferences)
-                {
-                    AppDebug.Line($"\tGot {i.ToString()}");
-                }
+                //foreach (var i in NegativePreferences)
+                //{
+                //    AppDebug.Line($"\tGot {i.ToString()}");
+                //}
             }
         }
 
@@ -127,13 +151,6 @@ namespace CannaBe
         {
             var httpMsg = msg as HttpResponseMessage;
             var res = HttpManager.ParseJson<LoginResponse>(httpMsg);
-
-            //var values = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(httpMsg.Content.ReadAsStringAsync().Result);
-
-            //res.StringMedicalNeeds = values["medical"].ToList();
-            //res.StringPositivePreferences = values["positive"].ToList();
-            //res.StringNegativePreferences = values["negative"].ToList();
-
             return res;
         }
     }

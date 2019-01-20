@@ -1,10 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CannaBe
 {
     static class StrainToInt
     {
+        public static string Name(this Enum val)
+        {
+            var words = val.ToString().Split('_').ToArray();
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                var word = words[i];
+                if (word != "of")
+                {
+                    var w1 = word.ToLower();
+                    words[i] = word[0].ToString().ToUpper() + w1.Substring(1);
+                }
+            }
+
+            return string.Join(" ", words);
+        }
+
         public static int FromIntListToBitmap(this List<int> intList)
         {
             int bitmap = 0;

@@ -40,6 +40,7 @@
 
         <Button Content="My Profile" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
+                Click="GoToProfile"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Post Treatment Feedback" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
@@ -59,6 +60,7 @@
         </Button>
         <Button Content="My Reccomendations" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
+                Click="GoToRecommendations"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Start New Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"

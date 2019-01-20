@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 
 namespace CannaBe
 {
@@ -19,6 +16,23 @@ namespace CannaBe
                 return CannaBeUrl + addition;
             else
                 return CannaBeUrlLocalHost + addition;
+        }
+
+        public static int ToAge(this DateTime dob)
+        {
+            try
+            {
+                //taken from here: stackoverflow.com/a/11942
+                int now = int.Parse(DateTime.Now.ToString("yyyyMMdd"));
+                int dobInt = int.Parse(dob.ToString("yyyyMMdd"));
+                return (now - dobInt) / 10000;
+            }
+            catch(Exception x)
+            {
+                AppDebug.Exception(x, "GetAgeFromDob");
+                return 0;
+            }
+
         }
     }
 }

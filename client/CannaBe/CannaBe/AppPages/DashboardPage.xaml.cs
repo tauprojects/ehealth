@@ -1,5 +1,6 @@
 ﻿using CannaBe.AppPages;
 using CannaBe.AppPages.PostTreatmentPages;
+using CannaBe.AppPages.RecomendationPages;
 using CannaBe.AppPages.Usage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -93,6 +94,16 @@ namespace CannaBe
         private void GoToUsageHistory(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(UsageHistory));
+        }
+
+        private void GoToRecommendations(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MyRecomendations)); ;
+        }
+
+        private void GoToProfile(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ProfilePage)); ;
         }
     }
 }

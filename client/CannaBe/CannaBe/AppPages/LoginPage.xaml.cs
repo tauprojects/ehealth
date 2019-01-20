@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -47,13 +48,13 @@ namespace CannaBe
         private async void PostLogin(object sender, RoutedEventArgs e)
         {
             HttpResponseMessage res = null;
+            progressRing.IsActive = true;
 
             try
             {
-                progressRing.IsActive = true;
                 var req = new LoginRequest(Username.Text, Password.Password);
 
-                res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);                
+                res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);
 
                 if (res != null)
                 {
@@ -62,6 +63,8 @@ namespace CannaBe
                         Status.Text = "Login success!";
 
                         PagesUtilities.SleepSeconds(1);
+                        progressRing.IsActive = false;
+
                         Frame.Navigate(typeof(DashboardPage), res);
                     }
                     else
@@ -74,17 +77,17 @@ namespace CannaBe
                     Status.Text = "Login failed!\nPost operation failed";
                 }
 
-
             }
             catch (Exception exc)
             {
-                Status.Text = "Exception during login:\n" + exc.Message;
+                Status.Text = "Exception during login";
+
+                AppDebug.Exception(exc, "PostLogin");
             }
             finally
             {
                 progressRing.IsActive = false;
             }
-
         }
 
         private void BackToMain(object sender, RoutedEventArgs e)
@@ -96,7 +99,7 @@ namespace CannaBe
         {
             if (e.Key == VirtualKey.Enter)
             {
-                if(Username.Text.Length > 0 && Password.Password.Length > 0)
+                if (Username.Text.Length > 0 && Password.Password.Length > 0)
                 {
                     PostLogin(sender, e);
                 }
