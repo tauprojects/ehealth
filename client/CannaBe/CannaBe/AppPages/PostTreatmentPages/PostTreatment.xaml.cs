@@ -68,6 +68,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
         private void SubmitFeedback(object sender, TappedRoutedEventArgs e)
         {
             GlobalContext.CurrentUser.UsageSessions[GlobalContext.CurrentUser.UsageSessions.Count-1].usageFeedback = dict;
+            Frame.Navigate(typeof(DashboardPage));
         }
 
         private void Answers_SelectionChanged(object sender, SelectionChangedEventArgs e)
