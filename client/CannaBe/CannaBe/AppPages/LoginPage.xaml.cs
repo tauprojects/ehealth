@@ -21,23 +21,14 @@ namespace CannaBe
         {
             //TextBox textBoxSender = sender as TextBox;
 
-            //if(textBoxSender.Text == ("Enter " + textBoxSender.Name))
-            //{
-            //    textBoxSender.Text = "";
-            //    textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            //}
+            //textBoxSender.SelectAll();
         }
 
         private void BoxLostFocus(object sender, RoutedEventArgs e)
         {
             //TextBox textBoxSender = sender as TextBox;
 
-            //if (textBoxSender.Text.Length == 0)
-            //{
-            //    textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            //    textBoxSender.Text = "Enter " + textBoxSender.Name;
-
-            //}
+            //textBoxSender.Select(0, 0);
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)

@@ -215,6 +215,10 @@ namespace CannaBe.AppPages.Usage
                         AppDebug.Line($"Strain: [{StrainChosen}], ID: {strainId}");
 
                         var res = HttpManager.Manager.Get("http://strainapi.evanbusse.com/M076LdW/strains/data/effects/" + strainId);
+
+                        if (res == null)
+                            return;
+
                         var str = await res.Result.Content.ReadAsStringAsync();
                         var values = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(str);
 

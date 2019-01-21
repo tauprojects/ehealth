@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.NetworkInformation;
+using Windows.UI.Popups;
 
 namespace CannaBe
 {
@@ -58,6 +60,15 @@ namespace CannaBe
 
             try
             {
+                bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+                if(!isInternetConnected)
+                {
+                    AppDebug.Line("Error - No Internet connection!");
+
+                    await new MessageDialog("No internet connection!", "Error!").ShowAsync();
+                    return null;
+                }
+
                 var response =  await client.GetAsync(URL).ConfigureAwait(false);
                 AppDebug.Line("finished get");
 
@@ -69,15 +80,22 @@ namespace CannaBe
             catch (Exception e)
             {
                 AppDebug.Exception(e, "Get");
-                throw new Exception("Get method failed: \n" + URL);
+                return null;
             }
-
         }
 
         public async Task<HttpResponseMessage> Post(string URL, HttpContent content)
         {
             try
             {
+                bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+                if (!isInternetConnected)
+                {
+                    AppDebug.Line("Error - No Internet connection!");
+
+                    await new MessageDialog("No internet connection!", "Error!").ShowAsync();
+                    return null;
+                }
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
 

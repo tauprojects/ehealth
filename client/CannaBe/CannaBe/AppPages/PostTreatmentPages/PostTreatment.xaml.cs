@@ -1,6 +1,7 @@
 ﻿using CannaBe.Enums;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -9,7 +10,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
 {
     public sealed partial class PostTreatment : Page
     {
-        Dictionary<string, string> dict = new Dictionary<string, string>();
+        Dictionary<string, string> questionDictionary = new Dictionary<string, string>();
         public PostTreatment()
         {
             this.InitializeComponent();
@@ -50,6 +51,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
                 {
                     var info = medicalNeed.GetAttribute<EnumDescriptions>();
                     PostQuestions.Items.Add(info);
+                    questionDictionary[info.q1] = "Don't know";
                 }
             }
 
@@ -67,13 +69,20 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
         private void SubmitFeedback(object sender, TappedRoutedEventArgs e)
         {
-            GlobalContext.CurrentUser.UsageSessions[GlobalContext.CurrentUser.UsageSessions.Count-1].usageFeedback = dict;
+            try
+            {
+                GlobalContext.CurrentUser.UsageSessions.LastOrDefault().usageFeedback = questionDictionary;
+            }
+            catch(Exception x)
+            {
+                AppDebug.Exception(x, "SubmitFeedback");
+            }
         }
 
         private void Answers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var check = sender as ComboBox;
-            dict.Add(check.Tag.ToString(), check.SelectedValue.ToString());
+            questionDictionary[check.Tag.ToString()] = check.SelectedValue.ToString();
             //AppDebug.Line("Question: " + check.Tag.ToString() + " Answer: " + check.SelectedValue.ToString());
         }
     }

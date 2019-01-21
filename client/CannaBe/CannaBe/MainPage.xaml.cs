@@ -34,7 +34,7 @@ namespace CannaBe
                 Constants.IsLocalHost = false;
         }
 
-        private void Page_GotFocus(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void OnPageLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             LocalHostDebug.IsChecked = Constants.IsLocalHost;
         }

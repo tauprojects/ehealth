@@ -71,8 +71,5 @@ namespace CannaBe
             Line($"!!! *** UNHANDLED Exception *** !!!");
             Line(e.Exception);
         }
-
-
-
     }
 }
