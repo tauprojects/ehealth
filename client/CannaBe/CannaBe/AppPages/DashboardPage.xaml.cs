@@ -64,7 +64,6 @@ namespace CannaBe
             if(GlobalContext.CurrentUser == null)
             {
                 UsageHistoryButton.IsEnabled = false;
-                PostTreatmantFeedbackButton.IsEnabled = false;
                 MyProfileButton.IsEnabled = false;
                 Welcome.Text = "Debug Session, no user";
             }

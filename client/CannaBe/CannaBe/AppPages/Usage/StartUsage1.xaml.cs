@@ -132,7 +132,7 @@ namespace CannaBe.AppPages.Usage
             StringBuilder b = new StringBuilder();
             int i = 1;
 
-            if (UsageContext.ChosenStrain?.PositivePreferences.Count > 0)
+            if (UsageContext.ChosenStrain?.MedicalNeeds.Count > 0)
             {
                 b.AppendLine("- Medical Needs:");
                 foreach (string mn in UsageContext.ChosenStrain.MedicalNeeds)
@@ -173,7 +173,7 @@ namespace CannaBe.AppPages.Usage
                 b.AppendLine("- No negative effects listed.");
             }
 
-            return b.ToString();
+            return b.ToString().Substring(0,b.Length - 2);
         }
 
         private async void SubmitString(object sender, RoutedEventArgs e)
