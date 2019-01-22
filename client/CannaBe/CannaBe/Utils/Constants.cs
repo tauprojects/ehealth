@@ -5,7 +5,7 @@ namespace CannaBe
 {
     static class Constants
     {
-        public const string CannaBeUrl = "http://ehealth.westeurope.cloudapp.azure.com:8080/";
+        public const string CannaBeUrl = "http://cannabe-public.westeurope.cloudapp.azure.com:8080/";
         public const string CannaBeUrlLocalHost = "http://localhost:8080/";
 
         public static bool IsLocalHost = false;
