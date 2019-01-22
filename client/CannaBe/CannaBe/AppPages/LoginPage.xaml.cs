@@ -38,6 +38,7 @@ namespace CannaBe
 
         private async void PostLogin(object sender, RoutedEventArgs e)
         {
+            AppDebug.Line("PostLogin");
             HttpResponseMessage res = null;
             progressRing.IsActive = true;
 
@@ -51,8 +52,8 @@ namespace CannaBe
                 {
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
-                        Status.Text = "Login success!";
-
+                        //Status.Text = "Login success!";
+                        AppDebug.Line("Login success!");
                         PagesUtilities.SleepSeconds(1);
                         progressRing.IsActive = false;
 

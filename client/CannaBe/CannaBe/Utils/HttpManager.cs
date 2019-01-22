@@ -39,12 +39,14 @@ namespace CannaBe
         public static HttpContent CreateJson(object obj)
         {
             //from: https://stackoverflow.com/questions/23585919/send-json-via-post-in-c-sharp-and-receive-the-json-returned
-
+            AppDebug.Line("Creating json");
             // Serialize our concrete class into a JSON String
             var stringPayload = JsonConvert.SerializeObject(obj, Formatting.Indented);
+            AppDebug.Line("created json");
 
             // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
             var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+            AppDebug.Line("created content");
 
             return httpContent;
         }

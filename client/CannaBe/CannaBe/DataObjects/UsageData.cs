@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Text;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace CannaBe
 {
@@ -74,7 +75,7 @@ namespace CannaBe
             }
         }
 
-        //DispatcherTimer Timer = new DispatcherTimer();
+        private DispatcherTimer timer;
 
         public HeartRateUpdateHandler Handler = null;
 
@@ -105,6 +106,16 @@ namespace CannaBe
             UsageStrain = usageStrain;
             StartTime = startTime;
             UseBandData = _useBandData;
+            timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, 0, 1)
+            };
+            timer.Start();
+        }
+
+        public void AddTimerFunction(EventHandler<object> handler)
+        {
+            timer.Tick += handler;
         }
 
         public override bool Equals(object obj)
@@ -125,6 +136,7 @@ namespace CannaBe
         public void EndUsage()
         {
             EndTime = DateTime.Now;
+            timer.Stop();
             Duration = EndTime.Subtract(StartTime);
             GlobalContext.CurrentUser.UsageSessions.Add(this);
         }
