@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
 namespace CannaBe
@@ -12,6 +12,7 @@ namespace CannaBe
     static class AppDebug
     {
         private static StorageFile LogFile = null;
+        public static bool IsRunningOnPc = true;
 
         public static void Line(object msg, bool OmitDate, string caller)
         {
@@ -39,6 +40,18 @@ namespace CannaBe
         public static void Init()
         {
             Application.Current.UnhandledException += UnhandledExceptionEventHandler;
+            EasClientDeviceInformation info = new EasClientDeviceInformation();
+            string platform = "";
+            if(info.OperatingSystem == "WindowsPhone")
+            {
+                platform = "Phone";
+                IsRunningOnPc = false;
+            }
+            else if(info.OperatingSystem == "WINDOWS")
+            {
+                platform = "PC";
+                IsRunningOnPc = true;
+            }
 
             if (LogFile == null)
             {
@@ -46,9 +59,11 @@ namespace CannaBe
                 {
                     StorageFolder storageFolder = KnownFolders.DocumentsLibrary;
                     LogFile = storageFolder.CreateFileAsync("CannaBeLogFile.txt", CreationCollisionOption.OpenIfExists).GetAwaiter().GetResult();
-                    String log = $"*** Start New Log Session at {DateTime.Now.ToString("dd/MM/yy HH:mm:ss.ffffff")} ***";
+                    var log = $"*** Start New Log Session at {DateTime.Now.ToString("dd/MM/yy HH:mm:ss.ffffff")} / {platform} ***";
+                    var log2 = $"Log file saved in {LogFile.Path}";
                     FileIO.AppendTextAsync(LogFile, log + Environment.NewLine).GetAwaiter().GetResult();
                     Debug.WriteLine(log);
+                    Debug.WriteLine(log2);
                 });
             }
         }
