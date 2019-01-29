@@ -48,19 +48,19 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
         <TextBlock Foreground="Black" Text="Positive Effect Preferences:" FontWeight="Bold" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
-        <CheckBox Content="Aroused"     Tag="1" Margin="20,105,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Giggly"      Tag="2" Margin="20,130,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Focused"     Tag="3" Margin="20,155,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Sleepy"      Tag="4" Margin="20,180,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Tingly"      Tag="5" Margin="20,205,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Uplifted"    Tag="6" Margin="20,230,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Talkative"   Tag="7" Margin="20,255,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Energetic"   Tag="8" Margin="20,280,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Creative"    Tag="9" Margin="20,305,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Happy"       Tag="10" Margin="20,330,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Euphoric"    Tag="11" Margin="20,355,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Hungry"      Tag="12" Margin="20,380,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Relaxed"     Tag="13" Margin="20,405,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Aroused"     Tag="1" Margin="20,105,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Giggly"      Tag="2" Margin="20,130,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Focused"     Tag="3" Margin="20,155,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Sleepy"      Tag="4" Margin="20,180,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Tingly"      Tag="5" Margin="20,205,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Uplifted"    Tag="6" Margin="20,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Talkative"   Tag="7" Margin="20,255,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Energetic"   Tag="8" Margin="20,280,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Creative"    Tag="9" Margin="20,305,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Happy"       Tag="10" Margin="20,330,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Euphoric"    Tag="11" Margin="20,355,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Hungry"      Tag="12" Margin="20,380,0,0" VerticalAlignment="Top"/>
+        <CheckBox Foreground="Black" Content="Relaxed"     Tag="13" Margin="20,405,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
