@@ -9,9 +9,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="OnPageLoaded">
 
-
-
-
     <Grid>
         <Grid.BorderBrush>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -39,33 +36,28 @@
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
 
         <Button Content="My Profile" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
-                Click="GoToProfile"
+                Foreground="Black" Background="#7082b1ff"
+                Click="GoToProfile" x:Name="MyProfileButton"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,160,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Post Treatment Feedback" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
-                Tapped="GoToPostTreatment" x:Name="PostTreatmantFeedbackButton"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,236,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+        <Button Content="Start New Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#7082b1ff" Click="GoToStartUsage"
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,268,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Click="GoToUsageHistory" x:Name="UsageHistoryButton"
-                Foreground="Black" Background="#10000000"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,274,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+                Foreground="Black" Background="#7082b1ff"
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,322,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Information" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
+                Foreground="Black" Background="#7082b1ff"
                 Tapped="GoToInformationPage"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,312,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,376,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="My Reccomendations" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
+                Foreground="Black" Background="#7082b1ff"
                 Click="GoToRecommendations"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,350,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
-        </Button>
-        <Button Content="Start New Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000" Click="GoToStartUsage"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,198,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,214,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         <Button Content="Logout" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"

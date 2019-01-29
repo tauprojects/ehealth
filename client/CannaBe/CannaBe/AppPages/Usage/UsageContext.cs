@@ -1,6 +1,4 @@
-﻿using CannaBe;
-
-
+﻿
 namespace CannaBe.AppPages.Usage
 {
     static class UsageContext
@@ -8,6 +6,5 @@ namespace CannaBe.AppPages.Usage
         public static Strain ChosenStrain { get; set; } = null;
 
         public static UsageData Usage { get; set; } = null;
-
     }
 }

@@ -13,7 +13,7 @@ namespace CannaBe.AppPages
     {
         public ProfilePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)

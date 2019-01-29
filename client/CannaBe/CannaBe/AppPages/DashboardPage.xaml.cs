@@ -51,9 +51,7 @@ namespace CannaBe
 
             GlobalContext.AddUserToContext(e);
 
-            Welcome.Text = $"Welcome, {GlobalContext.CurrentUser.Data.Username}!";
-
-            AppDebug.Line($"Wrote welocme text: [{Welcome.Text}]");
+            
 
             //Welcome.Text = "Welcome, User!";
 
@@ -66,8 +64,13 @@ namespace CannaBe
             if(GlobalContext.CurrentUser == null)
             {
                 UsageHistoryButton.IsEnabled = false;
-                PostTreatmantFeedbackButton.IsEnabled = false;
+                MyProfileButton.IsEnabled = false;
                 Welcome.Text = "Debug Session, no user";
+            }
+            else
+            {
+                Welcome.Text = $"Welcome, {GlobalContext.CurrentUser.Data.Username}!";
+                AppDebug.Line($"Wrote welocme text: [{Welcome.Text}]");
             }
         }
 
@@ -83,6 +86,7 @@ namespace CannaBe
    
         private void LogoutHandler(object sender, TappedRoutedEventArgs e)
         {
+            GlobalContext.CurrentUser = null;
             Frame.Navigate(typeof(MainPage));
         }
 

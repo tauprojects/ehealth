@@ -1,5 +1,8 @@
 ﻿using CannaBe.AppPages.PostTreatmentPages;
 using System;
+using System.Diagnostics;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -8,7 +11,6 @@ namespace CannaBe.AppPages.Usage
 
     public sealed partial class ActiveSession : Page
     {
-
         public ActiveSession()
         {
             InitializeComponent();
@@ -19,6 +21,7 @@ namespace CannaBe.AppPages.Usage
             progressRing.IsActive = true;
             StrainChosenText.Text = UsageContext.Usage.UsageStrain.Name;
             StartTime.Text = "Start Time: " + UsageContext.Usage.StartTime.ToString("dd.MM.yy HH:mm");
+            UsageContext.Usage.AddTimerFunction(Timer_Tick);
 
             if (UsageContext.Usage.UseBandData)
             {
@@ -29,6 +32,29 @@ namespace CannaBe.AppPages.Usage
                 Acquiring.Opacity = 0.85;
                 BandIsNA.Visibility = Visibility.Visible;
                 progressRing.IsActive = false;
+            }
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            try
+            {
+                //CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                //{
+                //    try
+                //    {
+                        TimeSpan timePassed = DateTime.Now.Subtract(UsageContext.Usage.StartTime);
+                        Duration.Text = $"Duration: {new DateTime(timePassed.Ticks).ToString("HH:mm:ss")}";
+                //    }
+                //    catch (Exception x)
+                //    {
+                //        AppDebug.Exception(x, "Timer_Tick => RunAsync");
+                //    }
+                //}).AsTask().GetAwaiter().GetResult();
+            }
+            catch (Exception x2)
+            {
+                AppDebug.Exception(x2, "Timer_Tick");
             }
         }
 
@@ -46,7 +72,7 @@ namespace CannaBe.AppPages.Usage
             progressRing.IsActive = true;
             try
             {
-                if(UsageContext.Usage.UseBandData)
+                if (UsageContext.Usage.UseBandData)
                 {
                     GlobalContext.Band.StopHeartRate();
                     PagesUtilities.SleepSeconds(0.5);

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Net.NetworkInformation;
+using Windows.UI.Popups;
 
 namespace CannaBe
 {
@@ -37,12 +39,14 @@ namespace CannaBe
         public static HttpContent CreateJson(object obj)
         {
             //from: https://stackoverflow.com/questions/23585919/send-json-via-post-in-c-sharp-and-receive-the-json-returned
-
+            AppDebug.Line("Creating json");
             // Serialize our concrete class into a JSON String
             var stringPayload = JsonConvert.SerializeObject(obj, Formatting.Indented);
+            AppDebug.Line("created json");
 
             // Wrap our JSON inside a StringContent which then can be used by the HttpClient class
             var httpContent = new StringContent(stringPayload, Encoding.UTF8, "application/json");
+            AppDebug.Line("created content");
 
             return httpContent;
         }
@@ -58,6 +62,15 @@ namespace CannaBe
 
             try
             {
+                bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+                if(!isInternetConnected)
+                {
+                    AppDebug.Line("Error - No Internet connection!");
+
+                    await new MessageDialog("No internet connection!", "Error!").ShowAsync();
+                    return null;
+                }
+
                 var response =  await client.GetAsync(URL).ConfigureAwait(false);
                 AppDebug.Line("finished get");
 
@@ -69,15 +82,22 @@ namespace CannaBe
             catch (Exception e)
             {
                 AppDebug.Exception(e, "Get");
-                throw new Exception("Get method failed: \n" + URL);
+                return null;
             }
-
         }
 
         public async Task<HttpResponseMessage> Post(string URL, HttpContent content)
         {
             try
             {
+                bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+                if (!isInternetConnected)
+                {
+                    AppDebug.Line("Error - No Internet connection!");
+
+                    await new MessageDialog("No internet connection!", "Error!").ShowAsync();
+                    return null;
+                }
                 var response = await client.PostAsync(URL, content);
                 var responseString = await response.Content.ReadAsStringAsync();
 

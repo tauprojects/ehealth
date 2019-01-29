@@ -26,6 +26,9 @@ namespace CannaBe.AppPages.RecomendationPages
                 {
                     var res = await HttpManager.Manager.Get(url);
 
+                    if (res == null)
+                        return;
+
                     var dicts = JsonConvert.DeserializeObject<Dictionary<string, string>[]>(res.Content.ReadAsStringAsync().Result);
 
                     int i = 0;

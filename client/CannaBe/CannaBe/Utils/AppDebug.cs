@@ -13,7 +13,7 @@ namespace CannaBe
     {
         private static StorageFile LogFile = null;
 
-        public static void Line(object msg, bool OmitDate)
+        public static void Line(object msg, bool OmitDate, string caller)
         {
             if (!OmitDate)
                 msg = DateTime.Now.ToString("HH:mm:ss.ffffff") + " " + msg;
@@ -31,6 +31,7 @@ namespace CannaBe
             }
             catch (Exception exc)
             {
+                Line($"!!! *** Exception caught in [{caller} => AppDebug.Line] *** !!!");
                 Debug.WriteLine(exc);
             }
         }
@@ -52,7 +53,10 @@ namespace CannaBe
             }
         }
 
-        public static void Line(object msg) { Line(msg, false); }
+        public static void Line(object msg, [CallerMemberName] string functionCaller = "")
+        {
+            Line(msg, false, functionCaller);
+        }
 
         public static void Exception(Exception e, string caller,
             [CallerLineNumber] int lineNumber = 0, [CallerFilePath] string filename = "")
@@ -65,12 +69,7 @@ namespace CannaBe
         private static void UnhandledExceptionEventHandler(object sender, UnhandledExceptionEventArgs e)
         {
             Line($"!!! *** UNHANDLED Exception *** !!!");
-            Line(e);
-
-            try { new MessageDialog(e.Exception.Message, "Unhandled Exception!").ShowAsync().GetAwaiter().GetResult(); } catch { }
+            Line(e.Exception);
         }
-
-
-
     }
 }

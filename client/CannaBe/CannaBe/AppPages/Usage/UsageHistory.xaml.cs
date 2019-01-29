@@ -20,23 +20,59 @@ namespace CannaBe.AppPages.Usage
         {
             AppDebug.Line("In UsageHistory page");
 
-            ref var sessions = ref GlobalContext.CurrentUser.UsageSessions;
-
-            if(sessions.Count == 0)
+            do
             {
-                UsageListGui.Visibility = Visibility.Collapsed;
-                NoUsageButton.Visibility = Visibility.Visible;
-                return;
-            }
-
-            foreach (var usage in sessions)
-            {
-                UsageListGui.Items.Add(usage);
-                foreach(var dic in usage.usageFeedback)
+                if (GlobalContext.CurrentUser == null)
                 {
-                    AppDebug.Line("Question: " + dic.Key + " Answer: " + dic.Value);
+                    AppDebug.Line("GlobalContext.CurrentUser == null");
+                    break;
                 }
-            }
+
+                ref var sessions = ref GlobalContext.CurrentUser.UsageSessions;
+
+                if (sessions == null)
+                {
+                    AppDebug.Line("sessions == null");
+                    break;
+                }
+                if (sessions.Count == 0)
+                {
+                    UsageListGui.Visibility = Visibility.Collapsed;
+                    NoUsageButton.Visibility = Visibility.Visible;
+                    AppDebug.Line("sessions.Count == 0");
+                    break;
+                }
+
+                foreach (var usage in sessions)
+                {
+                    if(usage == null)
+                    {
+                        AppDebug.Line("usage == null");
+                        continue;
+                    }
+
+                    UsageListGui.Items.Add(usage);
+                    try
+                    {
+                        if (usage.usageFeedback == null)
+                        {
+                            AppDebug.Line("usage.usageFeedback == null");
+                        }
+                        else
+                        {
+                            foreach (var dic in usage.usageFeedback)
+                            {
+                                if (dic.Key != null && dic.Value != null)
+                                    AppDebug.Line("Question: " + dic.Key + " Answer: " + dic.Value);
+                            }
+                        }
+                    }
+                    catch(Exception x)
+                    {
+                        AppDebug.Exception(x, "OnPageLoaded");
+                    }
+                }
+            } while (false);
         }
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
@@ -51,7 +87,7 @@ namespace CannaBe.AppPages.Usage
             AppDebug.Line($"Selected usage on [{u.StartTimeString}]");
         }
 
-        private void Remove_Click(object sender, RoutedEventArgs e)
+        private async void Remove_Click(object sender, RoutedEventArgs e)
         {
             AppDebug.Line($"Remove usage on [{selectedUsage.StartTimeString}]");
             try
@@ -60,8 +96,9 @@ namespace CannaBe.AppPages.Usage
                 {
                     AppDebug.Line("removing...");
                     GlobalContext.CurrentUser.UsageSessions.Remove(selectedUsage);
+                    Frame.Navigate(typeof(UsageHistory));
                 });
-                var noCommand = new UICommand("Cancel", cmd => 
+                var noCommand = new UICommand("Cancel", cmd =>
                 {
                     AppDebug.Line("Cancel remove");
                 });
@@ -72,8 +109,9 @@ namespace CannaBe.AppPages.Usage
                 dialog.Commands.Add(yesCommand);
                 dialog.Commands.Add(noCommand);
 
-                dialog.ShowAsync().GetAwaiter().GetResult();
-            }catch(Exception x)
+                await dialog.ShowAsync();
+            }
+            catch (Exception x)
             {
                 AppDebug.Exception(x, "Remove_Click");
             }
@@ -92,7 +130,7 @@ namespace CannaBe.AppPages.Usage
                     AppDebug.Line($"Right click usage on [{selectedUsage.StartTimeString}]");
                 }
             }
-            catch(Exception x)
+            catch (Exception x)
             {
                 AppDebug.Exception(x, "ListView_RightTapped");
             }

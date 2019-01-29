@@ -61,6 +61,9 @@ namespace CannaBe.AppPages
             {
                 var res = HttpManager.Manager.Get(url);
 
+                if (res == null)
+                    return;
+
                 var str = await res.Result.Content.ReadAsStringAsync();
 
                 AppDebug.Line(str);
