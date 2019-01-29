@@ -46,7 +46,7 @@ namespace CannaBe
             {
                 var req = new LoginRequest(Username.Text, Password.Password);
 
-                res = await HttpManager.Manager.Post(Constants.MakeUrl("login"), req);
+                res = await Task.Run(async () => await HttpManager.Manager.Post(Constants.MakeUrl("login"), req));
 
                 if (res != null)
                 {

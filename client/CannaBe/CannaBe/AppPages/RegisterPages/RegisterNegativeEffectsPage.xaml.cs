@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -82,12 +83,14 @@ namespace CannaBe
             try
             {
                 progressRing.IsActive = true;
+
                 PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
-                                    out List<int> intList);
-                
+                out List<int> intList);
+
                 GlobalContext.RegisterContext.IntNegativePreferences = intList;
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("register"), GlobalContext.RegisterContext);
+
 
                 if (res != null)
                 {
@@ -109,7 +112,7 @@ namespace CannaBe
             }
             catch (Exception exc)
             {
-                Status.Text = "Exception during regsiter:\n" + exc.Message;
+                AppDebug.Exception(exc, "Register");
             }
             finally
             {
