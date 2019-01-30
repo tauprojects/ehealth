@@ -85,11 +85,12 @@ public class BaseController {
      *
      * @return BaseResponse
      */
-    @RequestMapping(value = "/strains/usage/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/usage/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BaseResponse saveUserUsageHistory(@RequestBody UsageHistory usageHistory) {
-        logger.info("POST Usage history for user-id: " + usageHistory.getUserId().toString());
+        logger.info("POST Usage history for user-id: " + usageHistory.getUserId());
+        logger.info("Usage History Request: " + usageHistory.toString());
         mainServiceImpl.saveUsageHistoryForUser(usageHistory);
-        return new BaseResponse();
+        return new BaseResponse("Usage successfully stored in database");
     }
 
     /**
