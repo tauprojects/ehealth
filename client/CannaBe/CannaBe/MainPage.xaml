@@ -34,7 +34,7 @@
                   x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
                   HorizontalAlignment="Left" Margin="50,160,0,0" Grid.Row="1" VerticalAlignment="Top" />
         
-        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="CannaBe" FontWeight="ExtraBold"
+        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="Medicanna" FontWeight="ExtraBold"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
 

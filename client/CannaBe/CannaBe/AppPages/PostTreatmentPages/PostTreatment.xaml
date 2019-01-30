@@ -39,7 +39,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Margin="3,0,0,0" x:Name="QuestionsStackPanel">
-                                <TextBlock Foreground="Black" FontSize="18" Grid.Column="1" x:Name="questions" Text="{Binding Path=q1}"
+                            <TextBlock Foreground="Black" FontSize="18" Grid.Column="1" x:Name="questions" MaxWidth="320" Text="{Binding Path=q1}"
                                            TextWrapping="WrapWholeWords"/>
                                 <Rectangle Height="2" VerticalAlignment="Top"/>
                                 <ComboBox x:Name="answers" SelectionChanged="Answers_SelectionChanged" Tag="{Binding Path=q1}">
@@ -48,8 +48,8 @@
                                     <x:String>Don't know</x:String>
                                 </ComboBox>
                                 <Rectangle Height="8" VerticalAlignment="Top"/>
-                                
-                                <TextBlock Foreground="Black" FontSize="18" Grid.Column="1" x:Name="question2" Text="{Binding Path=q2}"
+
+                            <TextBlock Foreground="Black" FontSize="18" Grid.Column="1" x:Name="question2" MaxWidth="320" Text="{Binding Path=q2}"
                                            TextWrapping="WrapWholeWords"/>
                                 <Rectangle Height="2" VerticalAlignment="Top"/>
                                 <ComboBox x:Name="answers2"  SelectionChanged="Answers_SelectionChanged" Tag="{Binding Path=q2}">
