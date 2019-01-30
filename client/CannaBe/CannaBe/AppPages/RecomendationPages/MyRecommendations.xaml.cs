@@ -33,7 +33,7 @@ namespace CannaBe.AppPages.RecomendationPages
 
                     var strains = JsonConvert.DeserializeObject<Strain[]>(res.Content.ReadAsStringAsync().Result);
 
-                    int i = 0;
+                    int i = 1;
                     if (strains.Length == 0)
                     {
                         ErrorNoStrainFound.Visibility = Visibility.Visible;
