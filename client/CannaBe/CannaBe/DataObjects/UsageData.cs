@@ -13,7 +13,7 @@ namespace CannaBe
         public delegate void HeartRateUpdateHandler(double avg, int min, int max);
         public Strain UsageStrain { get; private set; }
         private DateTime startTime;
-        public Dictionary<string,string> usageFeedback;
+        public Dictionary<string, string> usageFeedback;
         public DateTime StartTime
         {
             get
@@ -92,7 +92,15 @@ namespace CannaBe
                 OnPropertyChanged("UseBandData");
             }
         }
-        
+
+        public Visibility ShowBandData
+        {
+            get
+            {
+                return usedBandData ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
         public string UsedBandString
         {
             get
@@ -111,6 +119,29 @@ namespace CannaBe
                 Interval = new TimeSpan(0, 0, 1)
             };
             timer.Start();
+        }
+
+        private UsageData() { }
+
+        public static implicit operator UsageData(UsageUpdateRequest res)
+        {
+            UsageData u = new UsageData
+            {
+                UsageStrain = new Strain(res.StrainName, res.StrainId),
+                StartTime = DateTimeOffset.FromUnixTimeMilliseconds(res.unixStartTime).DateTime.ToLocalTime(),
+                EndTime = DateTimeOffset.FromUnixTimeMilliseconds(res.unixEndTime).DateTime.ToLocalTime(),
+                MedicalRank = res.MedicalRank,
+                PositiveRank = res.PositiveRank,
+                OverallRank = res.OverallRank,
+                HeartRateAverage = res.HeartbeatAvg,
+                HeartRateMax = res.HeartbeatHigh,
+                HeartRateMin = res.HeartbeatLow,
+                UseBandData = res.HeartbeatAvg > 0 ? true : false
+            };
+            u.Duration = u.EndTime.Subtract(u.StartTime);
+
+            //AppDebug.Line($"Converted: startTime {u.startTime.ToString("MMMM dd, yyyy HH:mm:ss.fff")} endTime {u.EndTime.ToString("MMMM dd, yyyy HH:mm:ss.fff")}");
+            return u;
         }
 
         public void AddTimerFunction(EventHandler<object> handler)
@@ -152,6 +183,9 @@ namespace CannaBe
             {
                 HeartRateReadings++;
 
+                if (HeartRateReadings < 5)
+                    return;
+
                 //from: math.stackexchange.com/questions/106700/incremental-averageing
                 HeartRateAverage += (rate - HeartRateAverage) / HeartRateReadings;
 
@@ -183,5 +217,9 @@ namespace CannaBe
                 }
             }
         }
+
+        public int MedicalRank { get; set; } = 0;
+        public int PositiveRank { get; set; } = 0;
+        public int OverallRank { get; set; } = 0;
     }
 }

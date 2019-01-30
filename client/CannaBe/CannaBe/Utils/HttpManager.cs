@@ -76,7 +76,7 @@ namespace CannaBe
 
                 var responseString = await response.Content.ReadAsStringAsync();
 
-                if (responseString.Length < 500)
+                if (responseString.Length < 2000)
                 {
                     AppDebug.Line("response from get: [" + responseString + "]");
                 }

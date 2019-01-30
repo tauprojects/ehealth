@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,7 +21,7 @@ namespace CannaBe.AppPages.Usage
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            AppDebug.Line("In UsageHistory page");
+            progressRing.IsActive = true;
 
             do
             {
@@ -28,6 +31,12 @@ namespace CannaBe.AppPages.Usage
                     break;
                 }
 
+                var usages = Task.Run(() => GetUsagesFromServer()).GetAwaiter().GetResult();
+                if(usages != null)
+                {
+                    GlobalContext.CurrentUser.UsageSessions = usages;
+                }
+                
                 ref var sessions = ref GlobalContext.CurrentUser.UsageSessions;
 
                 if (sessions == null)
@@ -73,6 +82,24 @@ namespace CannaBe.AppPages.Usage
                     }
                 }
             } while (false);
+            progressRing.IsActive = false;
+
+        }
+
+        private List<UsageData> GetUsagesFromServer()
+        {
+            try
+            {
+                var res = HttpManager.Manager.Get(Constants.MakeUrl("usage/" + GlobalContext.CurrentUser.Data.UserID));
+                var str = res.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                return JsonConvert.DeserializeObject<UsageUpdateRequest[]>(str).ToUsageList();
+            }
+            catch (Exception x)
+            {
+                AppDebug.Exception(x, "GetUsagesFromServer");
+
+                return null;
+            }
         }
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
