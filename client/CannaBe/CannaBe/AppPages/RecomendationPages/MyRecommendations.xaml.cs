@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CannaBe.AppPages.Usage;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Text;
@@ -18,7 +19,7 @@ namespace CannaBe.AppPages.RecomendationPages
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             progressRing.IsActive = true;
-            if(GlobalContext.CurrentUser != null)
+            if (GlobalContext.CurrentUser != null)
             {
                 var user_id = GlobalContext.CurrentUser.Data.UserID;
                 var url = Constants.MakeUrl($"/strains/recommended/{user_id}/");
@@ -33,7 +34,7 @@ namespace CannaBe.AppPages.RecomendationPages
                     var strains = JsonConvert.DeserializeObject<Strain[]>(res.Content.ReadAsStringAsync().Result);
 
                     int i = 0;
-                    if(strains.Length == 0)
+                    if (strains.Length == 0)
                     {
                         ErrorNoStrainFound.Visibility = Visibility.Visible;
                     }
@@ -41,21 +42,23 @@ namespace CannaBe.AppPages.RecomendationPages
                     {
                         foreach (var strain in strains)
                         {
-                            AppDebug.Line($"Got strain {i++}");
-                            AppDebug.Line($"\tname = {strain.Name}");
-                            StrainList.Children.Add(new RadioButton()
+                            //AppDebug.Line($"Got strain {i++}");
+                            //AppDebug.Line($"\tname = {strain.Name}");
+                            var r = new RadioButton()
                             {
                                 Foreground = new SolidColorBrush(Windows.UI.Colors.Black),
                                 FontSize = 20,
                                 VerticalContentAlignment = VerticalAlignment.Top,
                                 FontWeight = FontWeights.Bold,
-                                Content = strain.Name,
+                                Content = $"{i++}. {strain.Name}",
                                 DataContext = strain
-                            });
+                            };
+                            r.Checked += OnChecked;
+                            StrainList.Children.Add(r);
                         }
                     }
                 }
-                catch(Exception x)
+                catch (Exception x)
                 {
                     AppDebug.Exception(x, "OnPageLoaded");
                 }
@@ -65,6 +68,12 @@ namespace CannaBe.AppPages.RecomendationPages
 
         }
 
+        private void OnChecked(object sender, RoutedEventArgs e)
+        {
+            ContinueButton.IsEnabled = true;
+            UsageContext.ChosenStrain = (sender as RadioButton).DataContext as Strain;
+        }
+
         private void GoToDashboard(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(DashboardPage));
@@ -72,7 +81,10 @@ namespace CannaBe.AppPages.RecomendationPages
 
         private void ContinueHandler(object sender, RoutedEventArgs e)
         {
-
+            if (UsageContext.ChosenStrain != null)
+            {
+                Frame.Navigate(typeof(StartUsage2));
+            }
         }
     }
 }

@@ -95,10 +95,10 @@ namespace CannaBe.Enums
 
         public static int BitmapFromStringList(List<string> strList)
         {
-            AppDebug.Line("MedicalEnum isStrNull = " + (strList == null).ToString());
+            //AppDebug.Line("MedicalEnum isStrNull = " + (strList == null).ToString());
 
             List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);
-            AppDebug.Line("Created List<MedicalEnum>");
+            //AppDebug.Line("Created List<MedicalEnum>");
 
             int bitmap = 0;
         
@@ -106,8 +106,8 @@ namespace CannaBe.Enums
             {
                 try
                 {
-                    AppDebug.Line($"Trying to parse '{s}'");
-                    Enum.TryParse(s, out MedicalEnum val);
+                    //AppDebug.Line($"Trying to parse '{s}'");
+                    Enum.TryParse(s.ToUpper().Replace(' ','_'), out MedicalEnum val);
 
                     bitmap |= 1 << (((int)val) - 1);
                 }
