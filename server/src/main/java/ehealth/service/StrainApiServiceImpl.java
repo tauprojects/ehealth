@@ -130,10 +130,9 @@ public class StrainApiServiceImpl implements StrainApiService {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(usageHistory.getUserId()));
         UsageHistoryEntity usageHistoryEntity = buildUsageHistoryEntity(usageHistory);
         List<UsageHistoryEntity> usageHistoryEntityList;
-        if(registeredUsersEntity.getUsageHistoryEntity()==null){
+        if (registeredUsersEntity.getUsageHistoryEntity() == null) {
             usageHistoryEntityList = Arrays.asList(usageHistoryEntity);
-        }
-        else{
+        } else {
             usageHistoryEntityList = registeredUsersEntity.getUsageHistoryEntity();
             usageHistoryEntityList.add(usageHistoryEntity);
         }
@@ -145,19 +144,21 @@ public class StrainApiServiceImpl implements StrainApiService {
     public List<UsageHistoryResponse> getUsageHistoryForUser(String userId) {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
         List<UsageHistoryResponse> usageHistoryResponseList = new ArrayList<>();
-        for(UsageHistoryEntity usageHistoryEntity : registeredUsersEntity.getUsageHistoryEntity()){
-           usageHistoryResponseList.add(new UsageHistoryResponse(
-                   usageHistoryEntity.getId(),
-                   usageHistoryEntity.getUserId(),
-                   usageHistoryEntity.getCreatedAt(),
-                   usageHistoryEntity.getStrainName(),
-                   usageHistoryEntity.getMedicalRank(),
-                   usageHistoryEntity.getPositiveRank(),
-                   usageHistoryEntity.getOverallRank(),
-                   usageHistoryEntity.getHeartbeatHigh(),
-                   usageHistoryEntity.getHeartbeatLow(),
-                   usageHistoryEntity.getHeartbeatAvg()
-           ));
+        for (UsageHistoryEntity usageHistoryEntity : registeredUsersEntity.getUsageHistoryEntity()) {
+            usageHistoryResponseList.add(new UsageHistoryResponse(
+                    usageHistoryEntity.getId(),
+                    usageHistoryEntity.getUserId(),
+                    usageHistoryEntity.getStartedAt(),
+                    usageHistoryEntity.getEndedAt(),
+                    usageHistoryEntity.getStrainName(),
+                    usageHistoryEntity.getStrainId(),
+                    usageHistoryEntity.getMedicalRank(),
+                    usageHistoryEntity.getPositiveRank(),
+                    usageHistoryEntity.getOverallRank(),
+                    usageHistoryEntity.getHeartbeatHigh(),
+                    usageHistoryEntity.getHeartbeatLow(),
+                    usageHistoryEntity.getHeartbeatAvg()
+            ));
         }
         return usageHistoryResponseList;
     }
@@ -171,7 +172,9 @@ public class StrainApiServiceImpl implements StrainApiService {
         UsageHistoryEntity usageHistoryEntity = new UsageHistoryEntity();
         usageHistoryEntity.setId(UUID.randomUUID());
         usageHistoryEntity.setUserId(UUID.fromString(usageHistory.getUserId()));
-        usageHistoryEntity.setCreatedAt(System.currentTimeMillis());
+        usageHistoryEntity.setStartedAt(usageHistory.getStartTime());
+        usageHistoryEntity.setEndedAt(usageHistory.getEndTime());
+        usageHistoryEntity.setStrainId(usageHistory.getStrainId());
         usageHistoryEntity.setStrainName(usageHistory.getStrainName());
         usageHistoryEntity.setHeartbeatHigh(usageHistory.getHeartbeatHigh());
         usageHistoryEntity.setHeartbeatAvg(usageHistory.getHeartbeatAvg());

@@ -6,18 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.UUID;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class UsageHistory {
+
     @JsonProperty("user_id")
     private String userId;
 
+    @JsonProperty("start_time")
+    private Long startTime;
+
+    @JsonProperty("end_time")
+    private Long endTime;
+
     @JsonProperty("strain_name")
     private String strainName;
+
+    @JsonProperty("strain_id")
+    private Integer strainId;
 
     @JsonProperty("medical_rank")
     private Integer medicalRank;
