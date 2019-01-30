@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -106,7 +107,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     }
 
     @Override
-    public RecommendedStrainList getRecommendedStrain(String userId) {
+    public List<StrainObject> getRecommendedStrain(String userId) {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
         int medical = registeredUsersEntity.getMedical();
         int positive = registeredUsersEntity.getPositive();
@@ -120,7 +121,7 @@ public class StrainApiServiceImpl implements StrainApiService {
             }
         }
 
-        return new RecommendedStrainList(recommendedStrains.size(), recommendedStrains);
+        return recommendedStrains;
     }
 
 
@@ -159,6 +160,11 @@ public class StrainApiServiceImpl implements StrainApiService {
            ));
         }
         return usageHistoryResponseList;
+    }
+
+    @Override
+    public List<StrainObject> getAllStrains() throws IOException {
+        return strainsCollector.allStrains;
     }
 
     private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {

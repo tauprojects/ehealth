@@ -62,7 +62,7 @@ public class StrainsCollector {
             StrainObject strainObject = new StrainObject();
             Object entry = ((LinkedTreeMap) o).get(keySet.get(i));
             strainObject.setName((keySet.get(i)));
-            strainObject.setId(((LinkedTreeMap) entry).get("id").toString());
+            strainObject.setId(Float.valueOf(((LinkedTreeMap) entry).get("id").toString()).intValue());
             strainObject.setRace(((LinkedTreeMap) entry).get("race").toString());
             Object effects = ((LinkedTreeMap) entry).get("effects");
             BitSet bitset = new BitSet();

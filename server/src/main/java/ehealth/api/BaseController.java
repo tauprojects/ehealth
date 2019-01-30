@@ -1,5 +1,6 @@
 package ehealth.api;
 
+import ehealth.client.data_objects.StrainObject;
 import ehealth.data_objects.*;
 import ehealth.service.StrainApiServiceImpl;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -73,19 +75,18 @@ public class BaseController {
      * @return List<Strain>
      */
     @RequestMapping(value = "/strains/recommended/{user-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RecommendedStrainList getRecommended(@PathVariable("user-id") String userId) {
+    public List<StrainObject> getRecommended(@PathVariable("user-id") String userId) {
         logger.info("GET recommended strains for userId: " + userId);
         // get User Info by ID from database
-        RecommendedStrainList resp = mainServiceImpl.getRecommendedStrain(userId);
-        return resp;
+        return mainServiceImpl.getRecommendedStrain(userId);
     }
 
-        /**
+    /**
      * POST save user usage history API
      *
      * @return BaseResponse
      */
-    @RequestMapping(value = "/usage/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/usage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BaseResponse saveUserUsageHistory(@RequestBody UsageHistory usageHistory) {
         logger.info("POST Usage history for user-id: " + usageHistory.getUserId());
         logger.info("Usage History Request: " + usageHistory.toString());
@@ -102,6 +103,18 @@ public class BaseController {
     public List<UsageHistoryResponse> saveUserUsageHistory(@PathVariable("user-id") String userId) {
         logger.info("POST Usage history for user-id: " + userId);
         return mainServiceImpl.getUsageHistoryForUser(userId);
+    }
+
+
+    /**
+     * GET all strains
+     *
+     * @return List<UsageHistoryResponse>
+     */
+    @RequestMapping(value = "/strains/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<StrainObject> saveUserUsageHistory() throws IOException {
+        logger.info("GET all strains");
+        return mainServiceImpl.getAllStrains();
     }
 }
 
