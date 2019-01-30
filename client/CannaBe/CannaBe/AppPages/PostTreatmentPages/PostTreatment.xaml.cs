@@ -125,7 +125,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
                 req = new UsageUpdateRequest(use.UsageStrain.Name, id, ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage);
 
-                res = await HttpManager.Manager.Post(Constants.MakeUrl("usage/"), req);
+                res = await HttpManager.Manager.Post(Constants.MakeUrl("usage"), req);
 
                 if (res != null)
                 {
