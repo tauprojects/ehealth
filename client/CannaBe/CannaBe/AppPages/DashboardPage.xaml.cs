@@ -44,18 +44,10 @@ namespace CannaBe
         {
             base.OnNavigatedTo(e);
 
-            AppDebug.Line("In Dashboard page");
-
             if (e.Parameter == null)
                 return;
 
             GlobalContext.AddUserToContext(e);
-
-            
-
-            //Welcome.Text = "Welcome, User!";
-
-            //AppDebug.Line("Dashboard: from " + req.GetType().Name);
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)

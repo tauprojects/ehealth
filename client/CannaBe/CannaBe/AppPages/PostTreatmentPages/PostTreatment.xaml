@@ -33,40 +33,40 @@
         <ListView x:Name="PostQuestions" IsItemClickEnabled="False" IsTapEnabled="False"
                   Margin="0,130,0,80" BorderBrush="Black" BorderThickness="0">
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="x:Bind" x:Name="QuestionsEntry">                    
-                        <Grid x:Name="QuestionsGrid">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="300"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Margin="3,0,0,0" x:Name="QuestionsStackPanel">
-                                <Grid>
-                                    <TextBlock Foreground="Black" Margin="0,10,0,0" FontSize="18" Grid.Column="1" x:Name="questions" Text="{Binding Path=q1}"/>
-                                    <Rectangle Height="2" Margin="0,20,0,0" VerticalAlignment="Top"/>
-                                    <ComboBox x:Name="answers"
-                                          Margin="0,40,0,0" SelectionChanged="Answers_SelectionChanged" Tag="{Binding Path=q1}">
-                                        <x:String>Yes</x:String>
-                                        <x:String>No</x:String>
-                                        <x:String>Don't know</x:String>
-                                    </ComboBox>
-
-                                    <TextBlock Foreground="Black" Margin="0,80,0,0" FontSize="18" Grid.Column="1" x:Name="question2" Text="{Binding Path=q2}"/>
-                                    <Rectangle Height="2" Margin="0,90,0,0" VerticalAlignment="Top"/>
-                                    <ComboBox x:Name="answers2" Margin="0,110,0,0" SelectionChanged="Answers_SelectionChanged" Tag="{Binding Path=q2}">
-                                        <x:String>1</x:String>
-                                        <x:String>2</x:String>
-                                        <x:String>3</x:String>
-                                        <x:String>4</x:String>
-                                        <x:String>5</x:String>
-                                        <x:String>6</x:String>
-                                        <x:String>7</x:String>
-                                        <x:String>8</x:String>
-                                        <x:String>9</x:String>
-                                        <x:String>10</x:String>
-                                    </ComboBox>
-                                    <Rectangle Height="8" Margin="0,5,0,0" VerticalAlignment="Top"/>
-                                </Grid>
-                            </StackPanel>
-                        </Grid>
+                <DataTemplate x:DataType="x:Bind" x:Name="QuestionsEntry">
+                    <Grid x:Name="QuestionsGrid" Background="#20ffffff">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="3,0,0,0" x:Name="QuestionsStackPanel">
+                                <TextBlock Foreground="Black" FontSize="18" Grid.Column="1" x:Name="questions" Text="{Binding Path=q1}"
+                                           TextWrapping="WrapWholeWords"/>
+                                <Rectangle Height="2" VerticalAlignment="Top"/>
+                                <ComboBox x:Name="answers" SelectionChanged="Answers_SelectionChanged" Tag="{Binding Path=q1}">
+                                    <x:String>Yes</x:String>
+                                    <x:String>No</x:String>
+                                    <x:String>Don't know</x:String>
+                                </ComboBox>
+                                <Rectangle Height="8" VerticalAlignment="Top"/>
+                                
+                                <TextBlock Foreground="Black" FontSize="18" Grid.Column="1" x:Name="question2" Text="{Binding Path=q2}"
+                                           TextWrapping="WrapWholeWords"/>
+                                <Rectangle Height="2" VerticalAlignment="Top"/>
+                                <ComboBox x:Name="answers2"  SelectionChanged="Answers_SelectionChanged" Tag="{Binding Path=q2}">
+                                    <x:String>1</x:String>
+                                    <x:String>2</x:String>
+                                    <x:String>3</x:String>
+                                    <x:String>4</x:String>
+                                    <x:String>5</x:String>
+                                    <x:String>6</x:String>
+                                    <x:String>7</x:String>
+                                    <x:String>8</x:String>
+                                    <x:String>9</x:String>
+                                    <x:String>10</x:String>
+                                </ComboBox>
+                                <Rectangle Height="8"  VerticalAlignment="Top"/>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
