@@ -52,14 +52,15 @@
         </Grid>
 
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
+                Foreground="Black" Background="#90ffffff"
                 Tapped="GoToDashboard"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36.5,480,0,0" RenderTransformOrigin="0.575,1.474" Width="125">
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,480,0,0" Width="60">
         </Button>
-        <Button Content="Continue" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
-                Click="ContinueHandler"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
+        <Button Content="Start using Strain" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#90ffffff"
+                Click="ContinueHandler" x:Name="ContinueButton"
+                IsEnabled="False"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,35,0" Width="187">
         </Button>
         <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
 

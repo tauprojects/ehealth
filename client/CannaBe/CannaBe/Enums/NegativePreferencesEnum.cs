@@ -66,10 +66,10 @@ namespace CannaBe.Enums
 
         public static int BitmapFromStringList(List<string> strList)
         {
-            AppDebug.Line("NegativePreferencesEnum isStrNull = " + (strList == null).ToString());
+            //AppDebug.Line("NegativePreferencesEnum isStrNull = " + (strList == null).ToString());
 
             List<NegativePreferencesEnum> enumList = new List<NegativePreferencesEnum>(strList.Count);
-            AppDebug.Line("Created List<NegativePreferencesEnum>");
+            //AppDebug.Line("Created List<NegativePreferencesEnum>");
 
             int bitmap = 0;
 
@@ -77,8 +77,8 @@ namespace CannaBe.Enums
             {
                 try
                 {
-                    AppDebug.Line($"Trying to parse '{s}'");
-                    Enum.TryParse(s, out NegativePreferencesEnum val);
+                    //AppDebug.Line($"Trying to parse '{s}'");
+                    Enum.TryParse(s.ToUpper().Replace(' ', '_'), out NegativePreferencesEnum val);
 
                     bitmap |= 1 << (((int)val) - 1);
                 }
