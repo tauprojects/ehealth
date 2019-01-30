@@ -82,6 +82,8 @@
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
 
-
+        <TextBlock Foreground="Black" FontSize="20" x:Name="Status"
+            HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,400,0,0"/>
+        <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
     </Grid>
 </Page>
