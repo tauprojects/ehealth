@@ -91,5 +91,34 @@ namespace CannaBe.Enums
 
             return enumList;
         }
+
+
+        public static int BitmapFromStringList(List<string> strList)
+        {
+            AppDebug.Line("MedicalEnum isStrNull = " + (strList == null).ToString());
+
+            List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);
+            AppDebug.Line("Created List<MedicalEnum>");
+
+            int bitmap = 0;
+        
+            foreach (string s in strList)
+            {
+                try
+                {
+                    AppDebug.Line($"Trying to parse '{s}'");
+                    Enum.TryParse(s, out MedicalEnum val);
+
+                    bitmap |= 1 << (((int)val) - 1);
+                }
+                catch
+                {
+                    AppDebug.Line($"Failed FromStringList:\nValue '{s}' unknown");
+                }
+
+            }
+
+            return bitmap;
+        }
     }
 }

@@ -69,5 +69,34 @@ namespace CannaBe.Enums
 
             return enumList;
         }
+
+        public static int BitmapFromStringList(List<string> strList)
+        {
+            AppDebug.Line("PositivePreferencesEnum isStrNull = " + (strList == null).ToString());
+
+            List<PositivePreferencesEnum> enumList = new List<PositivePreferencesEnum>(strList.Count);
+            AppDebug.Line("Created List<PositivePreferencesEnum>");
+
+            int bitmap = 0;
+
+            foreach (string s in strList)
+            {
+                try
+                {
+                    AppDebug.Line($"Trying to parse '{s}'");
+                    Enum.TryParse(s, out PositivePreferencesEnum val);
+
+                    bitmap |= 1 << (((int)val) - 1);
+                }
+                catch
+                {
+                    AppDebug.Line($"Failed FromStringList:\nValue '{s}' unknown");
+                }
+
+            }
+
+            return bitmap;
+        }
+
     }
 }
