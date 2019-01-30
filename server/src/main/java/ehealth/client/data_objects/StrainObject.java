@@ -3,6 +3,7 @@ package ehealth.client.data_objects;
 import lombok.*;
 
 
+
 @EqualsAndHashCode
 @AllArgsConstructor
 @Getter
@@ -11,7 +12,7 @@ import lombok.*;
 @ToString
 public class StrainObject {
     String name;
-    String id;
+    Integer id;
     String race;
     Long positive = new Long(0);
     Long negative = new Long(0);
