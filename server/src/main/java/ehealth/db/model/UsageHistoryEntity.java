@@ -36,9 +36,16 @@ public class UsageHistoryEntity {
     @Column(name = "strain_name", updatable = false)
     private String strainName;
 
+    @Column(name = "strain_id")
+    private Integer strainId;
+
     @Convert(converter = EpochTimeConverter.class)
-    @Column(name = "created_at", updatable = false)
-    private Long createdAt;
+    @Column(name = "start_time", updatable = false)
+    private Long startedAt;
+
+    @Convert(converter = EpochTimeConverter.class)
+    @Column(name = "end_time", updatable = false)
+    private Long endedAt;
 
     @Column(name = "medical_rank")
     private Integer medicalRank;
