@@ -14,60 +14,58 @@ package ehealth.db.model;
  *   from ARM Limited or its affiliates.
  *****************************************************************************/
 
-
 import ehealth.db.converters.EpochTimeConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "registered_users")
+@Table(name = "usage_history")
 @Setter
 @Getter
-public class RegisteredUsersEntity {
+public class UsageHistoryEntity {
+
     @Id
     @Column(name = "id", updatable = false)
     @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID id;
 
-    @Column(name = "username", updatable = false)
-    private String username;
-
-    @Column(name = "password")
-    private String password;
-
-    @Column(name = "dob")
-    private String dob;
-
-    @Column(name = "gender")
-    private String gender;
-
-    @Column(name = "country")
-    private String country;
-
-
-    @Column(name = "city")
-    private String city;
+    @Column(name = "strain_name", updatable = false)
+    private String strainName;
 
     @Convert(converter = EpochTimeConverter.class)
     @Column(name = "created_at", updatable = false)
     private Long createdAt;
 
-    @Column(name = "medical")
-    private int medical;
+    @Column(name = "medical_rank")
+    private Integer medicalRank;
 
-    @Column(name = "positive")
-    private int positive;
+    @Column(name = "positive_rank")
+    private Integer positiveRank;
 
-    @Column(name = "negative")
-    private int negative;
+    @Column(name = "overall_rank")
+    private Integer overallRank;
 
-    @OneToMany(mappedBy = "registeredUsersEntity",cascade=CascadeType.ALL)
-    private List<UsageHistoryEntity> usageHistoryEntity;
+    @Column(name = "heartbeat_high")
+    private Integer heartbeatHigh;
+
+    @Column(name = "heartbeat_low")
+    private Integer heartbeatLow;
+
+    @Column(name = "heartbeat_avg")
+    private Integer heartbeatAvg;
+
+    @Column(name = "user_id", updatable = false)
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
+    private UUID userId;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false, insertable = false, updatable = false)
+    private RegisteredUsersEntity registeredUsersEntity;
+
 }
 
 

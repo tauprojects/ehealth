@@ -22,47 +22,45 @@ import java.util.Map;
 
 
 public enum PositiveEffects implements BaseEnumEffect {
-    AROUSED(1),
-    GIGGLY(2),
-    FOCUSED(3),
-    SLEEPY(4),
-    TINGLY(5),
-    UPLIFTED(6),
-    TALKATIVE(7),
-    ENERGETIC(8),
-    CREATIVE(9),
-    HAPPY(10),
-    EUPHORIC(11),
-    HUNGRY(12),
-    RELAXED(13);
+    AROUSED(0),
+    GIGGLY(1),
+    FOCUSED(2),
+    SLEEPY(3),
+    TINGLY(4),
+    UPLIFTED(5),
+    TALKATIVE(6),
+    ENERGETIC(7),
+    CREATIVE(8),
+    HAPPY(9),
+    EUPHORIC(10),
+    HUNGRY(11),
+    RELAXED(12);
 
-    private static Map<Integer, PositiveEffects> intStatusToValue = new HashMap<>();
-    private final int value;
+
+    private static Map<String, PositiveEffects> stringToValue = new HashMap<>();
+    public final int value;
 
     PositiveEffects(int value) {
+
         this.value = value;
+    }
+    public int getValue(){
+        return value;
     }
 
     static {
         for (PositiveEffects effectType : PositiveEffects.values()) {
-            intStatusToValue.put(effectType.value, effectType);
+            stringToValue.put(effectType.toString(), effectType);
         }
     }
 
     public static PositiveEffects valueOf(int effectValue) {
-        return intStatusToValue.get(effectValue);
+        return stringToValue.get(effectValue);
 
     }
-
     @JsonValue
     @Override
     public String getEffect() {
-        return valueOf(this.value).name();
-    }
-
-    @Override
-    public String toString() {
-        return valueOf(this.value).name();
+        return valueOf(this.toString()).name();
     }
 }
-
