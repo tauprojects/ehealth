@@ -1,13 +1,8 @@
 package ehealth.data_objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ehealth.enums.MedicalEffects;
-import ehealth.enums.NegativeEffects;
-import ehealth.enums.PositiveEffects;
 import lombok.*;
 
-import java.sql.Timestamp;
-import java.util.List;
 import java.util.UUID;
 
 

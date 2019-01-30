@@ -4,11 +4,15 @@ import ehealth.client.data_objects.Effect;
 import ehealth.client.data_objects.Strain;
 import ehealth.client.data_objects.StrainEffects;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-import static ehealth.client.ApiConstants.*;
+import static ehealth.client.ApiConstants.ALL_EFECTS_URI;
+import static ehealth.client.ApiConstants.ALL_STRAINS_URI;
 
 @Path("/")
 public interface StrainServicesInterface {
@@ -46,5 +50,5 @@ public interface StrainServicesInterface {
     @GET
     @Path(ALL_STRAINS_URI)
     @Produces({MediaType.APPLICATION_JSON})
-    List<Strain> getAllStrains();
+    String getAllStrains();
 }

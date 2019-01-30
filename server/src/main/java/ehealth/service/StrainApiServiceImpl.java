@@ -2,11 +2,10 @@ package ehealth.service;
 
 import ehealth.client.StrainServicesInterface;
 import ehealth.client.data_objects.Strain;
-import ehealth.data_objects.BaseResponse;
-import ehealth.data_objects.LoginRequest;
-import ehealth.data_objects.RegisterRequest;
-import ehealth.data_objects.RegisteredUserData;
+import ehealth.client.data_objects.StrainObject;
+import ehealth.data_objects.*;
 import ehealth.db.model.RegisteredUsersEntity;
+import ehealth.db.model.UsageHistoryEntity;
 import ehealth.db.repository.RegisterUsersRepository;
 import ehealth.exceptions.BadRegisterRequestException;
 import ehealth.exceptions.BadRequestException;
@@ -21,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +38,8 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Autowired
     protected RegisterUsersRepository registerUsersRepository;
 
+    @Autowired
+    protected StrainsCollector strainsCollector;
 
     public StrainApiServiceImpl() {
         client = new ResteasyClientBuilder().build();
@@ -56,25 +58,6 @@ public class StrainApiServiceImpl implements StrainApiService {
         return null;
     }
 
-    @Override
-    public String getStrainByEffect(String effectName) {
-        return null;
-    }
-
-    @Override
-    public String getStrainById(String strainId) {
-        return null;
-    }
-
-    @Override
-    public String getAllEffects(String strainName) {
-        return null;
-    }
-
-    @Override
-    public String getAllStrains(String strainName) {
-        return null;
-    }
 
     @Override
     public RegisteredUserData authenticate(LoginRequest loginRequest) {
@@ -122,6 +105,77 @@ public class StrainApiServiceImpl implements StrainApiService {
         throw new BadRegisterRequestException();
     }
 
+    @Override
+    public RecommendedStrainList getRecommendedStrain(String userId) {
+        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
+        int medical = registeredUsersEntity.getMedical();
+        int positive = registeredUsersEntity.getPositive();
+
+        List<StrainObject> recommendedStrains = new ArrayList<>();
+        for (StrainObject strain : strainsCollector.allStrains) {
+            int medicalCand = strain.getMedical().intValue();
+            int positiveCand = strain.getPositive().intValue();
+            if ((medicalCand & medical) == medical && (positiveCand & positive) == positive) {
+                recommendedStrains.add(strain);
+            }
+        }
+
+        return new RecommendedStrainList(recommendedStrains.size(), recommendedStrains);
+    }
+
+
+    @Override
+    public void saveUsageHistoryForUser(UsageHistory usageHistory) {
+        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(usageHistory.getUserId()));
+        UsageHistoryEntity usageHistoryEntity = buildUsageHistoryEntity(usageHistory);
+        List<UsageHistoryEntity> usageHistoryEntityList;
+        if(registeredUsersEntity.getUsageHistoryEntity()==null){
+            usageHistoryEntityList = Arrays.asList(usageHistoryEntity);
+        }
+        else{
+            usageHistoryEntityList = registeredUsersEntity.getUsageHistoryEntity();
+            usageHistoryEntityList.add(usageHistoryEntity);
+        }
+        registeredUsersEntity.setUsageHistoryEntity(usageHistoryEntityList);
+        registerUsersRepository.save(registeredUsersEntity);
+    }
+
+    @Override
+    public List<UsageHistoryResponse> getUsageHistoryForUser(String userId) {
+        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
+        List<UsageHistoryResponse> usageHistoryResponseList = new ArrayList<>();
+        for(UsageHistoryEntity usageHistoryEntity : registeredUsersEntity.getUsageHistoryEntity()){
+           usageHistoryResponseList.add(new UsageHistoryResponse(
+                   usageHistoryEntity.getId(),
+                   usageHistoryEntity.getUserId(),
+                   usageHistoryEntity.getCreatedAt(),
+                   usageHistoryEntity.getStrainName(),
+                   usageHistoryEntity.getMedicalRank(),
+                   usageHistoryEntity.getPositiveRank(),
+                   usageHistoryEntity.getOverallRank(),
+                   usageHistoryEntity.getHeartbeatHigh(),
+                   usageHistoryEntity.getHeartbeatLow(),
+                   usageHistoryEntity.getHeartbeatAvg()
+           ));
+        }
+        return usageHistoryResponseList;
+    }
+
+    private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {
+        UsageHistoryEntity usageHistoryEntity = new UsageHistoryEntity();
+        usageHistoryEntity.setId(UUID.randomUUID());
+        usageHistoryEntity.setUserId(UUID.fromString(usageHistory.getUserId()));
+        usageHistoryEntity.setCreatedAt(System.currentTimeMillis());
+        usageHistoryEntity.setStrainName(usageHistory.getStrainName());
+        usageHistoryEntity.setHeartbeatHigh(usageHistory.getHeartbeatHigh());
+        usageHistoryEntity.setHeartbeatAvg(usageHistory.getHeartbeatAvg());
+        usageHistoryEntity.setHeartbeatLow(usageHistory.getHeartbeatLow());
+        usageHistoryEntity.setMedicalRank(usageHistory.getMedicalRank());
+        usageHistoryEntity.setPositiveRank(usageHistory.getPositiveRank());
+        usageHistoryEntity.setOverallRank(usageHistory.getOverallRank());
+        return usageHistoryEntity;
+    }
+
     private RegisteredUserData createUserDataResponseFromEntity(RegisteredUsersEntity registeredUsersEntity) {
         return new RegisteredUserData(
                 registeredUsersEntity.getId(),
@@ -135,14 +189,5 @@ public class StrainApiServiceImpl implements StrainApiService {
                 registeredUsersEntity.getNegative(),
                 registeredUsersEntity.getCreatedAt()
         );
-    }
-
-    private List<String> getEffectsAsString(List<?> effectsList) {
-        List<String> effectStringList = new ArrayList<>();
-        for (Object effect : effectsList) {
-            effectStringList.add(effect.toString());
-        }
-        return effectStringList;
-
     }
 }

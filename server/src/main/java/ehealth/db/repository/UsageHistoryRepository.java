@@ -14,17 +14,13 @@ package ehealth.db.repository;
  *   from ARM Limited or its affiliates.
  *****************************************************************************/
 
-import ehealth.db.model.RegisteredUsersEntity;
+import ehealth.db.model.UsageHistoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface RegisterUsersRepository extends JpaRepository<RegisteredUsersEntity, UUID> {
-
-    public RegisteredUsersEntity findByUsername(String username);
-
-    public RegisteredUsersEntity findById(UUID userId);
+public interface UsageHistoryRepository extends JpaRepository<UsageHistoryEntity, UUID> {
 
 }
