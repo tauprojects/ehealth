@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="Context\BandContext.cs" />
     <Compile Include="Context\GlobalContext.cs" />
+    <Compile Include="DataObjects\Http\Requests\UsageUpdateRequest.cs" />
     <Compile Include="DataObjects\Strain.cs" />
     <Compile Include="DataObjects\UsageData.cs" />
     <Compile Include="DataObjects\UserData.cs" />
