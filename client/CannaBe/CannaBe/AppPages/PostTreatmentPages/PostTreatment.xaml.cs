@@ -124,7 +124,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
                     {
                         Status.Text = "Usage update Successful!";
                         PagesUtilities.SleepSeconds(1);
-                        Frame.Navigate(typeof(DashboardPage), res);
+                        Frame.Navigate(typeof(DashboardPage));
                     }
                     else
                     {

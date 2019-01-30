@@ -60,11 +60,11 @@ namespace CannaBe.AppPages.Usage
                         }
                         else
                         {
-                            foreach (var dic in usage.usageFeedback)
+                            /*foreach (var dic in usage.usageFeedback)
                             {
                                 if (dic.Key != null && dic.Value != null)
                                     AppDebug.Line("Question: " + dic.Key + " Answer: " + dic.Value);
-                            }
+                            }*/
                         }
                     }
                     catch(Exception x)
