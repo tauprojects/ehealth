@@ -21,4 +21,8 @@ public class BaseResponse {
 
     @JsonProperty("body")
     String body;
+
+    public BaseResponse(String status) {
+        this.status = status;
+    }
 }
