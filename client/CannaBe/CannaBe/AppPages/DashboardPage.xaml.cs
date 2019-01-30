@@ -24,7 +24,8 @@ namespace CannaBe
             if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
             {
                 textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
+                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.
+                    Colors.Black);
             }
         }
 

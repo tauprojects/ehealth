@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CannaBe.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -127,55 +128,6 @@ namespace CannaBe.AppPages.Usage
             }
         }
 
-        private string GetPropertiesString()
-        {
-            StringBuilder b = new StringBuilder();
-            int i = 1;
-
-            if (UsageContext.ChosenStrain?.MedicalNeeds.Count > 0)
-            {
-                b.AppendLine("- Medical Needs:");
-                foreach (string mn in UsageContext.ChosenStrain.MedicalNeeds)
-                {
-                    b.AppendLine($"\t{i++}. {mn}");
-                }
-            }
-            else
-            {
-                b.AppendLine("- No medical needs listed.");
-            }
-
-            if (UsageContext.ChosenStrain?.PositivePreferences.Count > 0)
-            {
-                b.AppendLine("- Positive Effects:");
-                i = 1;
-                foreach (string mn in UsageContext.ChosenStrain.PositivePreferences)
-                {
-                    b.AppendLine($"\t{i++}. {mn}");
-                }
-            }
-            else
-            {
-                b.AppendLine("- No positive effects listed.");
-            }
-
-            if (UsageContext.ChosenStrain?.NegativePreferences.Count > 0)
-            {
-                b.AppendLine("- Negative Effects:");
-                i = 1;
-                foreach (string mn in UsageContext.ChosenStrain.NegativePreferences)
-                {
-                    b.AppendLine($"\t{i++}. {mn}");
-                }
-            }
-            else
-            {
-                b.AppendLine("- No negative effects listed.");
-            }
-
-            return b.ToString().Substring(0,b.Length - 2);
-        }
-
         private async void SubmitString(object sender, RoutedEventArgs e)
         {
             if(StrainChosen != null)
@@ -186,7 +138,7 @@ namespace CannaBe.AppPages.Usage
 
                 await SubmitStringTask();
 
-                StrainProperties.Text = GetPropertiesString();
+                StrainProperties.Text = UsageContext.ChosenStrain?.GetPropertiesString();
                 Title.Opacity = 1;
                 Scroller.ChangeView(null, 0, null); //scroll to top
                 Scroller.Visibility = Visibility.Visible;
@@ -224,9 +176,9 @@ namespace CannaBe.AppPages.Usage
 
                         UsageContext.ChosenStrain = new Strain(StrainChosen, int.Parse(strainId))
                         {
-                            MedicalNeeds = values["medical"].ToList(),
-                            PositivePreferences = values["positive"].ToList(),
-                            NegativePreferences = values["negative"].ToList()
+                            BitmapMedicalNeeds = MedicalEnumMethods.BitmapFromStringList(values["medical"].ToList()),
+                            BitmapPositivePreferences = PositivePreferencesEnumMethods.BitmapFromStringList(values["positive"].ToList()),
+                            BitmapNegativePreferences = NegativePreferencesEnumMethods.BitmapFromStringList(values["negative"].ToList())
                         };
 
 

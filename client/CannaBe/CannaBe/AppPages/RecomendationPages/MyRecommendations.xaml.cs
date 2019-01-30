@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-
+using Windows.UI.Xaml.Media;
 
 namespace CannaBe.AppPages.RecomendationPages
 {
@@ -29,15 +30,28 @@ namespace CannaBe.AppPages.RecomendationPages
                     if (res == null)
                         return;
 
-                    var dicts = JsonConvert.DeserializeObject<Dictionary<string, string>[]>(res.Content.ReadAsStringAsync().Result);
+                    var strains = JsonConvert.DeserializeObject<Strain[]>(res.Content.ReadAsStringAsync().Result);
 
                     int i = 0;
-                    foreach (var dict in dicts)
+                    if(strains.Length == 0)
                     {
-                        AppDebug.Line($"Got strain {i++}");
-                        foreach(var pair in dict)
+                        ErrorNoStrainFound.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        foreach (var strain in strains)
                         {
-                            AppDebug.Line($"\t{pair.Key} = {pair.Value}");
+                            AppDebug.Line($"Got strain {i++}");
+                            AppDebug.Line($"\tname = {strain.Name}");
+                            StrainList.Children.Add(new RadioButton()
+                            {
+                                Foreground = new SolidColorBrush(Windows.UI.Colors.Black),
+                                FontSize = 20,
+                                VerticalContentAlignment = VerticalAlignment.Top,
+                                FontWeight = FontWeights.Bold,
+                                Content = strain.Name,
+                                DataContext = strain
+                            });
                         }
                     }
                 }
@@ -54,6 +68,11 @@ namespace CannaBe.AppPages.RecomendationPages
         private void GoToDashboard(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(DashboardPage));
+        }
+
+        private void ContinueHandler(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
