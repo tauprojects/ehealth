@@ -54,13 +54,13 @@
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#90ffffff"
                 Tapped="GoToDashboard"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,480,0,0" Width="60">
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,480,0,0" Width="161">
         </Button>
-        <Button Content="Start using Strain" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+        <Button Content="Start Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#90ffffff"
                 Click="ContinueHandler" x:Name="ContinueButton"
                 IsEnabled="False"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,35,0" Width="187">
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,0,0" Width="161">
         </Button>
         <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
 

@@ -17,11 +17,17 @@ public class UsageHistoryResponse {
     @JsonProperty("user_id")
     private UUID userId;
 
-    @JsonProperty("created_at")
-    private Long createdAt;
+    @JsonProperty("start_time")
+    private Long startTime;
+
+    @JsonProperty("end_time")
+    private Long endTime;
 
     @JsonProperty("strain_name")
     private String strainName;
+
+    @JsonProperty("strain_id")
+    private Integer strainId;
 
     @JsonProperty("medical_rank")
     private Integer medicalRank;
