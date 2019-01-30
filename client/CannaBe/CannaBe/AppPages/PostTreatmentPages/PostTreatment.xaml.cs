@@ -72,39 +72,48 @@ namespace CannaBe.AppPages.PostTreatmentPages
             Frame.Navigate(typeof(DashboardPage));
         }
 
-        private int getMedicalRank(Dictionary<string, string> questionDictionary)
+        private int[] getRanks(Dictionary<string, string> questionDictionary)
         {
-            int sum = 0;
+            int positiveSum = 0, medicalSum = 0;
+            int positiveCnt = 0, medicalCnt = 0;
             int cnt = questionDictionary.Count;
+            int[] ans = new int[3];
+
             foreach (KeyValuePair<string, string> question in questionDictionary)
             {
-                if (question.Value.Equals("Yes"))
+                if (question.Key.Equals("Do think the session was positive?") || question.Key.Equals("Rate the quality of the treatment:"))
                 {
-                    sum += 10;
+                    if (question.Value.Equals("Yes")) positiveSum += 10;
+                    else if (question.Value.Equals("No")) positiveSum += 0;
+                    else if (question.Value.Equals("Don't know")) positiveSum += 5;
+                    else positiveSum += System.Convert.ToInt32(question.Value);
+                    positiveCnt += 1;
                 }
-                else if (question.Value.Equals("No"))
-                {
-                    sum += 0;
-                }
-                else if (question.Value.Equals("Don't know"))
-                {
-                    sum += 5;
-                }
-                else
-                {
-                    sum += (10 - System.Convert.ToInt32(question.Value));
+                else { 
+                    if (question.Value.Equals("Yes")) medicalSum += 10;
+                    else if (question.Value.Equals("No")) medicalSum += 0;
+                    else if (question.Value.Equals("Don't know")) medicalSum += 5;
+                    else medicalSum += (10 - System.Convert.ToInt32(question.Value));
+                    medicalCnt += 1;
+
                 }
             }
-            AppDebug.Line(sum/cnt);
-            return (sum/cnt);
+            ans[0] = medicalSum / medicalCnt;
+            ans[1] = positiveSum / positiveCnt;
+            ans[2] = ((positiveSum + medicalSum) / cnt);
+            return ans;
         }
+
+
 
         private async void SubmitFeedback(object sender, TappedRoutedEventArgs e)
         {
             HttpResponseMessage res = null;
             UsageUpdateRequest req;
 
-            int medicalRank = getMedicalRank(questionDictionary);
+            int[] ranks = new int[3];
+
+            ranks = getRanks(questionDictionary);
 
             try
             {
@@ -114,7 +123,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
                 UsageData use = GlobalContext.CurrentUser.UsageSessions.LastOrDefault();
                 string id = GlobalContext.CurrentUser.Data.UserID;
 
-                req = new UsageUpdateRequest(use.UsageStrain.Name, id, medicalRank, 3, 4, 80, 80, 80);
+                req = new UsageUpdateRequest(use.UsageStrain.Name, id, ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage);
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("usage/"), req);
 

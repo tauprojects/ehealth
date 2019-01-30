@@ -33,7 +33,7 @@ namespace CannaBe.Enums
         PAIN = 12,
         [EnumDescriptions("Do you feel less depressed?", "Rate how intense is your depression regularly:")]
         DEPRESSION = 13,
-        [EnumDescriptions("Do you feel improvement in your sleep quality?", "Rate your sleep quality:")]
+        [EnumDescriptions("Do you feel improvement in your sleep quality?", "Rate how bad your sleep is:")]
         INSOMNIA = 14,
         [EnumDescriptions("Do you have fewer headaches?", "Rate the frequency of your headaches:")]
         HEADACHE = 15
