@@ -48,39 +48,42 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
-                        <Border Background ="#900d3c87" 
+                        <StackPanel>
+                            <Border Background ="#900d3c87" 
                                 Height="auto" VerticalAlignment="Top" Width="300">
-                            <StackPanel Margin="3,0,0,0">
-                                <TextBlock Foreground="White" FontSize="18" Grid.Column="1" >
+                                <StackPanel Margin="3,0,0,0">
+                                    <TextBlock Foreground="White" FontSize="18" Grid.Column="1" >
                                     <Run x:Name="StrainNameTitle" Text="Strain: " FontWeight="Bold"/>
                                     <Run x:Name="StrainName" Text="{Binding Path=UsageStrain.Name}"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" FontSize="18" Grid.Column="1" >
+                                    </TextBlock>
+                                    <TextBlock Foreground="White" FontSize="18" Grid.Column="1" >
                                     <Run x:Name="UsageStartTimeTitle" Text="Started on" FontWeight="Bold"/>
                                     <Run x:Name="UsageStartTime" FontSize ="17" Text="{Binding Path=StartTimeString}"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" FontSize="18" Grid.Column="1">
+                                    </TextBlock>
+                                    <TextBlock Foreground="White" FontSize="18" Grid.Column="1">
                                     <Run x:Name="UsageDurationTitle" Text="Duration:" FontWeight="Bold"/>
                                     <Run x:Name="UsageDuration" Text="{Binding Path=DurationString}"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" FontSize="18" Grid.Column="1">
+                                    </TextBlock>
+                                    <TextBlock Foreground="White" FontSize="18" Grid.Column="1">
                                     <Run x:Name="UsedBandTitle" Text="Was Band Used:" FontWeight="Bold"/>
                                     <Run x:Name="UsedBand" Text="{Binding Path=UsedBandString}"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" FontSize="18" Grid.Column="1" Visibility="{Binding Path=ShowBandData}">
+                                    </TextBlock>
+                                    <TextBlock Foreground="White" FontSize="18" Grid.Column="1" Visibility="{Binding Path=ShowBandData}">
                                     <Run Text="Heart Rate Data:" FontWeight="Bold"/>
-                                </TextBlock>
-                                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="18" Grid.Column="1" Visibility="{Binding Path=ShowBandData}">
+                                    </TextBlock>
+                                    <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="18" Grid.Column="1" Visibility="{Binding Path=ShowBandData}">
                                     <Run Text="Low:" FontWeight="Bold"/>
                                     <Run Text="{Binding Path=HeartRateMin}"/>
                                     <Run Text="Avg:" FontWeight="Bold"/>
                                     <Run Text="{Binding Path=HeartRateAverage}"/>
                                     <Run Text="High:" FontWeight="Bold"/>
                                     <Run Text="{Binding Path=HeartRateMax}"/>
-                                </TextBlock>
-                            </StackPanel>
-                        </Border>
-                        <Rectangle Height="10" Margin="0,95,0,0" VerticalAlignment="Top"/>
+                                    </TextBlock>
+
+                                </StackPanel>
+                            </Border>
+                            <Rectangle Height="10" VerticalAlignment="Top"/>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
