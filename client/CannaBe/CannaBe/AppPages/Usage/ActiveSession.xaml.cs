@@ -1,6 +1,7 @@
 ﻿using CannaBe.AppPages.PostTreatmentPages;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -39,18 +40,8 @@ namespace CannaBe.AppPages.Usage
         {
             try
             {
-                //CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                //{
-                //    try
-                //    {
-                        TimeSpan timePassed = DateTime.Now.Subtract(UsageContext.Usage.StartTime);
-                        Duration.Text = $"Duration: {new DateTime(timePassed.Ticks).ToString("HH:mm:ss")}";
-                //    }
-                //    catch (Exception x)
-                //    {
-                //        AppDebug.Exception(x, "Timer_Tick => RunAsync");
-                //    }
-                //}).AsTask().GetAwaiter().GetResult();
+                TimeSpan timePassed = DateTime.Now.Subtract(UsageContext.Usage.StartTime);
+                Duration.Text = $"Duration: {new DateTime(timePassed.Ticks).ToString("HH:mm:ss")}";
             }
             catch (Exception x2)
             {
@@ -67,7 +58,7 @@ namespace CannaBe.AppPages.Usage
             Max.Text = max.ToString();
         }
 
-        private void EndSession(object sender, RoutedEventArgs e)
+        private async void EndSessionAsync(object sender, RoutedEventArgs e)
         {
             progressRing.IsActive = true;
             try
@@ -77,7 +68,7 @@ namespace CannaBe.AppPages.Usage
                     GlobalContext.Band.StopHeartRate();
                     PagesUtilities.SleepSeconds(0.5);
                 }
-                UsageContext.Usage.EndUsage();
+                await UsageContext.Usage.EndUsage();
             }
             catch (Exception x)
             {

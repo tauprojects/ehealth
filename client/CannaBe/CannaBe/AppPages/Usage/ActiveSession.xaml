@@ -76,7 +76,7 @@
         <Button Content="End Session" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="LightBlue"
                 x:Name="EndSessionButton"
-                Click="EndSession"
+                Click="EndSessionAsync"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,406,0,0" Width="Auto">
         </Button>
 

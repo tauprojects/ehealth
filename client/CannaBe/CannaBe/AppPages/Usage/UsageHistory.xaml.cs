@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -31,12 +28,8 @@ namespace CannaBe.AppPages.Usage
                     break;
                 }
 
-                var usages = Task.Run(() => GetUsagesFromServer()).GetAwaiter().GetResult();
-                if(usages != null)
-                {
-                    GlobalContext.CurrentUser.UsageSessions = usages;
-                }
-                
+                GlobalContext.UpdateUsagesContextIfEmptyAsync();
+
                 ref var sessions = ref GlobalContext.CurrentUser.UsageSessions;
 
                 if (sessions == null)
@@ -61,46 +54,13 @@ namespace CannaBe.AppPages.Usage
                     }
 
                     UsageListGui.Items.Add(usage);
-                    try
-                    {
-                        if (usage.usageFeedback == null)
-                        {
-                            AppDebug.Line("usage.usageFeedback == null");
-                        }
-                        else
-                        {
-                            /*foreach (var dic in usage.usageFeedback)
-                            {
-                                if (dic.Key != null && dic.Value != null)
-                                    AppDebug.Line("Question: " + dic.Key + " Answer: " + dic.Value);
-                            }*/
-                        }
-                    }
-                    catch(Exception x)
-                    {
-                        AppDebug.Exception(x, "OnPageLoaded");
-                    }
                 }
             } while (false);
             progressRing.IsActive = false;
 
         }
 
-        private List<UsageData> GetUsagesFromServer()
-        {
-            try
-            {
-                var res = HttpManager.Manager.Get(Constants.MakeUrl("usage/" + GlobalContext.CurrentUser.Data.UserID));
-                var str = res.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                return JsonConvert.DeserializeObject<UsageUpdateRequest[]>(str).ToUsageList();
-            }
-            catch (Exception x)
-            {
-                AppDebug.Exception(x, "GetUsagesFromServer");
-
-                return null;
-            }
-        }
+       
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
         {
@@ -112,6 +72,8 @@ namespace CannaBe.AppPages.Usage
             ListView lst = sender as ListView;
             UsageData u = e.ClickedItem as UsageData;
             AppDebug.Line($"Selected usage on [{u.StartTimeString}]");
+            UsageContext.DisplayUsage = u;
+            Frame.Navigate(typeof(UsageDisplay));
         }
 
         private async void Remove_Click(object sender, RoutedEventArgs e)

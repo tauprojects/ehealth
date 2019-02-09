@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
@@ -35,6 +34,14 @@ namespace CannaBe
         }
 
         public DateTime EndTime { get; private set; }
+
+        public string EndTimeString
+        {
+            get
+            {
+                return EndTime.ToString("MMMM dd, yyyy HH:mm:ss");
+            }
+        }
 
         private TimeSpan duration;
         public TimeSpan Duration
@@ -169,6 +176,7 @@ namespace CannaBe
             EndTime = DateTime.Now;
             timer.Stop();
             Duration = EndTime.Subtract(StartTime);
+            GlobalContext.UpdateUsagesContextIfEmptyAsync();
             GlobalContext.CurrentUser.UsageSessions.Add(this);
         }
 
