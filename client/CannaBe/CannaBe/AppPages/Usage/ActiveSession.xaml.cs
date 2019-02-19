@@ -58,7 +58,7 @@ namespace CannaBe.AppPages.Usage
             Max.Text = max.ToString();
         }
 
-        private async void EndSessionAsync(object sender, RoutedEventArgs e)
+        private void EndSessionAsync(object sender, RoutedEventArgs e)
         {
             progressRing.IsActive = true;
             try
@@ -68,7 +68,7 @@ namespace CannaBe.AppPages.Usage
                     GlobalContext.Band.StopHeartRate();
                     PagesUtilities.SleepSeconds(0.5);
                 }
-                await UsageContext.Usage.EndUsage();
+                UsageContext.Usage.EndUsage();
             }
             catch (Exception x)
             {
