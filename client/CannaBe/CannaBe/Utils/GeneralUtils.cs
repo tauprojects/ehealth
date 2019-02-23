@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
@@ -47,6 +48,18 @@ namespace CannaBe
             {
                 AppDebug.Exception(c, "EnableBluetoothAsync");
             }
+        }
+
+        public static List<UsageData> ToUsageList(this UsageUpdateRequest[] list)
+        {
+            List<UsageData> lst = new List<UsageData>(list.Length);
+
+            foreach (var v in list)
+            {
+                lst.Add(v);
+            }
+
+            return lst;
         }
     }
 }

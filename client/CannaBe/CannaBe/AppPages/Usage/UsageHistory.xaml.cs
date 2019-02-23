@@ -18,7 +18,7 @@ namespace CannaBe.AppPages.Usage
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            AppDebug.Line("In UsageHistory page");
+            progressRing.IsActive = true;
 
             do
             {
@@ -27,6 +27,8 @@ namespace CannaBe.AppPages.Usage
                     AppDebug.Line("GlobalContext.CurrentUser == null");
                     break;
                 }
+
+                GlobalContext.UpdateUsagesContextIfEmptyAsync();
 
                 ref var sessions = ref GlobalContext.CurrentUser.UsageSessions;
 
@@ -52,28 +54,13 @@ namespace CannaBe.AppPages.Usage
                     }
 
                     UsageListGui.Items.Add(usage);
-                    try
-                    {
-                        if (usage.usageFeedback == null)
-                        {
-                            AppDebug.Line("usage.usageFeedback == null");
-                        }
-                        else
-                        {
-                            /*foreach (var dic in usage.usageFeedback)
-                            {
-                                if (dic.Key != null && dic.Value != null)
-                                    AppDebug.Line("Question: " + dic.Key + " Answer: " + dic.Value);
-                            }*/
-                        }
-                    }
-                    catch(Exception x)
-                    {
-                        AppDebug.Exception(x, "OnPageLoaded");
-                    }
                 }
             } while (false);
+            progressRing.IsActive = false;
+
         }
+
+       
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
         {
@@ -85,6 +72,8 @@ namespace CannaBe.AppPages.Usage
             ListView lst = sender as ListView;
             UsageData u = e.ClickedItem as UsageData;
             AppDebug.Line($"Selected usage on [{u.StartTimeString}]");
+            UsageContext.DisplayUsage = u;
+            Frame.Navigate(typeof(UsageDisplay));
         }
 
         private async void Remove_Click(object sender, RoutedEventArgs e)

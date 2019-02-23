@@ -121,9 +121,13 @@ namespace CannaBe.AppPages.PostTreatmentPages
                 GlobalContext.CurrentUser.UsageSessions.LastOrDefault().usageFeedback = questionDictionary;
 
                 UsageData use = GlobalContext.CurrentUser.UsageSessions.LastOrDefault();
-                string id = GlobalContext.CurrentUser.Data.UserID;
+                string userId = GlobalContext.CurrentUser.Data.UserID;
 
-                req = new UsageUpdateRequest(use.UsageStrain.Name, id, ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage);
+                req = new UsageUpdateRequest(use.UsageStrain.Name, use.UsageStrain.ID,
+                    userId, 
+                    ((DateTimeOffset)use.StartTime).ToUnixTimeMilliseconds(),
+                    ((DateTimeOffset)use.EndTime).ToUnixTimeMilliseconds(),
+                    ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage);
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("usage"), req);
 

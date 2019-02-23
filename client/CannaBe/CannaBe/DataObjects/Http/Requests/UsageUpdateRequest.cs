@@ -9,11 +9,20 @@ namespace CannaBe
 {
     class UsageUpdateRequest : Request
     {
+        [JsonProperty("user_id")]
+        public string UserID { get; set; }
+
         [JsonProperty("strain_name")]
         public string StrainName { get; set; }
 
-        [JsonProperty("user_id")]
-        public string UserID { get; set; }
+        [JsonProperty("strain_id")]
+        public int StrainId { get; set; }
+
+        [JsonProperty("start_time")]
+        public long unixStartTime;
+
+        [JsonProperty("end_time")]
+        public long unixEndTime;
 
         [JsonProperty("medical_rank")]
         public int MedicalRank { get; set; }
@@ -33,9 +42,14 @@ namespace CannaBe
         [JsonProperty("heartbeat_avg")]
         public int HeartbeatAvg { get; set; }
 
-        public UsageUpdateRequest(string strainname, string userid, int medicalrank, int positiverank, int overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg)
+        [JsonConstructor]
+        public UsageUpdateRequest(string strainname, int strainId, string userid, long startTime, long endTime,
+            int medicalrank, int positiverank, int overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg)
         {
             StrainName = strainname;
+            StrainId = strainId;
+            unixStartTime = startTime;
+            unixEndTime = endTime;
             UserID = userid;
             MedicalRank = medicalrank;
             PositiveRank = positiverank;
