@@ -18,7 +18,7 @@ namespace CannaBe
                 return CannaBeUrlLocalHost + addition;
         }
 
-        public static int ToAge(this Da♠teTime dob)
+        public static int ToAge(this DateTime dob)
         {
             try
             {
