@@ -5,7 +5,7 @@ namespace CannaBe
 {
     static class Constants
     {
-        public const string CannaBeUrl = "http://cannabe-public.westeurope.cloudapp.azure.com:8080/";
+        public const string CannaBeUrl = "http://medicanna.westeurope.cloudapp.azure.com:8080/";
         public const string CannaBeUrlLocalHost = "http://localhost:8080/";
 
         public static bool IsLocalHost = false;
@@ -18,7 +18,7 @@ namespace CannaBe
                 return CannaBeUrlLocalHost + addition;
         }
 
-        public static int ToAge(this DateTime dob)
+        public static int ToAge(this Da♠teTime dob)
         {
             try
             {
