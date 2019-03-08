@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface StrainApiService {
 
-    BaseResponse getStrainByName(String strainName);
-
     RegisteredUserData authenticate(LoginRequest loginRequest);
 
     RegisteredUserData register(RegisterRequest registerRequest);
+
+    RegisteredUserData edit(String userId, RegisterRequest registerRequest);
+
+    BaseResponse getStrainByName(String strainName);
 
     SuggestedStrains getRecommendedStrain(String userId);
 

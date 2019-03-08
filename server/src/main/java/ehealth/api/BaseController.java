@@ -27,42 +27,9 @@ public class BaseController {
     }
 
     /**
-     * Basic API
-     *
-     * @return String
-     */
-    @RequestMapping(value = "/ehealth/strain/{strain-name}", method = RequestMethod.GET)
-    public BaseResponse getStrainInfo(@PathVariable("strain-name") String strainName) {
-        return mainServiceImpl.getStrainByName(strainName);
-    }
-
-    /**
-     * Basic API
-     *
-     * @return String
-     */
-    @RequestMapping(value = "/ehealth/effects/{strain-name}", method = RequestMethod.GET)
-    public String getStrainEffects(@PathVariable("strain-name") String strainName) {
-        logger.info("GET strain effect: " + strainName);
-
-        return "echo server:" + strainName;
-    }
-
-    /**
-     * Login API
-     *
-     * @return String
-     */
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public RegisteredUserData login(@RequestBody LoginRequest loginRequest) {
-        logger.info("POST login request: " + loginRequest.toString());
-        return mainServiceImpl.authenticate(loginRequest);
-    }
-
-    /**
      * Register API
      *
-     * @return String
+     * @return RegisteredUserData
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public RegisteredUserData register(@RequestBody RegisterRequest registerRequest) {
@@ -71,9 +38,42 @@ public class BaseController {
     }
 
     /**
+     * Edit profile API
+     *
+     * @return RegisteredUserData
+     */
+    @RequestMapping(value = "/edit/{user-id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RegisteredUserData edit(@PathVariable("user-id") String userId, @RequestBody RegisterRequest updateRequest) {
+        logger.info("POST edit register data request: " + updateRequest.toString());
+        return mainServiceImpl.edit(userId, updateRequest);
+    }
+
+    /**
+     * Login API
+     *
+     * @return RegisteredUserData
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public RegisteredUserData login(@RequestBody LoginRequest loginRequest) {
+        logger.info("POST login request: " + loginRequest.toString());
+        return mainServiceImpl.authenticate(loginRequest);
+    }
+
+    /**
+     * GET Strain by name API from strains database
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/ehealth/strain/{strain-name}", method = RequestMethod.GET)
+    public BaseResponse getStrainInfo(@PathVariable("strain-name") String strainName) {
+        return mainServiceImpl.getStrainByName(strainName);
+    }
+
+
+    /**
      * Get recommended API
      *
-     * @return List<Strain>
+     * @return SuggestedStrains(List<Strain>, status)
      */
     @RequestMapping(value = "/strains/recommended/{user-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public SuggestedStrains getRecommended(@PathVariable("user-id") String userId) {

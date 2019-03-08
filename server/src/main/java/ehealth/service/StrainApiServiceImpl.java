@@ -84,7 +84,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public RegisteredUserData register(RegisterRequest registerRequest) {
         if (registerRequest != null) {
-            logger.info(registerRequest.toString());
+            logger.info("Register request: " + registerRequest.toString());
             RegisteredUsersEntity registeredUsersEntity = new RegisteredUsersEntity();
             // Generate Unique User Id
             registeredUsersEntity.setId(UUID.randomUUID());
@@ -100,6 +100,29 @@ public class StrainApiServiceImpl implements StrainApiService {
             registeredUsersEntity.setMedical(registerRequest.getMedical());
             registeredUsersEntity.setPositive(registerRequest.getPositive());
             registeredUsersEntity.setNegative(registerRequest.getNegative());
+            // Save to DB
+            registerUsersRepository.save(registeredUsersEntity);
+            return createUserDataResponseFromEntity(registeredUsersEntity);
+        }
+        throw new BadRegisterRequestException();
+    }
+
+    @Override
+    public RegisteredUserData edit(String userId, RegisterRequest registerRequest) {
+        if (registerRequest != null) {
+
+            logger.info("Edit request: " + registerRequest.toString());
+            RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
+            // Set input user-data
+            if (registerRequest.getMedical() != registeredUsersEntity.getMedical()) {
+                registeredUsersEntity.setMedical(registerRequest.getMedical());
+            }
+            if (registerRequest.getPositive() != registeredUsersEntity.getPositive()) {
+                registeredUsersEntity.setPositive(registerRequest.getPositive());
+            }
+            if (registerRequest.getNegative() != registeredUsersEntity.getNegative()) {
+                registeredUsersEntity.setNegative(registerRequest.getNegative());
+            }
             // Save to DB
             registerUsersRepository.save(registeredUsersEntity);
             return createUserDataResponseFromEntity(registeredUsersEntity);
