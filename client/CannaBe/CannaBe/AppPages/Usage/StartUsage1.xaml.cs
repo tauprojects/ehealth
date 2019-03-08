@@ -30,7 +30,7 @@ namespace CannaBe.AppPages.Usage
 
             if(UsageContext.ChosenStrain != null) //went back to this page
             {
-                StrainList.Text = UsageContext.ChosenStrain.Name;
+                StrainChosen = StrainList.Text = UsageContext.ChosenStrain.Name;
             }
         }
 
