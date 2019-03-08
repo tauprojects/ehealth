@@ -70,7 +70,7 @@
                 Click="BackToMain"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,376,0,0" Width="Auto">
         </Button>
-        <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
+        <TextBlock FontSize="15" x:Name="Status" Foreground="Black" TextAlignment="Center"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,456,0,0"/>
         <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
 

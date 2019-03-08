@@ -94,15 +94,23 @@ namespace CannaBe
 
                 if (res != null)
                 {
-                    if (res.StatusCode == HttpStatusCode.OK)
+                    var content = res.GetContent();
+
+                    switch (res.StatusCode)
                     {
-                        Status.Text = "Register Successful!";
-                        PagesUtilities.SleepSeconds(1);
-                        Frame.Navigate(typeof(DashboardPage), res);
-                    }
-                    else
-                    {
-                        Status.Text = "Register failed! Status = " + res.StatusCode;
+                        case HttpStatusCode.OK:
+                            Status.Text = "Register Successful!";
+                            PagesUtilities.SleepSeconds(1);
+                            Frame.Navigate(typeof(DashboardPage), res);
+                            break;
+
+                        case HttpStatusCode.BadRequest:
+                            Status.Text = "Register failed!\n" + content["message"];
+                            break;
+
+                        default:
+                            Status.Text = "Error!\n" + content["message"];
+                            break;
                     }
                 }
                 else

@@ -35,25 +35,27 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
 
-        <StackPanel Margin="0,190,0,161" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+        <StackPanel Margin="0,190,0,0" HorizontalAlignment="Center" VerticalAlignment="Stretch">
+            
             <Button Content="Suggested Strains" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Click="GoToRecommendations"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
-
-               <Button Content="Start New Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+            <Rectangle Height="3"/>
+            <Button Content="Start New Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000" Click="GoToStartUsage"
                 HorizontalAlignment="Center" VerticalAlignment="Top"  Width="300"/>
-
+            <Rectangle Height="3"/>
             <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Click="GoToUsageHistory" x:Name="UsageHistoryButton"
                 Foreground="Black" Background="#10000000"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
+            <Rectangle Height="3"/>
             <Button Content="My Profile" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Click="GoToProfile" x:Name="MyProfileButton"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
-
+            <Rectangle Height="3"/>
             <Button Content="Information" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToInformationPage"

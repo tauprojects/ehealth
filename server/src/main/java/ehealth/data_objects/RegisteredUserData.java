@@ -43,4 +43,5 @@ public class RegisteredUserData {
     @JsonProperty("created_at")
     Long createdAt;
 
+
 }
