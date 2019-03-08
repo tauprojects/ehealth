@@ -32,7 +32,7 @@ namespace CannaBe
                 dOB = value;
                 try
                 {
-                    DobDate = DateTime.ParseExact(dOB, "dd/M/yyyy", CultureInfo.InvariantCulture);
+                    DobDate = DateTime.ParseExact(dOB, "d/M/yyyy", CultureInfo.InvariantCulture);
                     AppDebug.Line($"Parsed [{DobDate.ToString("dd/MM/yyyy")}]");
                 }
                 catch (Exception x)
