@@ -45,4 +45,7 @@ public class UsageHistory {
     @JsonProperty("heartbeat_avg")
     private Integer heartbeatAvg;
 
+    @JsonProperty("is_blacklist")
+    private Integer isBlacklist;
+
 }

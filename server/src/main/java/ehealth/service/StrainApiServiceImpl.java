@@ -117,7 +117,10 @@ public class StrainApiServiceImpl implements StrainApiService {
             int medicalCand = strain.getMedical().intValue();
             int positiveCand = strain.getPositive().intValue();
             if ((medicalCand & medical) == medical && (positiveCand & positive) == positive) {
-                recommendedStrains.add(strain);
+                // Add only if strain is not blacklisted
+                if(!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
+                    recommendedStrains.add(strain);
+                }
             }
         }
 
@@ -128,6 +131,9 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public void saveUsageHistoryForUser(UsageHistory usageHistory) {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(usageHistory.getUserId()));
+        if(registeredUsersEntity==null){
+            throw new BadRequestException();
+        }
         UsageHistoryEntity usageHistoryEntity = buildUsageHistoryEntity(usageHistory);
         List<UsageHistoryEntity> usageHistoryEntityList;
         if (registeredUsersEntity.getUsageHistoryEntity() == null) {
@@ -137,6 +143,13 @@ public class StrainApiServiceImpl implements StrainApiService {
             usageHistoryEntityList.add(usageHistoryEntity);
         }
         registeredUsersEntity.setUsageHistoryEntity(usageHistoryEntityList);
+        // Update blackList
+        if(usageHistory.getIsBlacklist()==1){
+            List<Integer> blacklist = registeredUsersEntity.getBlacklist();
+            blacklist.add(usageHistoryEntity.getStrainId());
+            registeredUsersEntity.setBlacklist(blacklist);
+            logger.info("String Id: " + usageHistoryEntity.getStrainId().toString() + " added to blacklist");
+        }
         registerUsersRepository.save(registeredUsersEntity);
     }
 
