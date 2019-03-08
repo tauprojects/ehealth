@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
@@ -60,6 +61,11 @@ namespace CannaBe
             }
 
             return lst;
+        }
+
+        public static Dictionary<string, string> GetContent(this HttpResponseMessage res)
+        {
+            return HttpManager.ParseJson<Dictionary<string, string>>(res);
         }
     }
 }

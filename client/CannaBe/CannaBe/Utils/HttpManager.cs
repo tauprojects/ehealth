@@ -15,7 +15,7 @@ namespace CannaBe
         private static HttpManager instance = null;
         private static HttpClient client = null;
 
-       HttpManager()
+        HttpManager()
         {
         }
 
@@ -63,7 +63,7 @@ namespace CannaBe
             try
             {
                 bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
-                if(!isInternetConnected)
+                if (!isInternetConnected)
                 {
                     AppDebug.Line("Error - No Internet connection!");
 
@@ -71,7 +71,7 @@ namespace CannaBe
                     return null;
                 }
 
-                var response =  await client.GetAsync(URL).ConfigureAwait(false);
+                var response = await client.GetAsync(URL).ConfigureAwait(false);
                 AppDebug.Line("finished get");
 
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -82,7 +82,7 @@ namespace CannaBe
                 }
                 else
                 {
-                    AppDebug.Line("response from get (first 500 chars): [" + responseString.Substring(0,500) + "]");
+                    AppDebug.Line("response from get (first 500 chars): [" + responseString.Substring(0, 500) + "]");
                 }
                 return response;
             }

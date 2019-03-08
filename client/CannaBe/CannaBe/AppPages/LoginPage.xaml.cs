@@ -50,18 +50,24 @@ namespace CannaBe
 
                 if (res != null)
                 {
-                    if (res.StatusCode == HttpStatusCode.OK)
-                    {
-                        //Status.Text = "Login success!";
-                        AppDebug.Line("Login success!");
-                        PagesUtilities.SleepSeconds(1);
-                        progressRing.IsActive = false;
+                    var content = res.GetContent();
 
-                        Frame.Navigate(typeof(DashboardPage), res);
-                    }
-                    else
+                    switch (res.StatusCode)
                     {
-                        Status.Text = "Login failed! Status: " + res.StatusCode;
+                        case HttpStatusCode.OK:
+                            AppDebug.Line("Login success!");
+                            PagesUtilities.SleepSeconds(1);
+                            progressRing.IsActive = false;
+                            Frame.Navigate(typeof(DashboardPage), res);
+                            break;
+
+                        case HttpStatusCode.BadRequest:
+                            Status.Text = "Login failed!\n" + content["message"];
+                            break;
+
+                        default:
+                            Status.Text = "Error!\n" + content["message"];
+                            break;
                     }
                 }
                 else
