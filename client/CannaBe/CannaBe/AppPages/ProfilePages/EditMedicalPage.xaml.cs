@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CannaBe.Enums;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,7 +28,25 @@ namespace CannaBe.AppPages.ProfilePages
             this.InitializeComponent();
         }
 
-        
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var req = GlobalContext.CurrentUser.Data.MedicalNeeds;
+
+            if (req != null)
+            {
+                try
+                {
+                    PagesUtilities.SetAllCheckBoxesTags(EditMedicalGrid,
+                                     MedicalEnumMethods.FromEnumToIntList(req));
+                }
+                catch (Exception exc)
+                {
+                    AppDebug.Exception(exc, "EditMedicalEffectsPage.OnNavigatedTo");
+
+                }
+            }
+        }
 
         private void BackToProfile(object sender, TappedRoutedEventArgs e)
         {

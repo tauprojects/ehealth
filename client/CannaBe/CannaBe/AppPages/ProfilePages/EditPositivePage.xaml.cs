@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CannaBe.Enums;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,27 @@ namespace CannaBe.AppPages.ProfilePages
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
         }
 
-       
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var req = GlobalContext.CurrentUser.Data.PositivePreferences;
+
+            if (req != null)
+            {
+                try
+                {
+                    PagesUtilities.SetAllCheckBoxesTags(EditPositiveEffectsGrid,
+                                     PositivePreferencesEnumMethods.FromEnumToIntList(req));
+                }
+                catch (Exception exc)
+                {
+                    AppDebug.Exception(exc, "EditPositiveEffectsPage.OnNavigatedTo");
+
+                }
+            }
+        }
+
+
         private void BackToEditMedical(object sender, TappedRoutedEventArgs e)
         {
             PagesUtilities.GetAllCheckBoxesTags(EditPositiveEffectsGrid,
