@@ -105,7 +105,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
             }
             ans[0] = medicalSum / medicalCnt;
             ans[1] = positiveSum / positiveCnt;
-            ans[2] = (( (positiveSum*positiveCnt ) + ( medicalSum*medicalCnt) ) / cnt);
+            ans[2] = ((positiveSum + medicalSum) / cnt);
             ans[3] = is_blacklist;
             return ans;
         }
