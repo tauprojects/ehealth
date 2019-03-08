@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CannaBe.AppPages.ProfilePages;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Windows.UI;
@@ -49,6 +50,11 @@ namespace CannaBe.AppPages
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(DashboardPage));
+        }
+
+        private void GoToEditPage(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(EditMedicalPage));
         }
     }
 }
