@@ -60,6 +60,7 @@ namespace CannaBe
             }
         }
 
+
         private List<int> intNegativePreferences;
 
         [JsonIgnore]

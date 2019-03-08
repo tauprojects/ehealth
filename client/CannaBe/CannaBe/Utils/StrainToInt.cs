@@ -35,6 +35,7 @@ namespace CannaBe
             return bitmap;
         }
 
+
         public static List<TEnum> FromBitmapToEnumList<TEnum>(this int bitmap)
         {
             List<TEnum> lst = new List<TEnum>();

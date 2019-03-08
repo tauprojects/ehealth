@@ -144,7 +144,16 @@
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
       <DependentUpon>PostTreatment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AppPages\ProfilePage.xaml.cs">
+    <Compile Include="AppPages\ProfilePages\EditMedicalPage.xaml.cs">
+      <DependentUpon>EditMedicalPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPages\ProfilePages\EditNegativePage.xaml.cs">
+      <DependentUpon>EditNegativePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPages\ProfilePages\EditPositivePage.xaml.cs">
+      <DependentUpon>EditPositivePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPages\ProfilePages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppPages\RecomendationPages\MyRecommendations.xaml.cs">
@@ -275,7 +284,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AppPages\ProfilePage.xaml">
+    <Page Include="AppPages\ProfilePages\EditMedicalPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\ProfilePages\EditNegativePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\ProfilePages\EditPositivePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\ProfilePages\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
-﻿using CannaBe.Enums;
+﻿using CannaBe.AppPages.ProfilePages;
+using CannaBe.Enums;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
@@ -53,7 +54,7 @@ namespace CannaBe
 
             GlobalContext.RegisterContext.IntListMedicalNeeds = intList;
 
-            Frame.Navigate(typeof(RegisterPositiveEffectsPage), GlobalContext.RegisterContext);
+            Frame.Navigate(typeof(EditPositivePage), GlobalContext.RegisterContext);
         }
     }
 }
