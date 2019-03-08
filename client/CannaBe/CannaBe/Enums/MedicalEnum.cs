@@ -92,6 +92,17 @@ namespace CannaBe.Enums
             return enumList;
         }
 
+        public static List<int> FromEnumToIntList(List<MedicalEnum> list)
+        {
+            List<int> res = new List<int>();
+
+            foreach (MedicalEnum var in list)
+            {
+                res.Add((int)var);
+            }
+            return res;
+        }
+
 
         public static int BitmapFromStringList(List<string> strList)
         {

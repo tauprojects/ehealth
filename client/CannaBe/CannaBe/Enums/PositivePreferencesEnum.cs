@@ -70,6 +70,17 @@ namespace CannaBe.Enums
             return enumList;
         }
 
+        public static List<int> FromEnumToIntList(List<PositivePreferencesEnum> list)
+        {
+            List<int> res = new List<int>();
+
+            foreach (PositivePreferencesEnum var in list)
+            {
+                res.Add((int)var);
+            }
+            return res;
+        }
+
         public static int BitmapFromStringList(List<string> strList)
         {
             //AppDebug.Line("PositivePreferencesEnum isStrNull = " + (strList == null).ToString());
