@@ -71,15 +71,10 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
-                Tapped="GoToDashboard"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
-        </Button>
         <Button Content="Submit" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="SubmitFeedback"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
         
  <TextBlock Foreground="Black" FontSize="20" x:Name="Status"
