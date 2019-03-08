@@ -55,7 +55,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
                     PostQuestions.Items.Add(info);
                     questionDictionary[info.q1] = "Don't know";
                 }
-                EnumDescriptions positive = new EnumDescriptions("Do think the session was positive?", "Rate the quality of the treatment:");
+                EnumDescriptions positive = new EnumDescriptions("Would you use this strain again?", "Rate the quality of the treatment:");
                 PostQuestions.Items.Add(positive);
                 questionDictionary[positive.q1] = "Don't know";
             }
@@ -77,14 +77,19 @@ namespace CannaBe.AppPages.PostTreatmentPages
             int positiveSum = 0, medicalSum = 0;
             int positiveCnt = 0, medicalCnt = 0;
             int cnt = questionDictionary.Count;
-            int[] ans = new int[3];
+            int is_blacklist = 0;
+            int[] ans = new int[4];
 
             foreach (KeyValuePair<string, string> question in questionDictionary)
             {
-                if (question.Key.Equals("Do think the session was positive?") || question.Key.Equals("Rate the quality of the treatment:"))
+                if (question.Key.Equals("Would you use this strain again?") || question.Key.Equals("Rate the quality of the treatment:"))
                 {
                     if (question.Value.Equals("Yes")) positiveSum += 10;
-                    else if (question.Value.Equals("No")) positiveSum += 0;
+                    else if (question.Value.Equals("No"))
+                    {
+                        positiveSum += 0;
+                        is_blacklist = 1;
+                    }
                     else if (question.Value.Equals("Don't know")) positiveSum += 5;
                     else positiveSum += System.Convert.ToInt32(question.Value);
                     positiveCnt += 1;
@@ -100,7 +105,8 @@ namespace CannaBe.AppPages.PostTreatmentPages
             }
             ans[0] = medicalSum / medicalCnt;
             ans[1] = positiveSum / positiveCnt;
-            ans[2] = ((positiveSum + medicalSum) / cnt);
+            ans[2] = (( (positiveSum*positiveCnt ) + ( medicalSum*medicalCnt) ) / cnt);
+            ans[3] = is_blacklist;
             return ans;
         }
 
@@ -111,7 +117,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
             HttpResponseMessage res = null;
             UsageUpdateRequest req;
 
-            int[] ranks = new int[3];
+            int[] ranks = new int[4];
 
             ranks = getRanks(questionDictionary);
 
@@ -127,7 +133,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
                     userId, 
                     ((DateTimeOffset)use.StartTime).ToUnixTimeMilliseconds(),
                     ((DateTimeOffset)use.EndTime).ToUnixTimeMilliseconds(),
-                    ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage);
+                    ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage, ranks[3]);
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("usage"), req);
 

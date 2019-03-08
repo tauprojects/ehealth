@@ -42,9 +42,12 @@ namespace CannaBe
         [JsonProperty("heartbeat_avg")]
         public int HeartbeatAvg { get; set; }
 
+        [JsonProperty("is_blacklist")]
+        public int Is_Blacklist { get; set; }
+
         [JsonConstructor]
         public UsageUpdateRequest(string strainname, int strainId, string userid, long startTime, long endTime,
-            int medicalrank, int positiverank, int overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg)
+            int medicalrank, int positiverank, int overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg, int is_blacklist)
         {
             StrainName = strainname;
             StrainId = strainId;
@@ -57,6 +60,7 @@ namespace CannaBe
             HeartbeatHigh = heartbeathigh;
             HeartbeatLow = heartbeatlow;
             HeartbeatAvg = heartbeatavg;
+            Is_Blacklist = is_blacklist;
         }
     }
 }
