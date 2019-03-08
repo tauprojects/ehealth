@@ -16,6 +16,7 @@ package ehealth.db.model;
 
 
 import ehealth.db.converters.EpochTimeConverter;
+import ehealth.db.converters.ListToJsonStringConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -65,6 +66,10 @@ public class RegisteredUsersEntity {
 
     @Column(name = "negative")
     private int negative;
+
+    @Column(name = "blacklist", columnDefinition = "json")
+    @Convert(converter = ListToJsonStringConverter.class)
+    private List<Integer> blacklist;
 
     @OneToMany(mappedBy = "registeredUsersEntity",cascade=CascadeType.ALL)
     private List<UsageHistoryEntity> usageHistoryEntity;
