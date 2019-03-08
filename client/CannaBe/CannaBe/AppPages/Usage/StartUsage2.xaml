@@ -25,16 +25,17 @@
                    FontFamily="Lucida Calligraphy"
                    FontSize="22" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10,115,10,0" 
                    HorizontalAlignment="Center" Width="Auto"/>
+        
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoBack" x:Name="BackButton"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36.5,480,0,0" RenderTransformOrigin="0.575,1.474" Width="100">
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
         </Button>
         <Button Content="Start Session!" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 x:Name="ContinueButton"
                 Click="StartSession"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="auto">
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
         </Button>
         <TextBlock Foreground="Black" x:Name="StartTime" Text="Start Time:" FontSize="22" TextWrapping="Wrap" VerticalAlignment="Top" Margin="11,154,29,0" HorizontalAlignment="Stretch"/>
         <CheckBox x:Name="UseBand" 

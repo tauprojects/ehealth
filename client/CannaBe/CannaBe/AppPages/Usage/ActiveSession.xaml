@@ -74,10 +74,10 @@
 
         </Grid>
         <Button Content="End Session" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="LightBlue"
+                Foreground="Black" Background="#10000000"
                 x:Name="EndSessionButton"
                 Click="EndSessionAsync"
-                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,406,0,0" Width="Auto">
+                HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
 
         <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
