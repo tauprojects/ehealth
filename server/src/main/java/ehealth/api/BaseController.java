@@ -1,6 +1,7 @@
 package ehealth.api;
 
 import ehealth.client.data_objects.StrainObject;
+import ehealth.client.data_objects.SuggestedStrains;
 import ehealth.data_objects.*;
 import ehealth.service.StrainApiServiceImpl;
 import org.slf4j.Logger;
@@ -75,7 +76,7 @@ public class BaseController {
      * @return List<Strain>
      */
     @RequestMapping(value = "/strains/recommended/{user-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<StrainObject> getRecommended(@PathVariable("user-id") String userId) {
+    public SuggestedStrains getRecommended(@PathVariable("user-id") String userId) {
         logger.info("GET recommended strains for userId: " + userId);
         // get User Info by ID from database
         return mainServiceImpl.getRecommendedStrain(userId);

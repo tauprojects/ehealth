@@ -1,6 +1,7 @@
 package ehealth.service.api;
 
 import ehealth.client.data_objects.StrainObject;
+import ehealth.client.data_objects.SuggestedStrains;
 import ehealth.data_objects.*;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ public interface StrainApiService {
 
     RegisteredUserData register(RegisterRequest registerRequest);
 
-    List<StrainObject> getRecommendedStrain(String userId);
+    SuggestedStrains getRecommendedStrain(String userId);
 
     void saveUsageHistoryForUser(UsageHistory usageHistory);
 
