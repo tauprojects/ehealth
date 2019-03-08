@@ -15,11 +15,13 @@ package ehealth.db.model;
  *****************************************************************************/
 
 import ehealth.db.converters.EpochTimeConverter;
+import ehealth.db.converters.ListToJsonStringConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
