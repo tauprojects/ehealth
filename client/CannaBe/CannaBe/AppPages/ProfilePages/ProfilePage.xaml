@@ -39,21 +39,26 @@
                 <Rectangle Height="20"/>
                 <TextBlock Margin="3,0,3,0" IsTextSelectionEnabled="True" Foreground="Black" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Stretch">
                 <Run FontWeight="Bold">Medical Needs: </Run>
-                <Run x:Name="MedicalNeeds" Text="City, Country, sdfsdf, sdfsdf, sdfsdf, sdfsdf"></Run>
+                <Run x:Name="MedicalNeeds" Text=""></Run>
                 </TextBlock>
                 <Rectangle Height="20"/>
                 <TextBlock Margin="3,0,3,0" IsTextSelectionEnabled="True" Foreground="Black" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Stretch">
                 <Run FontWeight="Bold">Positive Preferences: </Run>
-                <Run x:Name="Positive" Text="City, Country, sdfsdf, sdfsdf, sdfsdf, sdfsdf"></Run>
+                <Run x:Name="Positive" Text=""></Run>
                 </TextBlock>
                 <Rectangle Height="20"/>
                 <TextBlock Margin="3,0,3,0" IsTextSelectionEnabled="True" Foreground="Black" FontSize="20" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Stretch">
                 <Run FontWeight="Bold">Negative Preferences: </Run>
-                <Run x:Name="Negative" Text="City, Country, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf, sdfsdf"></Run>
+                <Run x:Name="Negative" Text=""></Run>
                 </TextBlock>
 
             </StackPanel>
         </ScrollViewer>
+        <Button Content="Edit" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
+                Tapped="GoToEditPage"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,38" RenderTransformOrigin="0.575,1.474" Width="300">
+        </Button>
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToDashboard"

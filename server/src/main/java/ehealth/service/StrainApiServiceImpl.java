@@ -3,6 +3,7 @@ package ehealth.service;
 import ehealth.client.StrainServicesInterface;
 import ehealth.client.data_objects.Strain;
 import ehealth.client.data_objects.StrainObject;
+import ehealth.client.data_objects.SuggestedStrains;
 import ehealth.data_objects.*;
 import ehealth.db.model.RegisteredUsersEntity;
 import ehealth.db.model.UsageHistoryEntity;
@@ -83,7 +84,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public RegisteredUserData register(RegisterRequest registerRequest) {
         if (registerRequest != null) {
-            logger.info(registerRequest.toString());
+            logger.info("Register request: " + registerRequest.toString());
             RegisteredUsersEntity registeredUsersEntity = new RegisteredUsersEntity();
             // Generate Unique User Id
             registeredUsersEntity.setId(UUID.randomUUID());
@@ -107,23 +108,98 @@ public class StrainApiServiceImpl implements StrainApiService {
     }
 
     @Override
-    public List<StrainObject> getRecommendedStrain(String userId) {
+    public RegisteredUserData edit(String userId, RegisterRequest registerRequest) {
+        if (registerRequest != null) {
+
+            logger.info("Edit request: " + registerRequest.toString());
+            RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
+            // Set input user-data
+            if (registerRequest.getMedical() != registeredUsersEntity.getMedical()) {
+                registeredUsersEntity.setMedical(registerRequest.getMedical());
+            }
+            if (registerRequest.getPositive() != registeredUsersEntity.getPositive()) {
+                registeredUsersEntity.setPositive(registerRequest.getPositive());
+            }
+            if (registerRequest.getNegative() != registeredUsersEntity.getNegative()) {
+                registeredUsersEntity.setNegative(registerRequest.getNegative());
+            }
+            // Save to DB
+            registerUsersRepository.save(registeredUsersEntity);
+            return createUserDataResponseFromEntity(registeredUsersEntity);
+        }
+        throw new BadRegisterRequestException();
+    }
+
+    private static int CountBits(int num) {
+        int tmpNum = num, count = 0;
+        while (tmpNum > 0) {
+            count += tmpNum & 1;
+            tmpNum >>= 1;
+        }
+        return count;
+    }
+
+    @Override
+    public SuggestedStrains getRecommendedStrain(String userId) {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
         int medical = registeredUsersEntity.getMedical();
         int positive = registeredUsersEntity.getPositive();
+        SuggestedStrains recommendedStrains = new SuggestedStrains();
 
-        List<StrainObject> recommendedStrains = new ArrayList<>();
+        // Check for strains that fit exact medical and positive effects
         for (StrainObject strain : strainsCollector.allStrains) {
             int medicalCand = strain.getMedical().intValue();
             int positiveCand = strain.getPositive().intValue();
             if ((medicalCand & medical) == medical && (positiveCand & positive) == positive) {
                 // Add only if strain is not blacklisted
-                if(!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
-                    recommendedStrains.add(strain);
+                if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
+                    recommendedStrains.addStrain(strain);
                 }
             }
         }
-
+        // Check for strains that fit exact medical effects
+        // Check for strains that similar to positive by number of effects
+        if (recommendedStrains.getSuggestedStrains().size() == 0) {
+            logger.info("Did not fine any strain that fits preferences");
+            for (int i = 1; i < CountBits(positive); i++) {
+                logger.info("Search for similar positive strains that differ in : " + i + " number of effects");
+                for (StrainObject strain : strainsCollector.allStrains) {
+                    int medicalCand = strain.getMedical().intValue();
+                    int positiveCand = strain.getPositive().intValue();
+                    if ((medicalCand & medical) == medical &&
+                            (CountBits(positiveCand ^ positive)) == i) {
+                        // Add only if strain is not blacklisted
+                        if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
+                            recommendedStrains.addStrain(strain);
+                        }
+                    }
+                }
+                if (recommendedStrains.getSuggestedStrains().size() > 0) {
+                    recommendedStrains.setStatus(1);
+                    break;
+                }
+            }
+        }
+        // Check for strains that fit only medical effects - similar
+        if (recommendedStrains.getSuggestedStrains().size() == 0) {
+            logger.info("Did not fine any strain that fits preferences with similar positive");
+            for (int i = 0; i < CountBits(medical); i++) {
+                logger.info("Search for similar medical strains that differ in: " + i + " number of effects");
+                for (StrainObject strain : strainsCollector.allStrains) {
+                    int medicalCand = strain.getMedical().intValue();
+                    if ((CountBits(medicalCand ^ medical)) == i) {
+                        // Add only if strain is not blacklisted
+                        if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
+                            recommendedStrains.addStrain(strain);
+                        }
+                    }
+                }
+                if (recommendedStrains.getSuggestedStrains().size() > 0) {
+                    recommendedStrains.setStatus(2);
+                    break;
+                }
+            }
+        }
         return recommendedStrains;
     }
 
@@ -131,7 +207,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public void saveUsageHistoryForUser(UsageHistory usageHistory) {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(usageHistory.getUserId()));
-        if(registeredUsersEntity==null){
+        if (registeredUsersEntity == null) {
             throw new BadRequestException();
         }
         UsageHistoryEntity usageHistoryEntity = buildUsageHistoryEntity(usageHistory);
@@ -144,7 +220,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         }
         registeredUsersEntity.setUsageHistoryEntity(usageHistoryEntityList);
         // Update blackList
-        if(usageHistory.getIsBlacklist()==1){
+        if (usageHistory.getIsBlacklist() == 1) {
             List<Integer> blacklist = registeredUsersEntity.getBlacklist();
             blacklist.add(usageHistoryEntity.getStrainId());
             registeredUsersEntity.setBlacklist(blacklist);

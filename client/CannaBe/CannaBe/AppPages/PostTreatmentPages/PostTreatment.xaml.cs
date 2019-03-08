@@ -49,15 +49,16 @@ namespace CannaBe.AppPages.PostTreatmentPages
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
             try
             {
+                EnumDescriptions positive = new EnumDescriptions("Would you use this strain again?", "Rate the quality of the treatment:");
+                PostQuestions.Items.Add(positive);
+                questionDictionary[positive.q1] = "Don't know";
+
                 foreach (var medicalNeed in GlobalContext.CurrentUser.Data.MedicalNeeds)
                 {
                     var info = medicalNeed.GetAttribute<EnumDescriptions>();
                     PostQuestions.Items.Add(info);
                     questionDictionary[info.q1] = "Don't know";
                 }
-                EnumDescriptions positive = new EnumDescriptions("Would you use this strain again?", "Rate the quality of the treatment:");
-                PostQuestions.Items.Add(positive);
-                questionDictionary[positive.q1] = "Don't know";
             }
 
             catch (Exception x)
