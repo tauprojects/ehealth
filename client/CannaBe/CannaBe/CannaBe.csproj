@@ -170,6 +170,7 @@
     <Compile Include="Context\GlobalContext.cs" />
     <Compile Include="DataObjects\Http\Requests\UsageUpdateRequest.cs" />
     <Compile Include="DataObjects\Strain.cs" />
+    <Compile Include="DataObjects\SuggestedStrains.cs" />
     <Compile Include="DataObjects\UsageData.cs" />
     <Compile Include="DataObjects\UserData.cs" />
     <Compile Include="DataObjects\Http\Response\BaseResponse.cs" />

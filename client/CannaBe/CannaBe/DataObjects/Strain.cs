@@ -1,5 +1,6 @@
 ﻿using CannaBe.Enums;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -171,5 +172,29 @@ namespace CannaBe
 
             return b.ToString().Substring(0, b.Length - 2);
         }
+
+        static double CountSetBits(int n)
+        {
+            int count = 0;
+            while (n > 0)
+            {
+                count += n & 1;
+                n >>= 1;
+            }
+            return count;
+        }
+
+        public static double operator /(Strain x, UserData y)
+        {
+
+            double medical = CountSetBits(x.BitmapMedicalNeeds & y.Data.BitmapMedicalNeeds) / CountSetBits(y.Data.BitmapMedicalNeeds);
+            double positive = CountSetBits(x.BitmapPositivePreferences & y.Data.BitmapPositivePreferences) / CountSetBits(y.Data.BitmapPositivePreferences);
+
+            var val =  100 * ((0.5 * medical) + (0.5 * positive));
+            AppDebug.Line($"User {y.Data.Username}, Strain {x.Name}, medical: {Convert.ToString(x.BitmapMedicalNeeds & y.Data.BitmapMedicalNeeds,2)}/{Convert.ToString(y.Data.BitmapMedicalNeeds,2)}={medical}, pos: {Convert.ToString(x.BitmapPositivePreferences & y.Data.BitmapPositivePreferences,2)}/{Convert.ToString(y.Data.BitmapPositivePreferences,2)}={positive}, percent {val}");
+            return val;
+        }
+
+        public double MatchingPercent { get; set; }
     }
 }

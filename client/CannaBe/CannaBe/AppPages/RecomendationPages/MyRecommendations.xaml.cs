@@ -21,6 +21,8 @@ namespace CannaBe.AppPages.RecomendationPages
             progressRing.IsActive = true;
             if (GlobalContext.CurrentUser != null)
             {
+                Message.Text = "Searching for matching strains to your preferences...";
+
                 var user_id = GlobalContext.CurrentUser.Data.UserID;
                 var url = Constants.MakeUrl($"/strains/recommended/{user_id}/");
 
@@ -31,28 +33,71 @@ namespace CannaBe.AppPages.RecomendationPages
                     if (res == null)
                         return;
 
-                    var strains = JsonConvert.DeserializeObject<Strain[]>(res.Content.ReadAsStringAsync().Result);
+                    PagesUtilities.SleepSeconds(0.5);
+
+                    var strains = JsonConvert.DeserializeObject<SuggestedStrains>(res.Content.ReadAsStringAsync().Result);
+
 
                     int i = 1;
-                    if (strains.Length == 0)
+                    if (strains.suggestedStrains.Count == 0)
                     {
                         ErrorNoStrainFound.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        foreach (var strain in strains)
+                        switch (strains.status)
                         {
-                            //AppDebug.Line($"Got strain {i++}");
-                            //AppDebug.Line($"\tname = {strain.Name}");
+                            case 0:
+                                Message.Text = $"Showing {strains.suggestedStrains.Count} matching strains:";
+                                break;
+
+                            case 1:
+                                Message.Text = $"No exact matches found!\nTry updating your positive preferences.\nShowing {strains.suggestedStrains.Count} partially matching strains:";
+                                break;
+
+                            case 2:
+                                Message.Text = $"No exact matches found!\nTry updating your positive and medical preferences.\nShowing {strains.suggestedStrains.Count} partially matching strains:";
+                                break;
+                        }
+                        Scroller.Height = Stack.ActualHeight - Message.ActualHeight;
+
+                        if (strains.status != 0)
+                        {
+                            foreach (var strain in strains.suggestedStrains)
+                            {
+                                strain.MatchingPercent = strain / GlobalContext.CurrentUser;
+                            }
+
+                            strains.suggestedStrains.Sort((s1, s2) =>
+                            {
+                                var r = -1*s1.MatchingPercent.CompareTo(s2.MatchingPercent);
+                                if (r == 0)
+                                {
+                                    r = s1.Name.CompareTo(s2.Name);
+                                }
+                                return r;
+                            });
+                        }
+
+                        foreach (var strain in strains.suggestedStrains)
+                        {
+                            string percent = strains.status != 0 ? string.Format(" ({0:0}% match)", strain.MatchingPercent) : "";
                             var r = new RadioButton()
                             {
                                 Foreground = new SolidColorBrush(Windows.UI.Colors.Black),
-                                FontSize = 20,
+                                FontSize = 15,
                                 VerticalContentAlignment = VerticalAlignment.Top,
                                 FontWeight = FontWeights.Bold,
-                                Content = $"{i++}. {strain.Name}",
+                                Content = $"{i++}. {strain.Name}{percent}",
                                 DataContext = strain
                             };
+                            /*
+                            var t = new ToolTip()
+                            {
+                                Content = "check"
+                            };
+                            ToolTipService.SetToolTip(r, t);
+                            */
                             r.Checked += OnChecked;
                             StrainList.Children.Add(r);
                         }
