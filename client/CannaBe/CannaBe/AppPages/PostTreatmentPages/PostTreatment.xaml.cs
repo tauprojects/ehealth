@@ -73,7 +73,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
             Frame.Navigate(typeof(DashboardPage));
         }
 
-        private int[] getRanks(Dictionary<string, string> questionDictionary)
+        private int[] GetRanks(Dictionary<string, string> questionDictionary)
         {
             int positiveSum = 0, medicalSum = 0;
             int positiveCnt = 0, medicalCnt = 0;
@@ -120,7 +120,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
             int[] ranks = new int[4];
 
-            ranks = getRanks(questionDictionary);
+            ranks = GetRanks(questionDictionary);
 
             try
             {

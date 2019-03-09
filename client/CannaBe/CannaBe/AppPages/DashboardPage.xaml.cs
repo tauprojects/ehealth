@@ -102,5 +102,10 @@ namespace CannaBe
         {
             Frame.Navigate(typeof(ProfilePage)); ;
         }
+
+        private void GoToEmailPage(object sender, TappedRoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(ExportToEmail)); ;
+        }
     }
 }

@@ -60,8 +60,12 @@
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToInformationPage"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
+            <Button Content="Export to Email" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
+                Tapped="GoToEmailPage"
+                HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
 
-          
+
         </StackPanel>
         <Button Content="Logout" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
