@@ -25,4 +25,6 @@ public interface StrainApiService {
     List<UsageHistoryResponse> getUsageHistoryForUser(String userId);
 
     List<StrainObject> getAllStrains() throws IOException;
+
+    BaseResponse exportToEmail(String userId, String to, String content) throws IOException;
 }

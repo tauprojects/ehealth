@@ -25,7 +25,7 @@ import java.util.List;
 
 import static ehealth.client.ApiConstants.URL;
 
-
+//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
 @Service
 public class StrainsCollector {
 

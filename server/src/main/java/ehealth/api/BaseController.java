@@ -117,5 +117,16 @@ public class BaseController {
         logger.info("GET all strains");
         return mainServiceImpl.getAllStrains();
     }
+
+        /**
+     * GET all strains
+     *
+     * @return List<UsageHistoryResponse>
+     */
+    @RequestMapping(value = "/usage/export/{user-id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public BaseResponse exportUsage(@PathVariable("user-id") String userId, @RequestBody EmailRequest emailRequest) throws IOException {
+        logger.info("POST export usages");
+        return mainServiceImpl.exportToEmail(userId, emailRequest.getTo(),emailRequest.getContent());
+    }
 }
 
