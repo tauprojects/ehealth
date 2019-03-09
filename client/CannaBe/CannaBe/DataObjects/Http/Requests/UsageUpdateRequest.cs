@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace CannaBe
 {
@@ -40,9 +41,13 @@ namespace CannaBe
         [JsonProperty("is_blacklist")]
         public int Is_Blacklist { get; set; }
 
+        [JsonProperty("questions_answers_dictionary")]
+        public string QuestionsJson;
+
         [JsonConstructor]
         public UsageUpdateRequest(string strainname, int strainId, string userid, long startTime, long endTime,
-            int medicalrank, int positiverank, int overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg, int is_blacklist)
+            int medicalrank, int positiverank, int overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg, int is_blacklist,
+            Dictionary<string, string> questionDictionary)
         {
             StrainName = strainname;
             StrainId = strainId;
@@ -56,6 +61,7 @@ namespace CannaBe
             HeartbeatLow = heartbeatlow;
             HeartbeatAvg = heartbeatavg;
             Is_Blacklist = is_blacklist;
+            QuestionsJson = JsonConvert.SerializeObject(questionDictionary); 
         }
     }
 }

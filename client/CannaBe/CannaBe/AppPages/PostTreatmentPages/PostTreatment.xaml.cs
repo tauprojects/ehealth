@@ -134,7 +134,8 @@ namespace CannaBe.AppPages.PostTreatmentPages
                     userId, 
                     ((DateTimeOffset)use.StartTime).ToUnixTimeMilliseconds(),
                     ((DateTimeOffset)use.EndTime).ToUnixTimeMilliseconds(),
-                    ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage, ranks[3]);
+                    ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage, ranks[3],
+                    questionDictionary);
 
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("usage"), req);
 
