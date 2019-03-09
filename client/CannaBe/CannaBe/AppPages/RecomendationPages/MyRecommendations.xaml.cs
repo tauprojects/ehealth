@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,7 +22,7 @@ namespace CannaBe.AppPages.RecomendationPages
             progressRing.IsActive = true;
             if (GlobalContext.CurrentUser != null)
             {
-                Message.Text = "Searching for matching strains to your preferences...";
+                Message.Text = "Searching for matching strains based on your profile...";
 
                 var user_id = GlobalContext.CurrentUser.Data.UserID;
                 var url = Constants.MakeUrl($"/strains/recommended/{user_id}/");
@@ -31,11 +32,14 @@ namespace CannaBe.AppPages.RecomendationPages
                     var res = await HttpManager.Manager.Get(url);
 
                     if (res == null)
+                    {
+                        progressRing.IsActive = false;
                         return;
+                    }
 
-                    PagesUtilities.SleepSeconds(0.5);
+                    PagesUtilities.SleepSeconds(1);
 
-                    var strains = JsonConvert.DeserializeObject<SuggestedStrains>(res.Content.ReadAsStringAsync().Result);
+                    var strains = await Task.Run(async () => JsonConvert.DeserializeObject<SuggestedStrains>(await res.Content.ReadAsStringAsync()));
 
 
                     int i = 1;
@@ -70,7 +74,7 @@ namespace CannaBe.AppPages.RecomendationPages
 
                             strains.suggestedStrains.Sort((s1, s2) =>
                             {
-                                var r = -1*s1.MatchingPercent.CompareTo(s2.MatchingPercent);
+                                var r = -1 * s1.MatchingPercent.CompareTo(s2.MatchingPercent);
                                 if (r == 0)
                                 {
                                     r = s1.Name.CompareTo(s2.Name);

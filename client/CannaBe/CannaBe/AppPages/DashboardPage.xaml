@@ -38,30 +38,31 @@
         <StackPanel Margin="0,190,0,0" HorizontalAlignment="Center" VerticalAlignment="Stretch">
             
             <Button Content="Suggested Strains" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
+                Foreground="Black" Background="#80ffffff"
                 Click="GoToRecommendations"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
             <Rectangle Height="3"/>
             <Button Content="Start New Usage" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000" Click="GoToStartUsage"
+                Foreground="Black" Background="#80ffffff" Click="GoToStartUsage"
                 HorizontalAlignment="Center" VerticalAlignment="Top"  Width="300"/>
             <Rectangle Height="3"/>
             <Button Content="Usage History" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Click="GoToUsageHistory" x:Name="UsageHistoryButton"
-                Foreground="Black" Background="#10000000"
+                Foreground="Black" Background="#80ffffff"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
             <Rectangle Height="3"/>
             <Button Content="My Profile" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
+                Foreground="Black" Background="#80ffffff"
                 Click="GoToProfile" x:Name="MyProfileButton"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
             <Rectangle Height="3"/>
             <Button Content="Information" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
+                Foreground="Black" Background="#80ffffff"
                 Tapped="GoToInformationPage"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
-            <Button Content="Export to Email" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
-                Foreground="Black" Background="#10000000"
+            <Rectangle Height="3"/>
+            <Button Content="Export Profile and Usages" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#80ffffff"
                 Tapped="GoToEmailPage"
                 HorizontalAlignment="Center" VerticalAlignment="Top" Width="300"/>
 
