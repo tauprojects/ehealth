@@ -43,6 +43,10 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Autowired
     protected StrainsCollector strainsCollector;
 
+
+    @Autowired
+    protected EmailService emailService;
+
     public StrainApiServiceImpl() {
         client = new ResteasyClientBuilder().build();
         target = client.target(UriBuilder.fromPath(URL));
@@ -257,6 +261,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         return strainsCollector.allStrains;
     }
 
+
     private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {
         UsageHistoryEntity usageHistoryEntity = new UsageHistoryEntity();
         usageHistoryEntity.setId(UUID.randomUUID());
@@ -287,5 +292,26 @@ public class StrainApiServiceImpl implements StrainApiService {
                 registeredUsersEntity.getNegative(),
                 registeredUsersEntity.getCreatedAt()
         );
+    }
+
+    @Override
+    public BaseResponse exportToEmail(String userId, String to, String userContent) throws IOException {
+        BaseResponse resp = new BaseResponse();
+        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
+        if (registeredUsersEntity == null) {
+            throw new BadRequestException();
+        }
+        List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
+        String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
+        StringBuilder content = new StringBuilder();
+        content.append("This is an email from Medicanna app.   ").append("\n");
+        content.append("Description: ").append(userContent).append("\n");
+        for(UsageHistoryResponse usageHistoryResponse :usageHistoryEntityList ){
+            content.append(usageHistoryResponse.toString()).append("\r\n");
+        }
+        int emailResp = emailService.sendEmail(registeredUsersEntity.getUsername(), to, subject, content.toString());
+        resp.setBody("Usage history exported to: " + to + " successfully");
+        resp.setStatus(String.valueOf(emailResp));
+        return resp;
     }
 }
