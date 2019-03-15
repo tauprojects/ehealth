@@ -59,7 +59,7 @@
                 Tapped="GoToEditPage"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,38" RenderTransformOrigin="0.575,1.474" Width="300">
         </Button>
-        <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+        <Button Content="Home" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToDashboard"
                 HorizontalAlignment="Center" VerticalAlignment="Bottom" RenderTransformOrigin="0.575,1.474" Width="300">
