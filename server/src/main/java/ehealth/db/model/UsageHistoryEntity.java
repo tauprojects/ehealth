@@ -67,6 +67,10 @@ public class UsageHistoryEntity {
     @Column(name = "heartbeat_avg")
     private Integer heartbeatAvg;
 
+    @Column(name = "questions_answers_dictionary")
+    private String questionsAnswersDictionary;
+
+
     @Column(name = "user_id", updatable = false)
     @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID userId;

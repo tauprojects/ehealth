@@ -10,14 +10,20 @@ import java.util.List;
 
 @Service
 public class EmailService {
-    public static final String contentTypeText = "text/plain";
     public static final String medicannaFormat = "@medicanna.com";
+    public static final String contentTypeText = "text/plain";
+    private Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     public SendGrid sg;
-    private Logger logger = LoggerFactory.getLogger(StrainApiServiceImpl.class);
 
     public EmailService() {
-        this.sg = new SendGrid("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");
+        String sendgridApikey = System.getenv("SENDGRID_API_KEY");
+        if (sendgridApikey != null) {
+            logger.info("Sendgrid APIKEY loaded successfully");
+        } else {
+            logger.info("Sendgrid APIKEY is missing - Email service may not work");
+        }
+        this.sg = new SendGrid(sendgridApikey);
     }
 
     public int sendEmail(String fromUserName, String toAddress, String subject, String contentText) throws IOException {

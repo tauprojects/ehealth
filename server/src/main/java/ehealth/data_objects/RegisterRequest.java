@@ -30,6 +30,9 @@ public class RegisterRequest {
     @JsonProperty("city")
     String city;
 
+    @JsonProperty("email")
+    String email;
+
     @JsonProperty("medical")
     int medical;
 
