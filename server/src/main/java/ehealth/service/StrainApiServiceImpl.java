@@ -39,6 +39,9 @@ public class StrainApiServiceImpl implements StrainApiService {
     protected RegisterUsersRepository registerUsersRepository;
 
     @Autowired
+    StrainsCollector strainsCollector;
+
+    @Autowired
     protected EmailService emailService;
 
     @Autowired
