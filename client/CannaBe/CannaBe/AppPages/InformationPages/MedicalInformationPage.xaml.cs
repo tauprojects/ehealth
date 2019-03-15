@@ -76,8 +76,8 @@ namespace CannaBe.AppPages.InformationPages
                 foreach (string val in doctors.Values)
                 {
                     data = val.Split('_');
-                    if (!medicalCenters.Contains(data[0])) medicalCenters.Add(data[0]);
-                    if (!cities.Contains(data[1])) cities.Add(data[1]);
+                    if (!medicalCenters.Contains(data[0].Replace('-', ' '))) medicalCenters.Add(data[0].Replace('-', ' '));
+                    if (!cities.Contains(data[1].Replace('-', ' '))) cities.Add(data[1].Replace('-',' '));
                 }
 
                 AppDebug.Line($"loaded {doctorNames.Count} doctors");
@@ -190,7 +190,7 @@ namespace CannaBe.AppPages.InformationPages
             doctors.TryGetValue(name, out data);
             string[] data_split = data.Split('_');
 
-            doctor_data.Text = "Medical Center: " + data_split[0] + "\nCity: " + data_split[1].Replace('-',' ');
+            doctor_data.Text = "Medical Center: " + data_split[0] + "\nCity: " + data_split[1];
 
         }
         private void SubmitCityButton_Click(object sender, RoutedEventArgs e)
