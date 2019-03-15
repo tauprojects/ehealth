@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -51,7 +52,7 @@ namespace CannaBe
 
         }
 
-        private void ContinueMedicalRegister(object sender, TappedRoutedEventArgs e)
+        private void ContinueMedicalRegister(object sender, RoutedEventArgs e)
         {
             int flag = 0;
             try
@@ -86,6 +87,10 @@ namespace CannaBe
             {
                 Status.Text = "Please enter a valid city";
             }
+            else if (Email.Text == "")
+            {
+                Status.Text = "Please enter a valid email";
+            }
             else
             {
                 if(GlobalContext.RegisterContext == null)
@@ -99,6 +104,7 @@ namespace CannaBe
                 GlobalContext.RegisterContext.Gender    = Gender.SelectedValue.ToString();
                 GlobalContext.RegisterContext.Country   = Country.Text;
                 GlobalContext.RegisterContext.City      = City.Text;
+                GlobalContext.RegisterContext.Email     = Email.Text;
 
                 Frame.Navigate(typeof(RegisterMedicalPage), GlobalContext.RegisterContext);
             }
@@ -108,6 +114,13 @@ namespace CannaBe
         {
             GlobalContext.RegisterContext = null;
             Frame.Navigate(typeof(MainPage));
+        }
+        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                ContinueMedicalRegister(sender, e);
+            }
         }
     }
 }

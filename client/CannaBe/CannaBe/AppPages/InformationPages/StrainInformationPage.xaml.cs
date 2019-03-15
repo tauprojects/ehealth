@@ -3,6 +3,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using System;
+using System.Collections.Generic;
+using Windows.System;
 
 namespace CannaBe.AppPages
 {
@@ -46,7 +48,6 @@ namespace CannaBe.AppPages
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
 
         private void BackToInformation(object sender, TappedRoutedEventArgs e)
@@ -54,25 +55,41 @@ namespace CannaBe.AppPages
             Frame.Navigate(typeof(InformationPage));
         }
 
-        private async void SearchStrain(object sender, TappedRoutedEventArgs e)
+        private async void SearchStrain(object sender, RoutedEventArgs e)
         {
-            var url = Constants.MakeUrl("ehealth/strain/" + StrainName.Text);
-            try
+            PagesUtilities.GetAllCheckBoxesTags(InformationGrid, out List<int> intList);
+
+            if (intList.Count == 0) Status.Text = "Invaild Search! Please enter search parameter";
+            else Status.Text = "";
+
+            if (StrainName.Text != "")
             {
-                var res = HttpManager.Manager.Get(url);
+                var url = Constants.MakeUrl("ehealth/strain/" + StrainName.Text);
+                try
+                {
+                    var res = HttpManager.Manager.Get(url);
 
-                if (res == null)
-                    return;
+                    if (res == null)
+                        return;
 
-                var str = await res.Result.Content.ReadAsStringAsync();
+                    var str = await res.Result.Content.ReadAsStringAsync();
 
-                AppDebug.Line(str);
-                await new MessageDialog(str, "Search Strain").ShowAsync();
+                    AppDebug.Line(str);
+                    await new MessageDialog(str, "Search Strain").ShowAsync();
+                }
+                catch (Exception ex)
+                {
+                    AppDebug.Exception(ex, "SearchStrain");
+                    await new MessageDialog("Failed get: \n" + url, "Exception in Search Strain").ShowAsync();
+                }
             }
-            catch (Exception ex)
+        }
+
+        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
             {
-                AppDebug.Exception(ex, "SearchStrain");
-                await new MessageDialog("Failed get: \n"+ url, "Exception in Search Strain").ShowAsync();
+                SearchStrain(sender, e);
             }
         }
     }

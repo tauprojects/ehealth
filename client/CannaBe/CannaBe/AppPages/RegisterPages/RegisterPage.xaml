@@ -7,7 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    Loaded="OnPageLoaded">
+    Loaded="OnPageLoaded"
+    KeyDown="Page_KeyDown">
+
 
     <Grid>
         <FlyoutBase.AttachedFlyout>
@@ -44,25 +46,32 @@
         </Button>
         <Button Content="Continue" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
-                Tapped="ContinueMedicalRegister"
+                Click="ContinueMedicalRegister"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
-        <TextBlock Foreground="Black" Text="Enter Username:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
-        <TextBox HorizontalAlignment="Stretch" x:Name="Username" Margin="0,105,0,0" Text="" VerticalAlignment="Top" />
-        <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,140,0,0" Text="Enter Password:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <PasswordBox HorizontalAlignment="Stretch" x:Name="Password" Margin="0,165,0,0" VerticalAlignment="Top"/>
-        <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,200,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <DatePicker HorizontalAlignment="Stretch" x:Name="DOB" Margin="0,225,0,0" VerticalAlignment="Top"/>
-        <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,260,0,0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" x:Name="Gender" Margin="0,285,0,0" VerticalAlignment="Top">
-            <x:String>Male</x:String>
-            <x:String>Female</x:String>
-        </ComboBox>
-        <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,320,0,0" Text="Country:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Stretch" x:Name="Country" Margin="0,345,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
-        <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,380,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Stretch" x:Name="City" Margin="0,405,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
-
+        <ScrollViewer ZoomMode="Enabled" MaxZoomFactor="10"
+              HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled"
+              Height="460" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Grid>
+                <TextBlock Foreground="Black" Text="Enter Username:" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,80,0,0"/>
+                <TextBox HorizontalAlignment="Stretch" x:Name="Username" Margin="0,105,0,0" Text="" VerticalAlignment="Top" />
+                <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,140,0,0" Text="Enter Password:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <PasswordBox HorizontalAlignment="Stretch" x:Name="Password" Margin="0,165,0,0" VerticalAlignment="Top"/>
+                <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,200,0,0" Text="Date Of Birth:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <DatePicker HorizontalAlignment="Stretch" x:Name="DOB" Margin="0,225,0,0" VerticalAlignment="Top"/>
+                <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,260,0,0" Text="Gender:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <ComboBox HorizontalAlignment="Left" x:Name="Gender" Margin="0,285,0,0" VerticalAlignment="Top">
+                    <x:String>Male</x:String>
+                    <x:String>Female</x:String>
+                </ComboBox>
+                <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,320,0,0" Text="Country:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Stretch" x:Name="Country" Margin="0,345,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
+                <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,380,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Stretch" x:Name="City" Margin="0,405,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
+                <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,440,0,0" Text="Email:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Stretch" x:Name="Email" Margin="0,465,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
+            </Grid>
+        </ScrollViewer>
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,444,0,0"/>
 
