@@ -1,4 +1,5 @@
-﻿using CannaBe.Enums;
+﻿using CannaBe.AppPages.RecomendationPages;
+using CannaBe.Enums;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,8 @@ namespace CannaBe.AppPages.Usage
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
-
-            if(UsageContext.ChosenStrain != null) //went back to this page
+            GetSuggestedRadio.IsChecked = true;
+            if (UsageContext.ChosenStrain != null) //went back to this page
             {
                 StrainChosen = StrainList.Text = UsageContext.ChosenStrain.Name;
             }
@@ -204,6 +205,25 @@ namespace CannaBe.AppPages.Usage
             {
                 ErrorNoStrainChosen.Visibility = Visibility.Visible;
             }
+        }
+
+        private void SuggestedChoose(object sender, RoutedEventArgs e)
+        {
+            StrainList.IsEnabled = false;
+            SubmitButton.IsEnabled = false;
+            ChooseButton.IsEnabled = true;
+        }
+
+        private void ListChoose(object sender, RoutedEventArgs e)
+        {
+            ChooseButton.IsEnabled = false;
+            StrainList.IsEnabled = true;
+            SubmitButton.IsEnabled = true;
+        }
+
+        private void GoTosSuggested(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MyRecomendations));
         }
     }
 }

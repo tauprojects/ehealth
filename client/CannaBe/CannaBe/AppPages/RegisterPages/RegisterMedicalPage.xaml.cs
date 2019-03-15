@@ -54,7 +54,7 @@ namespace CannaBe
 
             GlobalContext.RegisterContext.IntListMedicalNeeds = intList;
 
-            Frame.Navigate(typeof(EditPositivePage), GlobalContext.RegisterContext);
+            Frame.Navigate(typeof(RegisterPositiveEffectsPage), GlobalContext.RegisterContext);
         }
     }
 }

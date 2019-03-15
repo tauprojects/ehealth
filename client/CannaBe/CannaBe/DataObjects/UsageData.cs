@@ -195,14 +195,16 @@ namespace CannaBe
                     return;
 
                 //from: math.stackexchange.com/questions/106700/incremental-averageing
-                HeartRateAverage += (rate - HeartRateAverage) / HeartRateReadings;
+                HeartRateAverage += (rate - HeartRateAverage) / (HeartRateReadings-5);
 
                 HeartRateMin = Math.Min(HeartRateMin, rate);
                 HeartRateMax = Math.Max(HeartRateMax, rate);
 
+                AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
+
                 if (HeartRateReadings % 5 == 0)
                 {
-                    AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
+                    //AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
                     try
                     {
                         //Run code on main thread for UI change, preventing exception

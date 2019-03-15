@@ -20,39 +20,12 @@ namespace CannaBe.AppPages.PostTreatmentPages
             PagesUtilities.AddBackButtonHandler();
         }
 
-        private void BoxGotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
-            {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            }
-        }
-
-        private void BoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
-
-            }
-        }
-
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
 
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
             try
             {
-                EnumDescriptions positive = new EnumDescriptions("Would you use this strain again?", "Rate the quality of the treatment:");
-                PostQuestions.Items.Add(positive);
-                questionDictionary[positive.q1] = "Don't know";
-
                 foreach (var medicalNeed in GlobalContext.CurrentUser.Data.MedicalNeeds)
                 {
                     var info = medicalNeed.GetAttribute<EnumDescriptions>();
@@ -65,7 +38,6 @@ namespace CannaBe.AppPages.PostTreatmentPages
             {
                 AppDebug.Exception(x, "PostTreatment => OnPageLoaded");
             }
-
         }
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
