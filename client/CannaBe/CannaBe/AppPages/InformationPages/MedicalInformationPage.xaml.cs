@@ -70,7 +70,7 @@ namespace CannaBe.AppPages.InformationPages
                 doctors = File.ReadAllLines("Assets/doctors.txt")
                                         .Select(a => a.Split(' '))
                                         .ToDictionary(x => x[0].Replace('-', ' ').Replace('_', ' '),
-                                                        x => x[1]);
+                                                        x => x[1].Replace('-', ' '));
 
                 doctorNames = doctors.Keys.ToList();
                 foreach (string val in doctors.Values)
