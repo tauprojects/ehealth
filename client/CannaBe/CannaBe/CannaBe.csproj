@@ -248,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\bluewhitebackground.jpg" />
+    <Content Include="Assets\doctors.txt" />
     <Content Include="Assets\purplebackground.jpg" />
     <Content Include="Assets\strains.txt" />
     <Content Include="Properties\Default.rd.xml" />

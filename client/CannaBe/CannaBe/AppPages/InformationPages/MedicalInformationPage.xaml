@@ -31,34 +31,64 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="46" Margin="0,10,0,0"/>
 
-        <TextBlock Foreground="Black" Text="Doctor list:" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,100,0,0"/>
+        <TextBlock Foreground="Black" Text="Search By Doctor Name:" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,100,0,0"/>
 
-        <!--<ScrollViewer ZoomMode="Enabled" MaxZoomFactor="10"
+        <AutoSuggestBox x:Name="DoctorsList" HorizontalAlignment="Left" PlaceholderText="Type to load doctor list"  Margin="0,123,0,0" VerticalAlignment="Top" Width="213"
+                  TextChanged="DoctorsList_TextChanged"
+                  QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                  SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+        
+        <Button x:Name="SubmitDoctorButton"  Content="Select" BorderBrush="Black" FontSize="15" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000" Click="SubmitDoctorButton_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="212,123,0,0" RenderTransformOrigin="0.575,1.474" Width="89" />
+
+        <TextBlock Foreground="Black" Text="Search By City:" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,165,0,0"/>
+
+        <AutoSuggestBox x:Name="CityList" HorizontalAlignment="Left" PlaceholderText="Type to load Cities"  Margin="0,188,0,0" VerticalAlignment="Top" Width="213"
+                  TextChanged="CityList_TextChanged"
+                  QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                  SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+
+        <Button x:Name="SubmitCityButton"  Content="Select" BorderBrush="Black" FontSize="15" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000" Click="SubmitCityButton_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="212,188,0,0" RenderTransformOrigin="0.575,1.474" Width="89" />
+        
+        <TextBlock Foreground="Black" Text="Search By Medical Center:" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,230,0,0"/>
+
+        <AutoSuggestBox x:Name="MedicalCenterList" HorizontalAlignment="Left" PlaceholderText="Type to load Cities"  Margin="0,253,0,0" VerticalAlignment="Top" Width="213"
+                  TextChanged="MedicalCenterList_TextChanged"
+                  QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                  SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+
+        <Button x:Name="SubmitMedicalCenterButton"  Content="Select" BorderBrush="Black" FontSize="15" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000" Click="SubmitMedicalCenterButton_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="212,253,0,0" RenderTransformOrigin="0.575,1.474" Width="89" />
+
+
+        <ProgressRing Width="50" Height="50" x:Name="progressRing"/>
+
+        <ScrollViewer ZoomMode="Enabled" MaxZoomFactor="10"
               HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled"
-              Height="340" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,125,0,0">
-
-            <ListView>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition Width="70"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Foreground="Black" Text="מיקום" Grid.Column="0"/>
-                    <TextBlock Foreground="Black" Text="קופת חולים" Grid.Column="1" Grid.Row="0"/>
-                    <TextBlock Foreground="Black" Text="שם פרטי" Grid.Column="2" Grid.Row="0"/>
-                    <TextBlock Foreground="Black" Text="שם משפחה" Grid.Column="3" Grid.Row="0"/>
-                </Grid>
-            </ListView>
-            
-        </ScrollViewer>-->
-
+              Height="150" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,310,0,0">
+            <Grid>
+                <TextBlock x:Name="doctor_chosen" FontWeight="Bold" Foreground="Black" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,0,0,0"/>
+                <TextBlock x:Name="doctor_data" Foreground="Black" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,20,0,0"/>
+            </Grid>
+        </ScrollViewer>
+        
+        <Grid  x:Name="ErrorNoDoctorChosen" Visibility="Collapsed">
+            <Rectangle Fill="White" Opacity="0.7" 
+                   Margin="20,355,20,0" 
+                   Height="36"
+                   HorizontalAlignment="Stretch" 
+                   VerticalAlignment="Stretch"/>
+            <TextBlock Text="Please choose a doctor" FontSize="26" 
+                   HorizontalAlignment="Center"
+                   Foreground="black"
+                   
+                   FontWeight="Bold"
+                   TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,435,20,0"/>
+        </Grid>
 
         <Button Content="Back To Information Page" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000" Margin="0,0,0,37"

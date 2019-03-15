@@ -36,46 +36,51 @@
               HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled"
               Height="380" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,80,0,0">
             <Grid>
-                
                 <TextBlock Foreground="Black" Text="Search By Strain Name:" FontWeight="Bold" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,10,0,0"/>
                 <TextBox x:Name ="StrainName" HorizontalAlignment="Stretch"  Margin="0,35,0,0" Text="e.g. 'Alaska'" VerticalAlignment="Top" GotFocus="BoxGotFocus"/>
-                <TextBlock Foreground="Black" Text="Search By Medical Use:" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <CheckBox Content="Seizures" Margin="0,90,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Muscle Spasms" Margin="150,90,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Spasticity" Margin="0,115,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Inflammation" Margin="150,115,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Eye Pressure" Margin="0,140,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Headaches" Margin="150,140,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Fatigue" Margin="0,165,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Nausea" Margin="150,165,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Lack of Appetite" Margin="0,190,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Cramps" Margin="150,190,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Stress" Margin="00,215,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Pain" Margin="150,215,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Depression" Margin="0,240,0,0" VerticalAlignment="Top"/>
                 
+                <Grid x:Name="MedicalSearchGrid"> 
+                <TextBlock Foreground="Black" Text="Search By Medical Use:" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                <CheckBox Content="Seizures"         Tag="1" Margin="0,90,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Muscle Spasms"    Tag="2" Margin="150,90,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Spasticity"       Tag="3" Margin="0,115,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Inflammation"     Tag="4" Margin="150,115,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Eye Pressure"     Tag="5" Margin="0,140,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Headaches"        Tag="6" Margin="150,140,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Fatigue"          Tag="7" Margin="0,165,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Nausea"           Tag="8" Margin="150,165,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Lack of Appetite" Tag="9" Margin="0,190,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Cramps"           Tag="10" Margin="150,190,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Stress"           Tag="11" Margin="00,215,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Pain"             Tag="12" Margin="150,215,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Depression"       Tag="13" Margin="0,240,0,0" VerticalAlignment="Top"/>
+                </Grid>
+                
+                <Grid x:Name="PositiveSearchGrid">
                 <TextBlock Foreground="Black" Text="Search By Positive Effects:" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <CheckBox Content="Aroused" Margin="0,300,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Giggly" Margin="150,300,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Focused" Margin="0,325,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Sleepy" Margin="150,325,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Tingly" Margin="0,350,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Uplifted" Margin="150,350,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Talkative" Margin="0,375,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Energetic" Margin="150,375,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Creative" Margin="0,400,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Happy" Margin="150,400,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Euphoric" Margin="00,425,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Hungry" Margin="150,425,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Relaxed" Margin="0,450,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Aroused"    Tag="1" Margin="0,300,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Giggly"     Tag="2" Margin="150,300,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Focused"    Tag="3" Margin="0,325,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Sleepy"     Tag="4" Margin="150,325,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Tingly"     Tag="5" Margin="0,350,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Uplifted"   Tag="6" Margin="150,350,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Talkative"  Tag="7" Margin="0,375,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Energetic"  Tag="8" Margin="150,375,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Creative"   Tag="9" Margin="0,400,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Happy"      Tag="10" Margin="150,400,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Euphoric"   Tag="11" Margin="00,425,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Hungry"     Tag="12" Margin="150,425,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Relaxed"    Tag="13" Margin="0,450,0,0" VerticalAlignment="Top"/>
+                </Grid>
 
+                <Grid x:Name="NegativeSearchGrid">
                 <TextBlock Foreground="Black" Text="Search By Unwanted Negative Effects:" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,485,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <CheckBox Content="Dizzy" Margin="0,510,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Dry Mouth" Margin="150,510,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Paranoid" Margin="0,535,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Dry Eyes" Margin="150,535,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Anxious" Margin="0,560,0,0" VerticalAlignment="Top"/>
-
+                <CheckBox Content="Dizzy"       Tag="1" Margin="0,510,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Dry Mouth"   Tag="2" Margin="150,510,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Paranoid"    Tag="3" Margin="0,535,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Dry Eyes"    Tag="4" Margin="150,535,0,0" VerticalAlignment="Top"/>
+                <CheckBox Content="Anxious"     Tag="5" Margin="0,560,0,0" VerticalAlignment="Top"/>
+                </Grid>
             </Grid>
         </ScrollViewer>
 
