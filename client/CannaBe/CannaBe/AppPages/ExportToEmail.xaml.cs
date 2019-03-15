@@ -28,7 +28,7 @@ namespace CannaBe.AppPages
         private void EmailChanged(object sender, KeyRoutedEventArgs e)
         {
             var t = sender as TextBox;
-            var b = emailValidator.IsMatch(t.Text);
+            var b = t.Text.IsValidEmail();
             SendButton.IsEnabled = b;
             InvalidMailTitle.Visibility = b ? Windows.UI.Xaml.Visibility.Collapsed : Windows.UI.Xaml.Visibility.Visible;
         }

@@ -14,7 +14,7 @@ namespace CannaBe
             this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
-       
+
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
@@ -29,8 +29,9 @@ namespace CannaBe
                     Password.Password = "";
                     Country.Text = req.Country ?? "";
                     City.Text = req.City ?? "";
+                    Email.Text = req.Email ?? "";
 
-                    if(req.Gender != null)
+                    if (req.Gender != null)
                     {
                         if (req.Gender == "Male")
                             Gender.SelectedIndex = 1;
@@ -45,11 +46,6 @@ namespace CannaBe
                     AppDebug.Exception(exc, "RegisterPage.OnPageLoaded");
                 }
             }
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void ContinueMedicalRegister(object sender, RoutedEventArgs e)
@@ -67,11 +63,11 @@ namespace CannaBe
                 flag = 1;
             }
 
-            if (Username.Text == "")
+            if (string.IsNullOrEmpty(Username.Text))
             {
                 Status.Text = "Please enter a valid username";
             }
-            else if (Password.Password == "")
+            else if (string.IsNullOrEmpty(Password.Password))
             {
                 Status.Text = "Please enter a valid password";
             }
@@ -79,32 +75,36 @@ namespace CannaBe
             {
                 Status.Text = "Please enter a valid gender";
             }
-            else if (Country.Text == "")
+            else if (string.IsNullOrEmpty(Country.Text))
             {
                 Status.Text = "Please enter a valid country";
             }
-            else if (City.Text == "")
+            else if (string.IsNullOrEmpty(City.Text))
             {
                 Status.Text = "Please enter a valid city";
             }
-            else if (Email.Text == "")
+            else if (string.IsNullOrEmpty(Email.Text))
+            {
+                Status.Text = "Please enter a valid email";
+            }
+            else if (!Email.Text.IsValidEmail())
             {
                 Status.Text = "Please enter a valid email";
             }
             else
             {
-                if(GlobalContext.RegisterContext == null)
+                if (GlobalContext.RegisterContext == null)
                 {
                     GlobalContext.RegisterContext = new RegisterRequest();
                 }
 
-                GlobalContext.RegisterContext.Username  = Username.Text;
-                GlobalContext.RegisterContext.Password  = Password.Password;
-                GlobalContext.RegisterContext.DOB       = DOB.Date.Day + "/" + DOB.Date.Month + "/" + DOB.Date.Year;
-                GlobalContext.RegisterContext.Gender    = Gender.SelectedValue.ToString();
-                GlobalContext.RegisterContext.Country   = Country.Text;
-                GlobalContext.RegisterContext.City      = City.Text;
-                GlobalContext.RegisterContext.Email     = Email.Text;
+                GlobalContext.RegisterContext.Username = Username.Text;
+                GlobalContext.RegisterContext.Password = Password.Password;
+                GlobalContext.RegisterContext.DOB = DOB.Date.Day + "/" + DOB.Date.Month + "/" + DOB.Date.Year;
+                GlobalContext.RegisterContext.Gender = Gender.SelectedValue.ToString();
+                GlobalContext.RegisterContext.Country = Country.Text;
+                GlobalContext.RegisterContext.City = City.Text;
+                GlobalContext.RegisterContext.Email = Email.Text;
 
                 Frame.Navigate(typeof(RegisterMedicalPage), GlobalContext.RegisterContext);
             }

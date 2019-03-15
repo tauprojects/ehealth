@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Windows.ApplicationModel.Core;
@@ -132,22 +133,30 @@ namespace CannaBe
 
         public static implicit operator UsageData(UsageUpdateRequest res)
         {
-            UsageData u = new UsageData
+            UsageData u;
+            try
             {
-                UsageStrain = new Strain(res.StrainName, res.StrainId),
-                StartTime = DateTimeOffset.FromUnixTimeMilliseconds(res.unixStartTime).DateTime.ToLocalTime(),
-                EndTime = DateTimeOffset.FromUnixTimeMilliseconds(res.unixEndTime).DateTime.ToLocalTime(),
-                MedicalRank = res.MedicalRank,
-                PositiveRank = res.PositiveRank,
-                OverallRank = res.OverallRank,
-                HeartRateAverage = res.HeartbeatAvg,
-                HeartRateMax = res.HeartbeatHigh,
-                HeartRateMin = res.HeartbeatLow,
-                UseBandData = res.HeartbeatAvg > 0 ? true : false
-            };
-            u.Duration = u.EndTime.Subtract(u.StartTime);
-
-            //AppDebug.Line($"Converted: startTime {u.startTime.ToString("MMMM dd, yyyy HH:mm:ss.fff")} endTime {u.EndTime.ToString("MMMM dd, yyyy HH:mm:ss.fff")}");
+                u = new UsageData
+                {
+                    UsageStrain = new Strain(res.StrainName, res.StrainId),
+                    StartTime = DateTimeOffset.FromUnixTimeMilliseconds(res.unixStartTime).DateTime.ToLocalTime(),
+                    EndTime = DateTimeOffset.FromUnixTimeMilliseconds(res.unixEndTime).DateTime.ToLocalTime(),
+                    MedicalRank = res.MedicalRank,
+                    PositiveRank = res.PositiveRank,
+                    OverallRank = res.OverallRank,
+                    HeartRateAverage = res.HeartbeatAvg,
+                    HeartRateMax = res.HeartbeatHigh,
+                    HeartRateMin = res.HeartbeatLow,
+                    UseBandData = res.HeartbeatAvg > 0 ? true : false
+                };
+                u.Duration = u.EndTime.Subtract(u.StartTime);
+                u.usageFeedback = JsonConvert.DeserializeObject<Dictionary<string, string>>(res.QuestionsJson);
+            }
+            catch(Exception e)
+            {
+                AppDebug.Exception(e, "implicit operator UsageData(UsageUpdateRequest res)");
+                return null;
+            }
             return u;
         }
 
@@ -195,16 +204,16 @@ namespace CannaBe
                     return;
 
                 //from: math.stackexchange.com/questions/106700/incremental-averageing
-                HeartRateAverage += (rate - HeartRateAverage) / (HeartRateReadings-5);
+                HeartRateAverage += (rate - HeartRateAverage) / (HeartRateReadings-4);
 
                 HeartRateMin = Math.Min(HeartRateMin, rate);
                 HeartRateMax = Math.Max(HeartRateMax, rate);
 
-                AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
+                //AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
 
                 if (HeartRateReadings % 5 == 0)
                 {
-                    //AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
+                    AppDebug.Line($"HeartRate: cur<{rate}> min<{HeartRateMin}> avg<{Math.Round(HeartRateAverage, 0)}> max<{HeartRateMax}>");
                     try
                     {
                         //Run code on main thread for UI change, preventing exception
