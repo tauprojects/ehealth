@@ -51,7 +51,7 @@ public class StrainsCollector {
 
     public void getAllStrains() throws IOException {
         List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
-        if (strainsEntities == null) {
+        if (strainsEntities == null || strainsEntities.size()==0) {
             Object o = builder.create().fromJson(restClient.getAllStrains(), Object.class);
             // Get strains information
             List<StrainObject> allStrains = getStrainsObjectList(o);
