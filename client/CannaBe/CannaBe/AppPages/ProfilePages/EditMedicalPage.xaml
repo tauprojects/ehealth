@@ -57,12 +57,12 @@
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="BackToProfile"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36.5,480,0,0" RenderTransformOrigin="0.575,1.474" Width="125">
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
         </Button>
         <Button Content="Continue" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="GoToEditPositive"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
         </Button>
 
     </Grid>
