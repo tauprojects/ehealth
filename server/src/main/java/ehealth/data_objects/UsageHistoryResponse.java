@@ -47,4 +47,7 @@ public class UsageHistoryResponse {
     @JsonProperty("heartbeat_avg")
     private Integer heartbeatAvg;
 
+    @JsonProperty("questions_answers_dictionary")
+    private String questionsAnswersDictionary;
+
 }

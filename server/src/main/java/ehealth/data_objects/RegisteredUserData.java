@@ -31,6 +31,9 @@ public class RegisteredUserData {
     @JsonProperty("city")
     String city;
 
+    @JsonProperty("email")
+    String email;
+
     @JsonProperty("medical")
     int medical;
 

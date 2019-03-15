@@ -50,9 +50,11 @@ public class RegisteredUsersEntity {
     @Column(name = "country")
     private String country;
 
-
     @Column(name = "city")
     private String city;
+
+    @Column(name = "email")
+    private String email;
 
     @Convert(converter = EpochTimeConverter.class)
     @Column(name = "created_at", updatable = false)

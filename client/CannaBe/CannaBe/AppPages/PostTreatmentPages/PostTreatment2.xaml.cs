@@ -33,7 +33,6 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
             try
             {

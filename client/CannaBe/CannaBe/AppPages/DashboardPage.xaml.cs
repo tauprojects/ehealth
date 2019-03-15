@@ -2,6 +2,7 @@
 using CannaBe.AppPages.PostTreatmentPages;
 using CannaBe.AppPages.RecomendationPages;
 using CannaBe.AppPages.Usage;
+using System;
 using Windows.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -81,6 +82,13 @@ namespace CannaBe
         private void LogoutHandler(object sender, TappedRoutedEventArgs e)
         {
             GlobalContext.CurrentUser = null;
+            GlobalContext.RegisterContext = null;
+            GlobalContext.Band = null;
+            UsageContext.ChosenStrain = null;
+            UsageContext.DisplayUsage = null;
+            UsageContext.Usage = null;
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
             Frame.Navigate(typeof(MainPage));
         }
 

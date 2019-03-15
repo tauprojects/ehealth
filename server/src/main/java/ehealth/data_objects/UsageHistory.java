@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.Column;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -45,7 +47,11 @@ public class UsageHistory {
     @JsonProperty("heartbeat_avg")
     private Integer heartbeatAvg;
 
+    @JsonProperty("questions_answers_dictionary")
+    private String questionsAnswersDictionary;
+
     @JsonProperty("is_blacklist")
     private Integer isBlacklist;
+
 
 }
