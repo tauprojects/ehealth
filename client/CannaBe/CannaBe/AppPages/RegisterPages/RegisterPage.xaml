@@ -65,11 +65,11 @@
                     <x:String>Female</x:String>
                 </ComboBox>
                 <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,320,0,0" Text="Country:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Stretch" x:Name="Country" Margin="0,345,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
+                <TextBox HorizontalAlignment="Stretch" x:Name="Country" Margin="0,345,0,0" Text="" VerticalAlignment="Top"/>
                 <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,380,0,0" Text="City:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Stretch" x:Name="City" Margin="0,405,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
+                <TextBox HorizontalAlignment="Stretch" x:Name="City" Margin="0,405,0,0" Text="" VerticalAlignment="Top"/>
                 <TextBlock Foreground="Black" HorizontalAlignment="Left" Margin="0,440,0,0" Text="Email:" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Stretch" x:Name="Email" Margin="0,465,0,0" Text="" VerticalAlignment="Top" TextChanged="TextBox_TextChanged"/>
+                <TextBox HorizontalAlignment="Stretch" x:Name="Email" Margin="0,465,0,0" Text="" VerticalAlignment="Top"/>
             </Grid>
         </ScrollViewer>
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"

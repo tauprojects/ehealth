@@ -25,13 +25,15 @@
                    FontFamily="Lucida Calligraphy"
                    FontSize="22" TextWrapping="Wrap" VerticalAlignment="Top"
                    HorizontalAlignment="Center" Width="Auto"/>
-            <TextBlock Foreground="Black" x:Name="StartTime" Text="Start Time:" FontSize="22" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-            <TextBlock Foreground="Black" x:Name="EndTime" Text="End Time:" FontSize="22" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-            <TextBlock Foreground="Black" x:Name="Duration" Text="Duration:" FontSize="22" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <TextBlock Foreground="Black" x:Name="StartTime" Text="" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <TextBlock Foreground="Black" x:Name="EndTime" Text="" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <TextBlock Foreground="Black" x:Name="Duration" Text="" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+            <TextBlock Foreground="Black" x:Name="HeartRate" Text="" FontSize="18" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+
             <Rectangle Height="10"/>
             <TextBlock Foreground="Black" FontWeight="Bold" FontStretch="ExtraExpanded" Text="Post Treatment Feedback:" FontSize="22" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
-            <ScrollViewer Background="#70ffffff" Height="216" MaxHeight="220" x:Name="Scroller" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
+            <ScrollViewer Background="#70ffffff" Height="216" MaxHeight="200" x:Name="Scroller" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
                 <StackPanel x:Name="Questions">
 
                 </StackPanel>

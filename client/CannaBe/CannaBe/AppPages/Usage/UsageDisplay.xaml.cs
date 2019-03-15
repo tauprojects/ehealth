@@ -1,4 +1,5 @@
-﻿using Windows.UI.Text;
+﻿using System;
+using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -19,9 +20,97 @@ namespace CannaBe.AppPages.Usage
             if (u != null)
             {
                 StrainChosenText.Text = u.UsageStrain.Name;
-                StartTime.Text = "Start Time: " + u.StartTime.ToString("dd.MM.yy HH:mm:ss");
-                EndTime.Text = "End Time: " + u.EndTime.ToString("dd.MM.yy HH:mm:ss");
-                Duration.Text = "Duration: " + u.DurationString;
+
+                StartTime.Inlines.Add(new Run()
+                {
+                    TextDecorations = TextDecorations.Underline,
+                    FontWeight = FontWeights.Bold,
+                    Text = "Start Time"
+                });
+                StartTime.Inlines.Add(new Run()
+                {
+                    FontSize = 18,
+                    Text = ": " + u.StartTime.ToString("dd.MM.yy HH:mm:ss")
+                });
+                EndTime.Inlines.Add(new Run()
+                {
+                    TextDecorations = TextDecorations.Underline,
+                    FontWeight = FontWeights.Bold,
+                    Text = "End Time"
+                });
+                EndTime.Inlines.Add(new Run()
+                {
+                    FontSize = 18,
+                    Text = ": " + u.EndTime.ToString("dd.MM.yy HH:mm:ss")
+                });
+                Duration.Inlines.Add(new Run()
+                {
+                    TextDecorations = TextDecorations.Underline,
+                    FontWeight = FontWeights.Bold,
+                    Text = "Duration"
+                });
+                Duration.Inlines.Add(new Run()
+                {
+                    FontSize = 18,
+                    Text = ": " + u.DurationString
+                });
+
+                if (!u.UseBandData)
+                {
+                    HeartRate.Text = "Band was not used";
+                }
+                else
+                {
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        TextDecorations = TextDecorations.Underline,
+                        FontWeight = FontWeights.Bold,
+                        Text = "Heartrate"
+                    });
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        Text = ": "
+                    });
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        FontSize = 18,
+                        FontWeight = FontWeights.Bold,
+                        Text = "Min: "
+                    });
+
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        FontSize = 18,
+                        Text = u.HeartRateMin.ToString()
+                    });
+
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        FontSize = 18,
+                        FontWeight = FontWeights.Bold,
+                        Text = " Avg: "
+                    });
+
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        FontSize = 18,
+                        Text = Math.Round(u.HeartRateAverage, 0).ToString()
+                    });
+
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        FontSize = 18,
+                        FontWeight = FontWeights.Bold,
+                        Text = " Max: "
+                    });
+
+                    HeartRate.Inlines.Add(new Run()
+                    {
+                        FontSize = 18,
+                        Text = u.HeartRateMax.ToString()
+                    });
+
+                }
 
                 if (u.usageFeedback != null)
                 {
@@ -30,7 +119,7 @@ namespace CannaBe.AppPages.Usage
                         var t = new TextBlock()
                         {
                             Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black),
-                            FontSize = 22,
+                            FontSize = 18,
                             TextWrapping = TextWrapping.Wrap,
                             VerticalAlignment = VerticalAlignment.Top,
                             HorizontalAlignment = HorizontalAlignment.Stretch,
