@@ -7,40 +7,28 @@ using System.Net.Http;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 
 namespace CannaBe.AppPages.PostTreatmentPages
 {
-    public sealed partial class PostTreatment : Page
+    public sealed partial class PostTreatment2 : Page
     {
-        Dictionary<string, string> questionDictionary = new Dictionary<string, string>();
-        public PostTreatment()
+        Dictionary<string, string> questionDictionary = null;
+        public PostTreatment2()
         {
             this.InitializeComponent();
             this.FixPageSize();
             PagesUtilities.AddBackButtonHandler();
         }
 
-        private void BoxGotFocus(object sender, RoutedEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            TextBox textBoxSender = sender as TextBox;
+            base.OnNavigatedTo(e);
 
-            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
-            {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Black);
-            }
-        }
+            if (e.Parameter == null)
+                return;
 
-        private void BoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
-
-            }
+            questionDictionary = e.Parameter as Dictionary<string, string>;
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -52,25 +40,13 @@ namespace CannaBe.AppPages.PostTreatmentPages
                 EnumDescriptions positive = new EnumDescriptions("Would you use this strain again?", "Rate the quality of the treatment:");
                 PostQuestions.Items.Add(positive);
                 questionDictionary[positive.q1] = "Don't know";
-
-                foreach (var medicalNeed in GlobalContext.CurrentUser.Data.MedicalNeeds)
-                {
-                    var info = medicalNeed.GetAttribute<EnumDescriptions>();
-                    PostQuestions.Items.Add(info);
-                    questionDictionary[info.q1] = "Don't know";
-                }
             }
 
             catch (Exception x)
             {
-                AppDebug.Exception(x, "PostTreatment => OnPageLoaded");
+                AppDebug.Exception(x, "PostTreatment2 => OnPageLoaded");
             }
 
-        }
-
-        private void GoToDashboard(object sender, TappedRoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(DashboardPage));
         }
 
         private int[] GetRanks(Dictionary<string, string> questionDictionary)
@@ -111,11 +87,56 @@ namespace CannaBe.AppPages.PostTreatmentPages
             return ans;
         }
 
-
-
-        private void ContinuePostFeedback(object sender, TappedRoutedEventArgs e)
+        private async void SubmitFeedback(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PostTreatment2), questionDictionary);
+            HttpResponseMessage res = null;
+            UsageUpdateRequest req;
+
+            int[] ranks = new int[4];
+
+            ranks = GetRanks(questionDictionary);
+
+            try
+            {
+                progressRing.IsActive = true;
+                GlobalContext.CurrentUser.UsageSessions.LastOrDefault().usageFeedback = questionDictionary;
+
+                UsageData use = GlobalContext.CurrentUser.UsageSessions.LastOrDefault();
+                string userId = GlobalContext.CurrentUser.Data.UserID;
+
+                req = new UsageUpdateRequest(use.UsageStrain.Name, use.UsageStrain.ID,
+                    userId, 
+                    ((DateTimeOffset)use.StartTime).ToUnixTimeMilliseconds(),
+                    ((DateTimeOffset)use.EndTime).ToUnixTimeMilliseconds(),
+                    ranks[0], ranks[1], ranks[2], use.HeartRateMax, use.HeartRateMin, (int)use.HeartRateAverage, ranks[3],
+                    questionDictionary);
+
+                res = await HttpManager.Manager.Post(Constants.MakeUrl("usage"), req);
+
+                if (res != null)
+                {
+                    if (res.StatusCode == HttpStatusCode.OK)
+                    {
+                        Status.Text = "Usage update Successful!";
+                        PagesUtilities.SleepSeconds(1);
+                        Frame.Navigate(typeof(DashboardPage));
+                    }
+                    else
+                    {
+                        Status.Text = "Usage update failed! Status = " + res.StatusCode;
+                    }
+                }
+                else
+                {
+                    Status.Text = "Usage update failed!\nPost operation failed";
+                }
+
+                Frame.Navigate(typeof(DashboardPage));
+            }
+            catch(Exception x)
+            {
+                AppDebug.Exception(x, "UsageUpdate");
+            }
         }
 
         private void Answers_SelectionChanged(object sender, SelectionChangedEventArgs e)

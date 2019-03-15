@@ -135,11 +135,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\ExportToEmail.xaml.cs">
+      <DependentUpon>ExportToEmail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPages\InformationPages\MedicalInformationPage.xaml.cs">
       <DependentUpon>MedicalInformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppPages\InformationPages\OrganizationInformationPage.xaml.cs">
       <DependentUpon>OrganizationInformationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppPages\PostTreatmentPages\PostTreatment2.xaml.cs">
+      <DependentUpon>PostTreatment2.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment.xaml.cs">
       <DependentUpon>PostTreatment.xaml</DependentUpon>
@@ -177,8 +183,10 @@
     </Compile>
     <Compile Include="Context\BandContext.cs" />
     <Compile Include="Context\GlobalContext.cs" />
+    <Compile Include="DataObjects\Http\Requests\SendEmailRequest.cs" />
     <Compile Include="DataObjects\Http\Requests\UsageUpdateRequest.cs" />
     <Compile Include="DataObjects\Strain.cs" />
+    <Compile Include="DataObjects\SuggestedStrains.cs" />
     <Compile Include="DataObjects\UsageData.cs" />
     <Compile Include="DataObjects\UserData.cs" />
     <Compile Include="DataObjects\Http\Response\BaseResponse.cs" />
@@ -256,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AppPages\ExportToEmail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AppPages\InformationPages\InformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,6 +283,10 @@
     <Page Include="AppPages\InformationPages\StrainInformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\PostTreatmentPages\PostTreatment2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="AppPages\PostTreatmentPages\PostTreatment.xaml">
       <SubType>Designer</SubType>
