@@ -17,6 +17,9 @@ namespace CannaBe
         [JsonProperty("city")]
         public string City { get; set; }
 
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
         [JsonProperty("medical")]
         public int BitmapMedicalNeeds { get; set; }
         //public List<string> MedicalNeeds { get; set; }
@@ -79,13 +82,14 @@ namespace CannaBe
 
         public RegisterRequest() { }
 
-        public RegisterRequest(string username, string password, string dob, string gender, string country, string city) 
+        public RegisterRequest(string username, string password, string dob, string gender, string country, string city, string email) 
             : base(username, password)
         {
             DOB = dob;
             Gender = gender;
             Country = country;
             City = city;
+            Email = email;
             //MedicalNeeds = new List<string>();
             //PositivePreferences = new List<string>();
             //NegativePreferences = new List<string>();

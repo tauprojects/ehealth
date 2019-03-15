@@ -7,7 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    Loaded="OnPageLoaded">
+    Loaded="OnPageLoaded"
+    KeyDown="Page_KeyDown">
 
     <Grid x:Name="InformationGrid">
         <Grid.BorderBrush>
@@ -88,7 +89,7 @@
         </Button>
         <Button Content="Search" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
-                Tapped="SearchStrain"
+                Click="SearchStrain"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,36.5,0" RenderTransformOrigin="0.575,1.474" Width="125">
         </Button>
             

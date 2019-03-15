@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
+using Windows.System;
 
 namespace CannaBe.AppPages
 {
@@ -54,7 +55,7 @@ namespace CannaBe.AppPages
             Frame.Navigate(typeof(InformationPage));
         }
 
-        private async void SearchStrain(object sender, TappedRoutedEventArgs e)
+        private async void SearchStrain(object sender, RoutedEventArgs e)
         {
             PagesUtilities.GetAllCheckBoxesTags(InformationGrid, out List<int> intList);
 
@@ -81,6 +82,14 @@ namespace CannaBe.AppPages
                     AppDebug.Exception(ex, "SearchStrain");
                     await new MessageDialog("Failed get: \n" + url, "Exception in Search Strain").ShowAsync();
                 }
+            }
+        }
+
+        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                SearchStrain(sender, e);
             }
         }
     }

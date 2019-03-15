@@ -87,6 +87,10 @@ namespace CannaBe
             {
                 Status.Text = "Please enter a valid city";
             }
+            else if (Email.Text == "")
+            {
+                Status.Text = "Please enter a valid email";
+            }
             else
             {
                 if(GlobalContext.RegisterContext == null)
@@ -100,6 +104,7 @@ namespace CannaBe
                 GlobalContext.RegisterContext.Gender    = Gender.SelectedValue.ToString();
                 GlobalContext.RegisterContext.Country   = Country.Text;
                 GlobalContext.RegisterContext.City      = City.Text;
+                GlobalContext.RegisterContext.Email     = Email.Text;
 
                 Frame.Navigate(typeof(RegisterMedicalPage), GlobalContext.RegisterContext);
             }
