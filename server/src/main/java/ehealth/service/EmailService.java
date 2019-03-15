@@ -10,8 +10,8 @@ import java.util.List;
 
 @Service
 public class EmailService {
-    public static final String contentTypeText = "text/plain";
     public static final String medicannaFormat = "@medicanna.com";
+    public static final String contentTypeText = "text/plain";
     private Logger logger = LoggerFactory.getLogger(EmailService.class);
 
     public SendGrid sg;

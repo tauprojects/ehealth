@@ -250,8 +250,8 @@ public class StrainApiServiceImpl implements StrainApiService {
                     usageHistoryEntity.getOverallRank(),
                     usageHistoryEntity.getHeartbeatHigh(),
                     usageHistoryEntity.getHeartbeatLow(),
-                    usageHistoryEntity.getHeartbeatAvg()
-            ));
+                    usageHistoryEntity.getHeartbeatAvg(),
+                    usageHistoryEntity.getQuestionsAnswersDictionary()));
         }
         return usageHistoryResponseList;
     }
@@ -276,6 +276,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         usageHistoryEntity.setMedicalRank(usageHistory.getMedicalRank());
         usageHistoryEntity.setPositiveRank(usageHistory.getPositiveRank());
         usageHistoryEntity.setOverallRank(usageHistory.getOverallRank());
+        usageHistoryEntity.setQuestionsAnswersDictionary(usageHistory.getQuestionsAnswersDictionary());
         return usageHistoryEntity;
     }
 
