@@ -90,10 +90,10 @@ public class StrainsCollector {
             allStainsList.add(strainObject);
         }
         // Get strains description
-//        for (StrainObject strainObject : allStainsList) {
-//            StrainDescription description = restClient.strainDescById(strainObject.getId().toString());
-//            strainObject.setDescription(description.getDesc());
-//        }
+        for (StrainObject strainObject : allStainsList) {
+            StrainDescription description = restClient.strainDescById(strainObject.getId().toString());
+            strainObject.setDescription(description.getDesc());
+        }
         return allStainsList;
     }
 
