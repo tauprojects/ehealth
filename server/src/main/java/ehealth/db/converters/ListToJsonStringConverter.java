@@ -14,14 +14,15 @@ package ehealth.db.converters;
 *   from ARM Limited or its affiliates.
 *****************************************************************************/
 
-import javax.persistence.AttributeConverter;
-import javax.ws.rs.InternalServerErrorException;
-import java.io.IOException;
-import java.util.*;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.persistence.AttributeConverter;
+import javax.ws.rs.InternalServerErrorException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListToJsonStringConverter implements AttributeConverter<List<Integer>, String> {
 

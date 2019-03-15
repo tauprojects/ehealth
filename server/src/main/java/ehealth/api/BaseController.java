@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RestController
@@ -64,8 +66,8 @@ public class BaseController {
      *
      * @return String
      */
-    @RequestMapping(value = "/ehealth/strain/{strain-name}", method = RequestMethod.GET)
-    public BaseResponse getStrainInfo(@PathVariable("strain-name") String strainName) {
+    @RequestMapping(value = "/strain/{strain-name}", method = RequestMethod.GET)
+    public StrainObject getStrainInfo(@PathVariable("strain-name") String strainName) {
         return mainServiceImpl.getStrainByName(strainName);
     }
 
@@ -110,12 +112,12 @@ public class BaseController {
     /**
      * GET all strains
      *
-     * @return List<UsageHistoryResponse>
+     * @return Map<strain_name, strain_id>
      */
     @RequestMapping(value = "/strains/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<StrainObject> saveUserUsageHistory() throws IOException {
+    public Map<String,Integer> saveUserUsageHistory() throws IOException {
         logger.info("GET all strains");
-        return mainServiceImpl.getAllStrains();
+        return mainServiceImpl.GetListOfStrains();
     }
 
         /**

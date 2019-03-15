@@ -30,10 +30,10 @@ public class UsageHistoryResponse {
     private Integer strainId;
 
     @JsonProperty("medical_rank")
-    private Integer medicalRank;
+    private Double medicalRank;
 
     @JsonProperty("positive_rank")
-    private Integer positiveRank;
+    private Double positiveRank;
 
     @JsonProperty("overall_rank")
     private Integer overallRank;

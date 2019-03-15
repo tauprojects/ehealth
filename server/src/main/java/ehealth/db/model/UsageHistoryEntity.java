@@ -15,13 +15,11 @@ package ehealth.db.model;
  *****************************************************************************/
 
 import ehealth.db.converters.EpochTimeConverter;
-import ehealth.db.converters.ListToJsonStringConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -50,10 +48,10 @@ public class UsageHistoryEntity {
     private Long endedAt;
 
     @Column(name = "medical_rank")
-    private Integer medicalRank;
+    private Double medicalRank;
 
     @Column(name = "positive_rank")
-    private Integer positiveRank;
+    private Double positiveRank;
 
     @Column(name = "overall_rank")
     private Integer overallRank;

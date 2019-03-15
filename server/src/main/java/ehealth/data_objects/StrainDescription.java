@@ -1,8 +1,7 @@
-package ehealth.client.data_objects;
+package ehealth.data_objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
 
 @EqualsAndHashCode
 @AllArgsConstructor
@@ -10,9 +9,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Effect {
-    @JsonProperty("effect")
-    Integer effect;
-    @JsonProperty("type")
-    String type;
+public class StrainDescription {
+    @JsonProperty("desc")
+    String desc;
 }

@@ -4,11 +4,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import ehealth.client.StrainServicesInterface;
 import ehealth.client.data_objects.StrainObject;
-import ehealth.db.repository.RegisterUsersRepository;
+import ehealth.data_objects.StrainDescription;
+import ehealth.db.model.StrainsEntity;
+import ehealth.db.repository.AllStrainsRepository;
 import ehealth.enums.MedicalEffects;
 import ehealth.enums.NegativeEffects;
 import ehealth.enums.PositiveEffects;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
@@ -22,10 +23,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
+import java.util.UUID;
 
 import static ehealth.client.ApiConstants.URL;
 
-//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
 @Service
 public class StrainsCollector {
 
@@ -33,26 +34,32 @@ public class StrainsCollector {
     protected ResteasyWebTarget target;
     protected StrainServicesInterface restClient;
 
-    public List<StrainObject> allStrains;
     private Logger logger = LoggerFactory.getLogger(StrainsCollector.class);
     private GsonBuilder builder = new GsonBuilder();
 
+    protected AllStrainsRepository allStrainsRepository;
+
     @Autowired
-    protected RegisterUsersRepository registerUsersRepository;
-
-    public ObjectMapper mapper = new ObjectMapper();
-
-    public StrainsCollector() throws IOException {
+    public StrainsCollector(AllStrainsRepository allStrainsRepository) throws IOException {
         client = new ResteasyClientBuilder().build();
         target = client.target(UriBuilder.fromPath(URL));
         restClient = target.proxy(StrainServicesInterface.class);
+        this.allStrainsRepository = allStrainsRepository;
         getAllStrains();
     }
 
+
     public void getAllStrains() throws IOException {
-        Object o = builder.create().fromJson(restClient.getAllStrains(), Object.class);
-        this.allStrains = getStrainsObjectList(o);
+        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
+        if (strainsEntities == null || strainsEntities.size()==0) {
+            Object o = builder.create().fromJson(restClient.getAllStrains(), Object.class);
+            // Get strains information
+            List<StrainObject> allStrains = getStrainsObjectList(o);
+            // Save strains in DB
+            saveStrainsInDb(allStrains);
+        }
     }
+
 
     public List<StrainObject> getStrainsObjectList(Object o) {
         List<StrainObject> allStainsList = new ArrayList<>();
@@ -82,6 +89,32 @@ public class StrainsCollector {
                 strainObject.setPositive(bitset.toLongArray()[0]);
             allStainsList.add(strainObject);
         }
+        // Get strains description
+        for (StrainObject strainObject : allStainsList) {
+            StrainDescription description = restClient.strainDescById(strainObject.getId().toString());
+            strainObject.setDescription(description.getDesc());
+        }
         return allStainsList;
     }
+
+//       Update\Save strains in DB
+    private void saveStrainsInDb(List<StrainObject> allStainsList) {
+        for (StrainObject strainObject : allStainsList) {
+            StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(strainObject.getId());
+            if (strainsEntity != null) {
+                continue;
+            }
+            strainsEntity = new StrainsEntity();
+            strainsEntity.setId(UUID.randomUUID());
+            strainsEntity.setStrainName(strainObject.getName());
+            strainsEntity.setStrainId(strainObject.getId());
+            strainsEntity.setRace(strainObject.getRace());
+            strainsEntity.setDescription(strainObject.getDescription());
+            strainsEntity.setMedical(strainObject.getMedical().intValue());
+            strainsEntity.setPositive(strainObject.getPositive().intValue());
+            strainsEntity.setNegative(strainObject.getNegative().intValue());
+            allStrainsRepository.save(strainsEntity);
+        }
+    }
+
 }
