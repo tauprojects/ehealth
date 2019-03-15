@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -51,7 +52,7 @@ namespace CannaBe
 
         }
 
-        private void ContinueMedicalRegister(object sender, TappedRoutedEventArgs e)
+        private void ContinueMedicalRegister(object sender, RoutedEventArgs e)
         {
             int flag = 0;
             try
@@ -108,6 +109,13 @@ namespace CannaBe
         {
             GlobalContext.RegisterContext = null;
             Frame.Navigate(typeof(MainPage));
+        }
+        private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                ContinueMedicalRegister(sender, e);
+            }
         }
     }
 }

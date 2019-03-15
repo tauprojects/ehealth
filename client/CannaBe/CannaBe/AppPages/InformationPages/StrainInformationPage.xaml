@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="OnPageLoaded">
 
-    <Grid>
+    <Grid x:Name="InformationGrid">
         <Grid.BorderBrush>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <!--<GradientStop Color="#8fe884" Offset="0"/>
@@ -78,6 +78,8 @@
             </Grid>
         </ScrollViewer>
 
+        <TextBlock FontSize="15" x:Name="Status" Foreground="Red"
+            HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,458,0,0"/>
 
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"

@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using System;
+using System.Collections.Generic;
 
 namespace CannaBe.AppPages
 {
@@ -46,7 +47,6 @@ namespace CannaBe.AppPages
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
 
         private void BackToInformation(object sender, TappedRoutedEventArgs e)
@@ -56,23 +56,31 @@ namespace CannaBe.AppPages
 
         private async void SearchStrain(object sender, TappedRoutedEventArgs e)
         {
-            var url = Constants.MakeUrl("ehealth/strain/" + StrainName.Text);
-            try
+            PagesUtilities.GetAllCheckBoxesTags(InformationGrid, out List<int> intList);
+
+            if (intList.Count == 0) Status.Text = "Invaild Search! Please enter search parameter";
+            else Status.Text = "";
+
+            if (StrainName.Text != "")
             {
-                var res = HttpManager.Manager.Get(url);
+                var url = Constants.MakeUrl("ehealth/strain/" + StrainName.Text);
+                try
+                {
+                    var res = HttpManager.Manager.Get(url);
 
-                if (res == null)
-                    return;
+                    if (res == null)
+                        return;
 
-                var str = await res.Result.Content.ReadAsStringAsync();
+                    var str = await res.Result.Content.ReadAsStringAsync();
 
-                AppDebug.Line(str);
-                await new MessageDialog(str, "Search Strain").ShowAsync();
-            }
-            catch (Exception ex)
-            {
-                AppDebug.Exception(ex, "SearchStrain");
-                await new MessageDialog("Failed get: \n"+ url, "Exception in Search Strain").ShowAsync();
+                    AppDebug.Line(str);
+                    await new MessageDialog(str, "Search Strain").ShowAsync();
+                }
+                catch (Exception ex)
+                {
+                    AppDebug.Exception(ex, "SearchStrain");
+                    await new MessageDialog("Failed get: \n" + url, "Exception in Search Strain").ShowAsync();
+                }
             }
         }
     }
