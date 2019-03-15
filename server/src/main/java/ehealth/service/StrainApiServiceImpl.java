@@ -98,6 +98,7 @@ public class StrainApiServiceImpl implements StrainApiService {
             registeredUsersEntity.setUsername(registerRequest.getUsername());
             registeredUsersEntity.setPassword(registerRequest.getPassword());
             registeredUsersEntity.setCity(registerRequest.getCity());
+            registeredUsersEntity.setEmail(registerRequest.getEmail());
             registeredUsersEntity.setCountry(registerRequest.getCountry());
             registeredUsersEntity.setDob(registerRequest.getDOB());
             registeredUsersEntity.setGender(registerRequest.getGender());
@@ -288,6 +289,7 @@ public class StrainApiServiceImpl implements StrainApiService {
                 registeredUsersEntity.getGender(),
                 registeredUsersEntity.getCountry(),
                 registeredUsersEntity.getCity(),
+                registeredUsersEntity.getEmail(),
                 registeredUsersEntity.getMedical(),
                 registeredUsersEntity.getPositive(),
                 registeredUsersEntity.getNegative(),
