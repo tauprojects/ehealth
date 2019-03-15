@@ -1,12 +1,13 @@
 package ehealth.service;
 
 import ehealth.client.StrainServicesInterface;
-import ehealth.client.data_objects.Strain;
 import ehealth.client.data_objects.StrainObject;
 import ehealth.client.data_objects.SuggestedStrains;
 import ehealth.data_objects.*;
 import ehealth.db.model.RegisteredUsersEntity;
+import ehealth.db.model.StrainsEntity;
 import ehealth.db.model.UsageHistoryEntity;
+import ehealth.db.repository.AllStrainsRepository;
 import ehealth.db.repository.RegisterUsersRepository;
 import ehealth.exceptions.BadRegisterRequestException;
 import ehealth.exceptions.BadRequestException;
@@ -21,10 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static ehealth.client.ApiConstants.URL;
 
@@ -41,11 +39,10 @@ public class StrainApiServiceImpl implements StrainApiService {
     protected RegisterUsersRepository registerUsersRepository;
 
     @Autowired
-    protected StrainsCollector strainsCollector;
-
+    protected EmailService emailService;
 
     @Autowired
-    protected EmailService emailService;
+    protected AllStrainsRepository allStrainsRepository;
 
     public StrainApiServiceImpl() {
         client = new ResteasyClientBuilder().build();
@@ -54,14 +51,9 @@ public class StrainApiServiceImpl implements StrainApiService {
     }
 
     @Override
-    public BaseResponse getStrainByName(String strainName) {
-        List<Strain> strainResponse = restClient.strainByName(strainName);
-        System.out.println("HTTP code: " + strainResponse.get(0).toString());
-//        BaseResponse resp = new BaseResponse(
-//                UUID.randomUUID(),
-//                "Exist",
-//                strainResponse.get(0).getDesc());
-        return null;
+    public StrainObject getStrainByName(String strainName) {
+        StrainsEntity strainsEntity = allStrainsRepository.findByStrainName(strainName);
+        return strainEntityToStrainObject(strainsEntity);
     }
 
 
@@ -152,13 +144,15 @@ public class StrainApiServiceImpl implements StrainApiService {
         SuggestedStrains recommendedStrains = new SuggestedStrains();
 
         // Check for strains that fit exact medical and positive effects
-        for (StrainObject strain : strainsCollector.allStrains) {
-            int medicalCand = strain.getMedical().intValue();
-            int positiveCand = strain.getPositive().intValue();
+        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
+
+        for (StrainsEntity strain : strainsEntities) {
+            int medicalCand = strain.getMedical();
+            int positiveCand = strain.getPositive();
             if ((medicalCand & medical) == medical && (positiveCand & positive) == positive) {
                 // Add only if strain is not blacklisted
                 if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
-                    recommendedStrains.addStrain(strain);
+                    recommendedStrains.addStrain(strainEntityToStrainObject(strain));
                 }
             }
         }
@@ -168,14 +162,14 @@ public class StrainApiServiceImpl implements StrainApiService {
             logger.info("Did not fine any strain that fits preferences");
             for (int i = 1; i < CountBits(positive); i++) {
                 logger.info("Search for similar positive strains that differ in : " + i + " number of effects");
-                for (StrainObject strain : strainsCollector.allStrains) {
-                    int medicalCand = strain.getMedical().intValue();
-                    int positiveCand = strain.getPositive().intValue();
+                for (StrainsEntity strain : strainsEntities) {
+                    int medicalCand = strain.getMedical();
+                    int positiveCand = strain.getPositive();
                     if ((medicalCand & medical) == medical &&
                             (CountBits(positiveCand ^ positive)) == i) {
                         // Add only if strain is not blacklisted
                         if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
-                            recommendedStrains.addStrain(strain);
+                            recommendedStrains.addStrain(strainEntityToStrainObject(strain));
                         }
                     }
                 }
@@ -190,12 +184,12 @@ public class StrainApiServiceImpl implements StrainApiService {
             logger.info("Did not fine any strain that fits preferences with similar positive");
             for (int i = 0; i < CountBits(medical); i++) {
                 logger.info("Search for similar medical strains that differ in: " + i + " number of effects");
-                for (StrainObject strain : strainsCollector.allStrains) {
-                    int medicalCand = strain.getMedical().intValue();
+                for (StrainsEntity strain : strainsEntities) {
+                    int medicalCand = strain.getMedical();
                     if ((CountBits(medicalCand ^ medical)) == i) {
                         // Add only if strain is not blacklisted
                         if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
-                            recommendedStrains.addStrain(strain);
+                            recommendedStrains.addStrain(strainEntityToStrainObject(strain));
                         }
                     }
                 }
@@ -259,9 +253,23 @@ public class StrainApiServiceImpl implements StrainApiService {
 
     @Override
     public List<StrainObject> getAllStrains() throws IOException {
-        return strainsCollector.allStrains;
+        List<StrainObject> allStrains = new ArrayList<>();
+        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
+        for (StrainsEntity strain : strainsEntities) {
+            allStrains.add(strainEntityToStrainObject(strain));
+        }
+        return allStrains;
     }
 
+    @Override
+    public Map<String, Integer> GetListOfStrains() {
+        Map<String, Integer> listOfStrains = new HashMap<>();
+        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
+        for (StrainsEntity strain : strainsEntities) {
+            listOfStrains.put(strain.getStrainName(), strain.getStrainId());
+        }
+        return listOfStrains;
+    }
 
     private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {
         UsageHistoryEntity usageHistoryEntity = new UsageHistoryEntity();
@@ -309,12 +317,25 @@ public class StrainApiServiceImpl implements StrainApiService {
         StringBuilder content = new StringBuilder();
         content.append("This is an email from Medicanna app.   ").append("\n");
         content.append("Description: ").append(userContent).append("\n");
-        for(UsageHistoryResponse usageHistoryResponse :usageHistoryEntityList ){
+        for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
             content.append(usageHistoryResponse.toString()).append("\r\n");
         }
         int emailResp = emailService.sendEmail(registeredUsersEntity.getUsername(), to, subject, content.toString());
         resp.setBody("Usage history exported to: " + to + " successfully");
         resp.setStatus(String.valueOf(emailResp));
         return resp;
+    }
+
+    StrainObject strainEntityToStrainObject(StrainsEntity strainsEntity) {
+        StrainObject strainObject = new StrainObject();
+        strainObject.setDescription(strainsEntity.getDescription());
+        strainObject.setName(strainsEntity.getStrainName());
+        strainObject.setId(strainsEntity.getStrainId());
+        strainObject.setMedical(new Long(strainsEntity.getMedical()));
+        strainObject.setPositive(new Long(strainsEntity.getPositive()));
+        strainObject.setNegative(new Long(strainsEntity.getNegative()));
+        strainObject.setRank(strainsEntity.getRank());
+        strainObject.setRace(strainsEntity.getRace());
+        return strainObject;
     }
 }
