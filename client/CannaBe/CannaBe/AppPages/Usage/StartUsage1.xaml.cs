@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace CannaBe.AppPages.Usage
 {
@@ -29,6 +30,9 @@ namespace CannaBe.AppPages.Usage
         {
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
             GetSuggestedRadio.IsChecked = true;
+
+            StrainList.AddHandler(KeyDownEvent, new KeyEventHandler(AutoSuggestBox_KeyDown), true);
+
             if (UsageContext.ChosenStrain != null) //went back to this page
             {
                 StrainChosen = StrainList.Text = UsageContext.ChosenStrain.Name;
@@ -224,6 +228,26 @@ namespace CannaBe.AppPages.Usage
         private void GoTosSuggested(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MyRecomendations));
+        }
+
+        private void AutoSuggestBox_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            //AppDebug.Line("AutoSuggestBox_KeyDown");
+            if (StrainChosen != null)
+            {
+                //AppDebug.Line($"StrainChosen = {StrainChosen}, StrainList.Text = {StrainList.Text}");
+                if (StrainChosen.ToLower().Equals(StrainList.Text.ToLower()))
+                {
+                    if(e.Key == Windows.System.VirtualKey.Enter)
+                    {
+                        StrainList.IsSuggestionListOpen = false;
+                        PagesUtilities.SleepSeconds(0.2);
+                        //AppDebug.Line($"Enter");
+
+                        SubmitString(null, null);
+                    }
+                }
+            }
         }
     }
 }
