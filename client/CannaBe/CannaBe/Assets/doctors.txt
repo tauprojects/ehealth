@@ -2,7 +2,7 @@ Abed-El-Karim_Abu-Snina Maccabi_Rehovot
 Roni_Edelshtein Meuhedet_Tveria
 Kfir_Eizler Rambam_Haifa
 Tair_Alon Rambam_Haifa
-Michael_Beilin Meuhedet_Rosh-Haayin
+Michael_Beilin Meuhedet_Rosh-Ha'ayin
 Gadi_Ben-Ari Maccabi_Ganei-Tikva
 Menahem_Ben-Shachar Legalil_Nahariya
 Kobi_Bar-Ilan Maccabi_Hertzliya
@@ -28,3 +28,13 @@ Rachel_Zlobinsky Meuhedet_Haifa
 Joslin_Zamir Maccabi-Afula
 Petra_Zakhaim Rambam-Haifa
 Moshe_Zer-Tzion Assuta_Tel-Aviv
+Claude_Hatav Meuhedet_Jerusalem
+Raphael_Heruti Reut_Tel-Aviv
+Vered_Hermosh Laniado_Netanya
+Tamar_Yashar Leumit_Tel-Aviv
+Keren_Cohen Sha'arei-Tzedek_Jerusalem
+Rena_Cohen Maccabi_Rosh-Ha'ayin
+Norman_Cohen Maccabi_Ra'anana
+Sraya_Cahanovitz Meuhedet_Hertzliya
+Ofer_Caspi Beilinson_Petach-Tikva
+Natalie_Katz Ma'ale-HaCarmel_Tirat-HaCarmel

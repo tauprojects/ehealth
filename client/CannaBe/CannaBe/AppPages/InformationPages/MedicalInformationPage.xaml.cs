@@ -228,14 +228,14 @@ namespace CannaBe.AppPages.InformationPages
             string data = "";
             int i = 1;
 
+            doctor_chosen.Text = medicalCenter;
             foreach (string key in doctors.Keys)
             {
                 doctors.TryGetValue(key, out data);
                 if (data.Contains(medicalCenter))
                 {
                     string[] data_split = data.Split('_');
-                    doctor_chosen.Text = medicalCenter + " (" + data_split[1] + "):";
-                    doctor_data.Text += i + ". " + key + "\n";
+                    doctor_data.Text += i + ". " + key + " loacted at " + data_split[1] + "\n";
                     i++;
                 }
             }
