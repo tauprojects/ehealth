@@ -2,7 +2,9 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +15,7 @@ namespace CannaBe.AppPages.RecomendationPages
 {
     public sealed partial class MyRecomendations : Page
     {
+
         public MyRecomendations()
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace CannaBe.AppPages.RecomendationPages
                 Message.Text = "Searching for matching strains based on your profile...";
 
                 var user_id = GlobalContext.CurrentUser.Data.UserID;
-                var url = Constants.MakeUrl($"/strains/recommended/{user_id}/");
+                var url = Constants.MakeUrl($"strains/recommended/{user_id}/");
 
                 try
                 {
@@ -38,7 +41,7 @@ namespace CannaBe.AppPages.RecomendationPages
                         return;
                     }
 
-                    PagesUtilities.SleepSeconds(1);
+                    PagesUtilities.SleepSeconds(0.2);
 
                     var strains = await Task.Run(async () => JsonConvert.DeserializeObject<SuggestedStrains>(await res.Content.ReadAsStringAsync()));
 
@@ -84,8 +87,13 @@ namespace CannaBe.AppPages.RecomendationPages
                             });
                         }
 
+                        var names = $"[{string.Join(", ", from u in strains.suggestedStrains select $"{u.Name}")}]";
+                        AppDebug.Line($"Status={strains.status} Got {strains.suggestedStrains.Count} strains: {names}");
+
                         foreach (var strain in strains.suggestedStrains)
                         {
+                            //AppDebug.Line($"{strain.Name}, {strains.suggestedStrains.IndexOf(strain)}");
+
                             string percent = strains.status != 0 ? string.Format(" ({0:0}% match)", strain.MatchingPercent) : "";
                             var r = new RadioButton()
                             {
@@ -97,20 +105,13 @@ namespace CannaBe.AppPages.RecomendationPages
                                 DataContext = strain
                             };
 
-                            /*
-                            var t = new ToolTip()
-                            {
-                                Content = "check"
-                            };
-                            ToolTipService.SetToolTip(r, t);
-                            */
                             r.Checked += OnChecked;
                             StrainList.Children.Add(r);
 
                         }
                         StrainList.Children.Add(new Rectangle()
                         {
-                            Height = 20
+                            Height = 100
                         });
                         //StrainList.Height = Scroller.ActualHeight;
                     }
@@ -118,6 +119,7 @@ namespace CannaBe.AppPages.RecomendationPages
                 catch (Exception x)
                 {
                     AppDebug.Exception(x, "OnPageLoaded");
+                    await new MessageDialog("Error while getting suggestions from the server", "Error").ShowAsync();
                 }
 
                 progressRing.IsActive = false;

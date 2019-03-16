@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace CannaBe
@@ -37,13 +38,29 @@ namespace CannaBe
         private void OnPageLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             LocalHostDebug.IsChecked = Constants.IsLocalHost;
+            Application.Current.Suspending += AppExitHandler;
         }
+
+        private void AppExitHandler(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
+        {
+            var deferral = e.SuspendingOperation.GetDeferral();
+            AppDebug.Line("Exiting app!");
+            deferral.Complete();
+        }
+
         private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
+            e.Handled = true;
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 GoToLoginPage(null, null);
             }
+        }
+
+        private void ExitApp(object sender, TappedRoutedEventArgs e)
+        {
+            AppDebug.Line("Exiting app!");
+            Application.Current.Exit();
         }
     }
 }

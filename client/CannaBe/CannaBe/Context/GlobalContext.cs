@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Navigation;
 
@@ -29,10 +30,14 @@ namespace CannaBe
         {
             if (CurrentUser.UsageSessions.Count == 0)
             {
+                AppDebug.Line("Updating usage history from server for user " + CurrentUser.Data.Username);
                 var usages = Task.Run(() => GetUsagesFromServer()).GetAwaiter().GetResult();
                 if (usages != null)
                 {
                     CurrentUser.UsageSessions = usages;
+                    var names = $"[{string.Join(", ", from u in usages select $"{u.UsageStrain.Name}-{u.StartTime.ToString("dd.MM.yy-HH:mm")}")}]";
+                    AppDebug.Line($"Got {usages.Count} usages: {names}");
+
                 }
             }
         }

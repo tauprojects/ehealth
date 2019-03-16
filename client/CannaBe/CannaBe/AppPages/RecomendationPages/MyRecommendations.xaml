@@ -21,7 +21,7 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="48" Width="321" FontSize="35" Margin="0,20,0,0"/>
 
-        <StackPanel Margin="10,82,10,80" x:Name="Stack">
+        <StackPanel Margin="10,82,10,80" x:Name="Stack" Height="380">
         <TextBlock Foreground="Black" x:Name="Message" FontSize="18" TextWrapping="Wrap"
                    Text="No exact matches found! Try updating your positive and medical preferences. Showing 5 partially matching strains:"
                    VerticalAlignment="Top"  HorizontalAlignment="Stretch"/>
