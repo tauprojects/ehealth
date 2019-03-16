@@ -54,25 +54,6 @@ public class StrainApiServiceImpl implements StrainApiService {
     }
 
     @Override
-    public StrainObject getStrainByName(String strainName) {
-        StrainsEntity strainsEntity = allStrainsRepository.findByStrainName(strainName);
-        if (strainsEntity == null) {
-            throw new BadRequestException();
-        }
-        return strainEntityToStrainObject(strainsEntity);
-    }
-
-    @Override
-    public StrainObject getStrainById(Integer strainId) {
-        StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(strainId);
-        if (strainsEntity == null) {
-            throw new BadRequestException();
-        }
-        return strainEntityToStrainObject(strainsEntity);
-    }
-
-
-    @Override
     public RegisteredUserData authenticate(LoginRequest loginRequest) {
         BaseResponse resp;
         String user = loginRequest.getUsername().toLowerCase();
@@ -90,7 +71,6 @@ public class StrainApiServiceImpl implements StrainApiService {
         // return registered user data
         return createUserDataResponseFromEntity(registeredUsersEntity);
     }
-
 
     @Override
     public RegisteredUserData register(RegisterRequest registerRequest) {
@@ -142,13 +122,42 @@ public class StrainApiServiceImpl implements StrainApiService {
         throw new BadRegisterRequestException();
     }
 
-    private static int CountBits(int num) {
-        int tmpNum = num, count = 0;
-        while (tmpNum > 0) {
-            count += tmpNum & 1;
-            tmpNum >>= 1;
+    @Override
+    public StrainObject getStrainByName(String strainName) {
+        StrainsEntity strainsEntity = allStrainsRepository.findByStrainName(strainName);
+        if (strainsEntity == null) {
+            throw new BadRequestException();
         }
-        return count;
+        return strainEntityToStrainObject(strainsEntity);
+    }
+
+    @Override
+    public StrainObject getStrainById(Integer strainId) {
+        StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(strainId);
+        if (strainsEntity == null) {
+            throw new BadRequestException();
+        }
+        return strainEntityToStrainObject(strainsEntity);
+    }
+
+    @Override
+    public List<StrainObject> getAllStrains() throws IOException {
+        List<StrainObject> allStrains = new ArrayList<>();
+        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
+        for (StrainsEntity strain : strainsEntities) {
+            allStrains.add(strainEntityToStrainObject(strain));
+        }
+        return allStrains;
+    }
+
+    @Override
+    public Map<String, Integer> GetListOfStrains() {
+        Map<String, Integer> listOfStrains = new HashMap<>();
+        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
+        for (StrainsEntity strain : strainsEntities) {
+            listOfStrains.put(strain.getStrainName(), strain.getStrainId());
+        }
+        return listOfStrains;
     }
 
     @Override
@@ -156,6 +165,19 @@ public class StrainApiServiceImpl implements StrainApiService {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
         int medical = registeredUsersEntity.getMedical();
         int positive = registeredUsersEntity.getPositive();
+        SuggestedStrains suggestedStrains = getStrainsByEffects(medical, positive);
+        List<StrainObject> listOfSuggestedStrains = suggestedStrains.getSuggestedStrains();
+
+        // Filter blacklisted strains
+        for (int i = 0; i < listOfSuggestedStrains.size(); i++)
+            if (!registeredUsersEntity.getBlacklist().contains(listOfSuggestedStrains.get(i).getId())) {
+                listOfSuggestedStrains.remove(i);
+            }
+        return suggestedStrains;
+    }
+
+
+    private SuggestedStrains getStrainsByEffects(int medical, int positive) {
         SuggestedStrains recommendedStrains = new SuggestedStrains();
 
         // Check for strains that fit exact medical and positive effects
@@ -165,10 +187,7 @@ public class StrainApiServiceImpl implements StrainApiService {
             int medicalCand = strain.getMedical();
             int positiveCand = strain.getPositive();
             if ((medicalCand & medical) == medical && (positiveCand & positive) == positive) {
-                // Add only if strain is not blacklisted
-                if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
-                    recommendedStrains.addStrain(strainEntityToStrainObject(strain));
-                }
+                recommendedStrains.addStrain(strainEntityToStrainObject(strain));
             }
         }
         // Check for strains that fit exact medical effects
@@ -182,10 +201,7 @@ public class StrainApiServiceImpl implements StrainApiService {
                     int positiveCand = strain.getPositive();
                     if ((medicalCand & medical) == medical &&
                             (CountBits(positiveCand ^ positive)) == i) {
-                        // Add only if strain is not blacklisted
-                        if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
-                            recommendedStrains.addStrain(strainEntityToStrainObject(strain));
-                        }
+                        recommendedStrains.addStrain(strainEntityToStrainObject(strain));
                     }
                 }
                 if (recommendedStrains.getSuggestedStrains().size() > 0) {
@@ -202,10 +218,7 @@ public class StrainApiServiceImpl implements StrainApiService {
                 for (StrainsEntity strain : strainsEntities) {
                     int medicalCand = strain.getMedical();
                     if ((CountBits(medicalCand ^ medical)) == i) {
-                        // Add only if strain is not blacklisted
-                        if (!registeredUsersEntity.getBlacklist().contains(strain.getId())) {
-                            recommendedStrains.addStrain(strainEntityToStrainObject(strain));
-                        }
+                        recommendedStrains.addStrain(strainEntityToStrainObject(strain));
                     }
                 }
                 if (recommendedStrains.getSuggestedStrains().size() > 0) {
@@ -215,8 +228,8 @@ public class StrainApiServiceImpl implements StrainApiService {
             }
         }
         return recommendedStrains;
-    }
 
+    }
 
     @Override
     public void saveUsageHistoryForUser(UsageHistory usageHistory) {
@@ -267,23 +280,24 @@ public class StrainApiServiceImpl implements StrainApiService {
     }
 
     @Override
-    public List<StrainObject> getAllStrains() throws IOException {
-        List<StrainObject> allStrains = new ArrayList<>();
-        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
-        for (StrainsEntity strain : strainsEntities) {
-            allStrains.add(strainEntityToStrainObject(strain));
+    public BaseResponse exportToEmail(String userId, String to, String userContent) throws IOException {
+        BaseResponse resp = new BaseResponse();
+        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
+        if (registeredUsersEntity == null) {
+            throw new BadRequestException();
         }
-        return allStrains;
-    }
-
-    @Override
-    public Map<String, Integer> GetListOfStrains() {
-        Map<String, Integer> listOfStrains = new HashMap<>();
-        List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
-        for (StrainsEntity strain : strainsEntities) {
-            listOfStrains.put(strain.getStrainName(), strain.getStrainId());
+        List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
+        String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
+        StringBuilder content = new StringBuilder();
+        content.append("This is an email from Medicanna app.   ").append("\n");
+        content.append("Description: ").append(userContent).append("\n");
+        for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
+            content.append(usageHistoryResponse.toString()).append("\r\n");
         }
-        return listOfStrains;
+        int emailResp = emailService.sendEmail(registeredUsersEntity.getUsername(), to, subject, content.toString());
+        resp.setBody("Usage history exported to: " + to + " successfully");
+        resp.setStatus(String.valueOf(emailResp));
+        return resp;
     }
 
     private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {
@@ -320,28 +334,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         );
     }
 
-    @Override
-    public BaseResponse exportToEmail(String userId, String to, String userContent) throws IOException {
-        BaseResponse resp = new BaseResponse();
-        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
-        if (registeredUsersEntity == null) {
-            throw new BadRequestException();
-        }
-        List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
-        String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
-        StringBuilder content = new StringBuilder();
-        content.append("This is an email from Medicanna app.   ").append("\n");
-        content.append("Description: ").append(userContent).append("\n");
-        for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
-            content.append(usageHistoryResponse.toString()).append("\r\n");
-        }
-        int emailResp = emailService.sendEmail(registeredUsersEntity.getUsername(), to, subject, content.toString());
-        resp.setBody("Usage history exported to: " + to + " successfully");
-        resp.setStatus(String.valueOf(emailResp));
-        return resp;
-    }
-
-    StrainObject strainEntityToStrainObject(StrainsEntity strainsEntity) {
+    private StrainObject strainEntityToStrainObject(StrainsEntity strainsEntity) {
         StrainObject strainObject = new StrainObject();
         strainObject.setDescription(strainsEntity.getDescription());
         strainObject.setName(strainsEntity.getStrainName());
@@ -352,5 +345,14 @@ public class StrainApiServiceImpl implements StrainApiService {
         strainObject.setRank(strainsEntity.getRank());
         strainObject.setRace(strainsEntity.getRace());
         return strainObject;
+    }
+
+    private static int CountBits(int num) {
+        int tmpNum = num, count = 0;
+        while (tmpNum > 0) {
+            count += tmpNum & 1;
+            tmpNum >>= 1;
+        }
+        return count;
     }
 }
