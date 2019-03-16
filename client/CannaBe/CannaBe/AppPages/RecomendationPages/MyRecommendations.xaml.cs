@@ -191,13 +191,8 @@ namespace CannaBe.AppPages.RecomendationPages
             }
         }
 
-        private async void RadioChecked(object sender, RoutedEventArgs e)
+        private void RadioChecked(object sender, RoutedEventArgs e)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                progressRing.IsActive = true;
-            });
-
             var b = sender as RadioButton;
             switch (b.Tag)
             {
@@ -233,10 +228,6 @@ namespace CannaBe.AppPages.RecomendationPages
                     FillStrainList(countSortedStrains);
                     break;
             }
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                progressRing.IsActive = false;
-            });
         }
     }
 }
