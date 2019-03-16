@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
 using Windows.System;
+using CannaBe.AppPages.InformationPages;
 
 namespace CannaBe.AppPages
 {
@@ -70,7 +71,7 @@ namespace CannaBe.AppPages
 
             if (StrainName.Text != "")
             {
-                var url = Constants.MakeUrl("strain/" + StrainName.Text);
+                var url = Constants.MakeUrl("strain/name/" + StrainName.Text);
                 try
                 {
                     var res = HttpManager.Manager.Get(url);
@@ -79,9 +80,7 @@ namespace CannaBe.AppPages
                         return;
 
                     var str = await res.Result.Content.ReadAsStringAsync();
-
-                    AppDebug.Line(str);
-                    await new MessageDialog(str, "Search Strain").ShowAsync();
+                    Frame.Navigate(typeof(StrainSearchResults), str);
                 }
                 catch (Exception ex)
                 {
