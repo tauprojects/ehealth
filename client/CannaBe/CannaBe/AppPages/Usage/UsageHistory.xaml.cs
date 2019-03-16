@@ -17,7 +17,7 @@ namespace CannaBe.AppPages.Usage
             this.InitializeComponent();
         }
 
-        private async void OnPageLoadedAsync(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             progressRing.IsActive = true;
 
