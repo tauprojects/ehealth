@@ -303,13 +303,16 @@ public class StrainApiServiceImpl implements StrainApiService {
         }
         List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
         String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
-        StringBuilder content = new StringBuilder();
-        content.append("This is an email from Medicanna app.   ").append("\n");
-        content.append("Description: ").append(userContent).append("\n");
+        StringBuilder usageHistoryContent = new StringBuilder();
         for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
-            content.append(usageHistoryResponse.toString()).append("\r\n");
+            usageHistoryContent.append(usageHistoryResponse.toString());
         }
-        int emailResp = emailService.sendEmail(registeredUsersEntity.getUsername(), to, subject, content.toString());
+        int emailResp = emailService.sendEmail(
+                registeredUsersEntity.getUsername(),
+                registeredUsersEntity.getEmail(),
+                to, subject,
+                usageHistoryContent.toString(),
+                userContent);
         resp.setBody("Usage history exported to: " + to + " successfully");
         resp.setStatus(String.valueOf(emailResp));
         return resp;

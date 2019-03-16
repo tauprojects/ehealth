@@ -20,7 +20,6 @@ import java.util.Map;
 public class BaseController {
     // Strain collect at start - not as bean
     // Mail on usage
-    // Rank by others
     // Email beautification
 
     private StrainApiServiceImpl mainServiceImpl;
@@ -127,8 +126,8 @@ public class BaseController {
      * @return List<UsageHistoryResponse>
      */
     @RequestMapping(value = "/usage/{user-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<UsageHistoryResponse> saveUserUsageHistory(@PathVariable("user-id") String userId) {
-        logger.info("POST Usage history for user-id: " + userId);
+    public List<UsageHistoryResponse> getUserUsageHistory(@PathVariable("user-id") String userId) {
+        logger.info("GET Usage history for user-id: " + userId);
         return mainServiceImpl.getUsageHistoryForUser(userId);
     }
 
