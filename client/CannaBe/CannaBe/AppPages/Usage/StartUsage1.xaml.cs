@@ -18,9 +18,10 @@ namespace CannaBe.AppPages.Usage
     {
         Dictionary<string,string> StrainsDict = null;
 
-        List<string> strainNames = null;
+        List<string> StrainsNamesList = null;
         private static readonly string NoResult = "No Result";
         string StrainChosen = null;
+        private volatile bool isStrainListFull = false;
 
         public StartUsage()
         {
@@ -42,7 +43,7 @@ namespace CannaBe.AppPages.Usage
 
         private async void LoadStrainList(object sender, object e)
         {
-            if(strainNames == null)
+            if(StrainsNamesList == null)
             {
                 progressRing.IsActive = true;
                 await Task.Run(async () =>
@@ -58,12 +59,13 @@ namespace CannaBe.AppPages.Usage
                             throw new Exception("Get operation failed, response is null");
                         }
 
-                        var strains = HttpManager.ParseJson<Dictionary<string, string>>(res);
+                        StrainsDict = HttpManager.ParseJson<Dictionary<string, string>>(res);
 
-                        strainNames = strains.Keys.ToList();
-                        strainNames.Sort();
+                        StrainsNamesList = StrainsDict.Keys.ToList();
+                        StrainsNamesList.Sort();
+                        isStrainListFull = true;
 
-                        AppDebug.Line($"loaded {strainNames.Count} strains");
+                        AppDebug.Line($"loaded {StrainsNamesList.Count} strains");
 
                     }
                     catch (Exception exc)
@@ -84,6 +86,9 @@ namespace CannaBe.AppPages.Usage
 
         private void StrainList_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
+            if (isStrainListFull == false)
+                return;
+
             // Only get results when it was a user typing,
             // otherwise assume the value got filled in by TextMemberPath
             // or the handler for SuggestionChosen.
@@ -92,7 +97,7 @@ namespace CannaBe.AppPages.Usage
                 //Set the ItemsSource to be your filtered dataset
                 //sender.ItemsSource = dataset;
 
-                var lst = strainNames.Where(item => item.ToLower().Contains(sender.Text.ToLower())).ToList();
+                var lst = StrainsNamesList.Where(item => item.ToLower().Contains(sender.Text.ToLower())).ToList();
                 if(lst.Count() == 0)
                 {
                     lst.Add(NoResult);
@@ -104,6 +109,9 @@ namespace CannaBe.AppPages.Usage
 
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
+            if (isStrainListFull == false)
+                return;
+
             var item = args.SelectedItem.ToString();
 
             if (item != NoResult)
@@ -120,6 +128,9 @@ namespace CannaBe.AppPages.Usage
 
         private void AutoSuggestBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
+            if (isStrainListFull == false)
+                return;
+
             var item = args.ChosenSuggestion;
 
             if (item!=null)
@@ -159,16 +170,15 @@ namespace CannaBe.AppPages.Usage
                     Scroller.ChangeView(null, 0, null); //scroll to top
                     Scroller.Visibility = Visibility.Visible;
                     StrainProperties.Visibility = Visibility.Visible;
-                    StrainList.IsEnabled = true;
-                    SubmitButton.IsEnabled = true;
-                    progressRing.IsActive = false;
-
                 }
             }
             catch (Exception ex)
             {
                 AppDebug.Exception(ex, "SubmitString");
             }
+            StrainList.IsEnabled = true;
+            SubmitButton.IsEnabled = true;
+            progressRing.IsActive = false;
         }
 
         private async Task SubmitStringTask()
@@ -187,19 +197,20 @@ namespace CannaBe.AppPages.Usage
                         var strainId = StrainsDict[StrainChosen];
                         AppDebug.Line($"Strain: [{StrainChosen}], ID: {strainId}");
 
-                        var res = await HttpManager.Manager.Get("http://strainapi.evanbusse.com/M076LdW/strains/data/effects/" + strainId);
+                        var res = await HttpManager.Manager.Get(Constants.MakeUrl("/strain/id/" + strainId));
 
                         if (res == null)
                             return;
 
-                        var values = HttpManager.ParseJson<Dictionary<string, string[]>>(res);
+                        UsageContext.ChosenStrain = HttpManager.ParseJson<Strain>(res);
 
+                        /*
                         UsageContext.ChosenStrain = new Strain(StrainChosen, int.Parse(strainId))
                         {
                             BitmapMedicalNeeds = MedicalEnumMethods.BitmapFromStringList(values["medical"].ToList()),
                             BitmapPositivePreferences = PositivePreferencesEnumMethods.BitmapFromStringList(values["positive"].ToList()),
                             BitmapNegativePreferences = NegativePreferencesEnumMethods.BitmapFromStringList(values["negative"].ToList())
-                        };
+                        };*/
 
 
                         AppDebug.Line("Finished submit");
@@ -247,20 +258,24 @@ namespace CannaBe.AppPages.Usage
 
         private void AutoSuggestBox_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
         {
-            //AppDebug.Line("AutoSuggestBox_KeyDown");
+            if (isStrainListFull == false)
+                return;
+
             if (StrainChosen != null)
             {
-                //AppDebug.Line($"StrainChosen = {StrainChosen}, StrainList.Text = {StrainList.Text}");
                 if (StrainChosen.ToLower().Equals(StrainList.Text.ToLower()))
                 {
                     if(e.Key == Windows.System.VirtualKey.Enter)
                     {
                         StrainList.IsSuggestionListOpen = false;
                         PagesUtilities.SleepSeconds(0.2);
-                        //AppDebug.Line($"Enter");
 
                         SubmitString(null, null);
                     }
+                }
+                else
+                {
+                    UsageContext.ChosenStrain = null;
                 }
             }
         }

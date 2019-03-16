@@ -7,6 +7,7 @@ using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Shapes;
 
 namespace CannaBe.AppPages.RecomendationPages
 {
@@ -95,6 +96,7 @@ namespace CannaBe.AppPages.RecomendationPages
                                 Content = $"{i++}. {strain.Name}{percent}",
                                 DataContext = strain
                             };
+
                             /*
                             var t = new ToolTip()
                             {
@@ -104,7 +106,13 @@ namespace CannaBe.AppPages.RecomendationPages
                             */
                             r.Checked += OnChecked;
                             StrainList.Children.Add(r);
+
                         }
+                        StrainList.Children.Add(new Rectangle()
+                        {
+                            Height = 20
+                        });
+                        //StrainList.Height = Scroller.ActualHeight;
                     }
                 }
                 catch (Exception x)
