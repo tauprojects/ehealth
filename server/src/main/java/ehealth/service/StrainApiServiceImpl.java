@@ -171,8 +171,9 @@ public class StrainApiServiceImpl implements StrainApiService {
         List<StrainObject> listOfSuggestedStrains = suggestedStrains.getSuggestedStrains();
 
         // Filter blacklisted strains
-        for (int i = 0; i < listOfSuggestedStrains.size(); i++)
-            if (!registeredUsersEntity.getBlacklist().contains(listOfSuggestedStrains.get(i).getId())) {
+        int numberOfSuggested = listOfSuggestedStrains.size();
+        for (int i = 0; i <numberOfSuggested; i++)
+            if (registeredUsersEntity.getBlacklist().contains(listOfSuggestedStrains.get(i).getId())) {
                 listOfSuggestedStrains.remove(i);
             }
         return suggestedStrains;
