@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Timestamp;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -50,6 +52,5 @@ public class UsageHistory {
 
     @JsonProperty("is_blacklist")
     private Integer isBlacklist;
-
 
 }
