@@ -144,6 +144,9 @@
     <Compile Include="AppPages\InformationPages\OrganizationInformationPage.xaml.cs">
       <DependentUpon>OrganizationInformationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\InformationPages\StrainSearchResults.xaml.cs">
+      <DependentUpon>StrainSearchResults.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPages\PostTreatmentPages\PostTreatment2.xaml.cs">
       <DependentUpon>PostTreatment2.xaml</DependentUpon>
     </Compile>
@@ -281,6 +284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AppPages\InformationPages\StrainInformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\InformationPages\StrainSearchResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
