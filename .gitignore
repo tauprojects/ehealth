@@ -26,3 +26,4 @@ server/out/*
 .idea/*
 server/gradle/wrapper/gradle-wrapper.properties
 
+/photos/~$Medicanna-Presntation.pptx
