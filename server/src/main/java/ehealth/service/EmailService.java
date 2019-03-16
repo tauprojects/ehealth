@@ -34,7 +34,7 @@ public class EmailService {
             "<h3> This is a email from Medicanna app</h3>\n" +
             "<p>Client message: {{userContent}}.</p>\n" +
             "<p>----------------------------------------------------------------------</p>\n" +
-            "<p>This email contains medical usage history of {{from}}.</p>\n" +
+            "<p>This email contains medical usage history of {{username}}.</p>\n" +
             "<br>\n" +
             "{{usageData}}\n" +
             "<p>Regards,</p>\n" +
@@ -54,11 +54,13 @@ public class EmailService {
     }
 
     public int sendEmail(String username, String userEmailAddress, String toAddress, String subject,String usageHistory, String userContent) throws IOException {
-        Email from = new Email(userEmailAddress);
+        Email from = new Email("usage-service@medicannaApp.com");
         Email to = new Email(toAddress);
+        Email replyTo = new Email(userEmailAddress);
         String emailContent = renderContent(username,toAddress,usageHistory, userContent);
         Content content = new Content(contentTypeHtml, emailContent);
         Mail mail = new Mail(from, subject, to, content);
+        mail.setReplyTo(replyTo);
         return sendEmail(mail);
     }
 

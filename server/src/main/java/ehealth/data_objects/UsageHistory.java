@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UsageHistory {
 
     @JsonProperty("user_id")
@@ -52,19 +53,4 @@ public class UsageHistory {
     @JsonProperty("is_blacklist")
     private Integer isBlacklist;
 
-    @Override
-    public String toString() {
-        return  "<br> --------------------------------------------- " + "</br>" +
-                "<br> USAGE HISTORY FOR STRAIN " + strainName +  "</br>" +
-                "<br> Started at: " + new Timestamp(startTime).toString() +  "</br>"  +
-                "<br> Ended at time: " + new Timestamp(endTime).toString()+  "</br>"  +
-                "<br> Medical user rank: " + medicalRank +  "</br>"  +
-                "<br> Positive user rank: " + positiveRank +  "</br>"  +
-                "<br> Overall user rank: " + overallRank +  "</br>"  +
-                "<br> Heartbeat highest value: " + heartbeatHigh +  "</br>"  +
-                "<br> Heartbeat lowest value: " + heartbeatLow +  "</br>"  +
-                "<br> Heartbeat average value: " + heartbeatAvg +  "</br>"  +
-                "<br> Questions log: '" + questionsAnswersDictionary +  "</br>"  +
-                "<br> --------------------------------------------- " + "</br>";
-    }
 }

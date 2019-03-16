@@ -1,5 +1,6 @@
 package ehealth.service;
 
+import com.google.gson.Gson;
 import ehealth.client.StrainServicesInterface;
 import ehealth.client.data_objects.StrainObject;
 import ehealth.client.data_objects.SuggestedStrains;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -172,7 +174,7 @@ public class StrainApiServiceImpl implements StrainApiService {
 
         // Filter blacklisted strains
         int numberOfSuggested = listOfSuggestedStrains.size();
-        for (int i = 0; i <numberOfSuggested; i++)
+        for (int i = 0; i < numberOfSuggested; i++)
             if (registeredUsersEntity.getBlacklist().contains(listOfSuggestedStrains.get(i).getId())) {
                 listOfSuggestedStrains.remove(i);
             }
@@ -262,13 +264,37 @@ public class StrainApiServiceImpl implements StrainApiService {
         // Update strain rank
         StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(usageHistory.getStrainId());
         Integer numOfUsages = strainsEntity.getNumberOfUsages();
-        if(numOfUsages==null){
-            numOfUsages=0;
+        if (numOfUsages == null) {
+            numOfUsages = 0;
         }
         double rank = strainsEntity.getRank();
         strainsEntity.setRank(prepareRankValue((numOfUsages * rank + usageHistory.getOverallRank()) / (numOfUsages + 1)));
         strainsEntity.setNumberOfUsages(numOfUsages + 1);
         allStrainsRepository.save(strainsEntity);
+    }
+
+    @Override
+    public BaseResponse exportToEmail(String userId, String to, String userContent) throws IOException {
+        BaseResponse resp = new BaseResponse();
+        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
+        if (registeredUsersEntity == null) {
+            throw new BadRequestException();
+        }
+        List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
+        String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
+        StringBuilder usageHistoryContent = new StringBuilder();
+        for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
+            usageHistoryContent.append(printUsageAsHtml(usageHistoryResponse));
+        }
+        int emailResp = emailService.sendEmail(
+                registeredUsersEntity.getUsername(),
+                registeredUsersEntity.getEmail(),
+                to, subject,
+                usageHistoryContent.toString(),
+                userContent);
+        resp.setBody("Usage history exported to: " + to + " successfully");
+        resp.setStatus(String.valueOf(emailResp));
+        return resp;
     }
 
     @Override
@@ -294,28 +320,39 @@ public class StrainApiServiceImpl implements StrainApiService {
         return usageHistoryResponseList;
     }
 
-    @Override
-    public BaseResponse exportToEmail(String userId, String to, String userContent) throws IOException {
-        BaseResponse resp = new BaseResponse();
-        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
-        if (registeredUsersEntity == null) {
-            throw new BadRequestException();
+    private String printUsageAsHtml(UsageHistoryResponse usageHistoryResponse) {
+        String usageResponseMessage = "";
+        usageResponseMessage +=
+                        "<br> Usage History For Strain: " + usageHistoryResponse.getStrainName() + "" +
+                        "<br> Started At: " + new Timestamp(usageHistoryResponse.getStartTime()).toString() +
+                        "<br> Ended At: " + new Timestamp(usageHistoryResponse.getEndTime()).toString() +
+                        "<li> Medical user rank: " + usageHistoryResponse.getMedicalRank() + "</li>" +
+                        "<li> Positive user rank: " + usageHistoryResponse.getPositiveRank() + "</li>" +
+                        "<li> Overall user rank: " + usageHistoryResponse.getOverallRank() + "</li>";
+        if (usageHistoryResponse.getHeartbeatAvg() > 0) {
+            usageResponseMessage +=
+                    "<li> Was band use ?: " + "Yes" + "" +
+                            "<li> Heartbeat highest value: " + usageHistoryResponse.getHeartbeatHigh() + "</li>" +
+                            "<li> Heartbeat lowest value: " + usageHistoryResponse.getHeartbeatLow() + "</li>" +
+                            "<li> Heartbeat average value: " + usageHistoryResponse.getHeartbeatAvg() + "</li>";
+        } else {
+            usageResponseMessage += "<li> Was band used ? " + "No" + "</li>";
         }
-        List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
-        String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
-        StringBuilder usageHistoryContent = new StringBuilder();
-        for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
-            usageHistoryContent.append(usageHistoryResponse.toString());
+        usageResponseMessage += "<br>User Feedback: ";
+        usageResponseMessage += printJsonAsHtml(usageHistoryResponse.getQuestionsAnswersDictionary());
+        usageResponseMessage += "<br>______________________________________________________________________________";
+
+        return usageResponseMessage;
+
+    }
+
+    private String printJsonAsHtml(String data) {
+        String questionsHtml = "";
+        Map<String, String> result = new Gson().fromJson(data, Map.class);
+        for (Map.Entry<String, String> entry : result.entrySet()) {
+            questionsHtml += "<li>  " + entry.getKey() + "     " + entry.getValue() + "</li>";
         }
-        int emailResp = emailService.sendEmail(
-                registeredUsersEntity.getUsername(),
-                registeredUsersEntity.getEmail(),
-                to, subject,
-                usageHistoryContent.toString(),
-                userContent);
-        resp.setBody("Usage history exported to: " + to + " successfully");
-        resp.setStatus(String.valueOf(emailResp));
-        return resp;
+        return questionsHtml;
     }
 
     private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {
@@ -362,7 +399,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         strainObject.setNegative(new Long(strainsEntity.getNegative()));
         strainObject.setRace(strainsEntity.getRace());
         strainObject.setRank(strainsEntity.getRank());
-        strainObject.setNumberOfUsages((strainsEntity.getNumberOfUsages() == null) ? 0 :strainsEntity.getNumberOfUsages());
+        strainObject.setNumberOfUsages((strainsEntity.getNumberOfUsages() == null) ? 0 : strainsEntity.getNumberOfUsages());
         return strainObject;
     }
 
@@ -374,7 +411,8 @@ public class StrainApiServiceImpl implements StrainApiService {
         }
         return count;
     }
-        private double prepareRankValue(double value) {
+
+    private double prepareRankValue(double value) {
         // Format value to three decimal places
         DecimalFormat df = new DecimalFormat("#.#");
         // Return formatted value multiplied vy 100 to get percentage format value
