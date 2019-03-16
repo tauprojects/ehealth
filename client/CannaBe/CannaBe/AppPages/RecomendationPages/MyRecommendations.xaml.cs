@@ -43,76 +43,55 @@ namespace CannaBe.AppPages.RecomendationPages
 
                     PagesUtilities.SleepSeconds(0.2);
 
-                    var strains = await Task.Run(async () => JsonConvert.DeserializeObject<SuggestedStrains>(await res.Content.ReadAsStringAsync()));
+                    var strains = await Task.Run(() => HttpManager.ParseJson<SuggestedStrains>(res));
 
 
-                    int i = 1;
-                    if (strains.suggestedStrains.Count == 0)
+
+                    if (strains.SuggestedStrainList.Count == 0)
                     {
                         ErrorNoStrainFound.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        switch (strains.status)
+                        switch (strains.Status)
                         {
                             case 0:
-                                Message.Text = $"Showing {strains.suggestedStrains.Count} matching strains:";
+                                Message.Text = $"Showing {strains.SuggestedStrainList.Count} matching strains:";
                                 break;
 
                             case 1:
-                                Message.Text = $"No exact matches found!\nTry updating your positive preferences.\nShowing {strains.suggestedStrains.Count} partially matching strains:";
+                                Message.Text = $"No exact matches found!\nTry updating your positive preferences.\nShowing {strains.SuggestedStrainList.Count} partially matching strains:";
                                 break;
 
                             case 2:
-                                Message.Text = $"No exact matches found!\nTry updating your positive and medical preferences.\nShowing {strains.suggestedStrains.Count} partially matching strains:";
+                                Message.Text = $"No exact matches found!\nTry updating your positive and medical preferences.\nShowing {strains.SuggestedStrainList.Count} partially matching strains:";
                                 break;
                         }
                         Scroller.Height = Stack.ActualHeight - Message.ActualHeight;
 
-                        if (strains.status != 0)
+                        if (strains.Status != 0)
                         {
-                            foreach (var strain in strains.suggestedStrains)
+                            foreach (var strain in strains.SuggestedStrainList)
                             {
                                 strain.MatchingPercent = strain / GlobalContext.CurrentUser;
                             }
 
-                            strains.suggestedStrains.Sort((s1, s2) =>
-                            {
-                                var r = -1 * s1.MatchingPercent.CompareTo(s2.MatchingPercent);
-                                if (r == 0)
-                                {
-                                    r = s1.Name.CompareTo(s2.Name);
-                                }
-                                return r;
-                            });
+                            strains.SuggestedStrainList.Sort(Strain.MatchComparison);
                         }
 
-                        var names = $"[{string.Join(", ", from u in strains.suggestedStrains select $"{u.Name}")}]";
-                        AppDebug.Line($"Status={strains.status} Got {strains.suggestedStrains.Count} strains: {names}");
+                        var names = $"[{string.Join(", ", from u in strains.SuggestedStrainList select $"{u.Name}")}]";
+                        AppDebug.Line($"Status={strains.Status} Got {strains.SuggestedStrainList.Count} strains: {names}");
 
-                        foreach (var strain in strains.suggestedStrains)
+                        FillStrainList(strains);
+
+                        foreach (var child in ButtonsGrid.Children)
                         {
-                            //AppDebug.Line($"{strain.Name}, {strains.suggestedStrains.IndexOf(strain)}");
-
-                            string percent = strains.status != 0 ? string.Format(" ({0:0}% match)", strain.MatchingPercent) : "";
-                            var r = new RadioButton()
+                            if (child.GetType() == typeof(Viewbox))
                             {
-                                Foreground = new SolidColorBrush(Windows.UI.Colors.Black),
-                                FontSize = 15,
-                                VerticalContentAlignment = VerticalAlignment.Top,
-                                FontWeight = FontWeights.Bold,
-                                Content = $"{i++}. {strain.Name}{percent}",
-                                DataContext = strain
-                            };
-
-                            r.Checked += OnChecked;
-                            StrainList.Children.Add(r);
-
+                                ((child as Viewbox).Child as RadioButton).IsEnabled = true;
+                            }
                         }
-                        StrainList.Children.Add(new Rectangle()
-                        {
-                            Height = 100
-                        });
+                        ButtonsGrid.Opacity = 1;
                         //StrainList.Height = Scroller.ActualHeight;
                     }
                 }
@@ -125,6 +104,34 @@ namespace CannaBe.AppPages.RecomendationPages
                 progressRing.IsActive = false;
             }
 
+        }
+
+        private void FillStrainList(SuggestedStrains strains)
+        {
+            int i = 1;
+            foreach (var strain in strains.SuggestedStrainList)
+            {
+                //AppDebug.Line($"{strain.Name}, {strains.suggestedStrains.IndexOf(strain)}");
+
+                string percent = strains.Status != 0 ? string.Format(" ({0:0}% match)", strain.MatchingPercent) : "";
+                var r = new RadioButton()
+                {
+                    Foreground = new SolidColorBrush(Windows.UI.Colors.Black),
+                    FontSize = 15,
+                    VerticalContentAlignment = VerticalAlignment.Top,
+                    FontWeight = FontWeights.Bold,
+                    Content = $"{i++}. {strain.Name}{percent}",
+                    DataContext = strain
+                };
+
+                r.Checked += OnChecked;
+                StrainList.Children.Add(r);
+
+            }
+            StrainList.Children.Add(new Rectangle()
+            {
+                Height = 100
+            });
         }
 
         private void OnChecked(object sender, RoutedEventArgs e)
@@ -143,6 +150,23 @@ namespace CannaBe.AppPages.RecomendationPages
             if (UsageContext.ChosenStrain != null)
             {
                 Frame.Navigate(typeof(StartUsage2));
+            }
+        }
+
+        private void RadioChecked(object sender, RoutedEventArgs e)
+        {
+            var b = sender as RadioButton;
+            
+            switch(b.Tag)
+            {
+                case "match":
+                    break;
+
+                case "rank":
+                    break;
+
+                case "count":
+                    break;
             }
         }
     }

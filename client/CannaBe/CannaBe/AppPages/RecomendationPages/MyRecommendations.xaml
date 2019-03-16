@@ -21,19 +21,40 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="48" Width="321" FontSize="35" Margin="0,20,0,0"/>
 
-        <StackPanel Margin="10,82,10,80" x:Name="Stack" Height="380">
-        <TextBlock Foreground="Black" x:Name="Message" FontSize="18" TextWrapping="Wrap"
+        <StackPanel Margin="10,82,10,80" HorizontalAlignment="Center" x:Name="Stack" Height="340" Width="310">
+            <TextBlock Foreground="Black" x:Name="Message" FontSize="15" TextWrapping="Wrap" Width="310"
                    Text="No exact matches found! Try updating your positive and medical preferences. Showing 5 partially matching strains:"
                    VerticalAlignment="Top"  HorizontalAlignment="Stretch"/>
 
-        <ScrollViewer x:Name="Scroller" ZoomMode="Enabled" MaxZoomFactor="10"
+            <ScrollViewer x:Name="Scroller" ZoomMode="Enabled" MaxZoomFactor="10"
               HorizontalScrollMode="Disabled" Visibility="Visible"  HorizontalScrollBarVisibility="Disabled"
                VerticalAlignment="Top"
                     Background="White" Opacity="0.7">
-            <StackPanel x:Name="StrainList">
-            </StackPanel>
-        </ScrollViewer>
+                <StackPanel x:Name="StrainList">
+                </StackPanel>
+            </ScrollViewer>
+
         </StackPanel>
+        <Grid x:Name="ButtonsGrid" Opacity="0.8"
+            Background="#99ffffff" Margin="5,440,5,75" BorderBrush="Black" BorderThickness="1">
+            <TextBlock FontWeight="Bold" Text="Sort by:" VerticalAlignment="Center" Margin="4,-1,0,0"/>
+            <Viewbox Height="25" Margin="65,0,0,0" HorizontalAlignment="Left">
+                <RadioButton Tag="match" IsEnabled="False" FontSize="15" MaxWidth="50" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40"
+                             Checked="RadioChecked">
+                    <TextBlock Text="Match %" Margin="-2,-1,0,0"/>
+                </RadioButton>
+            </Viewbox>
+            <Viewbox Height="25" Margin="139,0,0,0" HorizontalAlignment="Left">
+                <RadioButton Tag="rank" IsEnabled="False" Checked="RadioChecked" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40">
+                    <TextBlock Text="Users Rank" Margin="-2,-1,0,0"/>
+                </RadioButton>
+            </Viewbox>
+            <Viewbox Height="25" Margin="220,0,0,0" HorizontalAlignment="Left">
+                <RadioButton Tag="count" Checked="RadioChecked" IsEnabled="False" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center" Width="46">
+                    <TextBlock Text="Usage Count" Margin="-2,-1,0,0"/>
+                </RadioButton>
+            </Viewbox>
+        </Grid>
         <Grid  x:Name="ErrorNoStrainFound" Visibility="Collapsed">
             <TextBlock Text="No recommended strains found!" FontSize="26" 
                    HorizontalAlignment="Center"

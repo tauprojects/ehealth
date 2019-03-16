@@ -37,6 +37,9 @@ namespace CannaBe
         [JsonProperty("rank")]
         public double Rank;
 
+        [JsonProperty("number_of_usages")]
+        public int NumberOfUsages;
+
         private int bitmapMedicalNeeds;
 
         [JsonProperty("medical")]
@@ -89,8 +92,10 @@ namespace CannaBe
 
         public List<NegativePreferencesEnum> NegativePreferences { get; set; }
 
+
+
         [JsonConstructor]
-        public Strain(string name, int iD, int medicalNeeds,string race,
+        public Strain(string name, int iD, int medicalNeeds, string race,
             int positivePreferences,
             int negativePreferences)
         {
@@ -182,11 +187,43 @@ namespace CannaBe
             double medical = CountSetBits(x.BitmapMedicalNeeds & y.Data.BitmapMedicalNeeds) / CountSetBits(y.Data.BitmapMedicalNeeds);
             double positive = CountSetBits(x.BitmapPositivePreferences & y.Data.BitmapPositivePreferences) / CountSetBits(y.Data.BitmapPositivePreferences);
 
-            var val =  100 * ((0.5 * medical) + (0.5 * positive));
+            var val = 100 * ((0.5 * medical) + (0.5 * positive));
             //AppDebug.Line($"User {y.Data.Username}, Strain {x.Name}, medical: {Convert.ToString(x.BitmapMedicalNeeds & y.Data.BitmapMedicalNeeds,2)}/{Convert.ToString(y.Data.BitmapMedicalNeeds,2)}={medical}, pos: {Convert.ToString(x.BitmapPositivePreferences & y.Data.BitmapPositivePreferences,2)}/{Convert.ToString(y.Data.BitmapPositivePreferences,2)}={positive}, percent {val}");
             return val;
         }
 
         public double MatchingPercent { get; set; }
+
+        /******************************************************************************/
+
+        public static Comparison<Strain> MatchComparison = (s1, s2) =>
+        {
+            var r = -1 * s1.MatchingPercent.CompareTo(s2.MatchingPercent);
+            if (r == 0)
+            {
+                r = s1.Name.CompareTo(s2.Name);
+            }
+            return r;
+        };
+
+        public static Comparison<Strain> RankComparison = (s1, s2) =>
+        {
+            var r = -1 * s1.Rank.CompareTo(s2.Rank);
+            if (r == 0)
+            {
+                r = s1.Name.CompareTo(s2.Name);
+            }
+            return r;
+        };
+
+        public static Comparison<Strain> CountComparison = (s1, s2) =>
+        {
+            var r = -1 * s1.Rank.CompareTo(s2.Rank);
+            if (r == 0)
+            {
+                r = s1.Name.CompareTo(s2.Name);
+            }
+            return r;
+        };
     }
 }

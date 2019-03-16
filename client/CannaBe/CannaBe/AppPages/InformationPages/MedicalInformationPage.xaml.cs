@@ -235,7 +235,7 @@ namespace CannaBe.AppPages.InformationPages
                 if (data.Contains(medicalCenter))
                 {
                     string[] data_split = data.Split('_');
-                    doctor_data.Text += i + ". " + key + " loacted at " + data_split[1] + "\n";
+                    doctor_data.Text += i + ". " + key + ", located at: " + data_split[1] + "\n";
                     i++;
                 }
             }
