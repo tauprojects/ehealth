@@ -185,14 +185,17 @@ namespace CannaBe
         {
 
             double medical = CountSetBits(x.BitmapMedicalNeeds & y.Data.BitmapMedicalNeeds) / CountSetBits(y.Data.BitmapMedicalNeeds);
-            double positive = CountSetBits(x.BitmapPositivePreferences & y.Data.BitmapPositivePreferences) / CountSetBits(y.Data.BitmapPositivePreferences);
-
+            double positive = 1.0;
+            if (y.Data.BitmapPositivePreferences > 0)
+            {
+                positive = CountSetBits(x.BitmapPositivePreferences & y.Data.BitmapPositivePreferences) / CountSetBits(y.Data.BitmapPositivePreferences);
+            }
             var val = 100 * ((0.5 * medical) + (0.5 * positive));
             //AppDebug.Line($"User {y.Data.Username}, Strain {x.Name}, medical: {Convert.ToString(x.BitmapMedicalNeeds & y.Data.BitmapMedicalNeeds,2)}/{Convert.ToString(y.Data.BitmapMedicalNeeds,2)}={medical}, pos: {Convert.ToString(x.BitmapPositivePreferences & y.Data.BitmapPositivePreferences,2)}/{Convert.ToString(y.Data.BitmapPositivePreferences,2)}={positive}, percent {val}");
             return val;
         }
 
-        public double MatchingPercent { get; set; }
+        public double MatchingPercent { get; set; } = 100;
 
         /******************************************************************************/
 
@@ -218,7 +221,7 @@ namespace CannaBe
 
         public static Comparison<Strain> CountComparison = (s1, s2) =>
         {
-            var r = -1 * s1.Rank.CompareTo(s2.Rank);
+            var r = -1 * s1.NumberOfUsages.CompareTo(s2.NumberOfUsages);
             if (r == 0)
             {
                 r = s1.Name.CompareTo(s2.Name);

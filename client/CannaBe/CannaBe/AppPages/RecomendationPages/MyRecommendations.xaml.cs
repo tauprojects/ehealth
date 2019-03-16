@@ -1,9 +1,10 @@
 ﻿using CannaBe.AppPages.Usage;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
@@ -15,6 +16,18 @@ namespace CannaBe.AppPages.RecomendationPages
 {
     public sealed partial class MyRecomendations : Page
     {
+        enum SortType
+        {
+            MATCH,
+            RANK,
+            COUNT
+        };
+
+        private SortType sortType = SortType.MATCH;
+        private SuggestedStrains strains;
+        private SuggestedStrains matchSortedStrains = null;
+        private SuggestedStrains rankSortedStrains = null;
+        private SuggestedStrains countSortedStrains = null;
 
         public MyRecomendations()
         {
@@ -43,9 +56,7 @@ namespace CannaBe.AppPages.RecomendationPages
 
                     PagesUtilities.SleepSeconds(0.2);
 
-                    var strains = await Task.Run(() => HttpManager.ParseJson<SuggestedStrains>(res));
-
-
+                    strains = await Task.Run(() => HttpManager.ParseJson<SuggestedStrains>(res));
 
                     if (strains.SuggestedStrainList.Count == 0)
                     {
@@ -67,7 +78,15 @@ namespace CannaBe.AppPages.RecomendationPages
                                 Message.Text = $"No exact matches found!\nTry updating your positive and medical preferences.\nShowing {strains.SuggestedStrainList.Count} partially matching strains:";
                                 break;
                         }
-                        Scroller.Height = Stack.ActualHeight - Message.ActualHeight;
+                        Scroller.Height = Stack.ActualHeight - Message.ActualHeight - 20;
+
+                        Random rnd = new Random();
+
+                        foreach (var strain in strains.SuggestedStrainList)
+                        {
+                            strain.Rank = rnd.Next(1, 100);
+                            strain.NumberOfUsages = rnd.Next(0, 1000);
+                        }
 
                         if (strains.Status != 0)
                         {
@@ -77,6 +96,7 @@ namespace CannaBe.AppPages.RecomendationPages
                             }
 
                             strains.SuggestedStrainList.Sort(Strain.MatchComparison);
+                            matchSortedStrains = new SuggestedStrains(strains.Status, new List<Strain>(strains.SuggestedStrainList)); ;
                         }
 
                         var names = $"[{string.Join(", ", from u in strains.SuggestedStrainList select $"{u.Name}")}]";
@@ -88,7 +108,11 @@ namespace CannaBe.AppPages.RecomendationPages
                         {
                             if (child.GetType() == typeof(Viewbox))
                             {
-                                ((child as Viewbox).Child as RadioButton).IsEnabled = true;
+                                var b = (child as Viewbox).Child as RadioButton;
+                                if (!((string)b.Tag == "match" && strains.Status == 0))
+                                {
+                                    b.IsEnabled = true;
+                                }
                             }
                         }
                         ButtonsGrid.Opacity = 1;
@@ -106,21 +130,39 @@ namespace CannaBe.AppPages.RecomendationPages
 
         }
 
-        private void FillStrainList(SuggestedStrains strains)
+        private void FillStrainList(SuggestedStrains localStrainList)
         {
-            int i = 1;
-            foreach (var strain in strains.SuggestedStrainList)
+            if (StrainList.Children.Count > 0)
             {
-                //AppDebug.Line($"{strain.Name}, {strains.suggestedStrains.IndexOf(strain)}");
+                StrainList.Children.Clear();
+            }
 
-                string percent = strains.Status != 0 ? string.Format(" ({0:0}% match)", strain.MatchingPercent) : "";
+            int i = 1;
+            foreach (var strain in localStrainList.SuggestedStrainList)
+            {
+                string addition = null;
+
+                switch (sortType)
+                {
+                    case SortType.MATCH:
+                        addition = localStrainList.Status != 0 ? string.Format(" ({0:0}% match)", strain.MatchingPercent) : "";
+                        break;
+
+                    case SortType.RANK:
+                        addition = string.Format(" (rank: {0:0})", strain.Rank);
+                        break;
+
+                    case SortType.COUNT:
+                        addition = $" (count: {strain.NumberOfUsages})";
+                        break;
+                }
                 var r = new RadioButton()
                 {
                     Foreground = new SolidColorBrush(Windows.UI.Colors.Black),
                     FontSize = 15,
                     VerticalContentAlignment = VerticalAlignment.Top,
                     FontWeight = FontWeights.Bold,
-                    Content = $"{i++}. {strain.Name}{percent}",
+                    Content = $"{i++}. {strain.Name}{addition}",
                     DataContext = strain
                 };
 
@@ -128,10 +170,6 @@ namespace CannaBe.AppPages.RecomendationPages
                 StrainList.Children.Add(r);
 
             }
-            StrainList.Children.Add(new Rectangle()
-            {
-                Height = 100
-            });
         }
 
         private void OnChecked(object sender, RoutedEventArgs e)
@@ -153,21 +191,52 @@ namespace CannaBe.AppPages.RecomendationPages
             }
         }
 
-        private void RadioChecked(object sender, RoutedEventArgs e)
+        private async void RadioChecked(object sender, RoutedEventArgs e)
         {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                progressRing.IsActive = true;
+            });
+
             var b = sender as RadioButton;
-            
-            switch(b.Tag)
+            switch (b.Tag)
             {
                 case "match":
+                    sortType = SortType.MATCH;
+                    RadioCount.IsChecked = false;
+                    RadioRank.IsChecked = false;
+                    FillStrainList(matchSortedStrains);
                     break;
 
                 case "rank":
+                    sortType = SortType.RANK;
+                    RadioCount.IsChecked = false;
+                    RadioMatch.IsChecked = false;
+
+                    if (rankSortedStrains == null)
+                    {
+                        strains.SuggestedStrainList.Sort(Strain.RankComparison);
+                        rankSortedStrains = new SuggestedStrains(strains.Status, new List<Strain>(strains.SuggestedStrainList));
+                    }
+                    FillStrainList(rankSortedStrains);
                     break;
 
                 case "count":
+                    sortType = SortType.COUNT;
+                    RadioRank.IsChecked = false;
+                    RadioMatch.IsChecked = false;
+                    if (countSortedStrains == null)
+                    {
+                        strains.SuggestedStrainList.Sort(Strain.CountComparison);
+                        countSortedStrains = new SuggestedStrains(strains.Status, new List<Strain>(strains.SuggestedStrainList));
+                    }
+                    FillStrainList(countSortedStrains);
                     break;
             }
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                progressRing.IsActive = false;
+            });
         }
     }
 }

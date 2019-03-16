@@ -22,11 +22,11 @@ Ziva_Davidovitch Clalit_Netanya
 On_Dolberg Clalit_Kefar-Saba
 Eyal_Hirsch Bnei-Zion_Haifa
 Jackie_Hertzlich Meuhedet_Bnei-Berak
-Moriel_Weber Maccabi-Ra'anana
+Moriel_Weber Maccabi_Ra'anana
 Shimon_Wine Beilinson_Petach-Tikva
 Rachel_Zlobinsky Meuhedet_Haifa
-Joslin_Zamir Maccabi-Afula
-Petra_Zakhaim Rambam-Haifa
+Joslin_Zamir Maccabi_Afula
+Petra_Zakhaim Rambam_Haifa
 Moshe_Zer-Tzion Assuta_Tel-Aviv
 Claude_Hatav Meuhedet_Jerusalem
 Raphael_Heruti Reut_Tel-Aviv
