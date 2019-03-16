@@ -20,35 +20,40 @@ namespace CannaBe.AppPages.Usage
             if (u != null)
             {
                 StrainChosenText.Text = u.UsageStrain.Name;
-
-                StartTime.Inlines.Add(new Run()
+                var st_u = new Underline();
+                st_u.Inlines.Add(new Run()
                 {
                     TextDecorations = TextDecorations.Underline,
                     FontWeight = FontWeights.Bold,
                     Text = "Start Time"
                 });
+                StartTime.Inlines.Add(st_u);
                 StartTime.Inlines.Add(new Run()
                 {
                     FontSize = 18,
                     Text = ": " + u.StartTime.ToString("dd.MM.yy HH:mm:ss")
                 });
-                EndTime.Inlines.Add(new Run()
+                var et_u = new Underline();
+                et_u.Inlines.Add(new Run()
                 {
                     TextDecorations = TextDecorations.Underline,
                     FontWeight = FontWeights.Bold,
                     Text = "End Time"
                 });
+                EndTime.Inlines.Add(et_u);
                 EndTime.Inlines.Add(new Run()
                 {
                     FontSize = 18,
                     Text = ": " + u.EndTime.ToString("dd.MM.yy HH:mm:ss")
                 });
-                Duration.Inlines.Add(new Run()
+                var du_u = new Underline();
+                du_u.Inlines.Add(new Run()
                 {
                     TextDecorations = TextDecorations.Underline,
                     FontWeight = FontWeights.Bold,
                     Text = "Duration"
                 });
+                Duration.Inlines.Add(du_u);
                 Duration.Inlines.Add(new Run()
                 {
                     FontSize = 18,
@@ -61,12 +66,13 @@ namespace CannaBe.AppPages.Usage
                 }
                 else
                 {
-                    HeartRate.Inlines.Add(new Run()
+                    Underline HeartRateUnderline = new Underline();
+                    HeartRateUnderline.Inlines.Add(new Run()
                     {
-                        TextDecorations = TextDecorations.Underline,
                         FontWeight = FontWeights.Bold,
                         Text = "Heartrate"
                     });
+                    HeartRate.Inlines.Add(HeartRateUnderline);
                     HeartRate.Inlines.Add(new Run()
                     {
                         Text = ": "
