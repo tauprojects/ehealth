@@ -138,6 +138,9 @@
     <Compile Include="AppPages\ExportToEmail.xaml.cs">
       <DependentUpon>ExportToEmail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppPages\InformationPages\EffectsSearchResults.xaml.cs">
+      <DependentUpon>EffectsSearchResults.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppPages\InformationPages\MedicalInformationPage.xaml.cs">
       <DependentUpon>MedicalInformationPage.xaml</DependentUpon>
     </Compile>
@@ -268,6 +271,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="AppPages\ExportToEmail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppPages\InformationPages\EffectsSearchResults.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

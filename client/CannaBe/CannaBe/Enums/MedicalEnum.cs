@@ -13,7 +13,7 @@ namespace CannaBe.Enums
         MUSCLE_SPASMS = 2,
         [EnumDescriptions("Do your muscles fell less stiff?", "Rate your muscle stiffnes:")]
         SPASTICITY = 3,
-        [EnumDescriptions("Is there a relief in you inflammation effect?", "Rate the intensity of your inflammation:")]
+        [EnumDescriptions("Is there a relief in your inflammation effect?", "Rate the intensity of your inflammation:")]
         INFLAMMATION = 4,
         [EnumDescriptions("Is there an improvement in your eye pressure?", "Rate the intensity of your eye pressure:")]
         EYE_PRESSURE = 5,

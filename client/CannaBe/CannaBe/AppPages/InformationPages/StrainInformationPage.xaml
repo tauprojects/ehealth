@@ -73,18 +73,10 @@
                 <CheckBox Content="Relaxed"    Tag="13" Margin="0,450,0,0" VerticalAlignment="Top"/>
                 </Grid>
 
-                <Grid x:Name="NegativeSearchGrid">
-                <TextBlock Foreground="Black" Text="Search By Unwanted Negative Effects:" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,485,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                <CheckBox Content="Dizzy"       Tag="1" Margin="0,510,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Dry Mouth"   Tag="2" Margin="150,510,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Paranoid"    Tag="3" Margin="0,535,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Dry Eyes"    Tag="4" Margin="150,535,0,0" VerticalAlignment="Top"/>
-                <CheckBox Content="Anxious"     Tag="5" Margin="0,560,0,0" VerticalAlignment="Top"/>
-                </Grid>
             </Grid>
         </ScrollViewer>
 
-        <TextBlock FontSize="15" x:Name="Status" Foreground="Red"
+        <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,458,0,0"/>
 
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
