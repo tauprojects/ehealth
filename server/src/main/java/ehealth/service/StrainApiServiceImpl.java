@@ -358,7 +358,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         strainObject.setNegative(new Long(strainsEntity.getNegative()));
         strainObject.setRace(strainsEntity.getRace());
         strainObject.setRank(strainsEntity.getRank());
-        strainObject.setNumberOfUsages(strainsEntity.getNumberOfUsages());
+        strainObject.setNumberOfUsages((strainsEntity.getNumberOfUsages() == null) ? 0 :strainsEntity.getNumberOfUsages());
         return strainObject;
     }
 
