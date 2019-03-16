@@ -12,11 +12,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RestController
 public class BaseController {
+    // Strain by ID
+    // Strains by effects -- recommended ?
+    // Strain collect at start - not as bean
+    // Mail on usage
+    // Rank by others
 
     private StrainApiServiceImpl mainServiceImpl;
     private Logger logger = LoggerFactory.getLogger(BaseController.class.getName());
@@ -64,9 +71,20 @@ public class BaseController {
      *
      * @return String
      */
-    @RequestMapping(value = "/ehealth/strain/{strain-name}", method = RequestMethod.GET)
-    public BaseResponse getStrainInfo(@PathVariable("strain-name") String strainName) {
+    @RequestMapping(value = "/strain/{strain-name}", method = RequestMethod.GET)
+    public StrainObject getStrainInfoByName(@PathVariable("strain-name") String strainName) {
         return mainServiceImpl.getStrainByName(strainName);
+    }
+
+
+    /**
+     * GET Strain by strain Id API from strains database
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/strain/{strain-id}", method = RequestMethod.GET)
+    public StrainObject getStrainInfoById(@PathVariable("strain-id") Integer strainId) {
+        return mainServiceImpl.getStrainById(strainId);
     }
 
 
@@ -110,12 +128,12 @@ public class BaseController {
     /**
      * GET all strains
      *
-     * @return List<UsageHistoryResponse>
+     * @return Map<strain_name, strain_id>
      */
     @RequestMapping(value = "/strains/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<StrainObject> saveUserUsageHistory() throws IOException {
+    public Map<String,Integer> saveUserUsageHistory() throws IOException {
         logger.info("GET all strains");
-        return mainServiceImpl.getAllStrains();
+        return mainServiceImpl.GetListOfStrains();
     }
 
         /**

@@ -248,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\bluewhitebackground.jpg" />
+    <Content Include="Assets\doctors.txt" />
     <Content Include="Assets\purplebackground.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

@@ -57,9 +57,15 @@ namespace CannaBe.AppPages
 
         private async void SearchStrain(object sender, RoutedEventArgs e)
         {
-            PagesUtilities.GetAllCheckBoxesTags(InformationGrid, out List<int> intList);
+            PagesUtilities.GetAllCheckBoxesTags(MedicalSearchGrid, out List<int> MedicalList);
+            PagesUtilities.GetAllCheckBoxesTags(PositiveSearchGrid, out List<int> PositiveList);
+            PagesUtilities.GetAllCheckBoxesTags(NegativeSearchGrid, out List<int> NegativeList);
 
-            if (intList.Count == 0) Status.Text = "Invaild Search! Please enter search parameter";
+            int MedicalBitMap = StrainToInt.FromIntListToBitmap(MedicalList);
+            int PositiveBitMap = StrainToInt.FromIntListToBitmap(PositiveList);
+            int NegativeBitMap = StrainToInt.FromIntListToBitmap(NegativeList);
+
+            if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && (NegativeList.Count == 0) && (StrainName.Text == "")) Status.Text = "Invaild Search! Please enter search parameter";
             else Status.Text = "";
 
             if (StrainName.Text != "")

@@ -6,6 +6,7 @@ import ehealth.data_objects.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 public interface StrainApiService {
@@ -16,8 +17,10 @@ public interface StrainApiService {
 
     RegisteredUserData edit(String userId, RegisterRequest registerRequest);
 
-    BaseResponse getStrainByName(String strainName);
+    StrainObject getStrainByName(String strainName);
 
+    StrainObject getStrainById(Integer strainId);
+    
     SuggestedStrains getRecommendedStrain(String userId);
 
     void saveUsageHistoryForUser(UsageHistory usageHistory);
@@ -25,6 +28,8 @@ public interface StrainApiService {
     List<UsageHistoryResponse> getUsageHistoryForUser(String userId);
 
     List<StrainObject> getAllStrains() throws IOException;
+
+    Map<String, Integer> GetListOfStrains();
 
     BaseResponse exportToEmail(String userId, String to, String content) throws IOException;
 }
