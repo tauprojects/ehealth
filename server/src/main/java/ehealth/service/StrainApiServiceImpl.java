@@ -56,6 +56,18 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public StrainObject getStrainByName(String strainName) {
         StrainsEntity strainsEntity = allStrainsRepository.findByStrainName(strainName);
+        if (strainsEntity == null) {
+            throw new BadRequestException();
+        }
+        return strainEntityToStrainObject(strainsEntity);
+    }
+
+    @Override
+    public StrainObject getStrainById(Integer strainId) {
+        StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(strainId);
+        if (strainsEntity == null) {
+            throw new BadRequestException();
+        }
         return strainEntityToStrainObject(strainsEntity);
     }
 
@@ -63,7 +75,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     @Override
     public RegisteredUserData authenticate(LoginRequest loginRequest) {
         BaseResponse resp;
-        String user = loginRequest.getUsername();
+        String user = loginRequest.getUsername().toLowerCase();
         String password = loginRequest.getPassword();
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findByUsername(loginRequest.getUsername());
         if (registeredUsersEntity == null) {
@@ -90,7 +102,7 @@ public class StrainApiServiceImpl implements StrainApiService {
             // Set createdAt as current time
             registeredUsersEntity.setCreatedAt(System.currentTimeMillis());
             // Set input user-data
-            registeredUsersEntity.setUsername(registerRequest.getUsername());
+            registeredUsersEntity.setUsername(registerRequest.getUsername().toLowerCase());
             registeredUsersEntity.setPassword(registerRequest.getPassword());
             registeredUsersEntity.setCity(registerRequest.getCity());
             registeredUsersEntity.setEmail(registerRequest.getEmail());

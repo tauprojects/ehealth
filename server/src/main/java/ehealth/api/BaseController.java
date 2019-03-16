@@ -19,6 +19,11 @@ import java.util.Map;
 @Controller
 @RestController
 public class BaseController {
+    // Strain by ID
+    // Strains by effects -- recommended ?
+    // Strain collect at start - not as bean
+    // Mail on usage
+    // Rank by others
 
     private StrainApiServiceImpl mainServiceImpl;
     private Logger logger = LoggerFactory.getLogger(BaseController.class.getName());
@@ -67,8 +72,19 @@ public class BaseController {
      * @return String
      */
     @RequestMapping(value = "/strain/{strain-name}", method = RequestMethod.GET)
-    public StrainObject getStrainInfo(@PathVariable("strain-name") String strainName) {
+    public StrainObject getStrainInfoByName(@PathVariable("strain-name") String strainName) {
         return mainServiceImpl.getStrainByName(strainName);
+    }
+
+
+    /**
+     * GET Strain by strain Id API from strains database
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/strain/{strain-id}", method = RequestMethod.GET)
+    public StrainObject getStrainInfoById(@PathVariable("strain-id") Integer strainId) {
+        return mainServiceImpl.getStrainById(strainId);
     }
 
 

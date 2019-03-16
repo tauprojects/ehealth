@@ -19,6 +19,8 @@ public interface StrainApiService {
 
     StrainObject getStrainByName(String strainName);
 
+    StrainObject getStrainById(Integer strainId);
+    
     SuggestedStrains getRecommendedStrain(String userId);
 
     void saveUsageHistoryForUser(UsageHistory usageHistory);
@@ -27,7 +29,7 @@ public interface StrainApiService {
 
     List<StrainObject> getAllStrains() throws IOException;
 
-    Map<String,Integer> GetListOfStrains();
+    Map<String, Integer> GetListOfStrains();
 
     BaseResponse exportToEmail(String userId, String to, String content) throws IOException;
 }
