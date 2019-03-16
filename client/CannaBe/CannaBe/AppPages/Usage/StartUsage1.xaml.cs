@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -15,7 +16,7 @@ namespace CannaBe.AppPages.Usage
 {
     public sealed partial class StartUsage : Page
     {
-        Dictionary<string,string> strains = null;
+        Dictionary<string,string> StrainsDict = null;
 
         List<string> strainNames = null;
         private static readonly string NoResult = "No Result";
@@ -44,17 +45,23 @@ namespace CannaBe.AppPages.Usage
             if(strainNames == null)
             {
                 progressRing.IsActive = true;
-                await Task.Run(() =>
+                await Task.Run(async () =>
                 {
                     AppDebug.Line("Loading strain list..");
                     try
                     {
-                        strains = File.ReadAllLines("Assets/strains.txt")
-                                                .Select(a => a.Split('='))
-                                                .ToDictionary(x => x[0].Replace('_', ' '),
-                                                                x => x[1]);
+
+                        var res = await HttpManager.Manager.Get(Constants.MakeUrl("strains/all/"));
+
+                        if (res == null)
+                        {
+                            throw new Exception("Get operation failed, response is null");
+                        }
+
+                        var strains = HttpManager.ParseJson<Dictionary<string, string>>(res);
 
                         strainNames = strains.Keys.ToList();
+                        strainNames.Sort();
 
                         AppDebug.Line($"loaded {strainNames.Count} strains");
 
@@ -62,6 +69,8 @@ namespace CannaBe.AppPages.Usage
                     catch (Exception exc)
                     {
                         AppDebug.Exception(exc, "LoadStrainList");
+                        await new MessageDialog($"Strain list loading operation failed. Please try again or use suggested strain option.", "Error").ShowAsync();
+
                     }
                 });
                 progressRing.IsActive = false;
@@ -135,23 +144,30 @@ namespace CannaBe.AppPages.Usage
 
         private async void SubmitString(object sender, RoutedEventArgs e)
         {
-            if(StrainChosen != null)
+            try
             {
-                progressRing.IsActive = true;
-                StrainList.IsEnabled = false;
-                SubmitButton.IsEnabled = false;
+                if (StrainChosen != null)
+                {
+                    progressRing.IsActive = true;
+                    StrainList.IsEnabled = false;
+                    SubmitButton.IsEnabled = false;
 
-                await SubmitStringTask();
+                    await SubmitStringTask();
 
-                StrainProperties.Text = UsageContext.ChosenStrain?.GetPropertiesString();
-                Title.Opacity = 1;
-                Scroller.ChangeView(null, 0, null); //scroll to top
-                Scroller.Visibility = Visibility.Visible;
-                StrainProperties.Visibility = Visibility.Visible;
-                StrainList.IsEnabled = true;
-                SubmitButton.IsEnabled = true;
-                progressRing.IsActive = false;
+                    StrainProperties.Text = UsageContext.ChosenStrain?.GetPropertiesString();
+                    Title.Opacity = 1;
+                    Scroller.ChangeView(null, 0, null); //scroll to top
+                    Scroller.Visibility = Visibility.Visible;
+                    StrainProperties.Visibility = Visibility.Visible;
+                    StrainList.IsEnabled = true;
+                    SubmitButton.IsEnabled = true;
+                    progressRing.IsActive = false;
 
+                }
+            }
+            catch (Exception ex)
+            {
+                AppDebug.Exception(ex, "SubmitString");
             }
         }
 
@@ -162,22 +178,21 @@ namespace CannaBe.AppPages.Usage
                 AppDebug.Line("Submit string: " + StrainChosen);
                 try
                 {
-                    if (!strains.ContainsKey(StrainChosen))
+                    if (!StrainsDict.ContainsKey(StrainChosen))
                     {
                         AppDebug.Line($"Strain '{StrainChosen}' not found in list");
                     }
                     else
                     {
-                        var strainId = strains[StrainChosen];
+                        var strainId = StrainsDict[StrainChosen];
                         AppDebug.Line($"Strain: [{StrainChosen}], ID: {strainId}");
 
-                        var res = HttpManager.Manager.Get("http://strainapi.evanbusse.com/M076LdW/strains/data/effects/" + strainId);
+                        var res = await HttpManager.Manager.Get("http://strainapi.evanbusse.com/M076LdW/strains/data/effects/" + strainId);
 
                         if (res == null)
                             return;
 
-                        var str = await res.Result.Content.ReadAsStringAsync();
-                        var values = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(str);
+                        var values = HttpManager.ParseJson<Dictionary<string, string[]>>(res);
 
                         UsageContext.ChosenStrain = new Strain(StrainChosen, int.Parse(strainId))
                         {
