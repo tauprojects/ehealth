@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -16,7 +17,7 @@ namespace CannaBe.AppPages.Usage
             this.InitializeComponent();
         }
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoadedAsync(object sender, RoutedEventArgs e)
         {
             progressRing.IsActive = true;
 
@@ -28,24 +29,22 @@ namespace CannaBe.AppPages.Usage
                     break;
                 }
 
-                GlobalContext.UpdateUsagesContextIfEmptyAsync();
+                await Task.Run(() => GlobalContext.UpdateUsagesContextIfEmptyAsync());
 
-                ref var sessions = ref GlobalContext.CurrentUser.UsageSessions;
-
-                if (sessions == null)
+                if (GlobalContext.CurrentUser.UsageSessions == null)
                 {
-                    AppDebug.Line("sessions == null");
+                    AppDebug.Line("GlobalContext.CurrentUser.UsageSessions == null");
                     break;
                 }
-                if (sessions.Count == 0)
+                if (GlobalContext.CurrentUser.UsageSessions.Count == 0)
                 {
                     UsageListGui.Visibility = Visibility.Collapsed;
                     NoUsageButton.Visibility = Visibility.Visible;
-                    AppDebug.Line("sessions.Count == 0");
+                    AppDebug.Line("GlobalContext.CurrentUser.UsageSessions.Count == 0");
                     break;
                 }
 
-                foreach (var usage in sessions)
+                foreach (var usage in GlobalContext.CurrentUser.UsageSessions)
                 {
                     if(usage == null)
                     {

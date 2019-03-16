@@ -37,29 +37,19 @@ namespace CannaBe
                 if (consent != UserConsent.Granted)
                 {
                     AppDebug.Line("HeartRateModel requesting user access");
-                //    try
-                  //  {
-                       // await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-                        // {
-                            try
-                            {
-                                 AppDebug.Line("HeartRateModel inside CoreDispatcher");
+                    try
+                    {
+                        AppDebug.Line("HeartRateModel inside CoreDispatcher");
 
-                                 var r = await BandModel.BandClient.SensorManager.HeartRate.RequestUserConsentAsync();
+                        var r = await BandModel.BandClient.SensorManager.HeartRate.RequestUserConsentAsync();
 
-                                 AppDebug.Line($"HeartRateModel RequestUserConsentAsync returned {r}");
+                        AppDebug.Line($"HeartRateModel RequestUserConsentAsync returned {r}");
 
-                             }
-                             catch (Exception x)
-                             {
-                                 AppDebug.Exception(x, "HeartRate.RequestUserConsentAsync");
-                             }
-                      //   });
-              //      }
-               //     catch (Exception x2)
-                //    {
-                //        AppDebug.Exception(x2, "InitAsync");
-                //    }
+                    }
+                    catch (Exception x)
+                    {
+                        AppDebug.Exception(x, "HeartRate.RequestUserConsentAsync");
+                    }
                     AppDebug.Line("HeartRateModel user access success");
                 }
 

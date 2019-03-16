@@ -30,11 +30,11 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Image Source="Assets/bluewhitebackground.jpg" Stretch="Fill"/>
-        <CheckBox Content="Debug with localhost" 
+        <CheckBox Content="Debug with localhost" Visibility="Collapsed" 
                   Foreground="Black" BorderBrush="Black"
                   x:Name="LocalHostDebug" Checked="LocalHostDebugChanged" Unchecked="LocalHostDebugChanged"
                   HorizontalAlignment="Left" Margin="50,160,0,0" Grid.Row="1" VerticalAlignment="Top" />
-        
+
         <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="Medicanna" FontWeight="ExtraBold"
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="84" Width="321" FontSize="50" Margin="0,30,0,0"/>
@@ -54,6 +54,12 @@
                 Tapped="GoToDashboardPage"
                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,280,0,0" Width="Auto">
         </Button>-->
+
+        <Button Content="Exit" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+                Foreground="Black" Background="#10000000"
+                Tapped="ExitApp"
+                HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,498,0,0" Width="Auto"/>
+
 
     </Grid>
 

@@ -42,7 +42,7 @@
                 Tapped="BackToPositive"
                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
         </Button>
-        <Button Content="Register" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
+        <Button Content="Update" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Click="EditRegister"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">

@@ -48,13 +48,13 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
         }
 
-        private int[] GetRanks(Dictionary<string, string> questionDictionary)
+        private double[] GetRanks(Dictionary<string, string> questionDictionary)
         {
-            int positiveSum = 0, medicalSum = 0;
+            double positiveSum = 0, medicalSum = 0;
             int positiveCnt = 0, medicalCnt = 0;
             int cnt = questionDictionary.Count;
             int is_blacklist = 0;
-            int[] ans = new int[4];
+            double[] ans = new double[4];
 
             foreach (KeyValuePair<string, string> question in questionDictionary)
             {
@@ -91,7 +91,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
             HttpResponseMessage res = null;
             UsageUpdateRequest req;
 
-            int[] ranks = new int[4];
+            double[] ranks = new double[4];
 
             ranks = GetRanks(questionDictionary);
 

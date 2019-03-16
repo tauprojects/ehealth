@@ -185,6 +185,7 @@ namespace CannaBe
             EndTime = DateTime.Now;
             timer.Stop();
             Duration = EndTime.Subtract(StartTime);
+            HeartRateAverage = Math.Round(HeartRateAverage);
             GlobalContext.UpdateUsagesContextIfEmptyAsync();
             GlobalContext.CurrentUser.UsageSessions.Add(this);
         }
@@ -237,8 +238,8 @@ namespace CannaBe
             }
         }
 
-        public int MedicalRank { get; set; } = 0;
-        public int PositiveRank { get; set; } = 0;
-        public int OverallRank { get; set; } = 0;
+        public double MedicalRank { get; set; } = 0;
+        public double PositiveRank { get; set; } = 0;
+        public double OverallRank { get; set; } = 0;
     }
 }

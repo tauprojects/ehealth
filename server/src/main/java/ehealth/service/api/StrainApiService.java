@@ -32,4 +32,6 @@ public interface StrainApiService {
     Map<String, Integer> GetListOfStrains();
 
     BaseResponse exportToEmail(String userId, String to, String content) throws IOException;
+
+    SuggestedStrains getStrainByEffects(int medical, int positive);
 }

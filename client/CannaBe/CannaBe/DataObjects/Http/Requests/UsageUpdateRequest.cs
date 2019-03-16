@@ -21,13 +21,13 @@ namespace CannaBe
         public long unixEndTime;
 
         [JsonProperty("medical_rank")]
-        public int MedicalRank { get; set; }
+        public double MedicalRank { get; set; }
 
         [JsonProperty("positive_rank")]
-        public int PositiveRank { get; set; }
+        public double PositiveRank { get; set; }
 
         [JsonProperty("overall_rank")]
-        public int OverallRank { get; set; }
+        public double OverallRank { get; set; }
 
         [JsonProperty("heartbeat_high")]
         public int HeartbeatHigh { get; set; }
@@ -46,7 +46,7 @@ namespace CannaBe
 
         [JsonConstructor]
         public UsageUpdateRequest(string strainname, int strainId, string userid, long startTime, long endTime,
-            int medicalrank, int positiverank, int overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg, int is_blacklist,
+            double medicalrank, double positiverank, double overallrank, int heartbeathigh, int heartbeatlow, int heartbeatavg, double is_blacklist,
             Dictionary<string, string> questionDictionary)
         {
             StrainName = strainname;
@@ -60,7 +60,7 @@ namespace CannaBe
             HeartbeatHigh = heartbeathigh;
             HeartbeatLow = heartbeatlow;
             HeartbeatAvg = heartbeatavg;
-            Is_Blacklist = is_blacklist;
+            Is_Blacklist = (int)is_blacklist;
             QuestionsJson = JsonConvert.SerializeObject(questionDictionary); 
         }
     }
