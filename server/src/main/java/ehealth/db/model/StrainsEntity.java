@@ -38,7 +38,7 @@ public class StrainsEntity {
     @Column(name = "strain_name", updatable = false)
     private String strainName;
 
-     @Column(name = "race")
+    @Column(name = "race")
     private String race;
 
     @Column(name = "strain_id")
@@ -55,6 +55,9 @@ public class StrainsEntity {
 
     @Column(name = "rank")
     private double rank;
+
+    @Column(name = "number_of_usages")
+    private Integer numberOfUsages;
 
     @Column(name = "description")
     private String description;
