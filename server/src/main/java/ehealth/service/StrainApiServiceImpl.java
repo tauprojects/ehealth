@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 import static ehealth.client.ApiConstants.URL;
@@ -261,7 +262,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(usageHistory.getStrainId());
         int numOfUsages = strainsEntity.getNumberOfUsages();
         double rank = strainsEntity.getRank();
-        strainsEntity.setRank((numOfUsages * rank + usageHistory.getOverallRank()) / (numOfUsages + 1));
+        strainsEntity.setRank(prepareRankValue((numOfUsages * rank + usageHistory.getOverallRank()) / (numOfUsages + 1)));
         strainsEntity.setNumberOfUsages(numOfUsages + 1);
         allStrainsRepository.save(strainsEntity);
     }
@@ -365,5 +366,11 @@ public class StrainApiServiceImpl implements StrainApiService {
             tmpNum >>= 1;
         }
         return count;
+    }
+        private double prepareRankValue(double value) {
+        // Format value to three decimal places
+        DecimalFormat df = new DecimalFormat("#.#");
+        // Return formatted value multiplied vy 100 to get percentage format value
+        return Float.valueOf(df.format(Double.valueOf(value))).doubleValue();
     }
 }
