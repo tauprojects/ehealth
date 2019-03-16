@@ -71,7 +71,7 @@ public class BaseController {
      *
      * @return String
      */
-    @RequestMapping(value = "/strain/{strain-name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/strain/name/{strain-name}", method = RequestMethod.GET)
     public StrainObject getStrainInfoByName(@PathVariable("strain-name") String strainName) {
         return mainServiceImpl.getStrainByName(strainName);
     }
@@ -82,7 +82,7 @@ public class BaseController {
      *
      * @return String
      */
-    @RequestMapping(value = "/strain/{strain-id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/strain/id/{strain-id}", method = RequestMethod.GET)
     public StrainObject getStrainInfoById(@PathVariable("strain-id") Integer strainId) {
         return mainServiceImpl.getStrainById(strainId);
     }
