@@ -31,6 +31,12 @@ namespace CannaBe
         [JsonProperty("race")]
         public string Race;
 
+        [JsonProperty("description")]
+        public string Description;
+
+        [JsonProperty("rank")]
+        public double Rank;
+
         private int bitmapMedicalNeeds;
 
         [JsonProperty("medical")]

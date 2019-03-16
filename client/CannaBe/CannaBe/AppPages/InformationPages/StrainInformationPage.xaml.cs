@@ -53,6 +53,7 @@ namespace CannaBe.AppPages
 
         private void BackToInformation(object sender, TappedRoutedEventArgs e)
         {
+            GlobalContext.searchResult = null;
             Frame.Navigate(typeof(InformationPage));
         }
 
@@ -60,33 +61,44 @@ namespace CannaBe.AppPages
         {
             PagesUtilities.GetAllCheckBoxesTags(MedicalSearchGrid, out List<int> MedicalList);
             PagesUtilities.GetAllCheckBoxesTags(PositiveSearchGrid, out List<int> PositiveList);
-            PagesUtilities.GetAllCheckBoxesTags(NegativeSearchGrid, out List<int> NegativeList);
 
             int MedicalBitMap = StrainToInt.FromIntListToBitmap(MedicalList);
             int PositiveBitMap = StrainToInt.FromIntListToBitmap(PositiveList);
-            int NegativeBitMap = StrainToInt.FromIntListToBitmap(NegativeList);
+            var url = "";
 
-            if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && (NegativeList.Count == 0) && (StrainName.Text == "")) Status.Text = "Invaild Search! Please enter search parameter";
+            if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && (StrainName.Text == "")) Status.Text = "Invaild Search! Please enter search parameter";
             else Status.Text = "";
 
             if (StrainName.Text != "")
             {
-                var url = Constants.MakeUrl("strain/name/" + StrainName.Text);
-                try
-                {
-                    var res = HttpManager.Manager.Get(url);
+                url = Constants.MakeUrl("strain/name/" + StrainName.Text);
+                GlobalContext.searchType = 1;
+            }
+            else
+            {
+                url = Constants.MakeUrl($"strain/effects?medical={MedicalBitMap}&positive={PositiveBitMap}");
+                GlobalContext.searchType = 2;
+            }
+            try
+            {
+                var res = HttpManager.Manager.Get(url);
 
-                    if (res == null)
-                        return;
+                if (res == null)
+                    return;
 
-                    var str = await res.Result.Content.ReadAsStringAsync();
-                    Frame.Navigate(typeof(StrainSearchResults), str);
-                }
-                catch (Exception ex)
+                var str = await res.Result.Content.ReadAsStringAsync();
+                AppDebug.Line(str);
+                if (GlobalContext.searchType == 1) Frame.Navigate(typeof(StrainSearchResults), str);
+                else if (GlobalContext.searchType == 2)
                 {
-                    AppDebug.Exception(ex, "SearchStrain");
-                    await new MessageDialog("Failed get: \n" + url, "Exception in Search Strain").ShowAsync();
+                    GlobalContext.searchResult = str;
+                    Frame.Navigate(typeof(EffectsSearchResults));
                 }
+            }
+            catch (Exception ex)
+            {
+                AppDebug.Exception(ex, "SearchStrain");
+                await new MessageDialog("Failed get: \n" + url, "Exception in Search Strain").ShowAsync();
             }
         }
 
