@@ -160,12 +160,13 @@ public class StrainApiServiceImpl implements StrainApiService {
         return listOfStrains;
     }
 
+
     @Override
     public SuggestedStrains getRecommendedStrain(String userId) {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
         int medical = registeredUsersEntity.getMedical();
         int positive = registeredUsersEntity.getPositive();
-        SuggestedStrains suggestedStrains = getStrainsByEffects(medical, positive);
+        SuggestedStrains suggestedStrains = getStrainByEffects(medical, positive);
         List<StrainObject> listOfSuggestedStrains = suggestedStrains.getSuggestedStrains();
 
         // Filter blacklisted strains
@@ -176,8 +177,8 @@ public class StrainApiServiceImpl implements StrainApiService {
         return suggestedStrains;
     }
 
-
-    private SuggestedStrains getStrainsByEffects(int medical, int positive) {
+    @Override
+    public SuggestedStrains getStrainByEffects(int medical, int positive) {
         SuggestedStrains recommendedStrains = new SuggestedStrains();
 
         // Check for strains that fit exact medical and positive effects
@@ -253,7 +254,16 @@ public class StrainApiServiceImpl implements StrainApiService {
             registeredUsersEntity.setBlacklist(blacklist);
             logger.info("String Id: " + usageHistoryEntity.getStrainId().toString() + " added to blacklist");
         }
+
         registerUsersRepository.save(registeredUsersEntity);
+
+        // Update strain rank
+        StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(usageHistory.getStrainId());
+        int numOfUsages = strainsEntity.getNumberOfUsages();
+        double rank = strainsEntity.getRank();
+        strainsEntity.setRank((numOfUsages * rank + usageHistory.getOverallRank()) / (numOfUsages + 1));
+        strainsEntity.setNumberOfUsages(numOfUsages + 1);
+        allStrainsRepository.save(strainsEntity);
     }
 
     @Override
@@ -342,8 +352,9 @@ public class StrainApiServiceImpl implements StrainApiService {
         strainObject.setMedical(new Long(strainsEntity.getMedical()));
         strainObject.setPositive(new Long(strainsEntity.getPositive()));
         strainObject.setNegative(new Long(strainsEntity.getNegative()));
-        strainObject.setRank(strainsEntity.getRank());
         strainObject.setRace(strainsEntity.getRace());
+        strainObject.setRank(strainsEntity.getRank());
+        strainObject.setNumberOfUsages(strainsEntity.getNumberOfUsages());
         return strainObject;
     }
 

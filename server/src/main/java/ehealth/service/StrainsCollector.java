@@ -113,6 +113,9 @@ public class StrainsCollector {
             strainsEntity.setMedical(strainObject.getMedical().intValue());
             strainsEntity.setPositive(strainObject.getPositive().intValue());
             strainsEntity.setNegative(strainObject.getNegative().intValue());
+            // Init ranking
+            strainsEntity.setNumberOfUsages(0);
+            strainsEntity.setRank(0);
             allStrainsRepository.save(strainsEntity);
         }
     }

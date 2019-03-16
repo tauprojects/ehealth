@@ -21,6 +21,7 @@ public class BaseController {
     // Strain collect at start - not as bean
     // Mail on usage
     // Rank by others
+    // Email beautification
 
     private StrainApiServiceImpl mainServiceImpl;
     private Logger logger = LoggerFactory.getLogger(BaseController.class.getName());
@@ -84,11 +85,21 @@ public class BaseController {
         return mainServiceImpl.getStrainById(strainId);
     }
 
+    /**
+     * GET Strain by strain effects API from strains database
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/strain/effects", method = RequestMethod.GET)
+    public SuggestedStrains getStrainInfoByEffects(@RequestParam int medical, @RequestParam int positive) {
+        return mainServiceImpl.getStrainByEffects(medical,positive);
+    }
+
 
     /**
      * Get recommended API
      *
-     * @return SuggestedStrains(List<Strain>, status)
+     * @return SuggestedStrains(List < Strain >, status)
      */
     @RequestMapping(value = "/strains/recommended/{user-id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public SuggestedStrains getRecommended(@PathVariable("user-id") String userId) {
@@ -125,15 +136,15 @@ public class BaseController {
     /**
      * GET all strains
      *
-     * @return Map<strain_name, strain_id>
+     * @return Map<strain_name ,   strain_id>
      */
     @RequestMapping(value = "/strains/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Map<String,Integer> saveUserUsageHistory() throws IOException {
+    public Map<String, Integer> saveUserUsageHistory() throws IOException {
         logger.info("GET all strains");
         return mainServiceImpl.GetListOfStrains();
     }
 
-        /**
+    /**
      * GET all strains
      *
      * @return List<UsageHistoryResponse>
@@ -141,7 +152,7 @@ public class BaseController {
     @RequestMapping(value = "/usage/export/{user-id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public BaseResponse exportUsage(@PathVariable("user-id") String userId, @RequestBody EmailRequest emailRequest) throws IOException {
         logger.info("POST export usages");
-        return mainServiceImpl.exportToEmail(userId, emailRequest.getTo(),emailRequest.getContent());
+        return mainServiceImpl.exportToEmail(userId, emailRequest.getTo(), emailRequest.getContent());
     }
 }
 
