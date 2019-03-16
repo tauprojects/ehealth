@@ -186,11 +186,17 @@ namespace CannaBe.AppPages.InformationPages
 
             string data = "";
             string name = DoctorsList.Text;
-            doctor_chosen.Text = name;
-            doctors.TryGetValue(name, out data);
-            string[] data_split = data.Split('_');
-
-            doctor_data.Text = "Medical Center: " + data_split[0] + "\nCity: " + data_split[1];
+            try
+            {
+                doctor_chosen.Text = name;
+                doctors.TryGetValue(name, out data);
+                string[] data_split = data.Split('_');
+                doctor_data.Text = "Medical Center: " + data_split[0] + "\nCity: " + data_split[1];
+            }
+            catch
+            {
+                doctor_chosen.Text = "Please enter a valid doctor name";
+            }
 
         }
         private void SubmitCityButton_Click(object sender, RoutedEventArgs e)
@@ -200,20 +206,27 @@ namespace CannaBe.AppPages.InformationPages
             DoctorsList.Text = "";
             MedicalCenterList.Text = "";
 
-            string city = CityList.Text;
-            string data = "";
-            int i = 1;
-
-            doctor_chosen.Text = city + ":";
-            foreach (string key in doctors.Keys)
+            try
             {
-                doctors.TryGetValue(key, out data);
-                if (data.Contains(city))
+                string city = CityList.Text;
+                string data = "";
+                int i = 1;
+
+                doctor_chosen.Text = city + ":";
+                foreach (string key in doctors.Keys)
                 {
-                    string[] data_split = data.Split('_');
-                    doctor_data.Text += i + ". " + key + " at " + data_split[0] + " medical center\n";
-                    i++;
+                    doctors.TryGetValue(key, out data);
+                    if (data.Contains(city))
+                    {
+                        string[] data_split = data.Split('_');
+                        doctor_data.Text += i + ". " + key + " at " + data_split[0] + " medical center\n";
+                        i++;
+                    }
                 }
+            }
+            catch
+            {
+                doctor_chosen.Text = "Please enter a valid city name";
             }
         }
 
@@ -224,6 +237,7 @@ namespace CannaBe.AppPages.InformationPages
             DoctorsList.Text = "";
             CityList.Text = "";
 
+            try { 
             string medicalCenter = MedicalCenterList.Text;
             string data = "";
             int i = 1;
@@ -232,12 +246,18 @@ namespace CannaBe.AppPages.InformationPages
             foreach (string key in doctors.Keys)
             {
                 doctors.TryGetValue(key, out data);
-                if (data.Contains(medicalCenter))
-                {
-                    string[] data_split = data.Split('_');
-                    doctor_data.Text += i + ". " + key + " loacted at " + data_split[1] + "\n";
-                    i++;
+                    if (data.Contains(medicalCenter))
+                    {
+                        string[] data_split = data.Split('_');
+                        doctor_data.Text += i + ". " + key + " loacted at " + data_split[1] + "\n";
+                        i++;
+
+                    }
                 }
+            }
+            catch
+            {
+                doctor_chosen.Text = "Please enter a valid medical center name";
             }
         }
 
