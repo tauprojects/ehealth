@@ -260,7 +260,10 @@ public class StrainApiServiceImpl implements StrainApiService {
 
         // Update strain rank
         StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(usageHistory.getStrainId());
-        int numOfUsages = strainsEntity.getNumberOfUsages();
+        Integer numOfUsages = strainsEntity.getNumberOfUsages();
+        if(numOfUsages==null){
+            numOfUsages=0;
+        }
         double rank = strainsEntity.getRank();
         strainsEntity.setRank(prepareRankValue((numOfUsages * rank + usageHistory.getOverallRank()) / (numOfUsages + 1)));
         strainsEntity.setNumberOfUsages(numOfUsages + 1);
