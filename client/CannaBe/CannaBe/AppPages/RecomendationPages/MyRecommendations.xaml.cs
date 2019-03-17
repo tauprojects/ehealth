@@ -70,7 +70,7 @@ namespace CannaBe.AppPages.RecomendationPages
                         switch (strains.Status)
                         { // Status for match type
                             case 0: // Full match
-                                Message.Text = $"Showing {strains.SuggestedStrainList.Count} matching strains:";
+                                Message.Text = $"Showing {strains.SuggestedStrainList.Count} exactly matched strains:";
                                 break;
 
                             case 1: // Partial match - medical match but positive dont
@@ -133,7 +133,7 @@ namespace CannaBe.AppPages.RecomendationPages
 
         }
 
-        private async void FillStrainList(SuggestedStrains localStrainList)
+        private void FillStrainList(SuggestedStrains localStrainList)
         {
             if (StrainList.Children.Count > 0)
             {
@@ -172,8 +172,6 @@ namespace CannaBe.AppPages.RecomendationPages
                 r.Checked += OnChecked;
                 StrainList.Children.Add(r);
             }
-            await new MessageDialog($"ActualHeight of ButtonsGrid is {ButtonsGrid.ActualHeight}, margins = {ButtonsGrid.Margin.Left},{ButtonsGrid.Margin.Top},{ButtonsGrid.Margin.Right},{ButtonsGrid.Margin.Bottom}", "INFO").ShowAsync();
-
         }
 
         private void OnChecked(object sender, RoutedEventArgs e)

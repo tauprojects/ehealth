@@ -28,7 +28,7 @@
 
             <ScrollViewer x:Name="Scroller" ZoomMode="Enabled" MaxZoomFactor="10" Width="300"
               HorizontalScrollMode="Disabled" Visibility="Visible"  HorizontalScrollBarVisibility="Disabled"
-               VerticalAlignment="Top" MaxHeight="250"
+               VerticalAlignment="Top" MaxHeight="240"
                     Background="White" Opacity="0.7">
                 <StackPanel x:Name="StrainList">
                 </StackPanel>
@@ -36,22 +36,22 @@
 
         </StackPanel>
         <Grid x:Name="ButtonsGrid" Opacity="0.8" Canvas.ZIndex="100" Height="33"
-            Background="#99ffffff" Margin="5,420,5,95" BorderBrush="Black" BorderThickness="1" MinHeight="33">
-            <TextBlock FontWeight="Bold" Text="Sort by:" VerticalAlignment="Center" Margin="4,-1,0,0"/>
+            Background="#99ffffff" VerticalAlignment="Bottom" Margin="0,75"  BorderBrush="Black" BorderThickness="1" MinHeight="33">
+            <TextBlock FontWeight="Bold" Foreground="Black" Text="Sort by:" VerticalAlignment="Center" Margin="4,-1,0,0"/>
             <Viewbox Height="25" Margin="65,0,0,0" HorizontalAlignment="Left">
                 <RadioButton Tag="match" IsEnabled="False" FontSize="15" MaxWidth="50" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40"
                              x:Name="RadioMatch" Checked="RadioChecked">
-                    <TextBlock Text="Match %" Margin="-2,-1,0,0"/>
+                    <TextBlock Text="Match %" Foreground="Black" Margin="-2,-1,0,0"/>
                 </RadioButton>
             </Viewbox>
             <Viewbox Height="25" Margin="139,0,0,0" HorizontalAlignment="Left">
                 <RadioButton x:Name="RadioRank" Tag="rank" IsEnabled="False" Checked="RadioChecked" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40">
-                    <TextBlock Text="Users Rank" Margin="-2,-1,0,0"/>
+                    <TextBlock Text="Users Rank" Foreground="Black" Margin="-2,-1,0,0"/>
                 </RadioButton>
             </Viewbox>
             <Viewbox Height="25" Margin="220,0,0,0" HorizontalAlignment="Left">
                 <RadioButton x:Name="RadioCount" Tag="count" Checked="RadioChecked" IsEnabled="False" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center" Width="46">
-                    <TextBlock Text="Usage Count" Margin="-2,-1,0,0"/>
+                    <TextBlock Text="Usage Count" Foreground="Black" Margin="-2,-1,0,0"/>
                 </RadioButton>
             </Viewbox>
         </Grid>
