@@ -29,15 +29,16 @@ namespace CannaBe.AppPages.Usage
                     break;
                 }
 
+                // Update usage history
                 await Task.Run(() => GlobalContext.UpdateUsagesContextIfEmptyAsync());
 
                 if (GlobalContext.CurrentUser.UsageSessions == null)
-                {
+                { // No usages
                     AppDebug.Line("GlobalContext.CurrentUser.UsageSessions == null");
                     break;
                 }
                 if (GlobalContext.CurrentUser.UsageSessions.Count == 0)
-                {
+                { // No usages
                     UsageListGui.Visibility = Visibility.Collapsed;
                     NoUsageButton.Visibility = Visibility.Visible;
                     AppDebug.Line("GlobalContext.CurrentUser.UsageSessions.Count == 0");
@@ -51,7 +52,7 @@ namespace CannaBe.AppPages.Usage
                         AppDebug.Line("usage == null");
                         continue;
                     }
-
+                    // Add usage to usage list displayed
                     UsageListGui.Items.Add(usage);
                 }
             } while (false);
@@ -67,7 +68,7 @@ namespace CannaBe.AppPages.Usage
         }
 
         private void UsageSelected(object sender, ItemClickEventArgs e)
-        {
+        { // Select usage to view details on
             ListView lst = sender as ListView;
             UsageData u = e.ClickedItem as UsageData;
             AppDebug.Line($"Selected usage on [{u.StartTimeString}]");
@@ -76,7 +77,7 @@ namespace CannaBe.AppPages.Usage
         }
 
         private async void Remove_Click(object sender, RoutedEventArgs e)
-        {
+        { // Remove usage from history
             AppDebug.Line($"Remove usage on [{selectedUsage.StartTimeString}]");
             try
             {
@@ -109,7 +110,7 @@ namespace CannaBe.AppPages.Usage
         private void ListView_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             try
-            {
+            { // Open right click menu
                 ListView lst = sender as ListView;
                 selectedUsage = ((FrameworkElement)e.OriginalSource).DataContext as UsageData;
                 if (selectedUsage != null)

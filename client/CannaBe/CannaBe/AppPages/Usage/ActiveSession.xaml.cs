@@ -25,7 +25,7 @@ namespace CannaBe.AppPages.Usage
             UsageContext.Usage.AddTimerFunction(Timer_Tick);
 
             if (UsageContext.Usage.UseBandData)
-            {
+            { // Using band
                 UsageContext.Usage.Handler += HeartRateUpdateScreen;
             }
             else
@@ -39,7 +39,7 @@ namespace CannaBe.AppPages.Usage
         private void Timer_Tick(object sender, object e)
         {
             try
-            {
+            { // Get time for usage
                 TimeSpan timePassed = DateTime.Now.Subtract(UsageContext.Usage.StartTime);
                 Duration.Text = $"Duration: {new DateTime(timePassed.Ticks).ToString("HH:mm:ss")}";
             }
@@ -50,7 +50,7 @@ namespace CannaBe.AppPages.Usage
         }
 
         private void HeartRateUpdateScreen(double avg, int min, int max)
-        {
+        { // Update heart rate from band
             progressRing.IsActive = false;
             Acquiring.Visibility = Visibility.Collapsed;
             Min.Text = min.ToString();
@@ -64,7 +64,7 @@ namespace CannaBe.AppPages.Usage
             try
             {
                 if (UsageContext.Usage.UseBandData)
-                {
+                { // Stop band usage
                     GlobalContext.Band.StopHeartRate();
                     PagesUtilities.SleepSeconds(0.5);
                 }

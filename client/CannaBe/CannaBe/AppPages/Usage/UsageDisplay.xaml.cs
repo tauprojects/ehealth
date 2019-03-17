@@ -18,29 +18,29 @@ namespace CannaBe.AppPages.Usage
             var u = UsageContext.DisplayUsage;
 
             if (u != null)
-            {
+            { // Display usage
                 StrainChosenText.Text = u.UsageStrain.Name;
                 var st_u = new Underline();
                 st_u.Inlines.Add(new Run()
-                {
+                { // Start time
                     FontWeight = FontWeights.Bold,
                     Text = "Start Time"
                 });
                 StartTime.Inlines.Add(st_u);
                 StartTime.Inlines.Add(new Run()
-                {
+                { // With date
                     FontSize = 18,
                     Text = ": " + u.StartTime.ToString("dd.MM.yy HH:mm:ss")
                 });
                 var et_u = new Underline();
                 et_u.Inlines.Add(new Run()
-                {
+                { // End time
                     FontWeight = FontWeights.Bold,
                     Text = "End Time"
                 });
                 EndTime.Inlines.Add(et_u);
                 EndTime.Inlines.Add(new Run()
-                {
+                { // With date
                     FontSize = 18,
                     Text = ": " + u.EndTime.ToString("dd.MM.yy HH:mm:ss")
                 });
@@ -52,7 +52,7 @@ namespace CannaBe.AppPages.Usage
                 });
                 Duration.Inlines.Add(du_u);
                 Duration.Inlines.Add(new Run()
-                {
+                { // With duration display
                     FontSize = 18,
                     Text = ": " + u.DurationString
                 });
@@ -62,7 +62,7 @@ namespace CannaBe.AppPages.Usage
                     HeartRate.Text = "Band was not used";
                 }
                 else
-                {
+                { // Band was used, show heart rate
                     Underline HeartRateUnderline = new Underline();
                     HeartRateUnderline.Inlines.Add(new Run()
                     {
@@ -75,7 +75,7 @@ namespace CannaBe.AppPages.Usage
                         Text = ": "
                     });
                     HeartRate.Inlines.Add(new Run()
-                    {
+                    { // Minimu heart rate
                         FontSize = 18,
                         FontWeight = FontWeights.Bold,
                         Text = "Min: "
@@ -88,7 +88,7 @@ namespace CannaBe.AppPages.Usage
                     });
 
                     HeartRate.Inlines.Add(new Run()
-                    {
+                    { // Average heart rate
                         FontSize = 18,
                         FontWeight = FontWeights.Bold,
                         Text = " Avg: "
@@ -101,7 +101,7 @@ namespace CannaBe.AppPages.Usage
                     });
 
                     HeartRate.Inlines.Add(new Run()
-                    {
+                    { // Maximum heart rate
                         FontSize = 18,
                         FontWeight = FontWeights.Bold,
                         Text = " Max: "
@@ -116,7 +116,7 @@ namespace CannaBe.AppPages.Usage
                 }
 
                 if (u.usageFeedback != null)
-                {
+                { // Display post treatment feedback
                     foreach (var q in u.usageFeedback)
                     {
                         var t = new TextBlock()
