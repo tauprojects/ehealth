@@ -35,7 +35,7 @@
             </ScrollViewer>
 
         </StackPanel>
-        <Grid x:Name="ButtonsGrid" Opacity="0.8"
+        <Grid x:Name="ButtonsGrid" Opacity="0.8" Canvas.ZIndex="100" Height="33"
             Background="#99ffffff" Margin="5,420,5,95" BorderBrush="Black" BorderThickness="1" MinHeight="33">
             <TextBlock FontWeight="Bold" Text="Sort by:" VerticalAlignment="Center" Margin="4,-1,0,0"/>
             <Viewbox Height="25" Margin="65,0,0,0" HorizontalAlignment="Left">

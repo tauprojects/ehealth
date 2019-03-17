@@ -133,7 +133,7 @@ namespace CannaBe.AppPages.RecomendationPages
 
         }
 
-        private void FillStrainList(SuggestedStrains localStrainList)
+        private async void FillStrainList(SuggestedStrains localStrainList)
         {
             if (StrainList.Children.Count > 0)
             {
@@ -171,8 +171,9 @@ namespace CannaBe.AppPages.RecomendationPages
                 r.IsChecked = false;
                 r.Checked += OnChecked;
                 StrainList.Children.Add(r);
-
             }
+            await new MessageDialog($"ActualHeight of ButtonsGrid is {ButtonsGrid.ActualHeight}, margins = {ButtonsGrid.Margin.Left},{ButtonsGrid.Margin.Top},{ButtonsGrid.Margin.Right},{ButtonsGrid.Margin.Bottom}", "INFO").ShowAsync();
+
         }
 
         private void OnChecked(object sender, RoutedEventArgs e)
