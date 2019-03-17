@@ -25,11 +25,11 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
             PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
             try
-            {
+            { // Load questions for user needs
                 foreach (var medicalNeed in GlobalContext.CurrentUser.Data.MedicalNeeds)
                 {
                     var info = medicalNeed.GetAttribute<EnumDescriptions>();
-                    PostQuestions.Items.Add(info);
+                    PostQuestions.Items.Add(info); // Add to display
                     questionDictionary[info.q1] = "Don't know";
                 }
             }
@@ -46,7 +46,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
         }
 
         private int[] GetRanks(Dictionary<string, string> questionDictionary)
-        {
+        { // Calculate score from answers
             int positiveSum = 0, medicalSum = 0;
             int positiveCnt = 0, medicalCnt = 0;
             int cnt = questionDictionary.Count;
@@ -54,12 +54,12 @@ namespace CannaBe.AppPages.PostTreatmentPages
             int[] ans = new int[4];
 
             foreach (KeyValuePair<string, string> question in questionDictionary)
-            {
+            { // Check each question
                 if (question.Key.Equals("Would you use this strain again?") || question.Key.Equals("Rate the quality of the treatment:"))
-                {
+                { // General questions
                     if (question.Value.Equals("Yes")) positiveSum += 10;
                     else if (question.Value.Equals("No"))
-                    {
+                    { // Add to blacklist
                         positiveSum += 0;
                         is_blacklist = 1;
                     }
@@ -67,7 +67,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
                     else positiveSum += System.Convert.ToInt32(question.Value);
                     positiveCnt += 1;
                 }
-                else { 
+                else { // Medical needs questions
                     if (question.Value.Equals("Yes")) medicalSum += 10;
                     else if (question.Value.Equals("No")) medicalSum += 0;
                     else if (question.Value.Equals("Don't know")) medicalSum += 5;
@@ -76,6 +76,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
                 }
             }
+            // Calculate ranks
             ans[0] = medicalSum / medicalCnt;
             ans[1] = positiveSum / positiveCnt;
             ans[2] = ((positiveSum + medicalSum) / cnt);
@@ -94,7 +95,6 @@ namespace CannaBe.AppPages.PostTreatmentPages
         {
             var check = sender as ComboBox;
             questionDictionary[check.Tag.ToString()] = check.SelectedValue.ToString();
-            //AppDebug.Line("Question: " + check.Tag.ToString() + " Answer: " + check.SelectedValue.ToString());
         }
     }
 }
