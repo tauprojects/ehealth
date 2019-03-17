@@ -14,13 +14,18 @@ package ehealth.db.repository;
  *   from ARM Limited or its affiliates.
  *****************************************************************************/
 
+import ehealth.db.model.RegisteredUsersEntity;
 import ehealth.db.model.UsageHistoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Repository
 public interface UsageHistoryRepository extends JpaRepository<UsageHistoryEntity, UUID> {
-
+    @Modifying
+    @Transactional
+    public int deleteById(UUID userId);
 }

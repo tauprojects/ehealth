@@ -23,7 +23,7 @@ public interface StrainApiService {
     
     SuggestedStrains getRecommendedStrain(String userId);
 
-    void saveUsageHistoryForUser(UsageHistory usageHistory);
+    BaseResponse saveUsageHistoryForUser(UsageHistory usageHistory);
 
     List<UsageHistoryResponse> getUsageHistoryForUser(String userId);
 
@@ -34,4 +34,5 @@ public interface StrainApiService {
     BaseResponse exportToEmail(String userId, String to, String content) throws IOException;
 
     SuggestedStrains getStrainByEffects(int medical, int positive);
+
 }

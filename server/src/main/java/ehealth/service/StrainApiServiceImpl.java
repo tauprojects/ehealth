@@ -25,13 +25,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.core.UriBuilder;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.*;
 
 import static ehealth.client.ApiConstants.URL;
+import static ehealth.messages.MessagesConstants.*;
 
 
 @Service
@@ -46,13 +50,14 @@ public class StrainApiServiceImpl implements StrainApiService {
     protected RegisterUsersRepository registerUsersRepository;
 
     @Autowired
+    protected AllStrainsRepository allStrainsRepository;
+
+    @Autowired
     StrainsCollector strainsCollector;
 
     @Autowired
     protected EmailService emailService;
 
-    @Autowired
-    protected AllStrainsRepository allStrainsRepository;
 
     public StrainApiServiceImpl() {
         client = new ResteasyClientBuilder().build();
@@ -62,17 +67,16 @@ public class StrainApiServiceImpl implements StrainApiService {
 
     @Override
     public RegisteredUserData authenticate(LoginRequest loginRequest) {
-        BaseResponse resp;
         String user = loginRequest.getUsername().toLowerCase();
         String password = loginRequest.getPassword();
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findByUsername(loginRequest.getUsername());
         if (registeredUsersEntity == null) {
             logger.error("Username: " + user + " does not exist in DB");
-            throw new BadRequestException();
+            throw new BadRequestException(String.format(USER_NOT_FOUND, user));
         }
         if (!registeredUsersEntity.getPassword().equals(password)) {
             logger.error("Bad password for user: " + user);
-            throw new BadRequestException();
+            throw new BadRequestException(BAD_PASSWORD);
         }
         logger.info("User: " + user + " Authenticated successfully");
         // return registered user data
@@ -81,6 +85,9 @@ public class StrainApiServiceImpl implements StrainApiService {
 
     @Override
     public RegisteredUserData register(RegisterRequest registerRequest) {
+        if(registerUsersRepository.findByUsername(registerRequest.getUsername()) != null){
+            throw new BadRequestException(String.format(DUPLICATE_USERNAME,registerRequest.getUsername()));
+        }
         if (registerRequest != null) {
             logger.info("Register request: " + registerRequest.toString());
             RegisteredUsersEntity registeredUsersEntity = new RegisteredUsersEntity();
@@ -133,7 +140,7 @@ public class StrainApiServiceImpl implements StrainApiService {
     public StrainObject getStrainByName(String strainName) {
         StrainsEntity strainsEntity = allStrainsRepository.findByStrainName(strainName);
         if (strainsEntity == null) {
-            throw new BadRequestException();
+            throw new BadRequestException(String.format(STRAIN_NOT_FOUND,strainName));
         }
         return strainEntityToStrainObject(strainsEntity);
     }
@@ -142,13 +149,13 @@ public class StrainApiServiceImpl implements StrainApiService {
     public StrainObject getStrainById(Integer strainId) {
         StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(strainId);
         if (strainsEntity == null) {
-            throw new BadRequestException();
+            throw new BadRequestException(String.format(STRAIN_NOT_FOUND,strainId.toString()));
         }
         return strainEntityToStrainObject(strainsEntity);
     }
 
     @Override
-    public List<StrainObject> getAllStrains() throws IOException {
+    public List<StrainObject> getAllStrains() {
         List<StrainObject> allStrains = new ArrayList<>();
         List<StrainsEntity> strainsEntities = allStrainsRepository.findAll();
         for (StrainsEntity strain : strainsEntities) {
@@ -166,7 +173,6 @@ public class StrainApiServiceImpl implements StrainApiService {
         }
         return listOfStrains;
     }
-
 
     @Override
     public SuggestedStrains getRecommendedStrain(String userId) {
@@ -241,11 +247,14 @@ public class StrainApiServiceImpl implements StrainApiService {
     }
 
     @Override
-    public void saveUsageHistoryForUser(UsageHistory usageHistory) {
+    public BaseResponse saveUsageHistoryForUser(UsageHistory usageHistory) {
+        // Fetch register user entity from DB if exist
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(usageHistory.getUserId()));
         if (registeredUsersEntity == null) {
-            throw new BadRequestException();
+            logger.error(String.format(USER_NOT_FOUND, usageHistory.getUserId()));
+            throw new BadRequestException(String.format(USER_NOT_FOUND, usageHistory.getUserId()));
         }
+        // Convert Usage History request to database entity and add to list
         UsageHistoryEntity usageHistoryEntity = buildUsageHistoryEntity(usageHistory);
         List<UsageHistoryEntity> usageHistoryEntityList;
         if (registeredUsersEntity.getUsageHistoryEntity() == null) {
@@ -265,7 +274,7 @@ public class StrainApiServiceImpl implements StrainApiService {
 
         registerUsersRepository.save(registeredUsersEntity);
 
-        // Update strain rank
+        // Update strain rank in strains db table
         StrainsEntity strainsEntity = allStrainsRepository.findByStrainId(usageHistory.getStrainId());
         Integer numOfUsages = strainsEntity.getNumberOfUsages();
         if (numOfUsages == null) {
@@ -275,36 +284,21 @@ public class StrainApiServiceImpl implements StrainApiService {
         strainsEntity.setRank(prepareRankValue((numOfUsages * rank + usageHistory.getOverallRank()) / (numOfUsages + 1)));
         strainsEntity.setNumberOfUsages(numOfUsages + 1);
         allStrainsRepository.save(strainsEntity);
-    }
 
-    @Override
-    public BaseResponse exportToEmail(String userId, String to, String userContent) throws IOException {
-        BaseResponse resp = new BaseResponse();
-        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
-        if (registeredUsersEntity == null) {
-            throw new BadRequestException();
-        }
-        List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
-        String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
-        StringBuilder usageHistoryContent = new StringBuilder();
-        for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
-            usageHistoryContent.append(printUsageAsHtml(usageHistoryResponse));
-        }
-        String emailContent = renderContent(registeredUsersEntity, to, usageHistoryContent.toString(), userContent);
-        int emailResp = emailService.sendEmail(
-                registeredUsersEntity.getUsername(),
-                registeredUsersEntity.getEmail(),
-                to, subject,
-                emailContent);
-        resp.setBody("Usage history exported to: " + to + " successfully");
-        resp.setStatus(String.valueOf(emailResp));
-        return resp;
+        return new BaseResponse(
+                UUID.randomUUID(),
+                "201",
+                usageHistoryEntity.getId().toString());
     }
 
     @Override
     public List<UsageHistoryResponse> getUsageHistoryForUser(String userId) {
         RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));
         List<UsageHistoryResponse> usageHistoryResponseList = new ArrayList<>();
+        if (registeredUsersEntity.getUsageHistoryEntity() == null ||
+                registeredUsersEntity.getUsageHistoryEntity().size() == 0) {
+            return usageHistoryResponseList;
+        }
         for (UsageHistoryEntity usageHistoryEntity : registeredUsersEntity.getUsageHistoryEntity()) {
             usageHistoryResponseList.add(new UsageHistoryResponse(
                     usageHistoryEntity.getId(),
@@ -322,6 +316,33 @@ public class StrainApiServiceImpl implements StrainApiService {
                     usageHistoryEntity.getQuestionsAnswersDictionary()));
         }
         return usageHistoryResponseList;
+    }
+
+    @Override
+    public BaseResponse exportToEmail(String userId, String to, String userContent) throws IOException {
+        BaseResponse resp = new BaseResponse();
+        RegisteredUsersEntity registeredUsersEntity = registerUsersRepository.findById(UUID.fromString(userId));            // Generate Unique User Id
+        if (registeredUsersEntity == null) {
+            logger.error(String.format(USER_NOT_FOUND,userId));
+            throw new BadRequestException(String.format(USER_NOT_FOUND, userId));
+        }
+        List<UsageHistoryResponse> usageHistoryEntityList = getUsageHistoryForUser(userId);
+        String subject = "Usage History for:  " + registeredUsersEntity.getUsername();
+        StringBuilder usageHistoryContent = new StringBuilder();
+        for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
+            usageHistoryContent.append(printUsageAsHtml(usageHistoryResponse));
+        }
+        String emailContent = renderContent(registeredUsersEntity, to, usageHistoryContent.toString(), userContent);
+        int emailResp = emailService.sendEmail(
+                registeredUsersEntity.getUsername(),
+                registeredUsersEntity.getEmail(),
+                to, subject,
+                emailContent);
+        resp.setBody("Usage history exported to: " + to + " successfully");
+        resp.setStatus(String.valueOf(emailResp));
+        return new BaseResponse(UUID.randomUUID(),
+                String.valueOf(emailResp),
+                String.format(EMAIL_MESSAGE,to));
     }
 
     private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {
@@ -427,7 +448,7 @@ public class StrainApiServiceImpl implements StrainApiService {
                 "<h3> {{username}} Profile: </h3> " +
                         "<li> Date of birth: " + registeredUsersEntity.getDob() +
                         "<li> Gender: " + registeredUsersEntity.getGender() +
-                        "<li> Location: " + registeredUsersEntity.getCountry() + ", " + registeredUsersEntity.getCity()+
+                        "<li> Location: " + registeredUsersEntity.getCountry() + ", " + registeredUsersEntity.getCity() +
                         "<li> Medical preferences: " + getMedicalEffects(registeredUsersEntity.getMedical()) + "</li>" +
                         "<li> Positive preferences: " + getPositiveEffects(registeredUsersEntity.getPositive()) + "</li>" +
                         "<li> Negative preferences: " + getNegativeEffects(registeredUsersEntity.getNegative()) + "</li>";
@@ -470,14 +491,14 @@ public class StrainApiServiceImpl implements StrainApiService {
     }
 
     private String getHtmlTemplateFromFile(String filename) {
-        Reader fileReader = null;
-        try {
-            InputStream inputStream = new FileInputStream("src/main/resources/html_templates/" + filename);
-            fileReader = new InputStreamReader(inputStream, "UTF-8");
-        } catch (Exception e) {
-            e.printStackTrace();
+        byte[] encoded;
+        try{
+            encoded = Files.readAllBytes(Paths.get("src/main/resources/html_templates/" + filename));
         }
-        return fileReader.toString();
+        catch (IOException e ){
+            throw new InternalServerErrorException("Bad html template file input ");
+        }
+        return new String(encoded);
     }
 
     private String renderContent(RegisteredUsersEntity registeredUsersEntity, String toAddress, String usageHistory, String userContent) {
@@ -488,37 +509,8 @@ public class StrainApiServiceImpl implements StrainApiService {
         context.put("usageData", usageHistory);
         context.put("username", registeredUsersEntity.getUsername());
         context.put("profile", printProfilerAsHtml(registeredUsersEntity));
+        String emailTemplate = getHtmlTemplateFromFile("email_usage_template.html");
         return jinjava.render(emailTemplate, context);
     }
 
-    public static final String emailTemplate = "<!DOCTYPE html>\n" +
-            "<html>\n" +
-            "<head>\n" +
-            "<title>Medicanna Email Service</title>\n" +
-            "<style>\n" +
-            "body {\n" +
-            "  background-color: white;\n" +
-            "  text-align: left;\n" +
-            "  color: green;\n" +
-            "  font-family: Arial, Helvetica, sans-serif;\n" +
-            "}\n" +
-            "</style>\n" +
-            "</head>\n" +
-            "<body>\n" +
-            "\n" +
-            "<img src=\"https://i.ibb.co/1ZvWdRv/Logo-Green-Background.png\" alt=\"Avatar\" style=\"width:200px\">\n" +
-            "<h3>Hello {{to}}</h3>\n" +
-            "<h3> This is a email from Medicanna app</h3>\n" +
-            "<p>{{userContent}}</p>\n" +
-            "<p>________________________________________________________________________________</p>\n" +
-            "<br>" +
-            "<p>This email contains medical usage history of {{username}}.</p>\n" +
-            "<br>\n" +
-            "{{profile}}\n" +
-            "<br>\n" +
-            "{{usageData}}\n" +
-            "<p>Regards,</p>\n" +
-            "<p>{{username}}</p>\n" +
-            "</body>\n" +
-            "</html>\n";
 }
