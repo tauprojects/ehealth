@@ -57,7 +57,7 @@ namespace CannaBe
         }
 
         public async Task<HttpResponseMessage> Get(string URL)
-        {
+        { // Get from server
             AppDebug.Line("In Get: " + URL);
 
             try
@@ -94,7 +94,7 @@ namespace CannaBe
         }
 
         public async Task<HttpResponseMessage> Post(string URL, HttpContent content)
-        {
+        { // Post to server
             try
             {
                 bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();

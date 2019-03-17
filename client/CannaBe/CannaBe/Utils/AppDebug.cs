@@ -15,14 +15,14 @@ namespace CannaBe
         public static bool IsRunningOnPc = true;
 
         public static void Line(object msg, bool OmitDate, string caller)
-        {
+        { // Print to output console
             if (!OmitDate)
                 msg = DateTime.Now.ToString("HH:mm:ss.ffffff") + " " + msg;
 
             Debug.WriteLine(msg);
 
             try
-            {
+            { // Write to log file
                 if (LogFile == null)
                 {
                     Init();
@@ -38,7 +38,7 @@ namespace CannaBe
         }
 
         public static void Init()
-        {
+        { // Initiate log file
             Application.Current.UnhandledException += UnhandledExceptionEventHandler;
             EasClientDeviceInformation info = new EasClientDeviceInformation();
             string platform = "";

@@ -50,7 +50,7 @@ namespace CannaBe.AppPages.Usage
                 {
                     AppDebug.Line("Loading strain list..");
                     try
-                    {
+                    { // Get strain list from DB
 
                         var res = await HttpManager.Manager.Get(Constants.MakeUrl("strains/all/"));
 
@@ -59,9 +59,9 @@ namespace CannaBe.AppPages.Usage
                             throw new Exception("Get operation failed, response is null");
                         }
 
-                        StrainsDict = HttpManager.ParseJson<Dictionary<string, string>>(res);
+                        StrainsDict = HttpManager.ParseJson<Dictionary<string, string>>(res); // Parse JSON to dictionary
 
-                        StrainsNamesList = StrainsDict.Keys.ToList();
+                        StrainsNamesList = StrainsDict.Keys.ToList(); // Keys - strain names
                         StrainsNamesList.Sort();
                         isStrainListFull = true;
 
@@ -158,7 +158,7 @@ namespace CannaBe.AppPages.Usage
             try
             {
                 if (StrainChosen != null)
-                {
+                { // Choose strain
                     progressRing.IsActive = true;
                     StrainList.IsEnabled = false;
                     SubmitButton.IsEnabled = false;
@@ -184,7 +184,7 @@ namespace CannaBe.AppPages.Usage
         private async Task SubmitStringTask()
         {
             await Task.Run(async () =>
-            {
+            { // Submit chosen strain
                 AppDebug.Line("Submit string: " + StrainChosen);
                 try
                 {
@@ -196,13 +196,14 @@ namespace CannaBe.AppPages.Usage
                     {
                         var strainId = StrainsDict[StrainChosen];
                         AppDebug.Line($"Strain: [{StrainChosen}], ID: {strainId}");
-
+                        
+                        // Get strain properties
                         var res = await HttpManager.Manager.Get(Constants.MakeUrl("/strain/id/" + strainId));
 
                         if (res == null)
                             return;
 
-                        UsageContext.ChosenStrain = HttpManager.ParseJson<Strain>(res);
+                        UsageContext.ChosenStrain = HttpManager.ParseJson<Strain>(res); // Parse Json to strain
 
                         /*
                         UsageContext.ChosenStrain = new Strain(StrainChosen, int.Parse(strainId))
@@ -228,7 +229,7 @@ namespace CannaBe.AppPages.Usage
         private void ContinueHandler(object sender, RoutedEventArgs e)
         {
             if(UsageContext.ChosenStrain != null)
-            {
+            { // Strain was chosen
                 Frame.Navigate(typeof(StartUsage2));
             }
             else

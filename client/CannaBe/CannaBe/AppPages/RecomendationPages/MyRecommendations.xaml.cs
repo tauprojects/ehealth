@@ -40,14 +40,14 @@ namespace CannaBe.AppPages.RecomendationPages
             progressRing.IsActive = true;
             UsageContext.ChosenStrain = null;
             if (GlobalContext.CurrentUser != null)
-            {
+            { // Get recommended strains for user from server
                 Message.Text = "Searching for matching strains based on your profile...";
 
                 var user_id = GlobalContext.CurrentUser.Data.UserID;
-                var url = Constants.MakeUrl($"strains/recommended/{user_id}/");
+                var url = Constants.MakeUrl($"strains/recommended/{user_id}/"); // Build url for user
 
                 try
-                {
+                { // Send request to server
                     var res = await HttpManager.Manager.Get(url);
 
                     if (res == null)
@@ -55,10 +55,11 @@ namespace CannaBe.AppPages.RecomendationPages
                         progressRing.IsActive = false;
                         return;
                     }
-
+                    // Successful request
                     PagesUtilities.SleepSeconds(0.2);
 
-                    strains = await Task.Run(() => HttpManager.ParseJson<SuggestedStrains>(res));
+                    // Recommended strain list
+                    strains = await Task.Run(() => HttpManager.ParseJson<SuggestedStrains>(res)); // Parsing JSON
 
                     if (strains.SuggestedStrainList.Count == 0)
                     {
@@ -67,16 +68,16 @@ namespace CannaBe.AppPages.RecomendationPages
                     else
                     {
                         switch (strains.Status)
-                        {
-                            case 0:
+                        { // Status for match type
+                            case 0: // Full match
                                 Message.Text = $"Showing {strains.SuggestedStrainList.Count} matching strains:";
                                 break;
 
-                            case 1:
+                            case 1: // Partial match - medical match but positive dont
                                 Message.Text = $"No exact matches found!\nTry updating your positive preferences.\nShowing {strains.SuggestedStrainList.Count} partially matching strains:";
                                 break;
 
-                            case 2:
+                            case 2: // Partial match - medical and positive don't match
                                 Message.Text = $"No exact matches found!\nTry updating your positive and medical preferences.\nShowing {strains.SuggestedStrainList.Count} partially matching strains:";
                                 break;
                         }
@@ -85,13 +86,13 @@ namespace CannaBe.AppPages.RecomendationPages
                         Random rnd = new Random();
 
                         foreach (var strain in strains.SuggestedStrainList)
-                        {
+                        { // **Random numbers**
                             strain.Rank = rnd.Next(1, 100);
                             strain.NumberOfUsages = rnd.Next(0, 1000);
                         }
 
                         if (strains.Status != 0)
-                        {
+                        { // Calculate partal match rate
                             foreach (var strain in strains.SuggestedStrainList)
                             {
                                 strain.MatchingPercent = strain / GlobalContext.CurrentUser;
@@ -107,7 +108,7 @@ namespace CannaBe.AppPages.RecomendationPages
                         FillStrainList(strains);
 
                         foreach (var child in ButtonsGrid.Children)
-                        {
+                        { // Display buttons to choose strains
                             if (child.GetType() == typeof(Viewbox))
                             {
                                 var b = (child as Viewbox).Child as RadioButton;
@@ -194,36 +195,36 @@ namespace CannaBe.AppPages.RecomendationPages
         }
 
         private void RadioChecked(object sender, RoutedEventArgs e)
-        {
+        { // Radio buttons for sorting list
             var b = sender as RadioButton;
             switch (b.Tag)
             {
-                case "match":
+                case "match": // Sort by match percentage
                     sortType = SortType.MATCH;
                     RadioCount.IsChecked = false;
                     RadioRank.IsChecked = false;
                     FillStrainList(matchSortedStrains);
                     break;
 
-                case "rank":
+                case "rank": // Sort by rank
                     sortType = SortType.RANK;
                     RadioCount.IsChecked = false;
                     RadioMatch.IsChecked = false;
 
                     if (rankSortedStrains == null)
-                    {
+                    { // Perform sort
                         strains.SuggestedStrainList.Sort(Strain.RankComparison);
                         rankSortedStrains = new SuggestedStrains(strains.Status, new List<Strain>(strains.SuggestedStrainList));
                     }
                     FillStrainList(rankSortedStrains);
                     break;
 
-                case "count":
+                case "count": // Sort by number of usages
                     sortType = SortType.COUNT;
                     RadioRank.IsChecked = false;
                     RadioMatch.IsChecked = false;
                     if (countSortedStrains == null)
-                    {
+                    { // Perform sort
                         strains.SuggestedStrainList.Sort(Strain.CountComparison);
                         countSortedStrains = new SuggestedStrains(strains.Status, new List<Strain>(strains.SuggestedStrainList));
                     }

@@ -24,7 +24,7 @@ namespace CannaBe
             if (req != null)
             {
                 try
-                {
+                { // Load previously entered details, or empty if none exist
                     Username.Text = req.Username ?? "";
                     Password.Password = "";
                     Country.Text = req.Country ?? "";
@@ -52,7 +52,7 @@ namespace CannaBe
         {
             int flag = 0;
             try
-            {
+            { // Check valid gender
                 if (!Gender.SelectedValue.ToString().Equals(null))
                 {
 
@@ -63,6 +63,7 @@ namespace CannaBe
                 flag = 1;
             }
 
+            // Check if properties are valid
             if (string.IsNullOrEmpty(Username.Text))
             {
                 Status.Text = "Please enter a valid username";
@@ -92,7 +93,7 @@ namespace CannaBe
                 Status.Text = "Please enter a valid email";
             }
             else
-            {
+            { // All properties are valid, build request to continue
                 if (GlobalContext.RegisterContext == null)
                 {
                     GlobalContext.RegisterContext = new RegisterRequest();
@@ -111,12 +112,12 @@ namespace CannaBe
         }
 
         private void BackToHome(object sender, TappedRoutedEventArgs e)
-        {
+        { // Delete registration request and return to dashboard
             GlobalContext.RegisterContext = null;
             Frame.Navigate(typeof(MainPage));
         }
         private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
-        {
+        { // enter key
             if (e.Key == VirtualKey.Enter)
             {
                 ContinueMedicalRegister(sender, e);

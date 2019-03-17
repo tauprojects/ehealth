@@ -10,7 +10,7 @@ namespace CannaBe.Enums
     {
 
         public EnumDescriptions(string q1, string q2)
-        {
+        { // Questions for post feedback by preferences
             this.q1 = q1;
             this.q2 = q2;
         }

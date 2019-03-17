@@ -50,7 +50,7 @@ namespace CannaBe
             if (req != null)
             {
                 try
-                {
+                { // If checkboxes were chosen before, update them again
                     PagesUtilities.SetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
                                      req.IntNegativePreferences);
                 }
@@ -68,7 +68,7 @@ namespace CannaBe
         }
 
         private void BackToPositiveEffectsRegister(object sender, TappedRoutedEventArgs e)
-        {
+        { // Save changes to checkboxes before navigating back
             PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
                     out List<int> intList);
             GlobalContext.RegisterContext.IntNegativePreferences = intList;
@@ -81,29 +81,31 @@ namespace CannaBe
             HttpResponseMessage res = null;
 
             try
-            {
+            { // Build register request
                 progressRing.IsActive = true;
 
+                // Get negative checkboxes
                 PagesUtilities.GetAllCheckBoxesTags(RegisterNegativeEffectsGrid,
                 out List<int> intList);
 
                 GlobalContext.RegisterContext.IntNegativePreferences = intList;
 
+                // Send request with register information
                 res = await HttpManager.Manager.Post(Constants.MakeUrl("register"), GlobalContext.RegisterContext);
 
 
                 if (res != null)
-                {
+                { // Request succeeded
                     var content = res.GetContent();
 
                     switch (res.StatusCode)
-                    {
+                    { // Register succeeded
                         case HttpStatusCode.OK:
                             Status.Text = "Register Successful!";
                             PagesUtilities.SleepSeconds(1);
                             Frame.Navigate(typeof(DashboardPage), res);
                             break;
-
+                        // Register failed
                         case HttpStatusCode.BadRequest:
                             Status.Text = "Register failed!\n" + content["message"];
                             break;
