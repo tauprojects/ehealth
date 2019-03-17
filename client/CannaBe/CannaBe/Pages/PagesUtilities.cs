@@ -28,22 +28,22 @@ namespace CannaBe
 
         public static void AddBackButtonHandler()
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested +=
-                ((object sender, BackRequestedEventArgs e) =>
-                {
-                    Frame rootFrame = Window.Current.Content as Frame;
+            //SystemNavigationManager.GetForCurrentView().BackRequested +=
+            //    ((object sender, BackRequestedEventArgs e) =>
+            //    {
+            //        Frame rootFrame = Window.Current.Content as Frame;
 
-                    if (rootFrame.CanGoBack)
-                    {
-                        e.Handled = true;
-                        rootFrame.GoBack();
-                    }
-                });
+            //        if (rootFrame.CanGoBack)
+            //        {
+            //            e.Handled = true;
+            //            rootFrame.GoBack();
+            //        }
+            //    });
         }
 
         public static void AddBackButtonHandler(EventHandler<BackRequestedEventArgs> handler)
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested += handler;
+            //AddBackButtonHandler();
         }
 
         /////////////

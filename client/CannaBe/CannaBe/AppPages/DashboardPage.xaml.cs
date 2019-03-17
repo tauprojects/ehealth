@@ -60,32 +60,17 @@ namespace CannaBe
         {
             Frame.Navigate(typeof(PostTreatment));
         }
-   
-        private async void LogoutHandler(object sender, TappedRoutedEventArgs e)
+
+        private void LogoutHandler(object sender, TappedRoutedEventArgs e)
         { // Logout - delete local data
 
-            var yesCommand = new UICommand("Logout", cmd =>
-            {
-                GlobalContext.CurrentUser = null;
-                GlobalContext.RegisterContext = null;
-                GlobalContext.Band = null;
-                UsageContext.ChosenStrain = null;
-                UsageContext.DisplayUsage = null;
-                UsageContext.Usage = null;
-                Frame.Navigate(typeof(MainPage));
-            });
-            var noCommand = new UICommand("Stay!", cmd =>
-            {
-                AppDebug.Line("Cancel logout");
-            });
-            var dialog = new MessageDialog("Are you sure you want to log out?", "Logout")
-            {
-                Options = MessageDialogOptions.None
-            };
-            dialog.Commands.Add(yesCommand);
-            dialog.Commands.Add(noCommand);
-
-            await dialog.ShowAsync();
+            GlobalContext.CurrentUser = null;
+            GlobalContext.RegisterContext = null;
+            GlobalContext.Band = null;
+            UsageContext.ChosenStrain = null;
+            UsageContext.DisplayUsage = null;
+            UsageContext.Usage = null;
+            Frame.Navigate(typeof(MainPage));
         }
 
         private void GoToStartUsage(object sender, RoutedEventArgs e)
