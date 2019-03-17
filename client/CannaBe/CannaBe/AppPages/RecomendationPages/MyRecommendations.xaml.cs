@@ -58,7 +58,7 @@ namespace CannaBe.AppPages.RecomendationPages
                     PagesUtilities.SleepSeconds(0.2);
 
                     // Recommended strain list
-                    strains = await Task.Run(() => HttpManager.ParseJson<SuggestedStrains>(res));
+                    strains = await Task.Run(() => HttpManager.ParseJson<SuggestedStrains>(res)); // Parsing JSON
 
                     if (strains.SuggestedStrainList.Count == 0)
                     {
