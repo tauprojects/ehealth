@@ -1,6 +1,7 @@
 package ehealth.service;
 
 import com.google.gson.Gson;
+import com.hubspot.jinjava.Jinjava;
 import ehealth.client.StrainServicesInterface;
 import ehealth.client.data_objects.StrainObject;
 import ehealth.client.data_objects.SuggestedStrains;
@@ -22,7 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.UriBuilder;
-import java.io.IOException;
+import java.io.*;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -286,12 +287,12 @@ public class StrainApiServiceImpl implements StrainApiService {
         for (UsageHistoryResponse usageHistoryResponse : usageHistoryEntityList) {
             usageHistoryContent.append(printUsageAsHtml(usageHistoryResponse));
         }
+        String emailContent = renderContent(registeredUsersEntity, to, usageHistoryContent.toString(), userContent);
         int emailResp = emailService.sendEmail(
                 registeredUsersEntity.getUsername(),
                 registeredUsersEntity.getEmail(),
                 to, subject,
-                usageHistoryContent.toString(),
-                userContent);
+                emailContent);
         resp.setBody("Usage history exported to: " + to + " successfully");
         resp.setStatus(String.valueOf(emailResp));
         return resp;
@@ -318,41 +319,6 @@ public class StrainApiServiceImpl implements StrainApiService {
                     usageHistoryEntity.getQuestionsAnswersDictionary()));
         }
         return usageHistoryResponseList;
-    }
-
-    private String printUsageAsHtml(UsageHistoryResponse usageHistoryResponse) {
-        String usageResponseMessage = "";
-        usageResponseMessage +=
-                        "<br> Usage History For Strain: " + usageHistoryResponse.getStrainName() + "" +
-                        "<br> Started At: " + new Timestamp(usageHistoryResponse.getStartTime()).toString() +
-                        "<br> Ended At: " + new Timestamp(usageHistoryResponse.getEndTime()).toString() +
-                        "<li> Medical user rank: " + usageHistoryResponse.getMedicalRank() + "</li>" +
-                        "<li> Positive user rank: " + usageHistoryResponse.getPositiveRank() + "</li>" +
-                        "<li> Overall user rank: " + usageHistoryResponse.getOverallRank() + "</li>";
-        if (usageHistoryResponse.getHeartbeatAvg() > 0) {
-            usageResponseMessage +=
-                    "<li> Was band use ?: " + "Yes" + "" +
-                            "<li> Heartbeat highest value: " + usageHistoryResponse.getHeartbeatHigh() + "</li>" +
-                            "<li> Heartbeat lowest value: " + usageHistoryResponse.getHeartbeatLow() + "</li>" +
-                            "<li> Heartbeat average value: " + usageHistoryResponse.getHeartbeatAvg() + "</li>";
-        } else {
-            usageResponseMessage += "<li> Was band used ? " + "No" + "</li>";
-        }
-        usageResponseMessage += "<br>User Feedback: ";
-        usageResponseMessage += printJsonAsHtml(usageHistoryResponse.getQuestionsAnswersDictionary());
-        usageResponseMessage += "<br>______________________________________________________________________________";
-
-        return usageResponseMessage;
-
-    }
-
-    private String printJsonAsHtml(String data) {
-        String questionsHtml = "";
-        Map<String, String> result = new Gson().fromJson(data, Map.class);
-        for (Map.Entry<String, String> entry : result.entrySet()) {
-            questionsHtml += "<li>  " + entry.getKey() + "     " + entry.getValue() + "</li>";
-        }
-        return questionsHtml;
     }
 
     private UsageHistoryEntity buildUsageHistoryEntity(UsageHistory usageHistory) {
@@ -418,4 +384,117 @@ public class StrainApiServiceImpl implements StrainApiService {
         // Return formatted value multiplied vy 100 to get percentage format value
         return Float.valueOf(df.format(Double.valueOf(value))).doubleValue();
     }
+
+    private String printJsonAsHtml(String data) {
+        String questionsHtml = "";
+        Map<String, String> result = new Gson().fromJson(data, Map.class);
+        for (Map.Entry<String, String> entry : result.entrySet()) {
+            questionsHtml += "<li>  " + entry.getKey() + "     " + entry.getValue() + "</li>";
+        }
+        return questionsHtml;
+    }
+
+    private String printUsageAsHtml(UsageHistoryResponse usageHistoryResponse) {
+        String usageResponseMessage = "";
+        usageResponseMessage +=
+                "<br> Usage History For Strain: " + usageHistoryResponse.getStrainName() + "" +
+                        "<br> Started At: " + new Timestamp(usageHistoryResponse.getStartTime()).toString() +
+                        "<br> Ended At: " + new Timestamp(usageHistoryResponse.getEndTime()).toString() +
+                        "<li> Medical user rank: " + usageHistoryResponse.getMedicalRank() + "</li>" +
+                        "<li> Positive user rank: " + usageHistoryResponse.getPositiveRank() + "</li>" +
+                        "<li> Overall user rank: " + usageHistoryResponse.getOverallRank() + "</li>";
+        if (usageHistoryResponse.getHeartbeatAvg() > 0) {
+            usageResponseMessage +=
+                    "<li> Was band use ?: " + "Yes" + "" +
+                            "<li> Heartbeat highest value: " + usageHistoryResponse.getHeartbeatHigh() + "</li>" +
+                            "<li> Heartbeat lowest value: " + usageHistoryResponse.getHeartbeatLow() + "</li>" +
+                            "<li> Heartbeat average value: " + usageHistoryResponse.getHeartbeatAvg() + "</li>";
+        } else {
+            usageResponseMessage += "<li> Was band used ? " + "No" + "</li>";
+        }
+        usageResponseMessage += "<br>User Feedback: ";
+        usageResponseMessage += printJsonAsHtml(usageHistoryResponse.getQuestionsAnswersDictionary());
+        usageResponseMessage += "<br>______________________________________________________________________________";
+        return usageResponseMessage;
+    }
+
+    private String printProfilerAsHtml(RegisteredUsersEntity registeredUsersEntity) {
+        String usageProfile = "";
+        usageProfile +=
+                "<br> {{username}} Profile: " +
+                        "<br> Date of birth: " + registeredUsersEntity.getDob() +
+                        "<br> Gender: " + registeredUsersEntity.getGender() +
+                        "<li> Medical preferences: " + getMedicalEffects(registeredUsersEntity.getMedical()) + "</li>" +
+                        "<li> Positive preferences: " + getPositiveEffects(registeredUsersEntity.getPositive()) + "</li>" +
+                        "<li> Overall preferences: " + getNegativeEffects(registeredUsersEntity.getNegative()) + "</li>";
+
+        usageProfile += "<br>______________________________________________________________________________";
+        return usageProfile;
+    }
+
+    private String getNegativeEffects(int negative) {
+        List<String> effects = new ArrayList<>();
+        return "";
+    }
+
+    private String getPositiveEffects(int positive) {
+        List<String> effects = new ArrayList<>();
+        return "";
+    }
+
+    private String getMedicalEffects(int medical) {
+        List<String> effects = new ArrayList<>();
+        return "";
+    }
+
+    private String getHtmlTemplateFromFile(String filename) {
+        Reader fileReader = null;
+        try {
+            InputStream inputStream = new FileInputStream("src/test/resources/prometheusResponses/" + filename);
+            fileReader = new InputStreamReader(inputStream, "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return fileReader.toString();
+    }
+
+    private String renderContent(RegisteredUsersEntity registeredUsersEntity, String toAddress, String usageHistory, String userContent) {
+        Jinjava jinjava = new Jinjava();
+        Map<String, Object> context = new HashMap<>();
+        context.put("to", toAddress);
+        context.put("userContent", userContent);
+        context.put("usageData", usageHistory);
+        context.put("username", registeredUsersEntity.getUsername());
+        context.put("profile", printProfilerAsHtml(registeredUsersEntity))
+        return jinjava.render(emailTemplate, context);
+    }
+
+    public static final String emailTemplate = "<!DOCTYPE html>\n" +
+            "<html>\n" +
+            "<head>\n" +
+            "<title>Medicanna Email Service</title>\n" +
+            "<style>\n" +
+            "body {\n" +
+            "  background-color: white;\n" +
+            "  text-align: left;\n" +
+            "  color: green;\n" +
+            "  font-family: Arial, Helvetica, sans-serif;\n" +
+            "}\n" +
+            "</style>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "\n" +
+            "<img src=\"https://i.ibb.co/k0772rJ/Medicanna-Logo.jpg\" alt=\"Avatar\" style=\"width:200px\">\n" +
+            "<h3>Hello {{to}}</h3>\n" +
+            "<h3> This is a email from Medicanna app</h3>\n" +
+            "<p>{{userContent}}</p>\n" +
+            "<p>________________________________________________________________________________</p>\n" +
+            "<br>" +
+            "<p>This email contains medical usage history of {{username}}.</p>\n" +
+            "<br>\n" +
+            "{{usageData}}\n" +
+            "<p>Regards,</p>\n" +
+            "<p>{{username}}</p>\n" +
+            "</body>\n" +
+            "</html>\n";
 }
