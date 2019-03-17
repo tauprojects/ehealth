@@ -11,7 +11,7 @@ Silvio_Brill Ichilov_Tel-Aviv
 Hadasa_Goldberg Schneider_Petach-Tikva
 Omer_Goldstein Bnei-Zion_Haifa
 Emilia_Gulko Maccabi_Kfar-Yona
-Itai_Gur-Arie Tel-Hashomer_Ramat-Gan
+Itai_Gur-Arie Tel-HaShomer_Ramat-Gan
 Yaakov_Gurevitch Leumit_Karmiel
 Gil_Gilad Schneider_Petach-Tikva
 Dina_Ganopolsky Maccabi_Rishon-Letzion
@@ -38,3 +38,13 @@ Norman_Cohen Maccabi_Ra'anana
 Sraya_Cahanovitz Meuhedet_Hertzliya
 Ofer_Caspi Beilinson_Petach-Tikva
 Natalie_Katz Ma'ale-HaCarmel_Tirat-HaCarmel
+Mordechai_Lorverboim Wolfson_Holon
+Anatoly_Livshitz Reut_Tel-Aviv
+Meriav_Leiba Tel-HaShomer_Ramat-Gan
+Haim_Lioz Meuhedet_Tel-Aviv
+Orna_Landau-De-Shalit Ichilov_Tel-Aviv
+Mira_Motznik Clalit_Jerusalem
+Gil_Morali Meuhedet_Jerusalem
+Camel_Mahmid Bnei-Zion_Haifa
+Davia_Misha Maccabi_Bat-Yam
+Dimitri_Manevitch Clalit_Petach-Tikva

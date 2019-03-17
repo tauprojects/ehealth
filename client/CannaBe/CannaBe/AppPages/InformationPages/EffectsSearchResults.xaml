@@ -43,7 +43,7 @@
                             <Border Height="auto" VerticalAlignment="Top" Width="300">
                                 <StackPanel Margin="3,0,0,0">
                                     <TextBlock  >
-                                    <Run x:Name="StrainName" Text="{Binding Path=Name}"/>
+                                    <Run x:Name="StrainName" Foreground="Black" Text="{Binding Path=Name}"/>
                                     </TextBlock>
 
                                 </StackPanel>
