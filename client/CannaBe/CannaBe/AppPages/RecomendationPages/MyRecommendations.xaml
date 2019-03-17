@@ -36,7 +36,7 @@
 
         </StackPanel>
         <Grid x:Name="ButtonsGrid" Opacity="0.8"
-            Background="#99ffffff" Margin="5,420,5,95" BorderBrush="Black" BorderThickness="1">
+            Background="#99ffffff" Margin="5,420,5,65" BorderBrush="Black" BorderThickness="1">
             <TextBlock FontWeight="Bold" Text="Sort by:" VerticalAlignment="Center" Margin="4,-1,0,0"/>
             <Viewbox Height="25" Margin="65,0,0,0" HorizontalAlignment="Left">
                 <RadioButton Tag="match" IsEnabled="False" FontSize="15" MaxWidth="50" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40"

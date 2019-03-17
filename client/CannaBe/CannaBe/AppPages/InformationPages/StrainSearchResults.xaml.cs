@@ -45,22 +45,39 @@ namespace CannaBe.AppPages.InformationPages
         private void searchFromEffects(Strain req)
         {
             strain.Text = req.Name + ":";
-            desc.Text = req.Description;
-            score.Text = "Overall rank by users: " + req.Rank;
+            desc.Text = req.Description ?? "No description available for this strain";
+            if (req.NumberOfUsages != 0)
+            {
+                score.Text = "Overall rank by users: " + req.Rank;
+                numberofusages.Text = "Ranked by: " + req.NumberOfUsages + " users";
+            }
+            else score.Text = "This strain has not been ranked yet!";
         }
 
         private void searchByStrain(string req)
         {
-            string name = "", description = "", rank = "", status = "";
+            string name = "", description = "", rank = "", status = "", usagenumstr = "";
+            int usagenum = 0;
             res = JsonConvert.DeserializeObject<Dictionary<string, string>>(req);
             try
             {
                 res.TryGetValue("name", out name);
                 res.TryGetValue("description", out description);
                 res.TryGetValue("rank", out rank);
+                res.TryGetValue("number_of_usages", out usagenumstr);
+                int.TryParse(usagenumstr, out usagenum);
+
                 strain.Text = name + ":";
                 desc.Text = description;
-                score.Text = "Overall rank by users: " + rank;
+                if (usagenum != 0)
+                {
+                    score.Text = "Overall rank by users: " + rank;
+                    numberofusages.Text = "Ranked by: " + usagenum + " users";
+                }
+                else
+                {
+                    score.Text = "This strain has not been ranked yet!";
+                }
             }
             catch
             {
