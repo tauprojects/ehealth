@@ -14,7 +14,7 @@ namespace CannaBe
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
+            //PagesUtilities.AddBackButtonHandler(PostLogin);
         }
 
         private void BoxGotFocus(object sender, RoutedEventArgs e)
