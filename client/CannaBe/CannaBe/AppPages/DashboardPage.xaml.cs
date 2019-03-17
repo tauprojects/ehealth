@@ -50,7 +50,7 @@ namespace CannaBe
             if (e.Parameter == null)
                 return;
 
-            GlobalContext.AddUserToContext(e);
+            GlobalContext.AddUserToContext(e); // Add logined user to current context
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -63,7 +63,7 @@ namespace CannaBe
                 Welcome.Text = "Debug Session, no user";
             }
             else
-            {
+            { // Login successfull
                 Welcome.Text = $"Welcome, {GlobalContext.CurrentUser.Data.Username}!";
                 AppDebug.Line($"Wrote welocme text: [{Welcome.Text}]");
             }
@@ -80,15 +80,13 @@ namespace CannaBe
         }
    
         private void LogoutHandler(object sender, TappedRoutedEventArgs e)
-        {
+        { // Logout - delete local data
             GlobalContext.CurrentUser = null;
             GlobalContext.RegisterContext = null;
             GlobalContext.Band = null;
             UsageContext.ChosenStrain = null;
             UsageContext.DisplayUsage = null;
             UsageContext.Usage = null;
-            //GC.Collect();
-            //GC.WaitForPendingFinalizers();
             Frame.Navigate(typeof(MainPage));
         }
 
