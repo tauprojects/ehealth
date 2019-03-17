@@ -32,7 +32,7 @@ namespace CannaBe
         public string Race;
 
         [JsonProperty("description")]
-        public string Description;
+        public string Description = "";
 
         [JsonProperty("rank")]
         public double Rank;

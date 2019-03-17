@@ -40,6 +40,7 @@
             </Grid>
         </ScrollViewer>
         <TextBlock x:Name="score" Foreground="Black" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,410,0,0"/>
+        <TextBlock x:Name="numberofusages" Foreground="Black" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,432,0,0"/>
 
 
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
