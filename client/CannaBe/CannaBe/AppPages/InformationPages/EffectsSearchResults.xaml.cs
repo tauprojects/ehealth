@@ -1,26 +1,11 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace CannaBe.AppPages.InformationPages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class EffectsSearchResults : Page
     {
         public EffectsSearchResults()
@@ -38,10 +23,10 @@ namespace CannaBe.AppPages.InformationPages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            searchByEffects(GlobalContext.searchResult);
+            SearchByEffects(GlobalContext.searchResult);
         }
 
-        private void searchByEffects(string req)
+        private void SearchByEffects(string req)
         {
             SuggestedStrains strains = JsonConvert.DeserializeObject<SuggestedStrains>(req);
             if ( (strains.SuggestedStrainList.Count == 0) || (strains.Status != 0) )
@@ -50,13 +35,14 @@ namespace CannaBe.AppPages.InformationPages
             }
             if (strains.Status == 0)
             {
+                found.Text = $"Found {strains.SuggestedStrainList.Count} matching strains:";
                 foreach (Strain s in strains.SuggestedStrainList)
                 {
                     strainListGui.Items.Add(s);
                 }
             }
         }
-        private void strainSelected(object sender, ItemClickEventArgs e)
+        private void StrainSelected(object sender, ItemClickEventArgs e)
         {
             ListView lst = sender as ListView;
             Strain s = e.ClickedItem as Strain;
