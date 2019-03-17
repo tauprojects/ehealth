@@ -127,7 +127,7 @@ namespace CannaBe
             int i = 1;
 
             if (MedicalNeeds.Count > 0)
-            {
+            { // Medical preferences
                 b.AppendLine("- Medical Needs:");
                 foreach (var mn in MedicalNeeds)
                 {
@@ -140,7 +140,7 @@ namespace CannaBe
             }
 
             if (PositivePreferences.Count > 0)
-            {
+            { // Positive preferences
                 b.AppendLine("- Positive Effects:");
                 i = 1;
                 foreach (var mn in PositivePreferences)
@@ -154,7 +154,7 @@ namespace CannaBe
             }
 
             if (NegativePreferences.Count > 0)
-            {
+            { // Negative preferences
                 b.AppendLine("- Negative Effects:");
                 i = 1;
                 foreach (var mn in NegativePreferences)
@@ -171,7 +171,7 @@ namespace CannaBe
         }
 
         static double CountSetBits(int n)
-        {
+        { // Count bits turned on
             int count = 0;
             while (n > 0)
             {
@@ -200,7 +200,7 @@ namespace CannaBe
         /******************************************************************************/
 
         public static Comparison<Strain> MatchComparison = (s1, s2) =>
-        {
+        { // Compare strains by match percentage
             var r = -1 * s1.MatchingPercent.CompareTo(s2.MatchingPercent);
             if (r == 0)
             {
@@ -210,7 +210,7 @@ namespace CannaBe
         };
 
         public static Comparison<Strain> RankComparison = (s1, s2) =>
-        {
+        { // Compare strains by rank
             var r = -1 * s1.Rank.CompareTo(s2.Rank);
             if (r == 0)
             {
@@ -220,7 +220,7 @@ namespace CannaBe
         };
 
         public static Comparison<Strain> CountComparison = (s1, s2) =>
-        {
+        { // Compare strains by number of usages
             var r = -1 * s1.NumberOfUsages.CompareTo(s2.NumberOfUsages);
             if (r == 0)
             {

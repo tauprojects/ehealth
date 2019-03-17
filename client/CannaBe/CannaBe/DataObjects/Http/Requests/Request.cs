@@ -5,7 +5,7 @@ namespace CannaBe
     abstract class Request
     {
         public static implicit operator HttpContent(Request req)
-        {
+        { // Http request
             var json = HttpManager.CreateJson(req);
             try
             {

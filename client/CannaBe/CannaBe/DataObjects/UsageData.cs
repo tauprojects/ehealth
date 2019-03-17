@@ -58,7 +58,7 @@ namespace CannaBe
             }
         }
         public string DurationString
-        {
+        { // Duration of usage
             get
             {
                 StringBuilder str = new StringBuilder("");
@@ -132,7 +132,7 @@ namespace CannaBe
         private UsageData() { }
 
         public static implicit operator UsageData(UsageUpdateRequest res)
-        {
+        { // Get total data for usage
             UsageData u;
             try
             {
@@ -181,7 +181,7 @@ namespace CannaBe
         }
 
         public void EndUsage()
-        {
+        { // End usage and save
             EndTime = DateTime.Now;
             timer.Stop();
             Duration = EndTime.Subtract(StartTime);
@@ -196,7 +196,7 @@ namespace CannaBe
         public int HeartRateMax { get; private set; } = 0;
 
         public void HeartRateChangedAsync(int rate, double accuracy)
-        {
+        { // Compute heart rate - min, max and average
             if (accuracy == 1)
             {
                 HeartRateReadings++;
