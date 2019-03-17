@@ -52,7 +52,7 @@ namespace CannaBe.AppPages.Usage
             var b = sender as CheckBox;
 
             if (b.IsChecked.Value)
-            {
+            { // Connect band
                 PairBandButton.IsEnabled = true;
                 if (isPaired && GlobalContext.Band.IsConnected())
                 {
@@ -64,7 +64,7 @@ namespace CannaBe.AppPages.Usage
                 }
             }
             else
-            {
+            { // No band
                 PairBandButton.IsEnabled = false;
                 ContinueButton.IsEnabled = true;
             }
@@ -75,13 +75,13 @@ namespace CannaBe.AppPages.Usage
         {
             StartAction();
             do
-            {
+            { // Pair band
                 ContinueButton.IsEnabled = false;
 
                 var isSupported = await BandContext.GetBluetoothIsEnabledAsync();
 
                 if (!isSupported)
-                {
+                { // Bluetooth error
                     EndAction();
 
                     await new MessageDialog("Please enable BlueTooth and pair phone with Band", "Error!").ShowAsync();
@@ -90,12 +90,12 @@ namespace CannaBe.AppPages.Usage
 
                 GlobalContext.Band = new BandContext();
                 try
-                {
+                { // Connect to band
                     isPaired = await GlobalContext.Band.PairBand().TimeoutAfter(new TimeSpan(0, 0, 15));
                     EndAction();
 
                     if (isPaired)
-                    {
+                    { // Connection successfull
                         PairBandButton.Content = "Paired Successfully!";
                         PairBandButton.Width = double.NaN;
                         PairBandButton.Foreground = new SolidColorBrush(Colors.Black);
@@ -132,18 +132,19 @@ namespace CannaBe.AppPages.Usage
 
             bool useBand = UseBand.IsChecked.Value && isPaired && GlobalContext.Band.IsConnected();
 
+            // Enter usage details
             UsageContext.Usage = new UsageData(UsageContext.ChosenStrain, DateTime.Now, useBand);
 
             if (!useBand)
             {
                 Frame.Navigate(typeof(ActiveSession));
             }
-            else //USE BAND! start acquiring heart rate
+            else // Use band, start acquiring heart rate
             {
                 Acquiring.Visibility = Visibility.Visible;
                 bool res = false;
                 try
-                {
+                { // Get heart rate
                     res = await Task.Run(() =>
                     GlobalContext.Band.StartHeartRate(UsageContext.Usage.HeartRateChangedAsync));
                 }
@@ -156,7 +157,7 @@ namespace CannaBe.AppPages.Usage
 
                 EndAction();
                 if (res)
-                {
+                { // Continue to active session with correct parameters
                     ContinueButton.Content = "Success!";
                     PagesUtilities.SleepSeconds(1);
                     Frame.Navigate(typeof(ActiveSession));

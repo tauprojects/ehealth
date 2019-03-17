@@ -48,7 +48,7 @@ namespace CannaBe
             if (req != null)
             {
                 try
-                {
+                { // If checkboxes were chosen before, update them again
                     PagesUtilities.SetAllCheckBoxesTags(RegisterPositiveEffectsGrid,
                                      req.IntPositivePreferences);
                 }
@@ -71,7 +71,7 @@ namespace CannaBe
         }
 
         private void BackToMedicalRegister(object sender, TappedRoutedEventArgs e)
-        {
+        { // Save changes to checkboxes before navigating back
             PagesUtilities.GetAllCheckBoxesTags(RegisterPositiveEffectsGrid,
                                        out List<int> intList);
 
