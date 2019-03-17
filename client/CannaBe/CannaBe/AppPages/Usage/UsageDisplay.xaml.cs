@@ -23,7 +23,6 @@ namespace CannaBe.AppPages.Usage
                 var st_u = new Underline();
                 st_u.Inlines.Add(new Run()
                 {
-                    TextDecorations = TextDecorations.Underline,
                     FontWeight = FontWeights.Bold,
                     Text = "Start Time"
                 });
@@ -36,7 +35,6 @@ namespace CannaBe.AppPages.Usage
                 var et_u = new Underline();
                 et_u.Inlines.Add(new Run()
                 {
-                    TextDecorations = TextDecorations.Underline,
                     FontWeight = FontWeights.Bold,
                     Text = "End Time"
                 });
@@ -49,7 +47,6 @@ namespace CannaBe.AppPages.Usage
                 var du_u = new Underline();
                 du_u.Inlines.Add(new Run()
                 {
-                    TextDecorations = TextDecorations.Underline,
                     FontWeight = FontWeights.Bold,
                     Text = "Duration"
                 });
