@@ -8,8 +8,14 @@
     <AppxPackageIsForStore>False</AppxPackageIsForStore>
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>arm</AppxBuildConfigurationSelection>
-    <PackageOptionalProjectsInIdeBuilds>True</PackageOptionalProjectsInIdeBuilds>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
     <ProjectView>ProjectFiles</ProjectView>
+    <SplashScreenSource>C:\ehealth\ehealth\client\CannaBe\CannaBe\Assets\256x256.png</SplashScreenSource>
+    <SmallTileSource>C:\ehealth\ehealth\client\CannaBe\CannaBe\Assets\256x256.png</SmallTileSource>
+    <MediumTileSource>C:\ehealth\ehealth\client\CannaBe\CannaBe\Assets\256x256.png</MediumTileSource>
+    <LargeTileSource>C:\ehealth\ehealth\client\CannaBe\CannaBe\Assets\256x256.png</LargeTileSource>
+    <BadgeLogoSource>C:\ehealth\ehealth\client\CannaBe\CannaBe\Assets\256x256.png</BadgeLogoSource>
+    <PackageLogoSource>C:\ehealth\ehealth\client\CannaBe\CannaBe\Assets\256x256.png</PackageLogoSource>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <DeviceId>30F105C9-681E-420b-A277-7C086EAD8A4E</DeviceId>

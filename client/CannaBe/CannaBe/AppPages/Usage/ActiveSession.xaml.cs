@@ -67,7 +67,7 @@ namespace CannaBe.AppPages.Usage
         {
             try
             {
-                var yesCommand = new UICommand("End Sessions", cmd =>
+                var yesCommand = new UICommand("End Session", cmd =>
                 {
                     AppDebug.Line("ending session...");
                     progressRing.IsActive = true;
