@@ -147,7 +147,8 @@ namespace CannaBe
                     HeartRateAverage = res.HeartbeatAvg,
                     HeartRateMax = res.HeartbeatHigh,
                     HeartRateMin = res.HeartbeatLow,
-                    UseBandData = res.HeartbeatAvg > 0 ? true : false
+                    UseBandData = res.HeartbeatAvg > 0 ? true : false,
+                    UsageId = res.UsageId
                 };
                 u.Duration = u.EndTime.Subtract(u.StartTime);
                 u.usageFeedback = JsonConvert.DeserializeObject<Dictionary<string, string>>(res.QuestionsJson);
@@ -241,5 +242,7 @@ namespace CannaBe
         public double MedicalRank { get; set; } = 0;
         public double PositiveRank { get; set; } = 0;
         public double OverallRank { get; set; } = 0;
+
+        public string UsageId { get; set; } = "";
     }
 }

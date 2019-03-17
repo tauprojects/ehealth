@@ -47,7 +47,7 @@ namespace CannaBe.AppPages.Usage
 
                 foreach (var usage in GlobalContext.CurrentUser.UsageSessions)
                 {
-                    if(usage == null)
+                    if (usage == null)
                     {
                         AppDebug.Line("usage == null");
                         continue;
@@ -60,7 +60,7 @@ namespace CannaBe.AppPages.Usage
 
         }
 
-       
+
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
         {
@@ -81,10 +81,18 @@ namespace CannaBe.AppPages.Usage
             AppDebug.Line($"Remove usage on [{selectedUsage.StartTimeString}]");
             try
             {
-                var yesCommand = new UICommand("Remove", cmd =>
+                var yesCommand = new UICommand("Remove", async cmd =>
                 {
                     AppDebug.Line("removing...");
-                    GlobalContext.CurrentUser.UsageSessions.Remove(selectedUsage);
+                    var b = await GlobalContext.CurrentUser.RemoveUsage(selectedUsage);
+                    if (!b)
+                    {
+                        await new MessageDialog("There was an error while deleting the usage from the server.", "Error").ShowAsync();
+                    }
+                    else
+                    {
+                        await new MessageDialog("Usage removed successfuly.", "Success").ShowAsync();
+                    }
                     Frame.Navigate(typeof(UsageHistory));
                 });
                 var noCommand = new UICommand("Cancel", cmd =>

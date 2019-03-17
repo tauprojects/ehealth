@@ -117,5 +117,17 @@ namespace CannaBe.AppPages
                 SearchStrain(sender, e);
             }
         }
+
+        private void Scroller_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            if ((sender as ScrollViewer).VerticalOffset == 0)
+            {
+                ShowMore.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ShowMore.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

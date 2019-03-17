@@ -82,7 +82,7 @@ namespace CannaBe
                 }
                 else
                 {
-                    AppDebug.Line("response from get (first 500 chars): [" + responseString.Substring(0, 500) + "]");
+                    AppDebug.Line("response from get (first 2000 chars): [" + responseString.Substring(0, 500) + "]");
                 }
                 return response;
             }
@@ -118,5 +118,43 @@ namespace CannaBe
             }
 
         }
+
+        public async Task<HttpResponseMessage> Delete(string URL)
+        {
+            AppDebug.Line("In Delete: " + URL);
+
+            try
+            {
+                bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+                if (!isInternetConnected)
+                {
+                    AppDebug.Line("Error - No Internet connection!");
+
+                    await new MessageDialog("No internet connection!", "Error!").ShowAsync();
+                    return null;
+                }
+
+                var response = await client.DeleteAsync(URL).ConfigureAwait(false);
+                AppDebug.Line("finished get");
+
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                if (responseString.Length < 2000)
+                {
+                    AppDebug.Line("response from delete: [" + responseString + "]");
+                }
+                else
+                {
+                    AppDebug.Line("response from get (first 2000 chars): [" + responseString.Substring(0, 500) + "]");
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                AppDebug.Exception(e, "Get");
+                return null;
+            }
+        }
+
     }
 }

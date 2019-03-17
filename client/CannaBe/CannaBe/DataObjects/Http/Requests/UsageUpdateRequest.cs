@@ -5,6 +5,9 @@ namespace CannaBe
 {
     class UsageUpdateRequest : Request
     {
+        [JsonProperty("id")]
+        public string UsageId { get; set; }
+
         [JsonProperty("user_id")]
         public string UserID { get; set; }
 
