@@ -29,8 +29,8 @@ namespace CannaBe.AppPages
         {
             var t = sender as TextBox;
             var b = t.Text.IsValidEmail();
-            SendButton.IsEnabled = b;
-            InvalidMailTitle.Visibility = b ? Windows.UI.Xaml.Visibility.Collapsed : Windows.UI.Xaml.Visibility.Visible;
+            //SendButton.IsEnabled = b;
+            //InvalidMailTitle.Visibility = b ? Windows.UI.Xaml.Visibility.Collapsed : Windows.UI.Xaml.Visibility.Visible;
         }
 
         private async void SendEmailAsync(object sender, RoutedEventArgs e)
