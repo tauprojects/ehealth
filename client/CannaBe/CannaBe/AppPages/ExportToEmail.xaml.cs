@@ -73,6 +73,10 @@ namespace CannaBe.AppPages
                     AppDebug.Exception(x, "UsageUpdate");
                 }
             }
+            else
+            {
+                await new MessageDialog("Invalid email address. Please try again").ShowAsync();
+            }
 
         }
     }
