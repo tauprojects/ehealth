@@ -2,31 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace CannaBe.AppPages.InformationPages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MedicalInformationPage : Page
     {
         Dictionary<string, string> doctors = null;
         List<string> doctorNames = null;
         List<string> cities = new List<string>();
-        List<string> medicalCenters =new List<string>();
+        List<string> medicalCenters = new List<string>();
         private static readonly string NoResult = "No Result";
         string doctorChosen = null;
 
@@ -67,6 +54,7 @@ namespace CannaBe.AppPages.InformationPages
             AppDebug.Line("Loading doctors list..");
             try
             {
+
                 doctors = File.ReadAllLines("Assets/doctors.txt")
                                         .Select(a => a.Split(' '))
                                         .ToDictionary(x => x[0].Replace('-', ' ').Replace('_', ' '),
@@ -77,7 +65,7 @@ namespace CannaBe.AppPages.InformationPages
                 {
                     data = val.Split('_');
                     if (!medicalCenters.Contains(data[0].Replace('-', ' '))) medicalCenters.Add(data[0].Replace('-', ' '));
-                    if (!cities.Contains(data[1].Replace('-', ' '))) cities.Add(data[1].Replace('-',' '));
+                    if (!cities.Contains(data[1].Replace('-', ' '))) cities.Add(data[1].Replace('-', ' '));
                 }
 
                 AppDebug.Line($"loaded {doctorNames.Count} doctors");
@@ -102,6 +90,7 @@ namespace CannaBe.AppPages.InformationPages
                 //sender.ItemsSource = dataset;
 
                 var lst = doctorNames.Where(item => item.ToLower().Contains(sender.Text.ToLower())).ToList();
+                lst.Sort();
                 if (lst.Count() == 0)
                 {
                     lst.Add(NoResult);
@@ -116,6 +105,7 @@ namespace CannaBe.AppPages.InformationPages
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var lst = cities.Where(item => item.ToLower().Contains(sender.Text.ToLower())).ToList();
+                lst.Sort();
                 if (lst.Count() == 0)
                 {
                     lst.Add(NoResult);
@@ -129,6 +119,7 @@ namespace CannaBe.AppPages.InformationPages
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var lst = medicalCenters.Where(item => item.ToLower().Contains(sender.Text.ToLower())).ToList();
+                lst.Sort();
                 if (lst.Count() == 0)
                 {
                     lst.Add(NoResult);
@@ -186,16 +177,19 @@ namespace CannaBe.AppPages.InformationPages
 
             string data = "";
             string name = DoctorsList.Text;
-            try
+            if (!string.IsNullOrEmpty(name))
             {
-                doctor_chosen.Text = name;
-                doctors.TryGetValue(name, out data);
-                string[] data_split = data.Split('_');
-                doctor_data.Text = "Medical Center: " + data_split[0] + "\nCity: " + data_split[1];
-            }
-            catch
-            {
-                doctor_chosen.Text = "Please enter a valid doctor name";
+                try
+                {
+                    doctor_chosen.Text = name;
+                    doctors.TryGetValue(name, out data);
+                    string[] data_split = data.Split('_');
+                    doctor_data.Text = "Medical Center: " + data_split[0] + "\nCity: " + data_split[1];
+                }
+                catch
+                {
+                    doctor_chosen.Text = "Please enter a valid doctor name";
+                }
             }
 
         }
@@ -209,18 +203,22 @@ namespace CannaBe.AppPages.InformationPages
             try
             {
                 string city = CityList.Text;
-                string data = "";
-                int i = 1;
-
-                doctor_chosen.Text = city + ":";
-                foreach (string key in doctors.Keys)
+                if (!string.IsNullOrEmpty(city))
                 {
-                    doctors.TryGetValue(key, out data);
-                    if (data.Contains(city))
+
+                    string data = "";
+                    int i = 1;
+
+                    doctor_chosen.Text = city + ":";
+                    foreach (string key in doctors.Keys)
                     {
-                        string[] data_split = data.Split('_');
-                        doctor_data.Text += i + ". " + key + " at " + data_split[0] + " medical center\n";
-                        i++;
+                        doctors.TryGetValue(key, out data);
+                        if (data.Contains(city))
+                        {
+                            string[] data_split = data.Split('_');
+                            doctor_data.Text += i + ". " + key + " at " + data_split[0] + " medical center\n";
+                            i++;
+                        }
                     }
                 }
             }
@@ -237,21 +235,25 @@ namespace CannaBe.AppPages.InformationPages
             DoctorsList.Text = "";
             CityList.Text = "";
 
-            try { 
-            string medicalCenter = MedicalCenterList.Text;
-            string data = "";
-            int i = 1;
-
-            doctor_chosen.Text = medicalCenter;
-            foreach (string key in doctors.Keys)
+            try
             {
-                doctors.TryGetValue(key, out data);
-                    if (data.Contains(medicalCenter))
-                    {
-                        string[] data_split = data.Split('_');
-                        doctor_data.Text += i + ". " + key + " loacted at " + data_split[1] + "\n";
-                        i++;
+                string medicalCenter = MedicalCenterList.Text;
+                if (!string.IsNullOrEmpty(medicalCenter))
+                {
+                    string data = "";
+                    int i = 1;
 
+                    doctor_chosen.Text = medicalCenter;
+                    foreach (string key in doctors.Keys)
+                    {
+                        doctors.TryGetValue(key, out data);
+                        if (data.Contains(medicalCenter))
+                        {
+                            string[] data_split = data.Split('_');
+                            doctor_data.Text += i + ". " + key + ", located at: " + data_split[1] + "\n";
+                            i++;
+
+                        }
                     }
                 }
             }

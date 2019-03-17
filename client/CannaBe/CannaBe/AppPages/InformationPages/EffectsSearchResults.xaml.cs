@@ -44,13 +44,13 @@ namespace CannaBe.AppPages.InformationPages
         private void searchByEffects(string req)
         {
             SuggestedStrains strains = JsonConvert.DeserializeObject<SuggestedStrains>(req);
-            if ( (strains.suggestedStrains.Count == 0) || (strains.status != 0) )
+            if ( (strains.SuggestedStrainList.Count == 0) || (strains.Status != 0) )
             {
                 Status.Text = "No strains found - Please narrow search parameters.";
             }
-            if (strains.status == 0)
+            if (strains.Status == 0)
             {
-                foreach (Strain s in strains.suggestedStrains)
+                foreach (Strain s in strains.SuggestedStrainList)
                 {
                     strainListGui.Items.Add(s);
                 }

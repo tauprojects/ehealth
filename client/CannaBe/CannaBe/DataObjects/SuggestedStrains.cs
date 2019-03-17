@@ -4,19 +4,45 @@ using System.Collections.Generic;
 
 namespace CannaBe
 {
-    class SuggestedStrains
+    class SuggestedStrains : ViewModel
     {
+        private int status;
+
         [JsonProperty("status")]
-        public int status;
+        public int Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
+        private List<Strain> suggestedStrainList;
 
         [JsonProperty("suggestedStrains")]
-        public List<Strain> suggestedStrains;
+        public List<Strain> SuggestedStrainList
+        {
+            get
+            {
+                return suggestedStrainList;
+            }
+            set
+            {
+                suggestedStrainList = value;
+                OnPropertyChanged("SuggestedStrainList");
+            }
+        }
 
         [JsonConstructor]
         public SuggestedStrains(int status, List<Strain> suggestedStrains)
         {
-            this.status = status;
-            this.suggestedStrains = suggestedStrains;
+            this.Status = status;
+            this.SuggestedStrainList = suggestedStrains;
         }
     }
 }
