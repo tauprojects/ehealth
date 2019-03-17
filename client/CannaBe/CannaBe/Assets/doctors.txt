@@ -52,8 +52,8 @@ Naomi_Mativ Legalil_Nahariya
 Adi_Novani Clalit_Jerusalem
 Suhil_Nassralla Puriah_Galil-Tachton
 Eyal_Na'alei-Yosef Clalit_Haifa
-Nahum_Sagol Maccabi-Gedera
-Irena_Starhilevitch Maccabi-Ramat-Gan
+Nahum_Sagol Maccabi_Gedera
+Irena_Starhilevitch Maccabi_Ramat-Gan
 Suhil_Amar Meuhedet_Jerusalem
 Mohammad_Adui Puriah_Galil-Tachton
 Hussam_Udah Meuhedet_Baka-El-Garbiya
