@@ -14,7 +14,10 @@ namespace CannaBe
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) =>
+            {
+                BackToMedicalRegister(null, null);
+            });
         }
 
         private void BoxGotFocus(object sender, RoutedEventArgs e)

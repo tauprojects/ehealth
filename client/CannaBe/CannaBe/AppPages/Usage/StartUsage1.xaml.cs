@@ -26,6 +26,7 @@ namespace CannaBe.AppPages.Usage
         public StartUsage()
         {
             this.InitializeComponent();
+            PagesUtilities.AddBackButtonHandler();
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)

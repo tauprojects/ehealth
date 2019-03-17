@@ -11,9 +11,13 @@ namespace CannaBe.AppPages.Usage
         public UsageDisplay()
         {
             InitializeComponent();
-        }
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) => 
+            {
+                GoBack(null, null);
+            });
 
-        private void OnPageLoaded(object sender, RoutedEventArgs e)
+        }
+            private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             var u = UsageContext.DisplayUsage;
 

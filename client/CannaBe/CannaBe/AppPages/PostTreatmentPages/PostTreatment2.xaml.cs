@@ -18,7 +18,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) => { });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -115,7 +115,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
 
                 if (res != null)
                 { // Request sent successfully
-                    if (res.StatusCode == HttpStatusCode.OK)
+                    if (res.IsSuccessStatusCode)
                     {
                         Status.Text = "Usage update Successful!";
                         var index = GlobalContext.CurrentUser.UsageSessions.Count - 1;

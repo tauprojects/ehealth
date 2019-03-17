@@ -4,6 +4,7 @@ using CannaBe.AppPages.RecomendationPages;
 using CannaBe.AppPages.Usage;
 using System;
 using Windows.UI.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -17,30 +18,11 @@ namespace CannaBe
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
-        }
-        private void BoxGotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) =>
             {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.
-                    Colors.Black);
-            }
-        }
-
-        private void BoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
-
-            }
+                e.Handled = true;
+                LogoutHandler(null, null);
+            });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -78,9 +60,10 @@ namespace CannaBe
         {
             Frame.Navigate(typeof(PostTreatment));
         }
-   
+
         private void LogoutHandler(object sender, TappedRoutedEventArgs e)
         { // Logout - delete local data
+
             GlobalContext.CurrentUser = null;
             GlobalContext.RegisterContext = null;
             GlobalContext.Band = null;

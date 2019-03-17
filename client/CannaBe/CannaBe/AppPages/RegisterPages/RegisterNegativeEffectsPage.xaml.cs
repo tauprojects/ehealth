@@ -17,7 +17,10 @@ namespace CannaBe
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) =>
+            {
+                BackToPositiveEffectsRegister(null, null);
+            });
         }
         private void BoxGotFocus(object sender, RoutedEventArgs e)
         {
@@ -100,6 +103,7 @@ namespace CannaBe
 
                     switch (res.StatusCode)
                     { // Register succeeded
+                        case HttpStatusCode.Created:
                         case HttpStatusCode.OK:
                             Status.Text = "Register Successful!";
                             PagesUtilities.SleepSeconds(1);

@@ -33,8 +33,7 @@
 
         <ListView x:Name="UsageListGui" Background="#90ffffff"
                   Margin="0,100,0,60" BorderBrush="Black" BorderThickness="0"
-                  IsItemClickEnabled="True" ItemClick="UsageSelected"
-                  RightTapped="ListView_RightTapped">
+                  IsItemClickEnabled="True" ItemClick="UsageSelected">
             <ListView.Resources>
                 <MenuFlyout x:Name="UsageMenu">
                     <MenuFlyout.Items>

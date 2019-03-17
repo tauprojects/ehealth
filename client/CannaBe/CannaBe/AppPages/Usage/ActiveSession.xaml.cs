@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,6 +16,10 @@ namespace CannaBe.AppPages.Usage
         public ActiveSession()
         {
             InitializeComponent();
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) =>
+            {
+                EndSessionAsync(null, null);
+            });
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -58,24 +63,52 @@ namespace CannaBe.AppPages.Usage
             Max.Text = max.ToString();
         }
 
-        private void EndSessionAsync(object sender, RoutedEventArgs e)
+        private async void EndSessionAsync(object sender, RoutedEventArgs e)
         {
-            progressRing.IsActive = true;
             try
             {
-                if (UsageContext.Usage.UseBandData)
-                { // Stop band usage
-                    GlobalContext.Band.StopHeartRate();
-                    PagesUtilities.SleepSeconds(0.5);
-                }
-                UsageContext.Usage.EndUsage();
+                var yesCommand = new UICommand("End Sessions", cmd =>
+                {
+                    AppDebug.Line("ending session...");
+                    progressRing.IsActive = true;
+                    try
+                    {
+                        if (UsageContext.Usage.UseBandData)
+                        { // Stop band usage
+                            GlobalContext.Band.StopHeartRate();
+                            PagesUtilities.SleepSeconds(0.5);
+                        }
+                        UsageContext.Usage.EndUsage();
+                    }
+                    catch (Exception x)
+                    {
+                        AppDebug.Exception(x, "EndSession");
+                    }
+                    progressRing.IsActive = false;
+                    Frame.Navigate(typeof(PostTreatment));
+                });
+                var noCommand = new UICommand("Continue Session", cmd =>
+                {
+                    AppDebug.Line("Cancel end session");
+                });
+                var dialog = new MessageDialog("Are you sure you want to end the session", "End Session")
+                {
+                    Options = MessageDialogOptions.None
+                };
+                dialog.Commands.Add(yesCommand);
+                dialog.Commands.Add(noCommand);
+
+                await dialog.ShowAsync();
             }
             catch (Exception x)
             {
-                AppDebug.Exception(x, "EndSession");
+                AppDebug.Exception(x, "Remove_Click");
             }
-            progressRing.IsActive = false;
-            Frame.Navigate(typeof(PostTreatment));
+
+
+
+
+            
         }
     }
 }

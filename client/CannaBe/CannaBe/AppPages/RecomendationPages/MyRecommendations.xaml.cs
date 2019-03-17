@@ -3,15 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace CannaBe.AppPages.RecomendationPages
 {
@@ -33,6 +29,7 @@ namespace CannaBe.AppPages.RecomendationPages
         public MyRecomendations()
         {
             InitializeComponent();
+            PagesUtilities.AddBackButtonHandler();
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
@@ -70,7 +67,7 @@ namespace CannaBe.AppPages.RecomendationPages
                         switch (strains.Status)
                         { // Status for match type
                             case 0: // Full match
-                                Message.Text = $"Showing {strains.SuggestedStrainList.Count} matching strains:";
+                                Message.Text = $"Showing {strains.SuggestedStrainList.Count} exactly matched strains:";
                                 break;
 
                             case 1: // Partial match - medical match but positive dont
@@ -171,7 +168,6 @@ namespace CannaBe.AppPages.RecomendationPages
                 r.IsChecked = false;
                 r.Checked += OnChecked;
                 StrainList.Children.Add(r);
-
             }
         }
 

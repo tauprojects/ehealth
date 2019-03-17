@@ -32,7 +32,7 @@ namespace CannaBe
                     throw new Exception("Delete response is null");
                 }
 
-                if(res.StatusCode == HttpStatusCode.OK)
+                if(res.IsSuccessStatusCode)
                 {
                     status = true;
                 }

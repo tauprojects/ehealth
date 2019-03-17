@@ -12,7 +12,10 @@ namespace CannaBe
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) =>
+            {
+                BackToHome(null, null);
+            });
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)
