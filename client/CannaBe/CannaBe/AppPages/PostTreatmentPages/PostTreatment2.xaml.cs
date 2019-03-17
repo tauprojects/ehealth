@@ -117,7 +117,9 @@ namespace CannaBe.AppPages.PostTreatmentPages
                     if (res.StatusCode == HttpStatusCode.OK)
                     {
                         Status.Text = "Usage update Successful!";
-                        PagesUtilities.SleepSeconds(1);
+                        var index = GlobalContext.CurrentUser.UsageSessions.Count - 1;
+                        GlobalContext.CurrentUser.UsageSessions[index].UsageId = res.GetContent()["body"];
+                        PagesUtilities.SleepSeconds(0.5);
                         Frame.Navigate(typeof(DashboardPage));
                     }
                     else

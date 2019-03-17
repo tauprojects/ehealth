@@ -33,6 +33,7 @@
                    Height="84" Width="321" FontSize="50" Margin="10,10,0,0"/>
 
         <ScrollViewer ZoomMode="Enabled" MaxZoomFactor="10"  Background="#70ffffff"
+                     ViewChanged="Scroller_ViewChanged"  x:Name="Scroller"
               HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled"
               Height="380" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,80,0,0">
             <Grid>
@@ -68,13 +69,25 @@
                     <CheckBox Content="Energetic"  Foreground="Black" Tag="8" Margin="155,375,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Creative"   Foreground="Black" Tag="9" Margin="10,400,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Happy"      Foreground="Black" Tag="10" Margin="155,400,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Euphoric"   Foreground="Black" Tag="11" Margin="100,425,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Euphoric"   Foreground="Black" Tag="11" Margin="10,425,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Hungry"     Foreground="Black" Tag="12" Margin="155,425,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Relaxed"    Foreground="Black" Tag="13" Margin="10,450,0,0" VerticalAlignment="Top"/>
                 </Grid>
 
             </Grid>
         </ScrollViewer>
+
+        <TextBlock FontSize="15" x:Name="ShowMore" Foreground="Black"
+            HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="262,380,0,0">
+            <Run>Scroll</Run>
+            <LineBreak/>
+            <Run>down</Run>
+            <LineBreak/>
+            <Run>to view</Run>
+            <LineBreak/>
+            <Run>more ↓</Run>
+        </TextBlock>
+
 
         <TextBlock FontSize="15" x:Name="Status" Foreground="Black"
             HorizontalAlignment="Center" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10,458,0,0"/>
