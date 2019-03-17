@@ -28,7 +28,7 @@ public class EmailService {
     }
 
     public int sendEmail(String username, String userEmailAddress, String toAddress, String subject, String emailContent) throws IOException {
-        Email from = new Email("usage-service@medicannaApp.com");
+        Email from = new Email("medicanna-usage-service@medicannaApp.com");
         Email to = new Email(toAddress);
         Email replyTo = new Email(userEmailAddress);
         Content content = new Content(contentTypeHtml, emailContent);

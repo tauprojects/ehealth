@@ -11,6 +11,9 @@ import ehealth.db.model.StrainsEntity;
 import ehealth.db.model.UsageHistoryEntity;
 import ehealth.db.repository.AllStrainsRepository;
 import ehealth.db.repository.RegisterUsersRepository;
+import ehealth.enums.MedicalEffects;
+import ehealth.enums.NegativeEffects;
+import ehealth.enums.PositiveEffects;
 import ehealth.exceptions.BadRegisterRequestException;
 import ehealth.exceptions.BadRequestException;
 import ehealth.service.api.StrainApiService;
@@ -421,12 +424,13 @@ public class StrainApiServiceImpl implements StrainApiService {
     private String printProfilerAsHtml(RegisteredUsersEntity registeredUsersEntity) {
         String usageProfile = "";
         usageProfile +=
-                "<br> {{username}} Profile: " +
-                        "<br> Date of birth: " + registeredUsersEntity.getDob() +
-                        "<br> Gender: " + registeredUsersEntity.getGender() +
+                "<h3> {{username}} Profile: </h3> " +
+                        "<li> Date of birth: " + registeredUsersEntity.getDob() +
+                        "<li> Gender: " + registeredUsersEntity.getGender() +
+                        "<li> Location: " + registeredUsersEntity.getCountry() + ", " + registeredUsersEntity.getCity()+
                         "<li> Medical preferences: " + getMedicalEffects(registeredUsersEntity.getMedical()) + "</li>" +
                         "<li> Positive preferences: " + getPositiveEffects(registeredUsersEntity.getPositive()) + "</li>" +
-                        "<li> Overall preferences: " + getNegativeEffects(registeredUsersEntity.getNegative()) + "</li>";
+                        "<li> Negative preferences: " + getNegativeEffects(registeredUsersEntity.getNegative()) + "</li>";
 
         usageProfile += "<br>______________________________________________________________________________";
         return usageProfile;
@@ -434,23 +438,41 @@ public class StrainApiServiceImpl implements StrainApiService {
 
     private String getNegativeEffects(int negative) {
         List<String> effects = new ArrayList<>();
-        return "";
+        int numOfEffects = NegativeEffects.values().length;
+        for (int i = 0, tmpNum = 1; i < numOfEffects; i++, tmpNum <<= 1) {
+            if ((tmpNum & negative) != 0) {
+                effects.add(NegativeEffects.valueOf(i).getEffect().toLowerCase().replace('_', ' '));
+            }
+        }
+        return effects.toString().replace('[', ' ').replace(']', ' ');
     }
 
     private String getPositiveEffects(int positive) {
         List<String> effects = new ArrayList<>();
-        return "";
+        int numOfEffects = PositiveEffects.values().length;
+        for (int i = 0, tmpNum = 1; i < numOfEffects; i++, tmpNum <<= 1) {
+            if ((tmpNum & positive) != 0) {
+                effects.add(PositiveEffects.valueOf(i).getEffect().toLowerCase().replace('_', ' '));
+            }
+        }
+        return effects.toString().replace('[', ' ').replace(']', ' ');
     }
 
     private String getMedicalEffects(int medical) {
         List<String> effects = new ArrayList<>();
-        return "";
+        int numOfEffects = MedicalEffects.values().length;
+        for (int i = 0, tmpNum = 1; i < numOfEffects; i++, tmpNum <<= 1) {
+            if ((tmpNum & medical) != 0) {
+                effects.add(MedicalEffects.valueOf(i).getEffect().toLowerCase().replace('_', ' '));
+            }
+        }
+        return effects.toString().replace('[', ' ').replace(']', ' ');
     }
 
     private String getHtmlTemplateFromFile(String filename) {
         Reader fileReader = null;
         try {
-            InputStream inputStream = new FileInputStream("src/test/resources/prometheusResponses/" + filename);
+            InputStream inputStream = new FileInputStream("src/main/resources/html_templates/" + filename);
             fileReader = new InputStreamReader(inputStream, "UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
@@ -465,7 +487,7 @@ public class StrainApiServiceImpl implements StrainApiService {
         context.put("userContent", userContent);
         context.put("usageData", usageHistory);
         context.put("username", registeredUsersEntity.getUsername());
-        context.put("profile", printProfilerAsHtml(registeredUsersEntity))
+        context.put("profile", printProfilerAsHtml(registeredUsersEntity));
         return jinjava.render(emailTemplate, context);
     }
 
@@ -484,13 +506,15 @@ public class StrainApiServiceImpl implements StrainApiService {
             "</head>\n" +
             "<body>\n" +
             "\n" +
-            "<img src=\"https://i.ibb.co/k0772rJ/Medicanna-Logo.jpg\" alt=\"Avatar\" style=\"width:200px\">\n" +
+            "<img src=\"https://i.ibb.co/1ZvWdRv/Logo-Green-Background.png\" alt=\"Avatar\" style=\"width:200px\">\n" +
             "<h3>Hello {{to}}</h3>\n" +
             "<h3> This is a email from Medicanna app</h3>\n" +
             "<p>{{userContent}}</p>\n" +
             "<p>________________________________________________________________________________</p>\n" +
             "<br>" +
             "<p>This email contains medical usage history of {{username}}.</p>\n" +
+            "<br>\n" +
+            "{{profile}}\n" +
             "<br>\n" +
             "{{usageData}}\n" +
             "<p>Regards,</p>\n" +

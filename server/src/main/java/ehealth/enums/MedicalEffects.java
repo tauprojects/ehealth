@@ -23,26 +23,30 @@ public enum MedicalEffects implements BaseEnumEffect {
     HEADACHE(14);
 
     private static Map<String, MedicalEffects> stringToValue = new HashMap<>();
+    private static Map<Integer, MedicalEffects> intToValue = new HashMap<>();
+
     public final int value;
 
     MedicalEffects(int value) {
-
         this.value = value;
     }
-    public int getValue(){
+
+    public int getValue() {
         return value;
     }
 
     static {
         for (MedicalEffects effectType : MedicalEffects.values()) {
             stringToValue.put(effectType.toString(), effectType);
+            intToValue.put(new Integer(effectType.value), effectType);
         }
     }
 
     public static MedicalEffects valueOf(int effectValue) {
-        return stringToValue.get(effectValue);
+        return intToValue.get(effectValue);
 
     }
+
     @JsonValue
     @Override
     public String getEffect() {

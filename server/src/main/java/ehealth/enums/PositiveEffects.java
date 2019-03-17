@@ -38,26 +38,32 @@ public enum PositiveEffects implements BaseEnumEffect {
 
 
     private static Map<String, PositiveEffects> stringToValue = new HashMap<>();
+    private static Map<Integer, PositiveEffects> intToValue = new HashMap<>();
+
     public final int value;
 
     PositiveEffects(int value) {
 
         this.value = value;
     }
-    public int getValue(){
+
+    public int getValue() {
         return value;
     }
 
     static {
         for (PositiveEffects effectType : PositiveEffects.values()) {
             stringToValue.put(effectType.toString(), effectType);
+            intToValue.put(new Integer(effectType.value), effectType);
+
         }
     }
 
     public static PositiveEffects valueOf(int effectValue) {
-        return stringToValue.get(effectValue);
+        return intToValue.get(effectValue);
 
     }
+
     @JsonValue
     @Override
     public String getEffect() {

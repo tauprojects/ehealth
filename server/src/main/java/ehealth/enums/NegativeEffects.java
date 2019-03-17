@@ -14,26 +14,31 @@ public enum NegativeEffects implements BaseEnumEffect {
 
 
     private static Map<String, NegativeEffects> stringToValue = new HashMap<>();
+    private static Map<Integer, NegativeEffects> intToValue = new HashMap<>();
+
     public final int value;
 
     NegativeEffects(int value) {
 
         this.value = value;
     }
-    public int getValue(){
+
+    public int getValue() {
         return value;
     }
 
     static {
         for (NegativeEffects effectType : NegativeEffects.values()) {
             stringToValue.put(effectType.toString(), effectType);
+            intToValue.put(new Integer(effectType.value), effectType);
+
         }
     }
 
     public static NegativeEffects valueOf(int effectValue) {
-        return stringToValue.get(effectValue);
-
+        return intToValue.get(effectValue);
     }
+
     @JsonValue
     @Override
     public String getEffect() {
