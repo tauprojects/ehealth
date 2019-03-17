@@ -6,7 +6,7 @@ using System.Reflection;
 namespace CannaBe.Enums
 {
     enum MedicalEnum
-    {
+    { // Medical preferences and related questions
         [EnumDescriptions("Are your seizures less frequent?", "Rate the intensity of your seizures:")]
         SEIZURES = 1,
         [EnumDescriptions("Do your muscles fell less stiff?", "Rate your muscle pain:")]
@@ -40,7 +40,7 @@ namespace CannaBe.Enums
     }
 
     static class MedicalEnumMethods
-    {
+    { // Generate list of preferences from int list
         public static List<string> FromIntToStringList(List<int> intList)
         {
             List<string> strList = new List<string>(intList.Count);
@@ -54,7 +54,7 @@ namespace CannaBe.Enums
         }
 
         public static List<MedicalEnum> FromIntList(List<int> intList)
-        {
+        { // Generate enum list from int list
             List<MedicalEnum> enumList = new List<MedicalEnum>(intList.Count);
 
             foreach (int i in intList)
@@ -68,7 +68,7 @@ namespace CannaBe.Enums
         }
 
         public static List<MedicalEnum> FromStringList(List<string> strList)
-        {
+        { // Generate enum list from string list
             AppDebug.Line("MedicalEnum isStrNull = " + (strList == null).ToString());
 
             List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);
@@ -77,7 +77,7 @@ namespace CannaBe.Enums
             foreach (string s in strList)
             {
                 try
-                {
+                { // Try to get number from string
                     AppDebug.Line($"Trying to parse '{s}'");
                     Enum.TryParse(s, out MedicalEnum val);
                     enumList.Add(val);
@@ -93,7 +93,7 @@ namespace CannaBe.Enums
         }
 
         public static List<int> FromEnumToIntList(List<MedicalEnum> list)
-        {
+        { // Generate int list from enum list
             List<int> res = new List<int>();
 
             foreach (MedicalEnum var in list)
@@ -105,7 +105,7 @@ namespace CannaBe.Enums
 
 
         public static int BitmapFromStringList(List<string> strList)
-        {
+        { // Generate bitmap from string list
             //AppDebug.Line("MedicalEnum isStrNull = " + (strList == null).ToString());
 
             List<MedicalEnum> enumList = new List<MedicalEnum>(strList.Count);

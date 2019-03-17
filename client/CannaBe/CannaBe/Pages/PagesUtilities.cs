@@ -17,7 +17,7 @@ namespace CannaBe
     {
 
         public static void FixPageSize(this Page p)
-        {
+        { // For debug
             p.Height = 569;
             p.Width = 341;
             Size s = new Size(341, 569);
@@ -62,12 +62,12 @@ namespace CannaBe
         }
 
         public static void GetAllCheckBoxesTags(Grid gridWithCheckBoxes, out List<int> listToAddTo)
-        {
+        { // Get all check box that are selected in grid
             var pageName = gridWithCheckBoxes.Parent.GetType().Name;
             listToAddTo = new List<int>();
 
             foreach (var ctrl in gridWithCheckBoxes.Children)
-            {
+            { // For each checkbox existing
                 if (ctrl is CheckBox)
                 {
                     var chk = ctrl as CheckBox;
@@ -75,21 +75,15 @@ namespace CannaBe
                     if (chk.IsChecked == true)
                     {
                         System.Int32.TryParse(chk.Tag.ToString(), out int tag);
-                        //if (!listToAddTo.Contains(tag))
-                        //{
                             listToAddTo.Add(tag);
-                            //MedicalEnum m = (MedicalEnum)tag;
-                            //var info = MedicalEnum.SEIZURES.GetAttribute<EnumDescriptions>();
-                            //AppDebug.Line(pageName + "." + info.q1);
                             AppDebug.Line(pageName + "." + tag);
-                        //}
                     }
                 }
             }
         }
 
         public static void GetAllComboBoxesTags(Grid gridWithComboBoxes, out List<string> listToAddTo)
-        {
+        { // Get all values from comboxes in grid
             var pageName = gridWithComboBoxes.Parent.GetType().Name;
             listToAddTo = new List<string>();
 
@@ -105,7 +99,7 @@ namespace CannaBe
         }
 
         public static void SetAllCheckBoxesTags(Grid gridWithCheckBoxes, List<int> listOfTags)
-        {
+        { // Set checkbox tags in grid from list of tags
             if (listOfTags == null)
                 return;
 
