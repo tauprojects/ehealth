@@ -68,42 +68,45 @@ namespace CannaBe.AppPages
             int PositiveBitMap = StrainToInt.FromIntListToBitmap(PositiveList);
             var url = "";
 
-            if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && (StrainName.Text == ""))
+            if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && ((StrainName.Text == "") || (StrainName.Text == "e.g. 'Alaska'")))
             { // Nothing chosen
                 Status.Text = "Invaild Search! Please enter search parameter";
             }
-            else Status.Text = "";
-
-            if ( (StrainName.Text != "") && (StrainName.Text != "e.g. 'Alaska'") )
-            { // Search by strain name
-                url = Constants.MakeUrl("strain/name/" + StrainName.Text);
-                GlobalContext.searchType = 1;
-            }
             else
-            { // Search by effect
-                url = Constants.MakeUrl($"strain/effects?medical={MedicalBitMap}&positive={PositiveBitMap}");
-                GlobalContext.searchType = 2;
-            }
-            try
-            { // Build request for information
-                var res = HttpManager.Manager.Get(url);
-
-                if (res == null)
-                    return;
-
-                var str = await res.Result.Content.ReadAsStringAsync();
-                AppDebug.Line(str);
-                if (GlobalContext.searchType == 1) Frame.Navigate(typeof(StrainSearchResults), str); // Search by name
-                else if (GlobalContext.searchType == 2)
-                { // Search by effect
-                    GlobalContext.searchResult = str;
-                    Frame.Navigate(typeof(EffectsSearchResults));
-                }
-            }
-            catch (Exception ex)
             {
-                AppDebug.Exception(ex, "SearchStrain");
-                await new MessageDialog("Failed get: \n" + url, "Exception in Search Strain").ShowAsync();
+                Status.Text = "";
+
+                if ((StrainName.Text != "") && (StrainName.Text != "e.g. 'Alaska'"))
+                { // Search by strain name
+                    url = Constants.MakeUrl("strain/name/" + StrainName.Text);
+                    GlobalContext.searchType = 1;
+                }
+                else
+                { // Search by effect
+                    url = Constants.MakeUrl($"strain/effects?medical={MedicalBitMap}&positive={PositiveBitMap}");
+                    GlobalContext.searchType = 2;
+                }
+                try
+                { // Build request for information
+                    var res = HttpManager.Manager.Get(url);
+
+                    if (res == null)
+                        return;
+
+                    var str = await res.Result.Content.ReadAsStringAsync();
+                    AppDebug.Line(str);
+                    if (GlobalContext.searchType == 1) Frame.Navigate(typeof(StrainSearchResults), str); // Search by name
+                    else if (GlobalContext.searchType == 2)
+                    { // Search by effect
+                        GlobalContext.searchResult = str;
+                        Frame.Navigate(typeof(EffectsSearchResults));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    AppDebug.Exception(ex, "SearchStrain");
+                    await new MessageDialog("Failed get: \n" + url, "Exception in Search Strain").ShowAsync();
+                }
             }
         }
 
