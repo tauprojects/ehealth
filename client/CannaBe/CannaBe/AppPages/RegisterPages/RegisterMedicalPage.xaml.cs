@@ -21,6 +21,11 @@ namespace CannaBe
             });
         }
 
+        public void OnPageLoaded(object sender, RoutedEventArgs e)
+        {
+            PagesUtilities.DontFocusOnAnythingOnLoaded(sender, e);
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
