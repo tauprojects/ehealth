@@ -38,6 +38,7 @@ namespace CannaBe.AppPages.RecomendationPages
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             progressRing.IsActive = true;
+            UsageContext.ChosenStrain = null;
             if (GlobalContext.CurrentUser != null)
             { // Get recommended strains for user from server
                 Message.Text = "Searching for matching strains based on your profile...";
@@ -167,7 +168,7 @@ namespace CannaBe.AppPages.RecomendationPages
                     Content = $"{i++}. {strain.Name}{addition}",
                     DataContext = strain
                 };
-
+                r.IsChecked = false;
                 r.Checked += OnChecked;
                 StrainList.Children.Add(r);
 

@@ -21,14 +21,14 @@
                    FontStyle="Normal" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" 
                    Height="48" Width="321" FontSize="35" Margin="0,20,0,0"/>
 
-        <StackPanel Margin="10,82,10,100" HorizontalAlignment="Center" x:Name="Stack" Height="340" Width="310">
+        <StackPanel Margin="10,82,10,130" HorizontalAlignment="Center" x:Name="Stack" Height="340" Width="310">
             <TextBlock Foreground="Black" x:Name="Message" FontSize="15" TextWrapping="Wrap" Width="300"
                    Text="No exact matches found! Try updating your positive and medical preferences. Showing 5 partially matching strains:"
                    VerticalAlignment="Top"  HorizontalAlignment="Stretch"/>
 
             <ScrollViewer x:Name="Scroller" ZoomMode="Enabled" MaxZoomFactor="10" Width="300"
               HorizontalScrollMode="Disabled" Visibility="Visible"  HorizontalScrollBarVisibility="Disabled"
-               VerticalAlignment="Top" MaxHeight="260"
+               VerticalAlignment="Top" MaxHeight="250"
                     Background="White" Opacity="0.7">
                 <StackPanel x:Name="StrainList">
                 </StackPanel>
@@ -36,7 +36,7 @@
 
         </StackPanel>
         <Grid x:Name="ButtonsGrid" Opacity="0.8"
-            Background="#99ffffff" Margin="5,420,5,65" BorderBrush="Black" BorderThickness="1">
+            Background="#99ffffff" Margin="5,420,5,95" BorderBrush="Black" BorderThickness="1" MinHeight="33">
             <TextBlock FontWeight="Bold" Text="Sort by:" VerticalAlignment="Center" Margin="4,-1,0,0"/>
             <Viewbox Height="25" Margin="65,0,0,0" HorizontalAlignment="Left">
                 <RadioButton Tag="match" IsEnabled="False" FontSize="15" MaxWidth="50" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40"

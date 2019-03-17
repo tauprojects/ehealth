@@ -19,7 +19,7 @@ import java.util.Map;
 @RestController
 public class BaseController {
     // Strain collect at start - not as bean
-    // Mail on usage
+    // Print profile on email
     // Email beautification
 
     private StrainApiServiceImpl mainServiceImpl;
