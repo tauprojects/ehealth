@@ -68,7 +68,7 @@
                     <CheckBox Content="Energetic"  Foreground="Black" Tag="8" Margin="155,375,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Creative"   Foreground="Black" Tag="9" Margin="10,400,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Happy"      Foreground="Black" Tag="10" Margin="155,400,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Euphoric"   Foreground="Black" Tag="11" Margin="100,425,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Euphoric"   Foreground="Black" Tag="11" Margin="10,425,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Hungry"     Foreground="Black" Tag="12" Margin="155,425,0,0" VerticalAlignment="Top"/>
                     <CheckBox Content="Relaxed"    Foreground="Black" Tag="13" Margin="10,450,0,0" VerticalAlignment="Top"/>
                 </Grid>
@@ -82,12 +82,12 @@
         <Button Content="Back" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Tapped="BackToInformation"
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
         </Button>
         <Button Content="Search" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 Click="SearchStrain"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,0,0" RenderTransformOrigin="0.575,1.474" Width="161">
         </Button>
 
 
