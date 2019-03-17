@@ -19,6 +19,7 @@ namespace CannaBe.AppPages.Usage
         public StartUsage2()
         {
             this.InitializeComponent();
+            PagesUtilities.AddBackButtonHandler();
             Timer.Tick += Timer_Tick;
             Timer.Interval = new TimeSpan(0, 1, 0); //so time would be updated
         }

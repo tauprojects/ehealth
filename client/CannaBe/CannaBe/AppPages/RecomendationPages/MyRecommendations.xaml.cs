@@ -3,15 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.UI;
-using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace CannaBe.AppPages.RecomendationPages
 {
@@ -33,6 +29,7 @@ namespace CannaBe.AppPages.RecomendationPages
         public MyRecomendations()
         {
             InitializeComponent();
+            PagesUtilities.AddBackButtonHandler();
         }
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@ using CannaBe.AppPages.RecomendationPages;
 using CannaBe.AppPages.Usage;
 using System;
 using Windows.UI.Input;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -17,30 +18,11 @@ namespace CannaBe
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
-        }
-        private void BoxGotFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text == ("Enter " + textBoxSender.Name))
+            PagesUtilities.AddBackButtonHandler((object sender, Windows.UI.Core.BackRequestedEventArgs e) =>
             {
-                textBoxSender.Text = "";
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.
-                    Colors.Black);
-            }
-        }
-
-        private void BoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox textBoxSender = sender as TextBox;
-
-            if (textBoxSender.Text.Length == 0)
-            {
-                textBoxSender.Foreground = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.White);
-                textBoxSender.Text = "Enter " + textBoxSender.Name;
-
-            }
+                e.Handled = true;
+                LogoutHandler(null, null);
+            });
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -79,15 +61,31 @@ namespace CannaBe
             Frame.Navigate(typeof(PostTreatment));
         }
    
-        private void LogoutHandler(object sender, TappedRoutedEventArgs e)
+        private async void LogoutHandler(object sender, TappedRoutedEventArgs e)
         { // Logout - delete local data
-            GlobalContext.CurrentUser = null;
-            GlobalContext.RegisterContext = null;
-            GlobalContext.Band = null;
-            UsageContext.ChosenStrain = null;
-            UsageContext.DisplayUsage = null;
-            UsageContext.Usage = null;
-            Frame.Navigate(typeof(MainPage));
+
+            var yesCommand = new UICommand("Logout", cmd =>
+            {
+                GlobalContext.CurrentUser = null;
+                GlobalContext.RegisterContext = null;
+                GlobalContext.Band = null;
+                UsageContext.ChosenStrain = null;
+                UsageContext.DisplayUsage = null;
+                UsageContext.Usage = null;
+                Frame.Navigate(typeof(MainPage));
+            });
+            var noCommand = new UICommand("Stay!", cmd =>
+            {
+                AppDebug.Line("Cancel logout");
+            });
+            var dialog = new MessageDialog("Are you sure you want to log out?", "Logout")
+            {
+                Options = MessageDialogOptions.None
+            };
+            dialog.Commands.Add(yesCommand);
+            dialog.Commands.Add(noCommand);
+
+            await dialog.ShowAsync();
         }
 
         private void GoToStartUsage(object sender, RoutedEventArgs e)

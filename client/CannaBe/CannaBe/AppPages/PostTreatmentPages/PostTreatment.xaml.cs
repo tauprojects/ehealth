@@ -1,9 +1,7 @@
 ﻿using CannaBe.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -17,7 +15,7 @@ namespace CannaBe.AppPages.PostTreatmentPages
         {
             this.InitializeComponent();
             this.FixPageSize();
-            PagesUtilities.AddBackButtonHandler();
+            PagesUtilities.AddBackButtonHandler((object sender, BackRequestedEventArgs e) => { });
         }
 
         public void OnPageLoaded(object sender, RoutedEventArgs e)

@@ -26,6 +26,8 @@ namespace CannaBe.AppPages.ProfilePages
         public EditMedicalPage()
         {
             this.InitializeComponent();
+            PagesUtilities.AddBackButtonHandler();
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

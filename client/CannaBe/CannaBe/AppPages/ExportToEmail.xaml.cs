@@ -18,6 +18,7 @@ namespace CannaBe.AppPages
         {
             this.InitializeComponent();
             emailValidator = new Regex(@"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+            PagesUtilities.AddBackButtonHandler();
         }
 
         private void GoToDashboard(object sender, TappedRoutedEventArgs e)
@@ -52,7 +53,7 @@ namespace CannaBe.AppPages
 
                     if (res != null)
                     {
-                        if (res.StatusCode == HttpStatusCode.OK)
+                        if (res.IsSuccessStatusCode)
                         { // Email sent successfully
                             await new MessageDialog($"An email was sent to {EmailAddressBox.Text} successfully", "Success").ShowAsync();
                         }

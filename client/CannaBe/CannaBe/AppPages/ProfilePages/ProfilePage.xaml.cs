@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
@@ -15,6 +14,7 @@ namespace CannaBe.AppPages
         public ProfilePage()
         {
             InitializeComponent();
+            PagesUtilities.AddBackButtonHandler();
         }
 
         private void OnPageLoaded(object sender, RoutedEventArgs e)

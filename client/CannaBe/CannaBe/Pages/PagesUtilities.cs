@@ -41,6 +41,11 @@ namespace CannaBe
                 });
         }
 
+        public static void AddBackButtonHandler(EventHandler<BackRequestedEventArgs> handler)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested += handler;
+        }
+
         /////////////
         // Source:
         // https://stackoverflow.com/questions/41182664/how-to-not-focus-element-on-application-startup
