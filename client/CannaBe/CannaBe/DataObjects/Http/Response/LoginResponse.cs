@@ -31,7 +31,7 @@ namespace CannaBe
             {
                 dOB = value;
                 try
-                {
+                { // Parse DOB
                     DobDate = DateTime.ParseExact(dOB, "d/M/yyyy", CultureInfo.InvariantCulture);
                     AppDebug.Line($"Parsed [{DobDate.ToString("dd/MM/yyyy")}]");
                 }
@@ -57,20 +57,15 @@ namespace CannaBe
 
         [JsonProperty("medical")]
         public int BitmapMedicalNeeds
-        {
+        { // Get bitmap from intlist
             get
             {
                 return bitmapMedicalNeeds;
             }
             set
             {
-                //AppDebug.Line($"Setting BitmapMedicalNeeds {value}");
                 bitmapMedicalNeeds = value;
                 MedicalNeeds = value.FromBitmapToEnumList<MedicalEnum>();
-                //foreach(var i in MedicalNeeds)
-                //{
-                //    AppDebug.Line($"\tGot {i.ToString()}");
-                //}
             }
         }
         public List<MedicalEnum> MedicalNeeds { get; set; }
@@ -79,20 +74,15 @@ namespace CannaBe
 
         [JsonProperty("positive")]
         public int BitmapPositivePreferences
-        {
+        { // Get bitmap from intlist
             get
             {
                 return bitmapPositivePreferences;
             }
             set
             {
-                //AppDebug.Line($"Setting BitmapPositivePreferences {value}");
                 bitmapPositivePreferences = value;
                 PositivePreferences = value.FromBitmapToEnumList<PositivePreferencesEnum>();
-                //foreach (var i in PositivePreferences)
-                //{
-                //    AppDebug.Line($"\tGot {i.ToString()}");
-                //}
             }
         }
         public List<PositivePreferencesEnum> PositivePreferences { get; set; }
@@ -101,20 +91,15 @@ namespace CannaBe
 
         [JsonProperty("negative")]
         public int BitmapNegativePreferences
-        {
+        { // Get bitmap from intlist
             get
             {
                 return bitmapNegativePreferences;
             }
             set
             {
-                //AppDebug.Line($"Setting BitmapNegativePreferences {value}");
                 bitmapNegativePreferences = value;
                 NegativePreferences = value.FromBitmapToEnumList<NegativePreferencesEnum>();
-                //foreach (var i in NegativePreferences)
-                //{
-                //    AppDebug.Line($"\tGot {i.ToString()}");
-                //}
             }
         }
 

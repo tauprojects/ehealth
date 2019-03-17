@@ -90,9 +90,6 @@ namespace CannaBe
             Country = country;
             City = city;
             Email = email;
-            //MedicalNeeds = new List<string>();
-            //PositivePreferences = new List<string>();
-            //NegativePreferences = new List<string>();
         }
     }
 }
