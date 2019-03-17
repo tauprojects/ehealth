@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Text;
@@ -174,7 +175,7 @@ namespace CannaBe.AppPages.RecomendationPages
 
         private void OnChecked(object sender, RoutedEventArgs e)
         {
-            ContinueButton.IsEnabled = true;
+            //ContinueButton.IsEnabled = true;
             UsageContext.ChosenStrain = (sender as RadioButton).DataContext as Strain;
         }
 

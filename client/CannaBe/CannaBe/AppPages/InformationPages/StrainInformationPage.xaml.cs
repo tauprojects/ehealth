@@ -69,7 +69,7 @@ namespace CannaBe.AppPages
             if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && (StrainName.Text == "")) Status.Text = "Invaild Search! Please enter search parameter";
             else Status.Text = "";
 
-            if (StrainName.Text != "")
+            if ( (StrainName.Text != "") && (StrainName.Text != "e.g. 'Alaska'") )
             {
                 url = Constants.MakeUrl("strain/name/" + StrainName.Text);
                 GlobalContext.searchType = 1;

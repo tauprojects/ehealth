@@ -37,39 +37,41 @@ namespace CannaBe.AppPages
         {
             HttpResponseMessage res = null;
             SendEmailRequest req;
-
-            try
+            if (EmailAddressBox.Text.IsValidEmail())
             {
-                progressRing.IsActive = true;
-
-                req = new SendEmailRequest(EmailAddressBox.Text, FreeMessageBox.Text);
-
-                res = await HttpManager.Manager.Post(Constants.MakeUrl($"usage/export/{GlobalContext.CurrentUser.Data.UserID}"), req);
-
-                progressRing.IsActive = false;
-
-                if (res != null)
+                try
                 {
-                    if (res.StatusCode == HttpStatusCode.OK)
+                    progressRing.IsActive = true;
+
+                    req = new SendEmailRequest(EmailAddressBox.Text, FreeMessageBox.Text);
+
+                    res = await HttpManager.Manager.Post(Constants.MakeUrl($"usage/export/{GlobalContext.CurrentUser.Data.UserID}"), req);
+
+                    progressRing.IsActive = false;
+
+                    if (res != null)
                     {
-                        await new MessageDialog($"An email was sent to {EmailAddressBox.Text} successfully", "Success").ShowAsync();
+                        if (res.StatusCode == HttpStatusCode.OK)
+                        {
+                            await new MessageDialog($"An email was sent to {EmailAddressBox.Text} successfully", "Success").ShowAsync();
+                        }
+                        else
+                        {
+                            await new MessageDialog($"There was an error while sending the mail (status: {res.StatusCode}, message: \"{res.GetContent()["message"]}\"", "Error").ShowAsync();
+                        }
                     }
                     else
                     {
-                        await new MessageDialog($"There was an error while sending the mail (status: {res.StatusCode}, message: \"{res.GetContent()["message"]}\"", "Error").ShowAsync();
+                        await new MessageDialog($"There was an error with the server, response is empty.", "Error").ShowAsync();
                     }
-                }
-                else
-                {
-                    await new MessageDialog($"There was an error with the server, response is empty.", "Error").ShowAsync();
-                }
 
-                PagesUtilities.SleepSeconds(1);
-                Frame.Navigate(typeof(DashboardPage));
-            }
-            catch (Exception x)
-            {
-                AppDebug.Exception(x, "UsageUpdate");
+                    PagesUtilities.SleepSeconds(1);
+                    Frame.Navigate(typeof(DashboardPage));
+                }
+                catch (Exception x)
+                {
+                    AppDebug.Exception(x, "UsageUpdate");
+                }
             }
 
         }

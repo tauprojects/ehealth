@@ -73,7 +73,6 @@
         <Button Content="Send" BorderBrush="Black" FontSize="20" FontWeight="SemiBold"
                 Foreground="Black" Background="#10000000"
                 x:Name="SendButton"
-                IsEnabled="False"
                 Click="SendEmailAsync"
                 HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,480,0,0" Width="161">
         </Button>
