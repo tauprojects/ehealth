@@ -26,14 +26,14 @@ namespace CannaBe.AppPages.InformationPages
             SearchByEffects(GlobalContext.searchResult);
         }
 
-        private void SearchByEffects(string req)
+        private void SearchByEffects(string req) // Search strains by effects chosen
         {
             SuggestedStrains strains = JsonConvert.DeserializeObject<SuggestedStrains>(req);
-            if ( (strains.SuggestedStrainList.Count == 0) || (strains.Status != 0) )
+            if ( (strains.SuggestedStrainList.Count == 0) || (strains.Status != 0) ) // No result
             {
                 Status.Text = "No strains found - Please narrow search parameters.";
             }
-            if (strains.Status == 0)
+            if (strains.Status == 0) // Only exact matches
             {
                 found.Text = $"Found {strains.SuggestedStrainList.Count} matching strains:";
                 foreach (Strain s in strains.SuggestedStrainList)
@@ -42,7 +42,7 @@ namespace CannaBe.AppPages.InformationPages
                 }
             }
         }
-        private void StrainSelected(object sender, ItemClickEventArgs e)
+        private void StrainSelected(object sender, ItemClickEventArgs e) // Get information about strain
         {
             ListView lst = sender as ListView;
             Strain s = e.ClickedItem as Strain;

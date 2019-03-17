@@ -48,14 +48,14 @@ namespace CannaBe.AppPages.InformationPages
         }
 
 
-        public void OnPageLoaded(object sender, RoutedEventArgs e)
+        public void OnPageLoaded(object sender, RoutedEventArgs e) // Import doctors list into objects
         {
             string[] data;
             AppDebug.Line("Loading doctors list..");
             try
             {
 
-                doctors = File.ReadAllLines("Assets/doctors.txt")
+                doctors = File.ReadAllLines("Assets/doctors.txt") // Read into dictionary, doctor name as key
                                         .Select(a => a.Split(' '))
                                         .ToDictionary(x => x[0].Replace('-', ' ').Replace('_', ' '),
                                                         x => x[1].Replace('-', ' '));
@@ -63,7 +63,7 @@ namespace CannaBe.AppPages.InformationPages
                 doctorNames = doctors.Keys.ToList();
                 foreach (string val in doctors.Values)
                 {
-                    data = val.Split('_');
+                    data = val.Split('_'); // Split into city and medical center
                     if (!medicalCenters.Contains(data[0].Replace('-', ' '))) medicalCenters.Add(data[0].Replace('-', ' '));
                     if (!cities.Contains(data[1].Replace('-', ' '))) cities.Add(data[1].Replace('-', ' '));
                 }
@@ -177,17 +177,17 @@ namespace CannaBe.AppPages.InformationPages
 
             string data = "";
             string name = DoctorsList.Text;
-            if (!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(name)) // Doctor name entered
             {
                 try
-                {
+                { // Display city and medical center for selected doctor
                     doctor_chosen.Text = name;
                     doctors.TryGetValue(name, out data);
                     string[] data_split = data.Split('_');
                     doctor_data.Text = "Medical Center: " + data_split[0] + "\nCity: " + data_split[1];
                 }
                 catch
-                {
+                { // Invalid name
                     doctor_chosen.Text = "Please enter a valid doctor name";
                 }
             }
@@ -204,17 +204,17 @@ namespace CannaBe.AppPages.InformationPages
             {
                 string city = CityList.Text;
                 if (!string.IsNullOrEmpty(city))
-                {
+                { // Display doctors and medical centers for chosen city
 
                     string data = "";
                     int i = 1;
 
                     doctor_chosen.Text = city + ":";
                     foreach (string key in doctors.Keys)
-                    {
+                    { // Check doctors that operate in chosen city
                         doctors.TryGetValue(key, out data);
                         if (data.Contains(city))
-                        {
+                        { // Display
                             string[] data_split = data.Split('_');
                             doctor_data.Text += i + ". " + key + " at " + data_split[0] + " medical center\n";
                             i++;
@@ -239,16 +239,16 @@ namespace CannaBe.AppPages.InformationPages
             {
                 string medicalCenter = MedicalCenterList.Text;
                 if (!string.IsNullOrEmpty(medicalCenter))
-                {
+                { // Display doctors and cities for medical center chosen
                     string data = "";
                     int i = 1;
 
                     doctor_chosen.Text = medicalCenter;
                     foreach (string key in doctors.Keys)
-                    {
+                    { // Check doctors for chosen medical center
                         doctors.TryGetValue(key, out data);
                         if (data.Contains(medicalCenter))
-                        {
+                        { // Display
                             string[] data_split = data.Split('_');
                             doctor_data.Text += i + ". " + key + ", located at: " + data_split[1] + "\n";
                             i++;

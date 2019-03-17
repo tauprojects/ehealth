@@ -59,28 +59,33 @@ namespace CannaBe.AppPages
 
         private async void SearchStrain(object sender, RoutedEventArgs e)
         {
+            // Get checked effects
             PagesUtilities.GetAllCheckBoxesTags(MedicalSearchGrid, out List<int> MedicalList);
             PagesUtilities.GetAllCheckBoxesTags(PositiveSearchGrid, out List<int> PositiveList);
 
+            // Produce bitmap of effects
             int MedicalBitMap = StrainToInt.FromIntListToBitmap(MedicalList);
             int PositiveBitMap = StrainToInt.FromIntListToBitmap(PositiveList);
             var url = "";
 
-            if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && (StrainName.Text == "")) Status.Text = "Invaild Search! Please enter search parameter";
+            if ((MedicalList.Count == 0) && (PositiveList.Count == 0) && (StrainName.Text == ""))
+            { // Nothing chosen
+                Status.Text = "Invaild Search! Please enter search parameter";
+            }
             else Status.Text = "";
 
             if ( (StrainName.Text != "") && (StrainName.Text != "e.g. 'Alaska'") )
-            {
+            { // Search by strain name
                 url = Constants.MakeUrl("strain/name/" + StrainName.Text);
                 GlobalContext.searchType = 1;
             }
             else
-            {
+            { // Search by effect
                 url = Constants.MakeUrl($"strain/effects?medical={MedicalBitMap}&positive={PositiveBitMap}");
                 GlobalContext.searchType = 2;
             }
             try
-            {
+            { // Build request for information
                 var res = HttpManager.Manager.Get(url);
 
                 if (res == null)
@@ -88,9 +93,9 @@ namespace CannaBe.AppPages
 
                 var str = await res.Result.Content.ReadAsStringAsync();
                 AppDebug.Line(str);
-                if (GlobalContext.searchType == 1) Frame.Navigate(typeof(StrainSearchResults), str);
+                if (GlobalContext.searchType == 1) Frame.Navigate(typeof(StrainSearchResults), str); // Search by name
                 else if (GlobalContext.searchType == 2)
-                {
+                { // Search by effect
                     GlobalContext.searchResult = str;
                     Frame.Navigate(typeof(EffectsSearchResults));
                 }
