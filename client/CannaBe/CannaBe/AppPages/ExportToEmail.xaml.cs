@@ -26,7 +26,7 @@ namespace CannaBe.AppPages
         }
 
         private void EmailChanged(object sender, KeyRoutedEventArgs e)
-        {
+        { // Check email as it changes
             var t = sender as TextBox;
             var b = t.Text.IsValidEmail();
             //SendButton.IsEnabled = b;
@@ -37,14 +37,15 @@ namespace CannaBe.AppPages
         {
             HttpResponseMessage res = null;
             SendEmailRequest req;
-            if (EmailAddressBox.Text.IsValidEmail())
+            if (EmailAddressBox.Text.IsValidEmail()) // Check email validity
             {
                 try
                 {
                     progressRing.IsActive = true;
-
+                    
+                    // Send email request
                     req = new SendEmailRequest(EmailAddressBox.Text, FreeMessageBox.Text);
-
+                    // Export usages
                     res = await HttpManager.Manager.Post(Constants.MakeUrl($"usage/export/{GlobalContext.CurrentUser.Data.UserID}"), req);
 
                     progressRing.IsActive = false;
@@ -52,7 +53,7 @@ namespace CannaBe.AppPages
                     if (res != null)
                     {
                         if (res.StatusCode == HttpStatusCode.OK)
-                        {
+                        { // Email sent successfully
                             await new MessageDialog($"An email was sent to {EmailAddressBox.Text} successfully", "Success").ShowAsync();
                         }
                         else
@@ -74,7 +75,7 @@ namespace CannaBe.AppPages
                 }
             }
             else
-            {
+            { // Email address not valid
                 await new MessageDialog("Invalid email address. Please try again").ShowAsync();
             }
 

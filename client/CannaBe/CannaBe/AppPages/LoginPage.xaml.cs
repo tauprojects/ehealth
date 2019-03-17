@@ -43,24 +43,24 @@ namespace CannaBe
             progressRing.IsActive = true;
 
             try
-            {
+            { // Create login request
                 var req = new LoginRequest(Username.Text, Password.Password);
 
                 res = await Task.Run(async () => await HttpManager.Manager.Post(Constants.MakeUrl("login"), req));
 
                 if (res != null)
-                {
+                { // Request succeeded
                     var content = res.GetContent();
 
                     switch (res.StatusCode)
-                    {
+                    { // Login successfull
                         case HttpStatusCode.OK:
                             AppDebug.Line("Login success!");
                             PagesUtilities.SleepSeconds(1);
                             progressRing.IsActive = false;
                             Frame.Navigate(typeof(DashboardPage), res);
                             break;
-
+                    // Login failed
                         case HttpStatusCode.BadRequest:
                             Status.Text = "Login failed!\n" + content["message"];
                             break;
@@ -94,11 +94,11 @@ namespace CannaBe
         }
 
         private void Page_KeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
-        {
+        { // enter key
             if (e.Key == VirtualKey.Enter)
             {
                 if (Username.Text.Length > 0 && Password.Password.Length > 0)
-                {
+                { // Post login request with enter key
                     PostLogin(sender, e);
                 }
             }
